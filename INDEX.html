@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHARPLINE — AI-Powered Sports Betting Insights</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0a0a0a;--bg-elevated:#131313;--bg-surface:#1a1a1a;
+    --border:#2a2a2a;--border-strong:#3a3a3a;
+    --text:#f4efe4;--text-muted:#8a8580;--text-dim:#5a5550;
+    --accent:#d4a843;--accent-dim:#8a6f2d;
+    --win:#6dbe7a;--loss:#d96565;--push:#888;
+    --display:"Fraunces","Times New Roman",serif;
+    --body:"Inter Tight",-apple-system,BlinkMacSystemFont,sans-serif;
+    --mono:"JetBrains Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:400;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");opacity:.035;pointer-events:none;z-index:100;}
+  .container{max-width:1280px;margin:0 auto;padding:0 32px;}
+
+  /* ANNOUNCE */
+  .announce-bar{background:var(--accent);color:#000;text-align:center;padding:10px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+  .announce-bar a{color:#000;text-decoration:underline;}
+  .announce-bar span{opacity:.6;margin:0 12px;}
+
+  /* NAV */
+  nav{border-bottom:1px solid var(--border);background:rgba(10,10,10,.92);backdrop-filter:blur(16px);position:sticky;top:0;z-index:50;}
+  .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:16px 32px;max-width:1280px;margin:0 auto;}
+  .logo{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);}
+  .logo-mark{width:9px;height:9px;background:var(--accent);transform:rotate(45deg);flex-shrink:0;}
+  .nav-links{display:flex;gap:32px;list-style:none;font-size:14px;font-weight:500;}
+  .nav-links a{color:var(--text-muted);text-decoration:none;transition:color .2s;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-right{display:flex;gap:12px;align-items:center;}
+  .nav-login{font-family:var(--mono);font-size:12px;color:var(--text-muted);background:none;border:none;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;padding:10px 14px;transition:color .2s;}
+  .nav-login:hover{color:var(--text);}
+  .nav-cta{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;padding:11px 20px;background:var(--accent);color:#000;border:none;cursor:pointer;font-weight:700;transition:all .2s;text-decoration:none;display:inline-block;}
+  .nav-cta:hover{background:#e6b950;transform:translateY(-1px);}
+
+  /* HERO */
+  .hero{padding:90px 0 80px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+  .hero::after{content:"";position:absolute;top:-40%;right:-10%;width:700px;height:700px;background:radial-gradient(circle,rgba(212,168,67,.07) 0%,transparent 70%);pointer-events:none;}
+  .hero-meta{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:28px;display:flex;gap:16px;align-items:center;animation:fadeUp .5s ease-out .1s backwards;}
+  .hero-meta::before{content:"";width:28px;height:1px;background:var(--accent);}
+  .hero h1{font-family:var(--display);font-weight:400;font-size:clamp(50px,7vw,88px);line-height:.97;letter-spacing:-.03em;margin-bottom:28px;max-width:15ch;animation:fadeUp .6s ease-out .2s backwards;}
+  .hero h1 em{font-style:italic;color:var(--accent);font-weight:300;}
+  .hero-sub{font-size:18px;color:var(--text-muted);max-width:52ch;line-height:1.65;margin-bottom:40px;animation:fadeUp .6s ease-out .3s backwards;}
+  .hero-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:16px;animation:fadeUp .6s ease-out .4s backwards;}
+  .btn-primary{background:var(--accent);color:#000;padding:17px 32px;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .2s;}
+  .btn-primary:hover{background:#e6b950;transform:translateY(-2px);box-shadow:0 8px 24px rgba(212,168,67,.25);}
+  .btn-secondary{color:var(--text);padding:17px 28px;font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--border-strong);background:transparent;cursor:pointer;text-decoration:none;display:inline-block;transition:all .2s;}
+  .btn-secondary:hover{border-color:var(--text-muted);}
+  .hero-trust{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.06em;animation:fadeUp .6s ease-out .45s backwards;}
+  .hero-trust .dot{margin:0 10px;color:var(--accent);}
+  .hero-stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:72px;padding-top:36px;border-top:1px solid var(--border);animation:fadeUp .7s ease-out .55s backwards;}
+  .stat{padding:8px 28px 8px 0;border-right:1px solid var(--border);}
+  .stat:last-child{border-right:none;}
+  .stat-num{font-family:var(--display);font-size:40px;font-weight:400;letter-spacing:-.02em;margin-bottom:4px;}
+  .stat-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);}
+
+  /* SECTION HEADER */
+  .section-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:48px;padding-bottom:20px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:16px;}
+  .section-tag{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+  .section-title{font-family:var(--display);font-size:44px;font-weight:400;letter-spacing:-.02em;line-height:1.05;}
+  .section-title em{font-style:italic;color:var(--accent);}
+  .section-meta{font-family:var(--mono);font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;}
+
+  /* PICKS */
+  .slate{padding:96px 0;border-bottom:1px solid var(--border);}
+  .picks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
+  .pick-card{background:var(--bg);padding:32px;transition:background .2s;position:relative;}
+  .pick-card:hover{background:var(--bg-elevated);}
+  .pick-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+  .pick-league{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);padding:4px 8px;border:1px solid var(--accent-dim);}
+  .pick-time{font-family:var(--mono);font-size:11px;color:var(--text-dim);}
+  .pick-matchup{font-family:var(--display);font-size:24px;font-weight:400;line-height:1.2;margin-bottom:4px;}
+  .pick-matchup .vs{color:var(--text-dim);font-style:italic;margin:0 5px;}
+  .pick-detail{font-size:13px;color:var(--text-muted);margin-bottom:22px;}
+  .pick-call{background:var(--bg-surface);padding:18px 20px;margin-bottom:20px;border-left:2px solid var(--accent);}
+  .pick-call-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+  .pick-call-value{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--text);}
+  .pick-call-odds{font-family:var(--mono);font-size:12px;color:var(--accent);margin-top:4px;}
+  .pick-reasoning{font-size:14px;line-height:1.65;color:var(--text-muted);margin-bottom:20px;}
+  .pick-tags{display:flex;gap:8px;flex-wrap:wrap;}
+  .tag{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);padding:4px 8px;border:1px solid var(--border);}
+
+  /* LOCKED */
+  .pick-card.locked{overflow:hidden;}
+  .pick-blur{filter:blur(5px);pointer-events:none;user-select:none;opacity:.4;}
+  .lock-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(10,10,10,.78);backdrop-filter:blur(2px);text-align:center;padding:24px;z-index:2;}
+  .lock-icon{font-size:28px;margin-bottom:14px;}
+  .lock-title{font-family:var(--display);font-size:22px;font-weight:400;margin-bottom:8px;}
+  .lock-sub{font-size:13px;color:var(--text-muted);margin-bottom:20px;line-height:1.5;max-width:24ch;}
+  .lock-btn{background:var(--accent);color:#000;padding:13px 22px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;transition:all .2s;display:inline-block;}
+  .lock-btn:hover{background:#e6b950;transform:translateY(-1px);}
+  .lock-badge{position:absolute;top:14px;right:14px;background:var(--accent);color:#000;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;z-index:3;}
+
+  /* PROOF BAR */
+  .proof-bar{background:var(--bg-elevated);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:26px 0;}
+  .proof-inner{display:flex;gap:56px;align-items:center;justify-content:center;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--text-muted);letter-spacing:.06em;text-transform:uppercase;}
+  .proof-item{display:flex;align-items:center;gap:10px;}
+  .proof-dot{width:6px;height:6px;background:var(--win);border-radius:50%;flex-shrink:0;}
+  .proof-num{color:var(--text);font-weight:700;}
+
+  /* PRICING */
+  .pricing{padding:100px 0;border-bottom:1px solid var(--border);position:relative;}
+  .pricing::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(212,168,67,.05),transparent 55%);pointer-events:none;}
+  .plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
+  .plan{background:var(--bg);padding:40px 36px 44px;position:relative;display:flex;flex-direction:column;}
+  .plan.featured{background:var(--bg-elevated);outline:1px solid var(--accent);outline-offset:-1px;}
+  .plan-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--accent);color:#000;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 14px;white-space:nowrap;}
+  .plan-name{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;}
+  .plan-price{font-family:var(--display);font-size:58px;font-weight:400;letter-spacing:-.03em;line-height:1;margin-bottom:6px;}
+  .plan-price sup{font-size:24px;vertical-align:top;margin-top:12px;font-family:var(--body);font-weight:500;color:var(--text-muted);}
+  .plan-price sub{font-size:16px;color:var(--text-muted);font-family:var(--mono);font-weight:400;}
+  .plan-sub{font-size:13px;color:var(--text-muted);margin-bottom:32px;min-height:36px;}
+  .plan-divider{width:100%;height:1px;background:var(--border);margin-bottom:28px;}
+  .plan-features{list-style:none;margin-bottom:36px;flex:1;}
+  .plan-features li{font-size:14px;color:var(--text-muted);padding:10px 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:12px;line-height:1.4;}
+  .plan-features li:last-child{border-bottom:none;}
+  .plan-features li.inactive{color:var(--text-dim);}
+  .chk{color:var(--win);font-size:13px;flex-shrink:0;margin-top:1px;}
+  .crs{color:var(--text-dim);font-size:13px;flex-shrink:0;margin-top:1px;}
+  .plan-btn{display:block;text-align:center;padding:17px;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;transition:all .2s;}
+  .plan-btn.ghost{background:transparent;color:var(--text);border:1px solid var(--border-strong);}
+  .plan-btn.ghost:hover{border-color:var(--text-muted);}
+  .plan-btn.gold{background:var(--accent);color:#000;}
+  .plan-btn.gold:hover{background:#e6b950;transform:translateY(-2px);box-shadow:0 8px 24px rgba(212,168,67,.3);}
+  .plan-btn.dark{background:var(--text);color:var(--bg);}
+  .plan-btn.dark:hover{transform:translateY(-2px);}
+  .pricing-guarantee{margin-top:36px;padding:26px 30px;border:1px solid var(--border);background:var(--bg-elevated);display:flex;gap:20px;align-items:flex-start;}
+  .guarantee-icon{font-size:26px;flex-shrink:0;}
+  .guarantee-title{font-family:var(--display);font-size:20px;font-weight:400;margin-bottom:8px;}
+  .guarantee-body{font-size:14px;color:var(--text-muted);line-height:1.6;}
+
+  /* TRACK RECORD */
+  .record{padding:96px 0;border-bottom:1px solid var(--border);}
+  .record-grid{display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start;}
+  .record-intro p{font-size:16px;color:var(--text-muted);line-height:1.7;margin-bottom:20px;}
+  .record-intro a{color:var(--accent);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;}
+  .record-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:13px;}
+  .record-table thead th{text-align:left;padding:12px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);border-bottom:1px solid var(--border-strong);font-weight:500;}
+  .record-table tbody td{padding:15px 12px;border-bottom:1px solid var(--border);}
+  .record-table tbody tr:hover{background:var(--bg-elevated);}
+  .result-won{color:var(--win);font-weight:700;}
+  .result-lost{color:var(--loss);font-weight:700;}
+  .result-push{color:var(--push);}
+  .units-pos{color:var(--win);}
+  .units-neg{color:var(--loss);}
+  .record-summary{margin-top:28px;padding:24px;background:var(--bg-elevated);border:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .summary-num{font-family:var(--display);font-size:26px;font-weight:400;margin-bottom:4px;letter-spacing:-.02em;}
+  .summary-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);}
+
+  /* TESTIMONIALS */
+  .testimonials{padding:96px 0;border-bottom:1px solid var(--border);background:var(--bg-elevated);}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
+  .testi-card{background:var(--bg-elevated);padding:36px;}
+  .testi-stars{color:var(--accent);font-size:14px;letter-spacing:2px;margin-bottom:18px;}
+  .testi-quote{font-family:var(--display);font-size:19px;font-weight:400;font-style:italic;line-height:1.45;margin-bottom:24px;}
+  .testi-meta{display:flex;align-items:center;gap:14px;}
+  .testi-avatar{width:40px;height:40px;background:var(--border-strong);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;font-weight:700;color:var(--accent);flex-shrink:0;}
+  .testi-name{font-weight:600;font-size:14px;}
+  .testi-handle{font-family:var(--mono);font-size:11px;color:var(--text-muted);margin-top:2px;}
+  .testi-result{margin-left:auto;background:rgba(109,190,122,.12);color:var(--win);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;padding:5px 10px;}
+
+  /* FINAL CTA */
+  .final-cta{padding:120px 0;text-align:center;position:relative;overflow:hidden;}
+  .final-cta::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(212,168,67,.1),transparent 60%);pointer-events:none;}
+  .cta-tag{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:22px;}
+  .cta-title{font-family:var(--display);font-size:clamp(40px,6vw,72px);font-weight:400;letter-spacing:-.02em;line-height:1.04;margin-bottom:24px;max-width:16ch;margin-left:auto;margin-right:auto;}
+  .cta-title em{font-style:italic;color:var(--accent);}
+  .cta-sub{font-size:17px;color:var(--text-muted);max-width:48ch;margin:0 auto 48px;line-height:1.6;}
+  .cta-buttons{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:24px;}
+  .cta-fineprint{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.05em;}
+
+  /* FOOTER */
+  footer{background:var(--bg);border-top:1px solid var(--border);padding:72px 0 36px;}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;margin-bottom:56px;}
+  .footer-brand{font-family:var(--display);font-size:26px;font-weight:400;margin-bottom:12px;}
+  .footer-tagline{color:var(--text-muted);font-size:14px;max-width:36ch;line-height:1.6;}
+  .footer-col h4{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim);margin-bottom:18px;font-weight:500;}
+  .footer-col ul{list-style:none;}
+  .footer-col li{margin-bottom:10px;}
+  .footer-col a{color:var(--text-muted);text-decoration:none;font-size:14px;transition:color .2s;}
+  .footer-col a:hover{color:var(--accent);}
+  .gambling-warning{background:var(--bg-surface);border:1px solid var(--border);padding:18px 22px;margin-bottom:28px;font-size:12px;color:var(--text-dim);line-height:1.65;}
+  .gambling-warning strong{color:var(--text-muted);}
+  .footer-bottom{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.05em;}
+
+  /* ANIMATIONS */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+  .live-dot{display:inline-block;width:6px;height:6px;background:var(--win);border-radius:50%;margin-right:6px;animation:pulse 2s infinite;vertical-align:middle;}
+
+  /* RESPONSIVE */
+  @media(max-width:960px){
+    .nav-links{display:none;}
+    .container{padding:0 20px;}
+    .nav-inner{padding:14px 20px;}
+    .hero{padding:56px 0 44px;}
+    .hero-stats{grid-template-columns:repeat(2,1fr);margin-top:44px;}
+    .stat{border-right:none;border-bottom:1px solid var(--border);padding-bottom:14px;}
+    .picks-grid,.plans-grid,.testi-grid{grid-template-columns:1fr;}
+    .record-grid{grid-template-columns:1fr;gap:40px;}
+    .record-summary{grid-template-columns:repeat(2,1fr);}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:36px;}
+    .section-header{flex-direction:column;gap:10px;}
+    .section-title{font-size:32px;}
+    .plan.featured{outline:none;border:1px solid var(--accent);}
+    .record-table thead th:nth-child(2),.record-table tbody td:nth-child(2){display:none;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce-bar">
+  🔥 NBA Playoffs Week 2 — Full pick card live now <span>·</span> +38.4u on the year <span>·</span> <a href="#pricing">Unlock Premium →</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo"><span class="logo-mark"></span>SHARPLINE</a>
+    <ul class="nav-links">
+      <li><a href="#slate">Today's Picks</a></li>
+      <li><a href="#record">Track Record</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#">Discord</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="nav-login">Sign In</button>
+      <a href="#pricing" class="nav-cta">Go Premium ↗</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-meta"><span class="live-dot"></span><span>Today's slate is live · Friday, May 1, 2026</span></div>
+    <h1>Stop guessing. Start <em>winning.</em></h1>
+    <p class="hero-sub">AI-powered daily insights on every major sport. Game previews, sharp line movement, prop edges, and the plays the public isn't making — delivered before tip-off.</p>
+    <div class="hero-actions">
+      <a href="#pricing" class="btn-primary">Unlock All Picks →</a>
+      <a href="#slate" class="btn-secondary">See Today's Free Pick</a>
+    </div>
+    <div class="hero-trust">
+      <span>54.8% win rate in 2025–26</span><span class="dot">·</span>
+      <span>412 picks publicly logged</span><span class="dot">·</span>
+      <span>+38.4u net profit on the year</span><span class="dot">·</span>
+      <span>Cancel anytime</span>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">54.8<span style="font-size:22px;color:var(--text-muted)">%</span></div><div class="stat-label">Win Rate · 2025–26</div></div>
+      <div class="stat"><div class="stat-num">+38.4u</div><div class="stat-label">Net Units · YTD</div></div>
+      <div class="stat"><div class="stat-num">412</div><div class="stat-label">Picks Logged Public</div></div>
+      <div class="stat"><div class="stat-num">4.1k</div><div class="stat-label">Active Subscribers</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TODAY'S PICKS -->
+<section class="slate" id="slate">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-tag"><span class="live-dot"></span> May 01 · Live Slate</div>
+        <h2 class="section-title">Today's <em>picks</em></h2>
+      </div>
+      <div class="section-meta">1 free · 6 premium · updates until tip-off</div>
+    </div>
+    <div class="picks-grid">
+
+      <!-- FREE PICK -->
+      <div class="pick-card">
+        <div class="pick-header">
+          <span class="pick-league">NBA · Playoffs</span>
+          <span class="pick-time">7:30 PM ET</span>
+        </div>
+        <div class="pick-matchup">Knicks <span class="vs">at</span> Celtics</div>
+        <div class="pick-detail">Game 6 · Boston leads 3–2</div>
+        <div class="pick-call">
+          <div class="pick-call-label">The Play</div>
+          <div class="pick-call-value">Knicks +6.5</div>
+          <div class="pick-call-odds">-110 · DraftKings · Stake 2u</div>
+        </div>
+        <p class="pick-reasoning">Boston is 4–9 ATS as a home fav of 6+ in playoffs since 2023. Brunson's usage climbs to 35% in elimination spots. Line steamed from -8 to -6.5 — sharp money landed on NY. Model gives Boston 62% to win, not the 72% implied by the current number.</p>
+        <div class="pick-tags">
+          <span class="tag">Line Move</span>
+          <span class="tag">Situational</span>
+          <span class="tag">Confidence B+</span>
+        </div>
+      </div>
+
+      <!-- LOCKED 1 -->
+      <div class="pick-card locked">
+        <span class="lock-badge">Premium</span>
+        <div class="pick-blur">
+          <div class="pick-header"><span class="pick-league">MLB</span><span class="pick-time">7:05 PM ET</span></div>
+          <div class="pick-matchup">Dodgers <span class="vs">at</span> Braves</div>
+          <div class="pick-detail">Yamamoto vs Sale</div>
+          <div class="pick-call">
+            <div class="pick-call-label">The Play</div>
+            <div class="pick-call-value">Under 7.5</div>
+            <div class="pick-call-odds">-105 · FanDuel · Stake 1.5u</div>
+          </div>
+          <p class="pick-reasoning">Two top-10 SIERA arms with 30%+ whiff rates. Truist Park playing 4% under this month. Model projects 6.8 runs — enough edge to clear the vig comfortably.</p>
+        </div>
+        <div class="lock-overlay">
+          <div class="lock-icon">🔒</div>
+          <div class="lock-title">Premium Pick</div>
+          <div class="lock-sub">Unlock 6 more plays today + full reasoning on every one</div>
+          <a href="#pricing" class="lock-btn">Unlock for $29/mo →</a>
+        </div>
+      </div>
+
+      <!-- LOCKED 2 -->
+      <div class="pick-card locked">
+        <span class="lock-badge">Premium</span>
+        <div class="pick-blur">
+          <div class="pick-header"><span class="pick-league">NHL · Playoffs</span><span class="pick-time">8:00 PM ET</span></div>
+          <div class="pick-matchup">Oilers <span class="vs">at</span> Stars</div>
+          <div class="pick-detail">Game 3 · Series tied 1–1</div>
+          <div class="pick-call">
+            <div class="pick-call-label">The Play</div>
+            <div class="pick-call-value">McDavid Over 0.5 G</div>
+            <div class="pick-call-odds">+165 · Caesars · Stake 1u</div>
+          </div>
+          <p class="pick-reasoning">McDavid has 6 goals on 24 shots in his last 5 road playoff games. Plus money on the best player in the world firing 5+ shots is where the value is.</p>
+        </div>
+        <div class="lock-overlay">
+          <div class="lock-icon">🔒</div>
+          <div class="lock-title">Premium Pick</div>
+          <div class="lock-sub">Full card includes NHL, MLB, NBA props + best bet of the day</div>
+          <a href="#pricing" class="lock-btn">Unlock for $29/mo →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF BAR -->
+<div class="proof-bar">
+  <div class="proof-inner">
+    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num">+38.4u</span> net on the year</span></div>
+    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num">412</span> picks publicly tracked</span></div>
+    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num">4,100+</span> subscribers</span></div>
+    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num">54.8%</span> win rate ATS</span></div>
+    <div class="proof-item"><span class="proof-dot"></span><span>Cancel anytime, no questions</span></div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-tag">Simple Pricing</div>
+        <h2 class="section-title">One number. <em>Full access.</em></h2>
+      </div>
+      <div class="section-meta">No upsells. No VIP tier. Just picks.</div>
+    </div>
+    <div class="plans-grid">
+
+      <!-- FREE -->
+      <div class="plan">
+        <div class="plan-name">Free</div>
+        <div class="plan-price"><sup>$</sup>0</div>
+        <div class="plan-sub">One free pick daily. No card needed.</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="chk">✓</span> 1 free pick per day with full reasoning</li>
+          <li><span class="chk">✓</span> Daily newsletter delivered at noon ET</li>
+          <li><span class="chk">✓</span> Full public track record access</li>
+          <li><span class="chk">✓</span> Free Discord community</li>
+          <li class="inactive"><span class="crs">—</span> Full daily pick card (5–8 plays)</li>
+          <li class="inactive"><span class="crs">—</span> Player props & parlays</li>
+          <li class="inactive"><span class="crs">—</span> Line movement alerts</li>
+          <li class="inactive"><span class="crs">—</span> Best bet of the day highlight</li>
+        </ul>
+        <a href="#" class="plan-btn ghost">Start Free →</a>
+      </div>
+
+      <!-- PREMIUM -->
+      <div class="plan featured">
+        <div class="plan-badge">Most Popular</div>
+        <div class="plan-name">Premium</div>
+        <div class="plan-price"><sup>$</sup>29<sub>/mo</sub></div>
+        <div class="plan-sub">Everything. Every day. Full card unlocked.</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="chk">✓</span> Full pick card daily — 5 to 8 plays across all sports</li>
+          <li><span class="chk">✓</span> Player props & same-game parlays</li>
+          <li><span class="chk">✓</span> Line movement alerts — get in before the move</li>
+          <li><span class="chk">✓</span> Best bet of the day (highest confidence play flagged)</li>
+          <li><span class="chk">✓</span> Morning injury report breakdowns</li>
+          <li><span class="chk">✓</span> Premium Discord with picks discussion</li>
+          <li><span class="chk">✓</span> Weekly recap & trends breakdown</li>
+          <li><span class="chk">✓</span> Cancel anytime — one click, no runaround</li>
+        </ul>
+        <a href="#" class="plan-btn gold">Get Premium — $29/mo →</a>
+      </div>
+
+      <!-- ANNUAL -->
+      <div class="plan">
+        <div class="plan-name">Annual</div>
+        <div class="plan-price"><sup>$</sup>199<sub>/yr</sub></div>
+        <div class="plan-sub">Save $149 vs monthly. Lock in the rate forever.</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="chk">✓</span> Everything in Premium, full access</li>
+          <li><span class="chk">✓</span> Priority Discord role & direct line to the team</li>
+          <li><span class="chk">✓</span> Full historical pick database — every play since launch</li>
+          <li><span class="chk">✓</span> Monthly member-only strategy breakdowns</li>
+          <li><span class="chk">✓</span> Early access to new features before anyone else</li>
+          <li><span class="chk">✓</span> $16.58/mo effective — best rate we offer</li>
+          <li><span class="chk">✓</span> Price never increases as long as you stay subscribed</li>
+          <li><span class="chk">✓</span> Pro-rated refund available anytime if you cancel</li>
+        </ul>
+        <a href="#" class="plan-btn dark">Get Annual — $199/yr →</a>
+      </div>
+
+    </div>
+    <div class="pricing-guarantee">
+      <div class="guarantee-icon">🛡</div>
+      <div>
+        <div class="guarantee-title">7-day money-back, no questions</div>
+        <div class="guarantee-body">Not feeling it in the first week? One email and we refund you same day. Not a "contact support and wait 5 business days" situation. We'd rather you leave happy than stay unhappy — happy people refer their friends.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACK RECORD -->
+<section class="record" id="record">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-tag">Transparent · Public · Never Edited</div>
+        <h2 class="section-title">The <em>receipts.</em></h2>
+      </div>
+      <div class="section-meta">Updated nightly · every result logged</div>
+    </div>
+    <div class="record-grid">
+      <div class="record-intro">
+        <p>Every pick is logged before the game and updated after. Losses stay in the record — we don't hide them. Every tipster claiming 80%+ is either lying or showing you their best 6 picks from a lucky week.</p>
+        <p>Realistic edge in sports betting is 53–58% over hundreds of plays. We aim for that, show all the work, and let you judge for yourself.</p>
+        <p><a href="#">Full archive — every pick since launch →</a></p>
+      </div>
+      <div>
+        <table class="record-table">
+          <thead>
+            <tr><th>Date</th><th>League</th><th>Pick</th><th>Odds</th><th>Result</th><th style="text-align:right">Units</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>04-30</td><td>NBA</td><td>Heat ML</td><td>+135</td><td><span class="result-won">WON</span></td><td style="text-align:right" class="units-pos">+2.70u</td></tr>
+            <tr><td>04-30</td><td>MLB</td><td>Yankees -1.5</td><td>+125</td><td><span class="result-lost">LOST</span></td><td style="text-align:right" class="units-neg">-2.00u</td></tr>
+            <tr><td>04-29</td><td>NHL</td><td>Panthers/Canes O5.5</td><td>-110</td><td><span class="result-won">WON</span></td><td style="text-align:right" class="units-pos">+0.91u</td></tr>
+            <tr><td>04-29</td><td>NBA</td><td>Tatum O28.5 pts</td><td>-115</td><td><span class="result-won">WON</span></td><td style="text-align:right" class="units-pos">+0.87u</td></tr>
+            <tr><td>04-28</td><td>MLB</td><td>Phillies/Mets U8</td><td>-108</td><td><span class="result-push">PUSH</span></td><td style="text-align:right">0.00u</td></tr>
+            <tr><td>04-28</td><td>NBA</td><td>Cavs +4.5</td><td>-110</td><td><span class="result-lost">LOST</span></td><td style="text-align:right" class="units-neg">-1.10u</td></tr>
+            <tr><td>04-27</td><td>NHL</td><td>Avs ML</td><td>-145</td><td><span class="result-won">WON</span></td><td style="text-align:right" class="units-pos">+1.38u</td></tr>
+            <tr><td>04-27</td><td>MLB</td><td>Skenes O7.5 K</td><td>+105</td><td><span class="result-won">WON</span></td><td style="text-align:right" class="units-pos">+2.10u</td></tr>
+          </tbody>
+        </table>
+        <div class="record-summary">
+          <div><div class="summary-num">226-186</div><div class="summary-label">Record W–L</div></div>
+          <div><div class="summary-num">54.8%</div><div class="summary-label">Win Rate</div></div>
+          <div><div class="summary-num">+38.4u</div><div class="summary-label">Net Units</div></div>
+          <div><div class="summary-num">+9.3%</div><div class="summary-label">ROI</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-tag">Member Results</div>
+        <h2 class="section-title">What they're <em>saying.</em></h2>
+      </div>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Finally a picks service that shows you the losses too. That alone told me it was legit. Up 18 units following the full card in my first month."</div>
+        <div class="testi-meta">
+          <div class="testi-avatar">MR</div>
+          <div><div class="testi-name">Marcus R.</div><div class="testi-handle">Premium · 3 months</div></div>
+          <div class="testi-result">+18u</div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"The line movement alerts alone are worth the $29. Got into Knicks +7 before it dropped to +6. That half point hit in overtime."</div>
+        <div class="testi-meta">
+          <div class="testi-avatar">JT</div>
+          <div><div class="testi-name">Jade T.</div><div class="testi-handle">Annual · 5 months</div></div>
+          <div class="testi-result">+31u</div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★☆</div>
+        <div class="testi-quote">"Had a rough 3-week stretch and they just kept being straight about it in the recap. No spin. When it turned around it really turned around."</div>
+        <div class="testi-meta">
+          <div class="testi-avatar">DK</div>
+          <div><div class="testi-name">Devon K.</div><div class="testi-handle">Premium · 7 months</div></div>
+          <div class="testi-result">+22u</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <div class="cta-tag">Join 4,100+ subscribers</div>
+    <h2 class="cta-title">Stop leaving money on the <em>table.</em></h2>
+    <p class="cta-sub">The full pick card, line alerts, props, and best bet of the day — every morning. $29/month. Cancel whenever you want.</p>
+    <div class="cta-buttons">
+      <a href="#" class="btn-primary">Get Premium — $29/mo →</a>
+      <a href="#" class="btn-secondary">Start Free First</a>
+    </div>
+    <div class="cta-fineprint">7-day money-back · No contracts · Cancel in 2 clicks · 21+ only · Bet responsibly</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="gambling-warning">
+      <strong>Important:</strong> Sports betting involves financial risk. SHARPLINE provides analysis and opinion only — not financial advice and not a guarantee of profit. Past performance does not predict future results. If you or someone you know has a gambling problem, call <strong>1-800-GAMBLER</strong> or visit ncpgambling.org. Must be 21+ to legally bet in most US states.
+    </div>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">SHARPLINE</div>
+        <p class="footer-tagline">AI-powered sports betting insights with a fully public track record. Honest math, real plays, no sure things.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul><li><a href="#">Today's Picks</a></li><li><a href="#">Track Record</a></li><li><a href="#">Newsletter</a></li><li><a href="#">Discord</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul><li><a href="#">About</a></li><li><a href="#">Methodology</a></li><li><a href="#">Affiliates</a></li><li><a href="#">Contact</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul><li><a href="#">Terms of Service</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Disclaimer</a></li><li><a href="#">Responsible Gambling</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 SHARPLINE · ALL RIGHTS RESERVED</div>
+      <div>21+ · BET RESPONSIBLY · 1-800-GAMBLER</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
