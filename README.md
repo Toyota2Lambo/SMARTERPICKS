@@ -1,1 +1,1 @@
-# SharpLine
+# SMARTER PICKS
