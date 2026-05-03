@@ -15,7 +15,7 @@
       "odds": "-110",
       "book": "DraftKings",
       "stake": "2u",
-      "reasoning": "Boston is 4–9 ATS as a home favorite of 6+ in playoffs since 2023. Brunson's usage climbs to 35% in elimination spots and the line steamed from -8 to -6.5 — sharp money is on New York. Model gives Boston 62% to win, not the 72% implied by the current number.",
+      "reasoning": "Boston is 4–9 ATS as a home fav of 6+ in playoffs since 2023. Brunson's usage climbs to 35% in elimination spots. Line steamed from -8 to -6.5 — sharp money is on New York.",
       "tags": ["Line Move", "Situational", "Confidence B+"],
       "is_premium": false
     },
@@ -29,9 +29,9 @@
       "odds": "-105",
       "book": "FanDuel",
       "stake": "1.5u",
-      "reasoning": "Two top-10 SIERA arms with 30%+ whiff rates. Truist Park is playing 4% under run environment in May. Model projects 6.8 runs — enough to clear the vig.",
+      "reasoning": "Two top-10 SIERA arms with 30%+ whiff rates. Truist Park playing 4% under run environment in May. Model projects 6.8 runs — enough edge to clear the vig.",
       "tags": ["Pitching Edge", "Park Factor", "Confidence B"],
-      "is_premium": true
+      "is_premium": false
     },
     {
       "league": "NHL · Playoffs",
@@ -43,9 +43,9 @@
       "odds": "+165",
       "book": "Caesars",
       "stake": "1u",
-      "reasoning": "McDavid has 6 goals on 24 shots in last 5 road playoff games. Stars surrendered 3.4 high-danger chances per game. Plus money on the best player in the world firing 5+ shots is value.",
+      "reasoning": "McDavid has 6 goals on 24 shots in last 5 road playoff games. Stars surrendered 3.4 high-danger chances per game. Plus money on the best player in the world is value.",
       "tags": ["Player Prop", "Plus Money", "Confidence C+"],
-      "is_premium": true
+      "is_premium": false
     },
     {
       "league": "NBA · Playoffs",
@@ -57,7 +57,7 @@
       "odds": "-112",
       "book": "BetMGM",
       "stake": "1.5u",
-      "reasoning": "Both teams ranked bottom-5 in half-court defensive efficiency this postseason. Last 3 games in this series averaged 228 combined points. Line opened at 216 and has moved down on light public action — creates value on the over.",
+      "reasoning": "Both teams ranked bottom-5 in half-court defensive efficiency this postseason. Last 3 games averaged 228 combined points. Line opened at 216 and has moved down — value on the over.",
       "tags": ["Total", "Series Trend", "Confidence B"],
       "is_premium": true
     },
@@ -71,7 +71,7 @@
       "odds": "+118",
       "book": "DraftKings",
       "stake": "1u",
-      "reasoning": "Wainwright 2.0 on the mound for STL with a 1.84 ERA at home this season. Cubs are 3–9 on the road against left-handed starters. Plus money on a home favorite is where the sharp line sits.",
+      "reasoning": "Cardinals starter posting a 1.84 ERA at home this season. Cubs are 3–9 on the road against left-handed starters. Plus money on a home favorite is sharp line value.",
       "tags": ["Pitcher Spot", "Home Dog", "Confidence B"],
       "is_premium": true
     },
@@ -85,7 +85,7 @@
       "odds": "+135",
       "book": "FanDuel",
       "stake": "1u",
-      "reasoning": "Florida has won by 2+ goals in 4 of their last 6 playoff games. Hurricanes goaltending is allowing 3.2 goals per game this postseason. Plus odds on the puck line is a strong plus-EV play at current pricing.",
+      "reasoning": "Florida has won by 2+ goals in 4 of their last 6 playoff games. Hurricanes goaltending allowing 3.2 goals per game this postseason. Plus odds on the puck line is strong plus-EV.",
       "tags": ["Puck Line", "Plus Money", "Confidence B+"],
       "is_premium": true
     },
@@ -99,7 +99,7 @@
       "odds": "+110",
       "book": "Caesars",
       "stake": "1u",
-      "reasoning": "Brunson has scored 35+ in 3 of his last 4 elimination games dating back to 2024. His usage rate spikes to 37% when the Knicks face elimination. Plus money on a career pattern play is strong value.",
+      "reasoning": "Brunson has scored 35+ in 3 of his last 4 elimination games. Usage rate spikes to 37% when the Knicks face elimination. Plus money on a career pattern play is strong value.",
       "tags": ["Player Prop", "Elimination Spot", "Confidence B+"],
       "is_premium": true
     }
