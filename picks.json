@@ -1,25 +1,135 @@
 {
   "date": "May 05, 2026",
   "date_short": "05-05",
-  "sport_summary": "Today's picks are being updated \u2014 check back shortly.",
+  "sport_summary": "NBA Playoffs action headlining a loaded Tuesday slate featuring 4 NBA games and 9 MLB matchups",
   "picks": [
     {
-      "league": "Coming Soon",
-      "time": "TBD",
-      "away_team": "Away",
-      "home_team": "Home",
-      "game_detail": "Picks updating...",
-      "pick": "Pick loading",
-      "odds": "\u2014",
-      "book": "\u2014",
-      "stake": "\u2014",
-      "reasoning": "Today's picks are being generated. Refresh the page in a few minutes.",
+      "league": "NBA \u00b7 Playoffs",
+      "time": "7:10 PM ET",
+      "away_team": "Cleveland Cavaliers",
+      "home_team": "Detroit Pistons",
+      "game_detail": "Playoffs",
+      "pick": "Detroit Pistons -7.5",
+      "odds": "-115",
+      "book": "DraftKings",
+      "stake": "1.5u",
+      "reasoning": "Detroit is installed as a massive home favorite with moneylines ranging from -250 to -385 across the board, reflecting market consensus on Pistons dominance. The spread sits at -7.5 on DraftKings at even juice on both sides, offering better value than FanDuel's -8.5. The Cavaliers are being priced as heavy underdogs (+200 to +265 ML), suggesting the market sees a wide margin of victory for Detroit.",
       "tags": [
-        "Updating"
+        "Home Favorite",
+        "Market Consensus",
+        "Confidence B+"
       ],
       "is_premium": false
+    },
+    {
+      "league": "NBA \u00b7 Playoffs",
+      "time": "8:40 PM ET",
+      "away_team": "Los Angeles Lakers",
+      "home_team": "Oklahoma City Thunder",
+      "game_detail": "Playoffs",
+      "pick": "Under 214.5",
+      "odds": "-112",
+      "book": "DraftKings",
+      "stake": "1.5u",
+      "reasoning": "The total ranges from 213.5 to 214.5 across books with the Under getting slightly better juice on most lines, suggesting sharp lean toward the Under. OKC is a -900 favorite on DraftKings implying a dominant defensive performance and pace control. Blowout games typically trend Under as starters sit in garbage time, and the Thunder's elite defense this season supports a low-scoring affair.",
+      "tags": [
+        "Total",
+        "Blowout Spot",
+        "Confidence B"
+      ],
+      "is_premium": true
+    },
+    {
+      "league": "NBA \u00b7 Playoffs",
+      "time": "7:10 PM ET",
+      "away_team": "Philadelphia 76ers",
+      "home_team": "New York Knicks",
+      "game_detail": "Playoffs",
+      "pick": "New York Knicks -7.0",
+      "odds": "-106",
+      "book": "LowVig.ag",
+      "stake": "1.5u",
+      "reasoning": "The Knicks are firm home favorites at -270 to -285 ML across all major books with strong consensus. LowVig.ag offers the Knicks -7.0 at -106, which is significantly better value than paying -110 elsewhere on the same number. New York's home-court advantage in the playoffs has been substantial, and the market has priced this as a comfortable Knicks win.",
+      "tags": [
+        "Best Line",
+        "Home Favorite",
+        "Confidence B+"
+      ],
+      "is_premium": true
+    },
+    {
+      "league": "MLB",
+      "time": "8:06 PM ET",
+      "away_team": "Texas Rangers",
+      "home_team": "New York Yankees",
+      "game_detail": "Regular Season",
+      "pick": "New York Yankees +2.5",
+      "odds": "-110",
+      "book": "DraftKings",
+      "stake": "1u",
+      "reasoning": "The Yankees are heavy ML underdogs (+209 to +250) yet getting 2.5 runs on the runline at -110, offering excellent middle-ground value. Texas is priced at -285 to -335 ML suggesting the market respects the Rangers, but the 2.5-run cushion at standard juice is extremely attractive for a team capable of late-game offense. BetMGM offers Yankees +250 ML as the best payout if you prefer straight moneyline.",
+      "tags": [
+        "Runline Value",
+        "Underdog Spread",
+        "Confidence B"
+      ],
+      "is_premium": true
+    },
+    {
+      "league": "MLB",
+      "time": "6:41 PM ET",
+      "away_team": "Toronto Blue Jays",
+      "home_team": "Tampa Bay Rays",
+      "game_detail": "Regular Season",
+      "pick": "Under 6.5",
+      "odds": "+102",
+      "book": "FanDuel",
+      "stake": "1u",
+      "reasoning": "FanDuel is posting the Under 6.5 at +102, offering plus-money on a total where most other books have moved to 7.0 with juice on the Under side. This line discrepancy is a notable edge \u2014 BetRivers and MyBookie have the total at 7.0 with the Under juiced to -120 and -133 respectively. Getting plus-money on a half-run lower total is a clear best-line opportunity worth exploiting.",
+      "tags": [
+        "Best Line",
+        "Line Discrepancy",
+        "Confidence B+"
+      ],
+      "is_premium": true
+    },
+    {
+      "league": "MLB",
+      "time": "7:41 PM ET",
+      "away_team": "Los Angeles Dodgers",
+      "home_team": "Houston Astros",
+      "game_detail": "Regular Season",
+      "pick": "Houston Astros +1.5",
+      "odds": "+113",
+      "book": "LowVig.ag",
+      "stake": "1u",
+      "reasoning": "LowVig.ag offers the Astros runline +1.5 at +113, the best available price on the market for this line. Houston's ML sits around +180 to +188 on most books, and getting 1.5 runs in plus-money territory represents strong value for a team capable of keeping games close against even elite competition. The Dodgers are -207 to -227 ML favorites, but the run cushion at plus odds is the play.",
+      "tags": [
+        "Best Line",
+        "Runline Value",
+        "Confidence B"
+      ],
+      "is_premium": true
+    },
+    {
+      "league": "NBA \u00b7 Playoffs",
+      "time": "9:40 PM ET",
+      "away_team": "Minnesota Timberwolves",
+      "home_team": "San Antonio Spurs",
+      "game_detail": "Playoffs",
+      "pick": "Minnesota Timberwolves +9.5",
+      "odds": "-104",
+      "book": "LowVig.ag",
+      "stake": "1u",
+      "reasoning": "Minnesota is a massive underdog at +300 to +350 ML but is getting 9.5 points across nearly every book with LowVig offering the best price at -104. The Timberwolves are a competitive playoff team capable of keeping games within single digits regardless of their underdog status. At -104 juice on a full field goal and a half, the value clearly lies with Minnesota covering the spread.",
+      "tags": [
+        "Best Line",
+        "Underdog Spread",
+        "Confidence C+"
+      ],
+      "is_premium": true
     }
   ],
-  "generated_at": "2026-05-05T23:24:47.158602",
-  "generated_at_readable": "May 05, 2026 at 11:24 PM ET"
+  "generated_at": "2026-05-05T23:26:55.193653",
+  "generated_at_readable": "May 05, 2026 at 11:26 PM ET"
 }
