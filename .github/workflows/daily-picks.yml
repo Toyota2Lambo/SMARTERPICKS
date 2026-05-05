@@ -1,0 +1,53 @@
+name: Daily Picks
+
+# Runs picks_generator.py once a day and commits the refreshed picks.json.
+#
+# Schedule: 13:05 UTC every day.
+#   - During EDT (Mar-Nov) that's 9:05 AM ET.
+#   - During EST (Nov-Mar) that's 8:05 AM ET.
+#   If you want it to stay at exactly 9 AM ET year-round, you'd need two
+#   cron entries and to live with the DST switch yourself — most people
+#   just pick one UTC time and accept the one-hour drift in winter.
+#
+# You can also trigger it manually from the Actions tab via "Run workflow".
+
+on:
+  schedule:
+    - cron: "5 13 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Generate picks
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python picks_generator.py
+
+      - name: Commit updated picks.json
+        run: |
+          git config user.name  "smarterpicks-bot"
+          git config user.email "smarterpicks-bot@users.noreply.github.com"
+          git add picks.json
+          if git diff --cached --quiet; then
+            echo "No changes to picks.json — nothing to commit."
+          else
+            git commit -m "Daily picks update — $(date -u +'%Y-%m-%d')"
+            git push
+          fi
