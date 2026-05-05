@@ -149,7 +149,7 @@ Important: Return ONLY the JSON. No markdown, no backticks, no explanation."""
         import urllib.request
 
         payload = json.dumps({
-            "model": "claude-sonnet-4-20250514",
+            "model": "claude-sonnet-4-6",
             "max_tokens": 4000,
             "messages": [{"role": "user", "content": prompt}]
         }).encode("utf-8")
