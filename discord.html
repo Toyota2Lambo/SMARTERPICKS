@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMARTERPICKS — Join the Discord</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0a0a0a;--bg-elevated:#131313;--bg-surface:#1a1a1a;
+    --border:#2a2a2a;--border-strong:#3a3a3a;
+    --text:#f4efe4;--text-muted:#8a8580;--text-dim:#5a5550;
+    --accent:#d4a843;--accent-dim:#8a6f2d;
+    --win:#6dbe7a;--loss:#d96565;
+    --discord:#5865F2;--discord-hover:#4752c4;
+    --display:"Fraunces","Times New Roman",serif;
+    --body:"Inter Tight",-apple-system,BlinkMacSystemFont,sans-serif;
+    --mono:"JetBrains Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:400;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");opacity:.035;pointer-events:none;z-index:100;}
+  .container{max-width:1280px;margin:0 auto;padding:0 32px;}
+  a{color:inherit;}
+
+  /* NAV */
+  nav{border-bottom:1px solid var(--border);background:rgba(10,10,10,.92);backdrop-filter:blur(16px);position:sticky;top:0;z-index:50;}
+  .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:16px 32px;max-width:1280px;margin:0 auto;}
+  .logo{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);}
+  .logo-mark{width:9px;height:9px;background:var(--accent);transform:rotate(45deg);flex-shrink:0;}
+  .nav-back{font-family:var(--mono);font-size:12px;color:var(--text-muted);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:color .2s;}
+  .nav-back:hover{color:var(--text);}
+
+  /* HERO */
+  .hero{padding:120px 0 90px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;text-align:center;}
+  .hero::after{content:"";position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(88,101,242,.10) 0%,transparent 60%);pointer-events:none;}
+  .hero-icon{display:inline-flex;align-items:center;justify-content:center;width:84px;height:84px;background:rgba(88,101,242,.12);border:1px solid rgba(88,101,242,.35);margin-bottom:32px;position:relative;}
+  .hero-icon svg{width:44px;height:44px;fill:var(--discord);}
+  .hero-tag{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:24px;display:inline-flex;align-items:center;gap:14px;}
+  .hero-tag::before,.hero-tag::after{content:"";width:24px;height:1px;background:var(--accent);}
+  h1{font-family:var(--display);font-weight:400;font-size:clamp(44px,6vw,72px);line-height:1.0;letter-spacing:-.03em;margin-bottom:24px;max-width:18ch;margin-left:auto;margin-right:auto;}
+  h1 em{font-style:italic;color:var(--accent);}
+  .hero-sub{font-size:18px;color:var(--text-muted);max-width:54ch;line-height:1.65;margin:0 auto 40px;}
+  .hero-stats{display:flex;justify-content:center;gap:48px;margin:48px 0 0;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);}
+  .hero-stats strong{color:var(--text);font-weight:700;}
+
+  /* SECTION SCAFFOLDING */
+  .section-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:48px;padding-bottom:20px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:16px;}
+  .section-tag{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+  .section-title{font-family:var(--display);font-size:44px;font-weight:400;letter-spacing:-.02em;line-height:1.05;}
+  .section-title em{font-style:italic;color:var(--accent);}
+  .section-meta{font-family:var(--mono);font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;}
+
+  /* TIERS — free vs premium discord */
+  .tiers{padding:96px 0;border-bottom:1px solid var(--border);}
+  .tier-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);}
+  .tier{background:var(--bg);padding:40px 36px;display:flex;flex-direction:column;}
+  .tier.premium{background:var(--bg-elevated);position:relative;}
+  .tier-badge{position:absolute;top:-1px;right:24px;background:var(--accent);color:#000;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 14px;}
+  .tier-tag{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;}
+  .tier-name{font-family:var(--display);font-size:32px;font-weight:400;letter-spacing:-.02em;margin-bottom:10px;}
+  .tier-name em{font-style:italic;color:var(--accent);}
+  .tier-sub{font-size:14px;color:var(--text-muted);margin-bottom:28px;line-height:1.6;}
+  .tier ul{list-style:none;flex:1;margin-bottom:28px;}
+  .tier li{padding:11px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--text-muted);display:flex;align-items:flex-start;gap:12px;line-height:1.5;}
+  .tier li:last-child{border-bottom:none;}
+  .tier li .chk{color:var(--win);font-size:13px;flex-shrink:0;margin-top:1px;}
+  .tier-btn{display:block;text-align:center;padding:16px;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:all .2s;}
+  .tier-btn.discord{background:var(--discord);color:#fff;display:flex;align-items:center;justify-content:center;gap:10px;}
+  .tier-btn.discord:hover{background:var(--discord-hover);transform:translateY(-2px);}
+  .tier-btn.gold{background:var(--accent);color:#000;}
+  .tier-btn.gold:hover{background:#e6b950;transform:translateY(-2px);}
+  .tier-btn svg{width:18px;height:18px;fill:currentColor;}
+
+  /* CHANNEL PREVIEW — Discord-style channel list */
+  .channels{padding:96px 0;border-bottom:1px solid var(--border);}
+  .channels-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:48px;align-items:start;}
+  .channels-intro h3{font-family:var(--display);font-size:32px;font-weight:400;letter-spacing:-.02em;line-height:1.1;margin-bottom:18px;}
+  .channels-intro h3 em{font-style:italic;color:var(--accent);}
+  .channels-intro p{color:var(--text-muted);font-size:15px;line-height:1.7;margin-bottom:14px;}
+  .channels-intro p strong{color:var(--text);font-weight:600;}
+  .channel-list{background:var(--bg-elevated);border:1px solid var(--border);font-family:var(--mono);font-size:13px;}
+  .channel-section-title{padding:18px 22px 10px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border);}
+  .channel-row{padding:11px 22px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);transition:background .15s;}
+  .channel-row:hover{background:var(--bg-surface);}
+  .channel-row:last-child{border-bottom:none;}
+  .channel-hash{color:var(--text-dim);font-weight:700;}
+  .channel-name{color:var(--text);font-weight:500;flex-shrink:0;}
+  .channel-desc{color:var(--text-dim);font-size:12px;font-family:var(--body);margin-left:auto;letter-spacing:0;text-transform:none;}
+  .channel-row.locked .channel-hash{color:var(--accent);}
+  .channel-row.locked .channel-name{color:var(--text-muted);}
+  .channel-lock{margin-left:auto;color:var(--accent);font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-family:var(--mono);font-weight:700;}
+
+  /* LIVE FEED — sample messages */
+  .feed{padding:96px 0;border-bottom:1px solid var(--border);background:var(--bg-elevated);}
+  .feed-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);}
+  .msg{background:var(--bg);padding:24px 28px;display:flex;gap:14px;}
+  .msg-avatar{width:38px;height:38px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;font-weight:700;color:#000;}
+  .msg-body{flex:1;}
+  .msg-meta{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;}
+  .msg-name{font-weight:600;font-size:14px;color:var(--text);}
+  .msg-channel{font-family:var(--mono);font-size:10px;color:var(--accent);background:rgba(212,168,67,.1);padding:2px 7px;letter-spacing:.06em;}
+  .msg-time{font-family:var(--mono);font-size:10px;color:var(--text-dim);margin-left:auto;}
+  .msg-text{color:var(--text);font-size:14px;line-height:1.55;}
+  .msg-text .pick-tag{display:inline-block;background:rgba(109,190,122,.12);color:var(--win);font-family:var(--mono);font-size:11px;font-weight:700;padding:2px 8px;letter-spacing:.06em;margin:0 2px;}
+
+  /* RULES */
+  .rules{padding:96px 0;border-bottom:1px solid var(--border);}
+  .rules-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
+  .rule{background:var(--bg);padding:30px 32px;}
+  .rule-num{font-family:var(--display);font-size:36px;font-weight:300;font-style:italic;color:var(--accent);line-height:1;margin-bottom:14px;}
+  .rule-title{font-family:var(--display);font-size:20px;font-weight:400;margin-bottom:8px;}
+  .rule-body{color:var(--text-muted);font-size:14px;line-height:1.65;}
+
+  /* FINAL CTA */
+  .final-cta{padding:120px 0;text-align:center;position:relative;overflow:hidden;}
+  .final-cta::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(88,101,242,.10),transparent 60%);pointer-events:none;}
+  .cta-tag{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:22px;position:relative;}
+  .cta-title{font-family:var(--display);font-size:clamp(40px,6vw,64px);font-weight:400;letter-spacing:-.02em;line-height:1.05;margin-bottom:24px;max-width:18ch;margin-left:auto;margin-right:auto;position:relative;}
+  .cta-title em{font-style:italic;color:var(--accent);}
+  .cta-sub{font-size:17px;color:var(--text-muted);max-width:48ch;margin:0 auto 48px;line-height:1.6;position:relative;}
+  .cta-buttons{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;}
+  .btn-large{padding:18px 32px;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;transition:all .2s;}
+  .btn-large.discord{background:var(--discord);color:#fff;}
+  .btn-large.discord:hover{background:var(--discord-hover);transform:translateY(-2px);box-shadow:0 12px 28px rgba(88,101,242,.35);}
+  .btn-large.ghost{background:transparent;color:var(--text);border:1px solid var(--border-strong);}
+  .btn-large.ghost:hover{border-color:var(--text-muted);}
+  .btn-large svg{width:20px;height:20px;fill:currentColor;}
+
+  /* FOOTER */
+  footer{background:var(--bg);border-top:1px solid var(--border);padding:48px 0;text-align:center;}
+  .footer-bottom{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.05em;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
+  .footer-bottom a{color:var(--text-muted);text-decoration:none;margin:0 12px;}
+  .footer-bottom a:hover{color:var(--accent);}
+
+  /* ANIMATIONS */
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+  .live-dot{display:inline-block;width:6px;height:6px;background:var(--win);border-radius:50%;margin-right:6px;animation:pulse 2s infinite;vertical-align:middle;}
+  @keyframes glow{0%,100%{box-shadow:0 0 0 1px rgba(88,101,242,.30), 0 0 24px rgba(88,101,242,.15);}50%{box-shadow:0 0 0 1px rgba(88,101,242,.65), 0 0 36px rgba(88,101,242,.35);}}
+  .hero-icon{animation:glow 3s ease-in-out infinite;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+  .hero-tag,h1,.hero-sub,.hero-stats{animation:fadeUp .6s ease-out backwards;}
+  .hero-tag{animation-delay:.1s;}
+  h1{animation-delay:.2s;}
+  .hero-sub{animation-delay:.3s;}
+  .hero-stats{animation-delay:.4s;}
+
+  @media(max-width:960px){
+    .container{padding:0 20px;}
+    .nav-inner{padding:14px 20px;}
+    .hero{padding:80px 0 60px;}
+    .tier-grid,.channels-grid,.feed-grid,.rules-grid{grid-template-columns:1fr;}
+    .channel-desc{display:none;}
+    .section-header{flex-direction:column;gap:10px;}
+    .section-title{font-size:32px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark"></span>SMARTERPICKS</a>
+    <a href="index.html" class="nav-back">← Back to site</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.055a19.903 19.903 0 0 0 5.993 3.03.077.077 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
+      </svg>
+    </div>
+    <div class="hero-tag">Community</div>
+    <h1>The room where the <em>picks happen.</em></h1>
+    <p class="hero-sub">4,100+ bettors talking lines, sweating live games, and posting receipts in real time. Free to join — premium channels unlock the moment your subscription is active.</p>
+    <div class="hero-stats">
+      <span><span class="live-dot"></span><strong>312 online now</strong></span>
+      <span><strong>4,143</strong> total members</span>
+      <span><strong>~1,200</strong> messages / day</span>
+    </div>
+  </div>
+</section>
+
+<!-- TIERS -->
+<section class="tiers">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-tag">Two ways in</div>
+        <h2 class="section-title">Free <em>or</em> premium.</h2>
+      </div>
+      <div class="section-meta">Members get the full server</div>
+    </div>
+
+    <div class="tier-grid">
+      <div class="tier">
+        <div class="tier-tag">Free</div>
+        <div class="tier-name">Public <em>channels</em></div>
+        <p class="tier-sub">Open to anyone. Daily free pick, general game chat, bankroll talk, and the public track record.</p>
+        <ul>
+          <li><span class="chk">✓</span> Today's free pick + reasoning</li>
+          <li><span class="chk">✓</span> Live game chat for every major slate</li>
+          <li><span class="chk">✓</span> Bankroll & strategy discussion</li>
+          <li><span class="chk">✓</span> Public track record & yesterday's results</li>
+          <li><span class="chk">✓</span> Welcome channel for new members</li>
+        </ul>
+        <a class="tier-btn discord" id="join-free-btn" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.055a19.903 19.903 0 0 0 5.993 3.03.077.077 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
+          </svg>
+          Join Free Discord
+        </a>
+      </div>
+
+      <div class="tier premium">
+        <div class="tier-badge">Members only</div>
+        <div class="tier-tag">Premium</div>
+        <div class="tier-name">Full <em>server</em></div>
+        <p class="tier-sub">Everything in Free, plus the daily card, line-move alerts, props discussion, and the brag board. Discord role activates instantly when you subscribe.</p>
+        <ul>
+          <li><span class="chk">✓</span> Full daily pick card delivered before lock</li>
+          <li><span class="chk">✓</span> Real-time line-movement alerts</li>
+          <li><span class="chk">✓</span> Player-prop discussion channel</li>
+          <li><span class="chk">✓</span> Late-night / west-coast game chat</li>
+          <li><span class="chk">✓</span> Brag board — members post wins</li>
+          <li><span class="chk">✓</span> Direct line to the analyst on tough plays</li>
+        </ul>
+        <a class="tier-btn gold" href="login.html">Get Premium — $29/mo →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHANNELS -->
+<section class="channels">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-tag">What's inside</div>
+        <h2 class="section-title">Every <em>channel.</em></h2>
+      </div>
+      <div class="section-meta">🔒 = Premium only</div>
+    </div>
+
+    <div class="channels-grid">
+      <div class="channels-intro">
+        <h3>Built for <em>bettors</em>, not Twitter clout.</h3>
+        <p>This is the <strong>working room</strong> — where members debate the next play, share screenshots of bets, and call out lines that look soft. Light moderation, no fluff, no "bro do you have any plays?" spam.</p>
+        <p>Premium members also get tagged the moment a line moves materially — usually within 60 seconds of the steam hitting the books. That alert alone has paid for the subscription for a lot of members.</p>
+        <p>If you've ever been in a sports Discord that's all hype and no math, this isn't that.</p>
+      </div>
+      <div class="channel-list">
+        <div class="channel-section-title">Free channels</div>
+        <div class="channel-row"><span class="channel-hash">#</span><span class="channel-name">welcome</span><span class="channel-desc">Start here · server rules</span></div>
+        <div class="channel-row"><span class="channel-hash">#</span><span class="channel-name">free-pick</span><span class="channel-desc">Today's free play + discussion</span></div>
+        <div class="channel-row"><span class="channel-hash">#</span><span class="channel-name">bankroll-talk</span><span class="channel-desc">Sizing, strategy, variance</span></div>
+        <div class="channel-row"><span class="channel-hash">#</span><span class="channel-name">game-chat</span><span class="channel-desc">Live during every major slate</span></div>
+        <div class="channel-row"><span class="channel-hash">#</span><span class="channel-name">track-record</span><span class="channel-desc">Yesterday's results, every day</span></div>
+
+        <div class="channel-section-title">Premium channels</div>
+        <div class="channel-row locked"><span class="channel-hash">#</span><span class="channel-name">daily-card</span><span class="channel-lock">🔒</span></div>
+        <div class="channel-row locked"><span class="channel-hash">#</span><span class="channel-name">line-moves</span><span class="channel-lock">🔒</span></div>
+        <div class="channel-row locked"><span class="channel-hash">#</span><span class="channel-name">props-board</span><span class="channel-lock">🔒</span></div>
+        <div class="channel-row locked"><span class="channel-hash">#</span><span class="channel-name">late-night</span><span class="channel-lock">🔒</span></div>
+        <div class="channel-row locked"><span class="channel-hash">#</span><span class="channel-name">brag-board</span><span class="channel-lock">🔒</span></div>
+        <div class="channel-row locked"><span class="channel-hash">#</span><span class="channel-name">ask-the-analyst</span><span class="channel-lock">🔒</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE FEED -->
+<section class="feed">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-tag">Recent activity</div>
+        <h2 class="section-title">A <em>peek inside.</em></h2>
+      </div>
+      <div class="section-meta"><span class="live-dot"></span> Server is live now</div>
+    </div>
+
+    <div class="feed-grid">
+      <div class="msg">
+        <div class="msg-avatar" style="background:#d4a843;">MR</div>
+        <div class="msg-body">
+          <div class="msg-meta">
+            <span class="msg-name">Marcus R.</span>
+            <span class="msg-channel">#brag-board</span>
+            <span class="msg-time">today · 11:42 PM</span>
+          </div>
+          <div class="msg-text">Knicks +6.5 cashed at the buzzer 😤 up <span class="pick-tag">+1.91u</span> on the day. Best Discord I've ever paid for.</div>
+        </div>
+      </div>
+      <div class="msg">
+        <div class="msg-avatar" style="background:#6dbe7a;">JT</div>
+        <div class="msg-body">
+          <div class="msg-meta">
+            <span class="msg-name">Jade T.</span>
+            <span class="msg-channel">#line-moves</span>
+            <span class="msg-time">today · 8:13 PM</span>
+          </div>
+          <div class="msg-text">Heat/Cavs total just dropped from 218.5 → 216 across all four major books. Sharp money clearly on the under tonight.</div>
+        </div>
+      </div>
+      <div class="msg">
+        <div class="msg-avatar" style="background:#5865F2;">DK</div>
+        <div class="msg-body">
+          <div class="msg-meta">
+            <span class="msg-name">Devon K.</span>
+            <span class="msg-channel">#props-board</span>
+            <span class="msg-time">today · 7:01 PM</span>
+          </div>
+          <div class="msg-text">Anyone else hammering McDavid over 3.5 shots? +110 at FanDuel feels like free money tonight against Stars D.</div>
+        </div>
+      </div>
+      <div class="msg">
+        <div class="msg-avatar" style="background:#d96565;">SR</div>
+        <div class="msg-body">
+          <div class="msg-meta">
+            <span class="msg-name">Sam R. · admin</span>
+            <span class="msg-channel">#daily-card</span>
+            <span class="msg-time">today · 9:00 AM</span>
+          </div>
+          <div class="msg-text">📋 Today's card is live — 7 plays across NBA, MLB, NHL. Best bet flagged in the pinned message. Lock at 7:00 PM ET.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RULES -->
+<section class="rules">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-tag">House rules</div>
+        <h2 class="section-title">Keep it <em>useful.</em></h2>
+      </div>
+    </div>
+    <div class="rules-grid">
+      <div class="rule">
+        <div class="rule-num">01</div>
+        <div class="rule-title">No tout posts.</div>
+        <p class="rule-body">Don't promote other capper services, paid groups, or affiliate links. Discuss your own bets all you want — but no recruiting.</p>
+      </div>
+      <div class="rule">
+        <div class="rule-num">02</div>
+        <div class="rule-title">Numbers, not vibes.</div>
+        <p class="rule-body">If you're recommending a play, post the line, the book, and your reasoning. "I just feel like this is a lock" is not analysis.</p>
+      </div>
+      <div class="rule">
+        <div class="rule-num">03</div>
+        <div class="rule-title">Receipts welcome, leaks aren't.</div>
+        <p class="rule-body">Posting wins and losses in #brag-board is encouraged. Reposting the premium daily card outside the server gets you removed.</p>
+      </div>
+      <div class="rule">
+        <div class="rule-num">04</div>
+        <div class="rule-title">Bet responsibly.</div>
+        <p class="rule-body">If gambling stops being fun, talk to someone or use 1-800-GAMBLER. We'll never push you to bet more than you're comfortable with.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <div class="cta-tag">312 online right now</div>
+    <h2 class="cta-title">Pull up a <em>chair.</em></h2>
+    <p class="cta-sub">Free to join. Less than a minute to set up. The room's already going.</p>
+    <div class="cta-buttons">
+      <a class="btn-large discord" id="join-free-btn-2" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.055a19.903 19.903 0 0 0 5.993 3.03.077.077 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
+        </svg>
+        Join Free Discord
+      </a>
+      <a class="btn-large ghost" href="login.html">Get Premium — Discord role auto-assigned →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <div>© 2026 SMARTERPICKS · ALL RIGHTS RESERVED</div>
+      <div>
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+      <div>21+ · BET RESPONSIBLY · 1-800-GAMBLER</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ============================================================
+// SETUP — replace the placeholder with your real Discord invite
+// (the same link works for both Free and the in-page CTAs).
+// Premium members are added via Whop's automatic Discord role,
+// so they don't need a separate invite.
+// ============================================================
+const DISCORD_INVITE = "https://discord.gg/REPLACE-ME";
+
+document.querySelectorAll("#join-free-btn, #join-free-btn-2").forEach(btn => {
+  btn.href = DISCORD_INVITE;
+});
+</script>
+
+</body>
+</html>
