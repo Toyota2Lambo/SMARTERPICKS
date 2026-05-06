@@ -1,21 +1,18 @@
 // ============================================================
 // SMARTERPICKS — Picks Loader with Whop Membership Gating
 // ============================================================
-// How this works:
-//   1. Page loads → checks if user is logged in (Whop token)
-//   2. If logged in → verifies they have an active membership
-//   3. Members see all picks (free + premium)
-//   4. Non-members see 1 free pick + locked cards
-//   5. picks.json is fetched and rendered accordingly
+// Reads whop_token + whop_user_id set by login.html, then asks
+// Whop "does this user have access to ACCESS_PASS_ID?". If yes,
+// premium picks unlock. If no token or no access, only the free
+// pick is shown — every other card is rendered as a locked teaser.
 //
-// SETUP: Replace YOUR_WHOP_CLIENT_ID below with your Whop
-// OAuth app client ID (get it from whop.com/developer)
+// THE ONE THING TO KEEP IN SYNC WITH login.html:
+//   ACCESS_PASS_ID — must match what login.html checks
 // ============================================================
 
 const WHOP_CONFIG = {
-  CLIENT_ID:    "YOUR_WHOP_CLIENT_ID",
-  REDIRECT_URI: "https://smarterpicks.io/login.html",
-  WHOP_API:     "https://api.whop.com/api/v2",
+  ACCESS_PASS_ID: "biz_wDYY7HRvnDbvw2",
+  ACCESS_BASE:    "https://api.whop.com/api/v1/users",
 };
 
 // ── STATE ──────────────────────────────────────────────────
@@ -31,38 +28,29 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // ── MEMBERSHIP CHECK ───────────────────────────────────────
 async function checkMembership() {
-  const token = localStorage.getItem("whop_token");
-  if (!token) {
-    isMember = false;
-    return;
-  }
+  const token  = localStorage.getItem("whop_token");
+  const userId = localStorage.getItem("whop_user_id");
+  if (!token || !userId) { isMember = false; return; }
 
   try {
-    // Verify token is still valid by calling Whop API
-    const res = await fetch(`${WHOP_CONFIG.WHOP_API}/me`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
+    const res = await fetch(
+      `${WHOP_CONFIG.ACCESS_BASE}/${userId}/access/${WHOP_CONFIG.ACCESS_PASS_ID}`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
 
-    if (!res.ok) {
-      // Token expired or invalid — clear it
+    if (res.status === 401) {
+      // Token expired or revoked — clear so they re-auth next visit
       localStorage.removeItem("whop_token");
+      localStorage.removeItem("whop_user_id");
+      localStorage.removeItem("whop_refresh");
       isMember = false;
       return;
     }
+    if (!res.ok) { isMember = false; return; }
 
-    const user = await res.json();
-    currentUser = user;
-
-    // Check if they have an active membership
-    const memberRes = await fetch(`${WHOP_CONFIG.WHOP_API}/memberships?status=active`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-
-    if (memberRes.ok) {
-      const memberData = await memberRes.json();
-      isMember = memberData.data && memberData.data.length > 0;
-    }
-
+    const data = await res.json();
+    isMember = !!data.has_access;
+    currentUser = { id: userId };
   } catch (err) {
     console.warn("Membership check failed:", err.message);
     isMember = false;
@@ -74,9 +62,8 @@ function updateNavState() {
   const loginBtn = document.getElementById("nav-login-btn");
   if (!loginBtn) return;
 
-  if (currentUser) {
-    const name = currentUser.username || currentUser.email || "Member";
-    loginBtn.textContent = `Hi, ${name.split(" ")[0]}`;
+  if (isMember) {
+    loginBtn.textContent = "Member";
     loginBtn.href = "https://whop.com/smarterpicks/hub";
   } else {
     loginBtn.textContent = "Login";
@@ -253,17 +240,3 @@ function getTodayString() {
   });
 }
 
-// ── WHOP OAUTH CALLBACK HANDLER ────────────────────────────
-// When Whop redirects back with a token in the URL hash,
-// this catches it and saves it automatically.
-(function handleWhopCallback() {
-  const hash = window.location.hash;
-  if (hash && hash.includes("access_token")) {
-    const params = new URLSearchParams(hash.slice(1));
-    const token  = params.get("access_token");
-    if (token) {
-      localStorage.setItem("whop_token", token);
-      history.replaceState(null, "", window.location.pathname);
-    }
-  }
-})();
