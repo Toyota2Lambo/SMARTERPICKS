@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — SMARTERPICKS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0a0a0a;--text:#f4efe4;--text-muted:#8a8580;--text-dim:#5a5550;--accent:#d4a843;
+        --display:"Fraunces",serif;--mono:"JetBrains Mono",monospace;--body:"Inter Tight",sans-serif;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;position:relative;overflow:hidden;}
+  body::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(212,168,67,.08),transparent 60%);pointer-events:none;}
+  .stamp{font-family:var(--display);font-style:italic;font-weight:300;font-size:clamp(120px,18vw,220px);line-height:1;letter-spacing:-.04em;color:var(--accent);position:relative;}
+  .stamp::after{content:"";display:block;width:80px;height:1px;background:var(--accent);margin:30px auto 28px;}
+  .label{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;position:relative;}
+  h1{font-family:var(--display);font-size:clamp(36px,5vw,52px);font-weight:400;letter-spacing:-.02em;line-height:1.05;margin-bottom:16px;max-width:18ch;position:relative;}
+  h1 em{font-style:italic;color:var(--accent);}
+  p{color:var(--text-muted);font-size:16px;line-height:1.6;max-width:42ch;margin-bottom:36px;position:relative;}
+  .actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;position:relative;}
+  a{font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:15px 26px;text-decoration:none;transition:transform .2s, background .2s;}
+  .gold{background:var(--accent);color:#000;}
+  .gold:hover{background:#e6b950;transform:translateY(-2px);}
+  .ghost{background:transparent;color:var(--text);border:1px solid #3a3a3a;}
+  .ghost:hover{border-color:var(--text-muted);}
+  .footer{position:absolute;bottom:24px;font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.05em;}
+</style>
+</head>
+<body>
+  <div class="stamp">404</div>
+  <div class="label">Out of bounds</div>
+  <h1>That play <em>didn't hit.</em></h1>
+  <p>The page you're looking for doesn't exist — maybe it moved, maybe it was never here. Today's pick card is one click away.</p>
+  <div class="actions">
+    <a href="/" class="gold">See today's picks →</a>
+    <a href="/login.html" class="ghost">Sign in</a>
+  </div>
+  <div class="footer">SMARTERPICKS · 21+ · BET RESPONSIBLY</div>
+</body>
+</html>
