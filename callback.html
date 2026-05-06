@@ -60,7 +60,7 @@ const CONFIG = {
 
   TOKEN_URL:    "https://api.whop.com/oauth/token",
   USERINFO_URL: "https://api.whop.com/oauth/userinfo",
-  ACCESS_BASE:  "https://api.whop.com/api/users",
+  ACCESS_BASE:  "https://api.whop.com/api/v1/users",
 };
 
 function showError(title, msg, detail) {
@@ -134,11 +134,20 @@ function showSuccess(hasAccess) {
     const userId = user.sub || user.id;
 
     // 3) Check access against the premium product
-    const accessRes = await fetch(
-      `${CONFIG.ACCESS_BASE}/${userId}/access/${CONFIG.PRODUCT_ID}`,
-      { headers: { Authorization: `Bearer ${tokens.access_token}` } }
-    );
-    const access = accessRes.ok ? await accessRes.json() : { has_access: false };
+    const accessUrl = `${CONFIG.ACCESS_BASE}/${userId}/access/${CONFIG.PRODUCT_ID}`;
+    const accessRes = await fetch(accessUrl, {
+      headers: { Authorization: `Bearer ${tokens.access_token}` },
+    });
+    const accessText = await accessRes.text();
+    let access;
+    if (accessRes.ok) {
+      access = JSON.parse(accessText);
+    } else {
+      // Surface the real error so we can see what's wrong instead of silently
+      // pretending the user has no access.
+      console.error("Access check failed:", accessRes.status, accessText, "URL:", accessUrl);
+      throw new Error(`Access check failed (${accessRes.status}) ${accessText}`);
+    }
 
     // 4) Persist everything for picks-loader.js to read
     localStorage.setItem("whop_token",     tokens.access_token);
