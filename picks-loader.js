@@ -273,13 +273,18 @@ function getPremiumCount() {
 }
 
 function renderLoadingCard() {
-  return `
-    <div class="pick-card" style="grid-column:1/-1;text-align:center;padding:60px 32px;">
-      <div style="font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;">Loading</div>
-      <div style="font-family:var(--display);font-size:28px;font-weight:400;margin-bottom:12px;">Fetching today's picks...</div>
-      <div style="color:var(--text-muted);font-size:14px;">The daily card generates at 9am ET. Check back shortly.</div>
-    </div>
-  `;
+  // Used when picks.json can't be fetched — match the skeletons in index.html
+  // so the page degrades gracefully instead of flashing an error message.
+  const skeleton = `
+    <div class="pick-card">
+      <div class="skeleton-line" style="width:30%;"></div>
+      <div class="skeleton-line" style="width:65%;height:24px;margin-top:18px;"></div>
+      <div class="skeleton-line" style="width:90%;"></div>
+      <div class="skeleton-line" style="width:100%;height:60px;margin-top:18px;"></div>
+      <div class="skeleton-line" style="width:80%;height:12px;margin-top:18px;"></div>
+      <div class="skeleton-line" style="width:60%;height:12px;"></div>
+    </div>`;
+  return skeleton.repeat(3);
 }
 
 function escHtml(str) {
