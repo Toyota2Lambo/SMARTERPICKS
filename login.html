@@ -147,11 +147,16 @@
       <!-- DEFAULT STATE -->
       <div class="auth-panel active" id="panel-default">
         <div class="auth-title">Get the <em>full</em> card.</div>
-        <p class="auth-sub">One button signs you in or starts your subscription. Whop handles login + payment securely.</p>
+        <p class="auth-sub">New here? Subscribe and Whop sets up your account at checkout. Already a member? Sign in below.</p>
 
-        <button class="btn-full btn-gold" onclick="startWhopLogin()" style="margin-bottom:24px;">
-          Continue with Whop →
-        </button>
+        <a id="subscribe-btn" class="btn-full btn-gold" href="#" target="_blank" rel="noopener" style="margin-bottom:14px;">
+          Subscribe — $29/mo →
+        </a>
+
+        <p style="text-align:center;font-size:13px;color:var(--text-muted);margin-bottom:24px;">
+          Already a member?
+          <a href="#" onclick="event.preventDefault(); startWhopLogin();" style="color:var(--accent);text-decoration:underline;text-underline-offset:3px;margin-left:4px;">Sign in with Whop →</a>
+        </p>
 
         <div class="divider">
           <div class="divider-line"></div>
@@ -221,7 +226,7 @@
         <button class="btn-full btn-ghost" onclick="resetToDefault()">← Back</button>
 
         <div class="legal-text">
-          After paying, return to this page and click <em>Continue with Whop</em> again — your access will unlock automatically.
+          After paying, return to this page and click <em>Sign in with Whop</em> — your access will unlock automatically.
         </div>
       </div>
 
@@ -348,17 +353,33 @@ async function startWhopLogin() {
   window.location.href = `${CONFIG.AUTHORIZE_URL}?${params}`;
 }
 
-// Wire the no-access subscribe button to the currently-selected plan
+// Point both subscribe buttons (default panel + no-access panel) at the
+// currently-selected plan's Whop checkout link, and update the default
+// button's label so users see the price they're about to pay.
 function wireCheckoutButton() {
-  const cta = document.getElementById("checkout-btn");
-  if (!cta) return;
-  cta.href = selectedPlan === "annual"
+  const url = selectedPlan === "annual"
     ? CONFIG.CHECKOUT_URL_ANNUAL
     : CONFIG.CHECKOUT_URL_MONTHLY;
+  const label = selectedPlan === "annual"
+    ? "Subscribe — $199/yr →"
+    : "Subscribe — $29/mo →";
+
+  const noAccessCta = document.getElementById("checkout-btn");
+  if (noAccessCta) noAccessCta.href = url;
+
+  const subBtn = document.getElementById("subscribe-btn");
+  if (subBtn) {
+    subBtn.href = url;
+    subBtn.textContent = label;
+  }
 }
 
 // ── Init: read access state stored by callback.html ──
 (function init() {
+  // Always wire both subscribe buttons so the default panel's CTA has a
+  // working href before the user touches the plan toggle.
+  wireCheckoutButton();
+
   const params = new URLSearchParams(window.location.search);
   const err = params.get("error");
   if (err) {
@@ -376,7 +397,6 @@ function wireCheckoutButton() {
         return;
       }
       // Signed in but no membership — show subscribe CTA
-      wireCheckoutButton();
       showPanel("panel-no-access");
       return;
     } catch (_) { /* fall through to default */ }
