@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMARTERPICKS — Signing you in…</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0a0a0a;--bg-elevated:#131313;--bg-surface:#1a1a1a;
+    --border:#2a2a2a;--border-strong:#3a3a3a;
+    --text:#f4efe4;--text-muted:#8a8580;--text-dim:#5a5550;
+    --accent:#d4a843;--win:#6dbe7a;
+    --display:"Fraunces","Times New Roman",serif;
+    --body:"Inter Tight",-apple-system,BlinkMacSystemFont,sans-serif;
+    --mono:"JetBrains Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+  .card{max-width:440px;width:100%;text-align:center;}
+  .pulse{display:inline-block;width:48px;height:48px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:24px;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .icon{font-size:48px;margin-bottom:20px;}
+  h1{font-family:var(--display);font-size:32px;font-weight:400;letter-spacing:-.01em;margin-bottom:12px;}
+  h1 em{font-style:italic;color:var(--accent);}
+  p{color:var(--text-muted);font-size:14px;line-height:1.6;margin-bottom:24px;}
+  .btn{display:inline-block;background:var(--accent);color:#000;padding:14px 24px;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:none;}
+  .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border-strong);margin-left:8px;}
+  .err-detail{font-family:var(--mono);font-size:11px;color:var(--text-dim);margin-top:16px;word-break:break-word;}
+</style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="pulse" id="spinner"></div>
+    <h1 id="title">Signing you <em>in…</em></h1>
+    <p id="msg">Confirming your Whop membership.</p>
+    <div id="actions"></div>
+    <div class="err-detail" id="err-detail"></div>
+  </div>
+
+<script>
+// =============================================================
+// SMARTERPICKS — Whop OAuth callback handler
+// =============================================================
+// 1. Reads ?code, ?state from URL
+// 2. Verifies state + nonce against sessionStorage (PKCE)
+// 3. POSTs to /oauth/token to exchange code for tokens
+// 4. Fetches /oauth/userinfo to get the user's Whop ID
+// 5. Calls /api/users/{id}/access/{product_id} to check membership
+// 6. Stores everything in localStorage
+// 7. Redirects to index.html
+// =============================================================
+
+const CONFIG = {
+  CLIENT_ID:       "app_5RPKKi5gvHwpvo",
+  PRODUCT_ID:      "prod_4yaKtjgti7F9m",
+  REDIRECT_URI:    "https://sharp-line-red.vercel.app/callback.html",
+
+  TOKEN_URL:    "https://api.whop.com/oauth/token",
+  USERINFO_URL: "https://api.whop.com/oauth/userinfo",
+  ACCESS_BASE:  "https://api.whop.com/api/users",
+};
+
+function showError(title, msg, detail) {
+  document.getElementById("spinner").style.display = "none";
+  document.getElementById("title").innerHTML = title;
+  document.getElementById("msg").textContent = msg;
+  document.getElementById("err-detail").textContent = detail || "";
+  document.getElementById("actions").innerHTML =
+    '<a href="login.html" class="btn">Try again</a>' +
+    '<a href="index.html" class="btn btn-ghost">Home</a>';
+}
+
+function showSuccess(hasAccess) {
+  document.getElementById("spinner").style.display = "none";
+  if (hasAccess) {
+    document.getElementById("title").innerHTML = "You're <em>in.</em>";
+    document.getElementById("msg").textContent = "Premium unlocked. Redirecting…";
+  } else {
+    document.getElementById("title").innerHTML = "Almost <em>there.</em>";
+    document.getElementById("msg").textContent = "You're signed in but don't have an active subscription yet. Redirecting…";
+  }
+}
+
+(async function init() {
+  const params = new URLSearchParams(window.location.search);
+  const code  = params.get("code");
+  const state = params.get("state");
+  const err   = params.get("error");
+  const errDesc = params.get("error_description");
+
+  if (err) {
+    showError("Sign-in <em>failed.</em>", `Whop returned: ${err}`, errDesc || "");
+    return;
+  }
+  if (!code || !state) {
+    showError("Missing <em>code.</em>", "This page expects an OAuth redirect from Whop.");
+    return;
+  }
+
+  const stored = JSON.parse(sessionStorage.getItem("whop_pkce") || "null");
+  if (!stored || stored.state !== state) {
+    showError("State <em>mismatch.</em>", "Possible CSRF — please sign in again.");
+    return;
+  }
+
+  try {
+    // 1) Exchange code for tokens
+    const tokenRes = await fetch(CONFIG.TOKEN_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        grant_type:    "authorization_code",
+        code,
+        redirect_uri:  CONFIG.REDIRECT_URI,
+        client_id:     CONFIG.CLIENT_ID,
+        code_verifier: stored.codeVerifier,
+      }),
+    });
+    if (!tokenRes.ok) {
+      const text = await tokenRes.text().catch(() => "");
+      throw new Error(`Token exchange failed (${tokenRes.status}) ${text}`);
+    }
+    const tokens = await tokenRes.json();
+
+    // 2) Fetch user info
+    const userRes = await fetch(CONFIG.USERINFO_URL, {
+      headers: { Authorization: `Bearer ${tokens.access_token}` },
+    });
+    if (!userRes.ok) throw new Error(`Userinfo failed (${userRes.status})`);
+    const user = await userRes.json();
+    const userId = user.sub || user.id;
+
+    // 3) Check access against the premium product
+    const accessRes = await fetch(
+      `${CONFIG.ACCESS_BASE}/${userId}/access/${CONFIG.PRODUCT_ID}`,
+      { headers: { Authorization: `Bearer ${tokens.access_token}` } }
+    );
+    const access = accessRes.ok ? await accessRes.json() : { has_access: false };
+
+    // 4) Persist everything for picks-loader.js to read
+    localStorage.setItem("whop_token",     tokens.access_token);
+    if (tokens.refresh_token) localStorage.setItem("whop_refresh", tokens.refresh_token);
+    localStorage.setItem("whop_user_id",   userId);
+    localStorage.setItem("whop_user",      JSON.stringify(user));
+    localStorage.setItem("whop_access",    JSON.stringify(access));
+
+    sessionStorage.removeItem("whop_pkce");
+
+    // 5) Bounce to index.html (or back to login.html if no access, so they can hit Subscribe)
+    showSuccess(!!access.has_access);
+    setTimeout(() => {
+      window.location.href = access.has_access ? "index.html" : "login.html";
+    }, 1200);
+  } catch (e) {
+    console.error(e);
+    showError("Something <em>broke.</em>", "Couldn't complete sign in.", e.message);
+  }
+})();
+</script>
+</body>
+</html>
