@@ -173,17 +173,45 @@ async function loadPicks() {
   }
 }
 
+// Map league string -> sport icon emoji. Falls back to a neutral dot.
+function sportIcon(league) {
+  const s = String(league || "").toLowerCase();
+  if (s.includes("nba") || s.includes("basketball")) return "🏀";
+  if (s.includes("mlb") || s.includes("baseball"))   return "⚾";
+  if (s.includes("nhl") || s.includes("hockey"))     return "🏒";
+  if (s.includes("nfl") || s.includes("football"))   return "🏈";
+  if (s.includes("ufc") || s.includes("mma"))        return "🥊";
+  if (s.includes("soccer") || s.includes("epl"))     return "⚽";
+  if (s.includes("tennis"))                          return "🎾";
+  if (s.includes("golf") || s.includes("pga"))       return "⛳";
+  return "•";
+}
+
+// Pull confidence grade out of the tags array. Tags look like
+// "Confidence A", "Confidence B+", etc. Returns "a" / "b" / "c" / "".
+function confidenceClass(tags) {
+  const found = (tags || []).find(t => /confidence/i.test(t));
+  if (!found) return "";
+  const m = found.match(/confidence\s*([abc])/i);
+  return m ? `conf-${m[1].toLowerCase()}` : "";
+}
+
 // ── RENDER PICK CARD ───────────────────────────────────────
 function renderPickCard(pick) {
   const tags = (pick.tags || []).map(t => `<span class="tag">${escHtml(t)}</span>`).join("");
+  const icon = sportIcon(pick.league);
+  const confCls = confidenceClass(pick.tags);
 
   // Members see ALL picks fully
   if (isMember || !pick.is_premium) {
+    const classes = ["pick-card"];
+    if (isMember && pick.is_premium) classes.push("member-pick");
+    if (confCls) classes.push(confCls);
     return `
-      <div class="pick-card${isMember && pick.is_premium ? " member-pick" : ""}">
+      <div class="${classes.join(" ")}">
         ${isMember && pick.is_premium ? '<span class="lock-badge" style="background:var(--win);color:#000;">Members Only</span>' : ""}
         <div class="pick-header">
-          <span class="pick-league">${escHtml(pick.league)}</span>
+          <span class="pick-league"><span class="pick-icon">${icon}</span>${escHtml(pick.league)}</span>
           <span class="pick-time">${escHtml(pick.time)}</span>
         </div>
         <div class="pick-matchup">
@@ -209,7 +237,7 @@ function renderPickCard(pick) {
       <span class="lock-badge">Premium</span>
       <div class="pick-blur">
         <div class="pick-header">
-          <span class="pick-league">${escHtml(pick.league)}</span>
+          <span class="pick-league"><span class="pick-icon">${icon}</span>${escHtml(pick.league)}</span>
           <span class="pick-time">${escHtml(pick.time)}</span>
         </div>
         <div class="pick-matchup">
