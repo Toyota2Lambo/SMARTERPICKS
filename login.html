@@ -267,19 +267,14 @@
 // =============================================================
 
 const CONFIG = {
-  WHOP_CLIENT_ID:       "app_wHDIiOMhTVIujd",
-  WHOP_ACCESS_PASS_ID:  "biz_wDYY7HRvnDbvw2",
+  CLIENT_ID:            "app_5RPKKi5gvHwpvo",
+  REDIRECT_URI:         "https://sharp-line-red.vercel.app/callback.html",
   CHECKOUT_URL_MONTHLY: "https://whop.com/checkout/plan_VIlKaPMvfDPoj",
   CHECKOUT_URL_ANNUAL:  "https://whop.com/checkout/plan_UvETXgAfoUQj5",
 
   AUTHORIZE_URL: "https://api.whop.com/oauth/authorize",
-  TOKEN_URL:     "https://api.whop.com/oauth/token",
-  USERINFO_URL:  "https://api.whop.com/oauth/userinfo",
-  ACCESS_BASE:   "https://api.whop.com/api/v1/users",
   SCOPE:         "openid profile email",
 };
-
-const REDIRECT_URI = window.location.origin + window.location.pathname;
 let selectedPlan = "monthly";
 
 // ── PKCE helpers ──
@@ -337,93 +332,62 @@ async function startWhopLogin() {
   const codeVerifier = randomString(32);
   const challenge = base64url(await sha256(codeVerifier));
   const state = randomString(16);
-  sessionStorage.setItem("whop_pkce", JSON.stringify({ codeVerifier, state }));
+  const nonce = randomString(16);
+  sessionStorage.setItem("whop_pkce", JSON.stringify({ codeVerifier, state, nonce }));
 
   const params = new URLSearchParams({
     response_type: "code",
-    client_id: CONFIG.WHOP_CLIENT_ID,
-    redirect_uri: REDIRECT_URI,
+    client_id: CONFIG.CLIENT_ID,
+    redirect_uri: CONFIG.REDIRECT_URI,
     scope: CONFIG.SCOPE,
     state,
+    nonce,
     code_challenge: challenge,
     code_challenge_method: "S256",
   });
   window.location.href = `${CONFIG.AUTHORIZE_URL}?${params}`;
 }
 
-// ── 2) Handle callback (?code=…) ──
-async function handleCallback(code, state) {
-  showPanel("panel-loading");
+// Wire the no-access subscribe button to the currently-selected plan
+function wireCheckoutButton() {
+  const cta = document.getElementById("checkout-btn");
+  if (!cta) return;
+  cta.href = selectedPlan === "annual"
+    ? CONFIG.CHECKOUT_URL_ANNUAL
+    : CONFIG.CHECKOUT_URL_MONTHLY;
+}
 
-  const stored = JSON.parse(sessionStorage.getItem("whop_pkce") || "{}");
-  if (!stored.state || stored.state !== state) {
-    showError("Sign-in state didn't match (possible CSRF). Please try again.");
+// ── Init: read access state stored by callback.html ──
+(function init() {
+  const params = new URLSearchParams(window.location.search);
+  const err = params.get("error");
+  if (err) {
+    showError(`Whop returned: ${err}${params.get("error_description") ? " — " + params.get("error_description") : ""}`);
     return;
   }
 
-  try {
-    const tokenRes = await fetch(CONFIG.TOKEN_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        grant_type: "authorization_code",
-        code,
-        redirect_uri: REDIRECT_URI,
-        client_id: CONFIG.WHOP_CLIENT_ID,
-        code_verifier: stored.codeVerifier,
-      }),
-    });
-    if (!tokenRes.ok) throw new Error(`Token exchange failed (${tokenRes.status})`);
-    const tokens = await tokenRes.json();
-
-    const userRes = await fetch(CONFIG.USERINFO_URL, {
-      headers: { Authorization: `Bearer ${tokens.access_token}` },
-    });
-    if (!userRes.ok) throw new Error(`Userinfo failed (${userRes.status})`);
-    const user = await userRes.json();
-    const userId = user.sub || user.id;
-
-    localStorage.setItem("whop_token", tokens.access_token);
-    localStorage.setItem("whop_user_id", userId);
-    if (tokens.refresh_token) localStorage.setItem("whop_refresh", tokens.refresh_token);
-
-    sessionStorage.removeItem("whop_pkce");
-    history.replaceState(null, "", window.location.pathname);
-
-    const accessRes = await fetch(
-      `${CONFIG.ACCESS_BASE}/${userId}/access/${CONFIG.WHOP_ACCESS_PASS_ID}`,
-      { headers: { Authorization: `Bearer ${tokens.access_token}` } }
-    );
-    const access = accessRes.ok ? await accessRes.json() : { has_access: false };
-
-    if (access.has_access) {
-      showPanel("panel-success");
-      setTimeout(() => { window.location.href = "index.html"; }, 1200);
-    } else {
-      const cta = document.getElementById("checkout-btn");
-      if (cta) {
-        cta.href = selectedPlan === "annual"
-          ? CONFIG.CHECKOUT_URL_ANNUAL
-          : CONFIG.CHECKOUT_URL_MONTHLY;
+  const accessRaw = localStorage.getItem("whop_access");
+  if (accessRaw) {
+    try {
+      const access = JSON.parse(accessRaw);
+      if (access.has_access) {
+        showPanel("panel-success");
+        setTimeout(() => { window.location.href = "index.html"; }, 800);
+        return;
       }
+      // Signed in but no membership — show subscribe CTA
+      wireCheckoutButton();
       showPanel("panel-no-access");
-    }
-  } catch (err) {
-    console.error(err);
-    showError(err.message);
+      return;
+    } catch (_) { /* fall through to default */ }
   }
-}
 
-// ── 3) Init: detect callback or show default ──
-(function init() {
-  const params = new URLSearchParams(window.location.search);
-  const code  = params.get("code");
-  const state = params.get("state");
-  const err   = params.get("error");
-  if (err) { showError(`Whop returned: ${err}`); return; }
-  if (code && state) { handleCallback(code, state); return; }
   showPanel("panel-default");
 })();
+
+// Refresh the checkout link when the user toggles plan on the no-access panel
+const _origSelectPlan = selectPlan;
+selectPlan = function(p) { _origSelectPlan(p); wireCheckoutButton(); };
 </script>
 
 </body>
