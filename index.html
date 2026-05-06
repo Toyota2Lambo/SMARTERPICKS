@@ -240,6 +240,125 @@
     .pick-card.locked,.lock-btn,.ticker-track,.live-dot,.ticker-pulse{animation:none !important;}
     .fade-in{opacity:1;transform:none;transition:none;}
   }
+
+  /* ==========================================================
+     FEATURE LAYER — yesterday results, how it works, calculator,
+     P/L chart, FAQ, newsletter, mobile menu, sport icons,
+     confidence color rings
+     ========================================================== */
+
+  /* Sport icon prepended in pick-league badge */
+  .pick-icon{margin-right:6px;font-size:12px;line-height:1;display:inline-block;}
+
+  /* Confidence color accents — applied via class on .pick-card */
+  .pick-card.conf-a{border-left:3px solid var(--win);padding-left:29px;}
+  .pick-card.conf-b{border-left:3px solid var(--accent);padding-left:29px;}
+  .pick-card.conf-c{border-left:3px solid var(--text-dim);padding-left:29px;}
+
+  /* === YESTERDAY'S RESULTS === */
+  .yday{padding:48px 0 0;}
+  .yday-card{background:var(--bg-elevated);border:1px solid var(--border);padding:24px 28px;display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;}
+  .yday-tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);}
+  .yday-title{font-family:var(--display);font-size:22px;font-weight:400;letter-spacing:-.01em;line-height:1.15;margin-top:4px;}
+  .yday-pills{display:flex;gap:8px;flex-wrap:wrap;}
+  .yday-pill{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--border);background:var(--bg);}
+  .yday-pill.win{color:var(--win);border-color:rgba(109,190,122,.35);}
+  .yday-pill.loss{color:var(--loss);border-color:rgba(217,101,101,.35);}
+  .yday-pill.push{color:var(--push);}
+  .yday-net{font-family:var(--display);font-size:34px;font-weight:400;letter-spacing:-.02em;text-align:right;}
+  .yday-net.up{color:var(--win);}
+  .yday-net.down{color:var(--loss);}
+  .yday-net small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-top:4px;font-weight:400;}
+
+  /* === HOW IT WORKS === */
+  .how{padding:96px 0;border-bottom:1px solid var(--border);}
+  .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
+  .how-step{background:var(--bg);padding:36px 32px;}
+  .how-num{font-family:var(--display);font-size:48px;font-weight:300;font-style:italic;color:var(--accent);line-height:1;margin-bottom:18px;letter-spacing:-.02em;}
+  .how-title{font-family:var(--display);font-size:22px;font-weight:400;letter-spacing:-.01em;margin-bottom:10px;}
+  .how-body{color:var(--text-muted);font-size:14px;line-height:1.65;}
+
+  /* === PROFIT CALCULATOR === */
+  .calc{background:var(--bg-elevated);border:1px solid var(--border);padding:32px;margin-bottom:48px;display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center;}
+  .calc-left{display:flex;flex-direction:column;gap:14px;}
+  .calc-tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);}
+  .calc-title{font-family:var(--display);font-size:24px;font-weight:400;letter-spacing:-.01em;line-height:1.2;}
+  .calc-row{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);}
+  .calc-slider{-webkit-appearance:none;appearance:none;flex:1;height:4px;background:var(--border);outline:none;cursor:pointer;}
+  .calc-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;background:var(--accent);cursor:pointer;border:none;border-radius:0;}
+  .calc-slider::-moz-range-thumb{width:18px;height:18px;background:var(--accent);cursor:pointer;border:none;border-radius:0;}
+  .calc-unit{min-width:62px;text-align:right;color:var(--text);font-weight:700;}
+  .calc-out{text-align:right;}
+  .calc-out-num{font-family:var(--display);font-size:54px;font-weight:400;letter-spacing:-.03em;line-height:1;color:var(--win);}
+  .calc-out-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-top:8px;}
+
+  /* === CUMULATIVE P/L CHART === */
+  .chart-wrap{background:var(--bg-elevated);border:1px solid var(--border);padding:28px;margin-bottom:32px;}
+  .chart-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px;flex-wrap:wrap;gap:14px;}
+  .chart-title{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);}
+  .chart-now{font-family:var(--display);font-size:28px;font-weight:400;letter-spacing:-.02em;color:var(--win);}
+  .chart-svg{width:100%;height:200px;display:block;}
+  .chart-line{fill:none;stroke:var(--accent);stroke-width:2;}
+  .chart-fill{fill:url(#chartGrad);}
+  .chart-grid{stroke:var(--border);stroke-width:1;stroke-dasharray:2 4;}
+  .chart-axis{font-family:var(--mono);font-size:10px;fill:var(--text-dim);letter-spacing:.06em;}
+  .chart-pulse{fill:var(--accent);}
+
+  /* === FAQ ACCORDION === */
+  .faq{padding:96px 0;border-bottom:1px solid var(--border);}
+  .faq-list{border:1px solid var(--border);}
+  .faq-item{border-bottom:1px solid var(--border);}
+  .faq-item:last-child{border-bottom:none;}
+  .faq-q{display:flex;justify-content:space-between;align-items:center;padding:22px 26px;cursor:pointer;font-family:var(--display);font-size:18px;font-weight:400;letter-spacing:-.01em;background:transparent;border:none;width:100%;text-align:left;color:var(--text);transition:background .2s;}
+  .faq-q:hover{background:var(--bg-elevated);}
+  .faq-icon{font-family:var(--mono);font-size:18px;color:var(--accent);transition:transform .25s;flex-shrink:0;margin-left:14px;}
+  .faq-item.open .faq-icon{transform:rotate(45deg);}
+  .faq-a{padding:0 26px;max-height:0;overflow:hidden;transition:max-height .35s ease, padding .35s ease;color:var(--text-muted);font-size:14px;line-height:1.7;}
+  .faq-item.open .faq-a{padding:0 26px 24px;max-height:500px;}
+
+  /* === NEWSLETTER === */
+  .news{padding:64px 0;border-bottom:1px solid var(--border);background:var(--bg-elevated);}
+  .news-grid{display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center;}
+  .news-tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+  .news-title{font-family:var(--display);font-size:28px;font-weight:400;letter-spacing:-.01em;line-height:1.2;}
+  .news-title em{font-style:italic;color:var(--accent);}
+  .news-sub{color:var(--text-muted);font-size:14px;margin-top:6px;}
+  .news-form{display:flex;gap:10px;}
+  .news-input{background:var(--bg);border:1px solid var(--border-strong);padding:14px 16px;color:var(--text);font-family:var(--body);font-size:14px;outline:none;min-width:260px;transition:border-color .2s;}
+  .news-input:focus{border-color:var(--accent);}
+  .news-btn{background:var(--accent);color:#000;border:none;padding:0 22px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:background .2s;}
+  .news-btn:hover{background:#e6b950;}
+  .news-ok{font-family:var(--mono);font-size:12px;color:var(--win);letter-spacing:.06em;text-transform:uppercase;}
+
+  /* === MOBILE NAV (hamburger + drawer) === */
+  .nav-burger{display:none;width:40px;height:40px;background:transparent;border:1px solid var(--border);cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px;padding:0;}
+  .nav-burger span{width:18px;height:1px;background:var(--text);transition:transform .25s, opacity .25s;}
+  .nav-burger.open span:nth-child(1){transform:translateY(3px) rotate(45deg);}
+  .nav-burger.open span:nth-child(2){opacity:0;}
+  .nav-burger.open span:nth-child(3){transform:translateY(-3px) rotate(-45deg);}
+  .mobile-drawer{position:fixed;top:0;right:0;bottom:0;width:min(86vw,340px);background:var(--bg-elevated);border-left:1px solid var(--border);transform:translateX(100%);transition:transform .3s cubic-bezier(.2,.7,.2,1);z-index:60;display:flex;flex-direction:column;padding:24px;gap:20px;}
+  .mobile-drawer.open{transform:translateX(0);}
+  .mobile-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .3s;z-index:55;}
+  .mobile-backdrop.open{opacity:1;pointer-events:auto;}
+  .mobile-drawer .close{align-self:flex-end;background:none;border:none;color:var(--text-muted);font-family:var(--mono);font-size:13px;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;padding:6px 8px;}
+  .mobile-drawer ul{list-style:none;display:flex;flex-direction:column;gap:4px;margin:0;padding:0;}
+  .mobile-drawer li a{display:block;padding:14px 6px;color:var(--text);text-decoration:none;font-size:18px;border-bottom:1px solid var(--border);font-family:var(--display);font-weight:400;letter-spacing:-.01em;}
+  .mobile-drawer .drawer-cta{margin-top:auto;display:flex;flex-direction:column;gap:10px;}
+
+  @media(max-width:960px){
+    .nav-links{display:none;}
+    .nav-right .nav-cta,.nav-right .nav-login{display:none;}
+    .nav-burger{display:flex;}
+    .yday-card{grid-template-columns:1fr;text-align:center;}
+    .yday-net{text-align:center;}
+    .yday-pills{justify-content:center;}
+    .how-grid{grid-template-columns:1fr;}
+    .calc{grid-template-columns:1fr;text-align:center;}
+    .calc-out{text-align:center;}
+    .news-grid{grid-template-columns:1fr;}
+    .news-form{flex-direction:column;}
+    .news-input{min-width:0;width:100%;}
+  }
 </style>
 </head>
 <body>
@@ -271,9 +390,30 @@
       <!-- WHOP LOGIN BUTTON: replace the href with your Whop login URL -->
       <a href="login.html" class="nav-login">Login</a>
       <a href="login.html" class="nav-cta">Go Premium ↗</a>
+      <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </nav>
+
+<!-- MOBILE NAV DRAWER -->
+<div class="mobile-backdrop" id="mobile-backdrop"></div>
+<aside class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+  <button class="close" id="mobile-close" aria-label="Close menu">Close ✕</button>
+  <ul>
+    <li><a href="#slate">Today's Picks</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#record">Track Record</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#" target="_blank" rel="noopener">Discord</a></li>
+  </ul>
+  <div class="drawer-cta">
+    <a href="login.html" class="btn-secondary" style="text-align:center;">Login</a>
+    <a href="login.html" class="btn-primary" style="text-align:center;">Go Premium ↗</a>
+  </div>
+</aside>
 
 <!-- HERO -->
 <section class="hero">
@@ -296,6 +436,26 @@
       <div class="stat"><div class="stat-num">412</div><div class="stat-label">Picks Logged Public</div></div>
       <div class="stat"><div class="stat-num">4.1k</div><div class="stat-label">Active Members</div></div>
       <div class="stat"><div class="stat-num">7<span style="font-size:22px;color:var(--text-muted)">-day</span></div><div class="stat-label">Money-Back Guarantee</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     YESTERDAY'S RESULTS — populated from results.json by the
+     polish-layer script. Hidden gracefully if results.json fails.
+     ============================================================ -->
+<section class="yday" id="yday-section" style="display:none;">
+  <div class="container">
+    <div class="yday-card">
+      <div>
+        <div class="yday-tag">Yesterday's results · <span id="yday-date">—</span></div>
+        <div class="yday-title">Posted publicly. <em style="font-style:italic;color:var(--accent);">Receipts visible.</em></div>
+      </div>
+      <div class="yday-pills" id="yday-pills"></div>
+      <div class="yday-net" id="yday-net">
+        <span id="yday-net-num">+0u</span>
+        <small id="yday-net-record">0-0</small>
+      </div>
     </div>
   </div>
 </section>
@@ -360,6 +520,36 @@
   </div>
 </div>
 
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-tag">Methodology</div>
+        <h2 class="section-title">How we <em>find the edges.</em></h2>
+      </div>
+      <div class="section-meta">Same process every morning · before lock</div>
+    </div>
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="how-num">01</div>
+        <div class="how-title">We pull every line.</div>
+        <p class="how-body">Live odds from DraftKings, FanDuel, Caesars, BetMGM and more — every morning, every market. We're watching openers, steam, and reverse-line moves before the public sees them.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">02</div>
+        <div class="how-title">AI hunts the edges.</div>
+        <p class="how-body">Every game gets analyzed for situational angles, pace, matchup edges, and pricing inefficiencies. The model surfaces the plays where the number is mispriced — not just where the team is "good."</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">03</div>
+        <div class="how-title">You bet the best plays.</div>
+        <p class="how-body">Full card published by 9am ET with reasoning, stake size, and confidence. No vague "lean", no recap of yesterday — just today's plays, with the why attached. Bet legally, bet responsibly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PRICING -->
 <section class="pricing" id="pricing">
   <div class="container">
@@ -370,6 +560,25 @@
       </div>
       <div class="section-meta">No upsells. No VIP tier. Just picks.</div>
     </div>
+
+    <!-- PROFIT CALCULATOR — interactive widget. Pulls last 30 days of units
+         from history.json and multiplies by the user's chosen unit size. -->
+    <div class="calc">
+      <div class="calc-left">
+        <div class="calc-tag">Math · last 30 days</div>
+        <div class="calc-title">If you'd bet <em style="font-style:italic;color:var(--accent);">your number</em> per unit, you'd be up:</div>
+        <div class="calc-row">
+          <span>Unit size</span>
+          <input type="range" min="10" max="500" step="5" value="50" class="calc-slider" id="calc-slider">
+          <span class="calc-unit" id="calc-unit-label">$50</span>
+        </div>
+      </div>
+      <div class="calc-out">
+        <div class="calc-out-num" id="calc-output">+$0</div>
+        <div class="calc-out-label" id="calc-out-detail">following the full card · last 30 days</div>
+      </div>
+    </div>
+
     <div class="plans-grid">
 
       <div class="plan">
@@ -448,6 +657,23 @@
       </div>
       <div class="section-meta">Updated nightly · every result logged</div>
     </div>
+    <!-- CUMULATIVE P/L CHART — populated by polish-layer from history.json -->
+    <div class="chart-wrap" id="chart-wrap" style="display:none;">
+      <div class="chart-header">
+        <div class="chart-title">Cumulative units · <span id="chart-range">last 36 days</span></div>
+        <div class="chart-now" id="chart-now">+0u</div>
+      </div>
+      <svg class="chart-svg" id="chart-svg" viewBox="0 0 800 200" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"  stop-color="#d4a843" stop-opacity="0.28"/>
+            <stop offset="100%" stop-color="#d4a843" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <!-- grid + paths injected at runtime -->
+      </svg>
+    </div>
+
     <div class="record-grid">
       <div class="record-intro">
         <p>Every pick is logged before the game and updated after. Losses stay in the record — we don't hide them. Every tipster claiming 80%+ is either lying or showing you their best 6 picks from a lucky week.</p>
@@ -518,6 +744,70 @@
           <div class="testi-result">+22u</div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-tag">Common questions</div>
+        <h2 class="section-title">Before you <em>subscribe.</em></h2>
+      </div>
+      <div class="section-meta">Email support@smarterpicks.io for anything else</div>
+    </div>
+    <div class="faq-list" id="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">How are the picks generated?<span class="faq-icon">+</span></button>
+        <div class="faq-a">We pull live odds from every major sportsbook each morning, then run them through models that look for line moves, situational angles, and matchup edges. The strongest plays get published as the daily card before lock — usually 5 to 8 picks across the major leagues in season.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Why should I trust you over [random capper on Twitter]?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Because every pick is logged before the game and updated after. The losses stay in the record — we don't quietly delete them. We aim for 53–58% over hundreds of plays, which is what realistic edge actually looks like. Anyone claiming 80%+ is either lying or cherry-picking their best week.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What's a "unit"?<span class="faq-icon">+</span></button>
+        <div class="faq-a">A unit is your standard bet size — pick whatever fits your bankroll and stick with it. If you bet $50/unit, a "1u play" risks $50 and a "2u play" risks $100. We size between 1u (speculative) and 2u (strong) based on confidence. Never bet more than you'd be okay losing.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What happens if I lose money my first month?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Sports betting has variance — even sharp bettors have losing weeks. That's the math. If you don't feel like the service is for you in the first 7 days, email support and we refund you the same day, no runaround. After that, we recommend judging the service over a full month, not a single bad slate.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How often do I get picks?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Every day. The full card publishes at 9am ET — typically 5 to 8 plays across NBA, MLB, NHL, and NFL (in season). Members get the full card; non-members see one free pick + locked teasers.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I cancel anytime?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Yes — one click from the Whop dashboard. No retention emails, no "are you sure" loop, no calling a phone number. Annual plans get a pro-rated refund for unused time.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is sports betting legal in my state?<span class="faq-icon">+</span></button>
+        <div class="faq-a">SmarterPicks publishes analysis only — we don't take wagers and we're not a sportsbook. Whether you can place these bets depends on your state's laws. Use legal, licensed sportsbooks where available. 21+. If gambling stops being fun, call 1-800-GAMBLER.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do I need a Discord account?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Optional but free. Premium picks land in the private Discord channel and on the website — same content either way. Discord is where most member discussion happens, but you can use the site by itself if you'd rather.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="news" id="newsletter">
+  <div class="container">
+    <div class="news-grid">
+      <div>
+        <div class="news-tag">Free morning brief</div>
+        <h3 class="news-title">Today's <em>free pick</em>, in your inbox by 9am.</h3>
+        <p class="news-sub">One pick a day with full reasoning. No spam. Unsubscribe in one click.</p>
+      </div>
+      <form class="news-form" id="news-form">
+        <input class="news-input" type="email" id="news-email" placeholder="you@email.com" required autocomplete="email">
+        <button type="submit" class="news-btn">Sign up →</button>
+      </form>
     </div>
   </div>
 </section>
@@ -681,6 +971,193 @@
       if (t < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
+  }
+})();
+
+// ============================================================
+// FEATURE LAYER — yesterday's results, P/L chart, calculator,
+// FAQ accordion, mobile drawer, newsletter
+// ============================================================
+(function () {
+
+  // ---------- 1) YESTERDAY'S RESULTS ----------
+  fetch("results.json?v=" + Date.now())
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(data => {
+      const wrap = document.getElementById("yday-section");
+      if (!wrap || !data) return;
+      const dateEl = document.getElementById("yday-date");
+      const pillsEl = document.getElementById("yday-pills");
+      const numEl = document.getElementById("yday-net-num");
+      const recEl = document.getElementById("yday-net-record");
+      const netEl = document.getElementById("yday-net");
+
+      if (dateEl) dateEl.textContent = data.date || "yesterday";
+      if (recEl)  recEl.textContent  = `${data.wins || 0}-${data.losses || 0}${data.pushes ? "-" + data.pushes : ""} record`;
+
+      const net = Number(data.net_units || 0);
+      if (numEl) numEl.textContent = (net >= 0 ? "+" : "") + net.toFixed(1) + "u";
+      if (netEl) netEl.classList.add(net >= 0 ? "up" : "down");
+
+      if (pillsEl) {
+        pillsEl.innerHTML = (data.picks || []).map(p => {
+          const cls = p.result === "WON" ? "win" : p.result === "LOST" ? "loss" : "push";
+          const sym = p.result === "WON" ? "✓" : p.result === "LOST" ? "✗" : "—";
+          return `<span class="yday-pill ${cls}">${sym} ${escHtml2(p.pick)}</span>`;
+        }).join("");
+      }
+      wrap.style.display = "";
+    })
+    .catch(() => { /* leave hidden */ });
+
+  function escHtml2(s) {
+    return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  // ---------- 2) CUMULATIVE P/L CHART ----------
+  let _historyCache = null;
+  fetch("history.json?v=" + Date.now())
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(data => {
+      _historyCache = data;
+      renderChart(data);
+      wireCalculator(data);
+    })
+    .catch(() => { /* leave chart + calculator hidden / static */ });
+
+  function renderChart(data) {
+    const wrap = document.getElementById("chart-wrap");
+    const svg = document.getElementById("chart-svg");
+    if (!wrap || !svg || !data || !data.daily || data.daily.length < 2) return;
+
+    const W = 800, H = 200, PAD_X = 40, PAD_Y = 24;
+    const points = data.daily;
+    const cums = points.map(p => p.cumulative);
+    const minY = Math.min(0, ...cums);
+    const maxY = Math.max(...cums);
+    const yRange = (maxY - minY) || 1;
+
+    const xStep = (W - PAD_X * 2) / (points.length - 1);
+    const yScale = (v) => PAD_Y + (H - PAD_Y * 2) * (1 - (v - minY) / yRange);
+
+    const linePath = points.map((p, i) => {
+      const x = PAD_X + i * xStep;
+      const y = yScale(p.cumulative);
+      return `${i === 0 ? "M" : "L"} ${x.toFixed(2)} ${y.toFixed(2)}`;
+    }).join(" ");
+
+    const fillPath = `${linePath} L ${(PAD_X + (points.length - 1) * xStep).toFixed(2)} ${H - PAD_Y} L ${PAD_X} ${H - PAD_Y} Z`;
+
+    // Build inner SVG content
+    const grid = `
+      <line class="chart-grid" x1="${PAD_X}" y1="${yScale(0)}" x2="${W - PAD_X}" y2="${yScale(0)}"/>
+    `;
+    const xLabels = `
+      <text class="chart-axis" x="${PAD_X}" y="${H - 6}" text-anchor="start">${points[0].date.slice(5)}</text>
+      <text class="chart-axis" x="${W - PAD_X}" y="${H - 6}" text-anchor="end">${points[points.length-1].date.slice(5)}</text>
+    `;
+    const yLabels = `
+      <text class="chart-axis" x="6" y="${yScale(maxY) + 4}" text-anchor="start">+${maxY.toFixed(1)}u</text>
+      <text class="chart-axis" x="6" y="${yScale(minY) - 4}" text-anchor="start">${minY >= 0 ? "+" : ""}${minY.toFixed(1)}u</text>
+    `;
+    const lastX = PAD_X + (points.length - 1) * xStep;
+    const lastY = yScale(cums[cums.length - 1]);
+    const pulse = `
+      <circle class="chart-pulse" cx="${lastX.toFixed(2)}" cy="${lastY.toFixed(2)}" r="4"/>
+      <circle class="chart-pulse" cx="${lastX.toFixed(2)}" cy="${lastY.toFixed(2)}" r="9" opacity="0.25"/>
+    `;
+
+    // Insert paths after <defs> (already in markup)
+    const defs = svg.querySelector("defs");
+    const inner = grid + `<path class="chart-fill" d="${fillPath}"/>` +
+                          `<path class="chart-line" d="${linePath}"/>` +
+                          xLabels + yLabels + pulse;
+    // Wipe everything after <defs>, then append our new content
+    while (defs.nextSibling) svg.removeChild(defs.nextSibling);
+    svg.insertAdjacentHTML("beforeend", inner);
+
+    const nowEl = document.getElementById("chart-now");
+    if (nowEl) {
+      const v = cums[cums.length - 1];
+      nowEl.textContent = (v >= 0 ? "+" : "") + v.toFixed(1) + "u";
+      nowEl.style.color = v >= 0 ? "var(--win)" : "var(--loss)";
+    }
+    const rangeEl = document.getElementById("chart-range");
+    if (rangeEl) rangeEl.textContent = `last ${points.length} days`;
+
+    wrap.style.display = "";
+  }
+
+  // ---------- 3) PROFIT CALCULATOR ----------
+  function wireCalculator(data) {
+    const slider = document.getElementById("calc-slider");
+    const unitLabel = document.getElementById("calc-unit-label");
+    const out = document.getElementById("calc-output");
+    const detail = document.getElementById("calc-out-detail");
+    if (!slider || !out || !data) return;
+
+    // Use last 30 days (or all if less)
+    const days = data.daily.slice(-30);
+    const totalUnits = days.reduce((s, d) => s + (Number(d.units) || 0), 0);
+
+    function recompute() {
+      const unitSize = Number(slider.value);
+      if (unitLabel) unitLabel.textContent = `$${unitSize}`;
+      const dollars = totalUnits * unitSize;
+      const prefix = dollars >= 0 ? "+$" : "-$";
+      const value = Math.round(Math.abs(dollars)).toLocaleString();
+      out.textContent = prefix + value;
+      out.style.color = dollars >= 0 ? "var(--win)" : "var(--loss)";
+      if (detail) detail.textContent = `following the full card · last ${days.length} days · ${totalUnits.toFixed(1)}u net`;
+    }
+    slider.addEventListener("input", recompute);
+    recompute();
+  }
+
+  // ---------- 4) FAQ ACCORDION ----------
+  document.querySelectorAll(".faq-item").forEach(item => {
+    const btn = item.querySelector(".faq-q");
+    if (!btn) return;
+    btn.addEventListener("click", () => item.classList.toggle("open"));
+  });
+
+  // ---------- 5) MOBILE NAV DRAWER ----------
+  const burger   = document.getElementById("nav-burger");
+  const drawer   = document.getElementById("mobile-drawer");
+  const backdrop = document.getElementById("mobile-backdrop");
+  const closeBtn = document.getElementById("mobile-close");
+  function openDrawer() {
+    drawer.classList.add("open");
+    backdrop.classList.add("open");
+    burger.classList.add("open");
+    burger.setAttribute("aria-expanded", "true");
+    drawer.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+  function closeDrawer() {
+    drawer.classList.remove("open");
+    backdrop.classList.remove("open");
+    burger.classList.remove("open");
+    burger.setAttribute("aria-expanded", "false");
+    drawer.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+  if (burger)   burger.addEventListener("click", () => drawer.classList.contains("open") ? closeDrawer() : openDrawer());
+  if (closeBtn) closeBtn.addEventListener("click", closeDrawer);
+  if (backdrop) backdrop.addEventListener("click", closeDrawer);
+  drawer && drawer.querySelectorAll("a").forEach(a => a.addEventListener("click", closeDrawer));
+
+  // ---------- 6) NEWSLETTER (UI-only stub) ----------
+  // Wire this to ConvertKit/Mailchimp/Beehiiv when you're ready.
+  const newsForm  = document.getElementById("news-form");
+  const newsEmail = document.getElementById("news-email");
+  if (newsForm && newsEmail) {
+    newsForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = newsEmail.value.trim();
+      if (!email) return;
+      newsForm.innerHTML = `<div class="news-ok">✓ You're on the list. Check your inbox tomorrow.</div>`;
+    });
   }
 })();
 </script>
