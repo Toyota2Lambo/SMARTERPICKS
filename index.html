@@ -187,6 +187,59 @@
     .plan.featured{outline:none;border:1px solid var(--accent);}
     .record-table thead th:nth-child(2),.record-table tbody td:nth-child(2){display:none;}
   }
+
+  /* ==========================================================
+     POLISH LAYER — microinteractions, ticker, glow, skeletons
+     ========================================================== */
+
+  /* Pick card hover-lift (free cards lift; locked cards stay put) */
+  .pick-card{transition:transform .25s cubic-bezier(.2,.7,.2,1), background .2s, box-shadow .25s ease;}
+  .pick-card:not(.locked):hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.45);z-index:1;}
+
+  /* Premium card pulsing glow (the locked teaser cards) */
+  @keyframes premiumGlow{
+    0%,100%{box-shadow:0 0 0 1px rgba(212,168,67,.30), 0 0 22px rgba(212,168,67,.10);}
+    50%    {box-shadow:0 0 0 1px rgba(212,168,67,.65), 0 0 34px rgba(212,168,67,.30);}
+  }
+  .pick-card.locked{animation:premiumGlow 2.8s ease-in-out infinite;}
+  @keyframes ctaPulse{
+    0%,100%{box-shadow:0 0 0 0 rgba(212,168,67,.45);}
+    50%    {box-shadow:0 0 0 8px rgba(212,168,67,0);}
+  }
+  .lock-btn{animation:ctaPulse 2s ease-in-out infinite;}
+
+  /* Scroll-triggered fade-in (applied via JS to sections) */
+  .fade-in{opacity:0;transform:translateY(24px);transition:opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1);will-change:opacity,transform;}
+  .fade-in.in-view{opacity:1;transform:translateY(0);}
+
+  /* Skeleton shimmer used while picks.json is loading */
+  @keyframes shimmer{0%{background-position:-200% 0;}100%{background-position:200% 0;}}
+  .skeleton{background:linear-gradient(90deg, var(--bg-elevated) 25%, var(--bg-surface) 50%, var(--bg-elevated) 75%);background-size:200% 100%;animation:shimmer 1.4s linear infinite;}
+  .skeleton-line{height:14px;background:linear-gradient(90deg, var(--bg-elevated) 25%, var(--bg-surface) 50%, var(--bg-elevated) 75%);background-size:200% 100%;animation:shimmer 1.4s linear infinite;margin-bottom:12px;}
+
+  /* Live game ticker (marquee) */
+  .ticker{background:var(--bg-elevated);border-bottom:1px solid var(--border);overflow:hidden;position:relative;}
+  .ticker::before,.ticker::after{content:"";position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;}
+  .ticker::before{left:0;background:linear-gradient(90deg, var(--bg-elevated), transparent);}
+  .ticker::after{right:0;background:linear-gradient(-90deg, var(--bg-elevated), transparent);}
+  .ticker-track{display:flex;gap:44px;padding:11px 0;white-space:nowrap;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);animation:tickerScroll 60s linear infinite;width:max-content;}
+  .ticker-item{display:inline-flex;align-items:center;gap:10px;flex-shrink:0;}
+  .ticker-league{color:var(--accent);font-weight:700;}
+  .ticker-time{color:var(--text-dim);}
+  .ticker-vs{color:var(--text-dim);}
+  .ticker-pulse{width:5px;height:5px;background:var(--win);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0;}
+  .ticker:hover .ticker-track{animation-play-state:paused;}
+  @keyframes tickerScroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+  /* Testimonial card hover (existing markup, just polish) */
+  .testi-card{transition:transform .25s cubic-bezier(.2,.7,.2,1), background .2s;}
+  .testi-card:hover{transform:translateY(-3px);background:var(--bg-surface);}
+
+  /* Reduce-motion users: kill all animations/transitions for accessibility */
+  @media (prefers-reduced-motion: reduce){
+    .pick-card.locked,.lock-btn,.ticker-track,.live-dot,.ticker-pulse{animation:none !important;}
+    .fade-in{opacity:1;transform:none;transition:none;}
+  }
 </style>
 </head>
 <body>
@@ -195,6 +248,13 @@
 <div class="announce-bar">
   🔥 NBA Playoffs Week 2 — Full pick card live now <span>·</span> Members up $3,840 YTD <span>·</span>
   <a href="https://whop.com/smarterpicks">Unlock Premium →</a>
+</div>
+
+<!-- LIVE GAME TICKER (populated by polish-layer script from picks.json) -->
+<div class="ticker" id="ticker">
+  <div class="ticker-track" id="ticker-track">
+    <!-- inserted at runtime; hidden gracefully if picks.json fails -->
+  </div>
 </div>
 
 <!-- NAV -->
@@ -259,11 +319,30 @@
     <!-- picks-loader.js fills this div automatically from picks.json -->
     <div class="picks-grid" id="picks-grid">
 
-      <!-- LOADING STATE: shown for a split second while picks.json loads -->
-      <div class="pick-card" style="grid-column:1/-1;text-align:center;padding:60px 32px;">
-        <div style="font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;">Loading</div>
-        <div style="font-family:var(--display);font-size:28px;font-weight:400;margin-bottom:12px;">Fetching today's picks...</div>
-        <div style="color:var(--text-muted);font-size:14px;">This only takes a second.</div>
+      <!-- SKELETON LOADING STATE: shimmering placeholders while picks.json loads -->
+      <div class="pick-card">
+        <div class="skeleton-line" style="width:30%;"></div>
+        <div class="skeleton-line" style="width:65%;height:24px;margin-top:18px;"></div>
+        <div class="skeleton-line" style="width:90%;"></div>
+        <div class="skeleton-line" style="width:100%;height:60px;margin-top:18px;"></div>
+        <div class="skeleton-line" style="width:80%;height:12px;margin-top:18px;"></div>
+        <div class="skeleton-line" style="width:60%;height:12px;"></div>
+      </div>
+      <div class="pick-card">
+        <div class="skeleton-line" style="width:30%;"></div>
+        <div class="skeleton-line" style="width:65%;height:24px;margin-top:18px;"></div>
+        <div class="skeleton-line" style="width:90%;"></div>
+        <div class="skeleton-line" style="width:100%;height:60px;margin-top:18px;"></div>
+        <div class="skeleton-line" style="width:80%;height:12px;margin-top:18px;"></div>
+        <div class="skeleton-line" style="width:60%;height:12px;"></div>
+      </div>
+      <div class="pick-card">
+        <div class="skeleton-line" style="width:30%;"></div>
+        <div class="skeleton-line" style="width:65%;height:24px;margin-top:18px;"></div>
+        <div class="skeleton-line" style="width:90%;"></div>
+        <div class="skeleton-line" style="width:100%;height:60px;margin-top:18px;"></div>
+        <div class="skeleton-line" style="width:80%;height:12px;margin-top:18px;"></div>
+        <div class="skeleton-line" style="width:60%;height:12px;"></div>
       </div>
 
     </div>
@@ -273,10 +352,10 @@
 <!-- SOCIAL PROOF BAR -->
 <div class="proof-bar">
   <div class="proof-inner">
-    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num">+$3,840</span> profit on $100/unit YTD</span></div>
-    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num">412</span> picks publicly tracked</span></div>
-    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num">4,100+</span> members</span></div>
-    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num">7-day</span> money-back guarantee</span></div>
+    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num counter">+$3,840</span> profit on $100/unit YTD</span></div>
+    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num counter">412</span> picks publicly tracked</span></div>
+    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num counter">4,100+</span> members</span></div>
+    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num counter">7-day</span> money-back guarantee</span></div>
     <div class="proof-item"><span class="proof-dot"></span><span>Cancel anytime, no questions</span></div>
   </div>
 </div>
@@ -392,10 +471,10 @@
           </tbody>
         </table>
         <div class="record-summary">
-          <div><div class="summary-num">226-186</div><div class="summary-label">Record W–L</div></div>
-          <div><div class="summary-num">+$1,240</div><div class="summary-label">Best Month</div></div>
-          <div><div class="summary-num">+38.4u</div><div class="summary-label">Net Units</div></div>
-          <div><div class="summary-num">+9.3%</div><div class="summary-label">ROI</div></div>
+          <div><div class="summary-num counter">226-186</div><div class="summary-label">Record W–L</div></div>
+          <div><div class="summary-num counter">+$1,240</div><div class="summary-label">Best Month</div></div>
+          <div><div class="summary-num counter">+38.4u</div><div class="summary-label">Net Units</div></div>
+          <div><div class="summary-num counter">+9.3%</div><div class="summary-label">ROI</div></div>
         </div>
       </div>
     </div>
@@ -494,6 +573,117 @@
      and fills in the picks section above.
      ============================================================ -->
 <script src="picks-loader.js"></script>
+
+<!-- ============================================================
+     POLISH LAYER — ticker, scroll fade-in, animated counters
+     Pure presentation; doesn't talk to Whop or alter picks data.
+     ============================================================ -->
+<script>
+(function () {
+  // 1) LIVE TICKER: render today's slate from picks.json
+  fetch("picks.json?v=" + Date.now())
+    .then(r => r.ok ? r.json() : Promise.reject(new Error("no picks.json")))
+    .then(data => {
+      const items = (data.picks || []).map(p => `
+        <div class="ticker-item">
+          <span class="ticker-pulse"></span>
+          <span class="ticker-time">${esc(p.time || "")}</span>
+          <span>${esc(p.away_team || "")}</span>
+          <span class="ticker-vs">@</span>
+          <span>${esc(p.home_team || "")}</span>
+          <span class="ticker-league">${esc(p.league || "")}</span>
+        </div>
+      `).join("");
+      const track = document.getElementById("ticker-track");
+      const wrap  = document.getElementById("ticker");
+      if (!items) { if (wrap) wrap.style.display = "none"; return; }
+      if (track) track.innerHTML = items + items; // duplicate for seamless loop
+    })
+    .catch(() => {
+      const wrap = document.getElementById("ticker");
+      if (wrap) wrap.style.display = "none";
+    });
+
+  function esc(s) {
+    return String(s)
+      .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+  }
+
+  // 2) SCROLL FADE-IN — applied to the long-scrolling sections
+  const fadeTargets = document.querySelectorAll(
+    ".slate, .pricing, .record, .testimonials, .final-cta, .proof-bar"
+  );
+  fadeTargets.forEach(el => el.classList.add("fade-in"));
+
+  if ("IntersectionObserver" in window) {
+    const fadeObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add("in-view");
+          fadeObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    fadeTargets.forEach(el => fadeObs.observe(el));
+
+    // 3) ANIMATED COUNTERS — count up when each one scrolls into view
+    const counters = document.querySelectorAll(".counter");
+    const countObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          animateCounter(e.target);
+          countObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.55 });
+    counters.forEach(el => countObs.observe(el));
+  } else {
+    // No IntersectionObserver — just show everything immediately
+    fadeTargets.forEach(el => el.classList.add("in-view"));
+  }
+
+  function animateCounter(el) {
+    const original = el.textContent.trim();
+    // Extract: optional non-digit prefix, the number (with optional comma/decimal), optional suffix
+    const m = original.match(/^([^\d.\-]*)(-?[\d,]+(?:\.\d+)?)(.*)$/);
+    if (!m) return;
+    const prefix = m[1];
+    const numStr = m[2];
+    const suffix = m[3];
+    const target = parseFloat(numStr.replace(/,/g, ""));
+    if (!isFinite(target)) return;
+    const decimals = (numStr.split(".")[1] || "").length;
+    const useCommas = numStr.includes(",") || target >= 1000;
+
+    const duration = 1300;
+    const start = performance.now();
+
+    function step(now) {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
+      const value = target * eased;
+      let formatted;
+      if (decimals > 0) {
+        const fixed = value.toFixed(decimals);
+        if (useCommas) {
+          const [i, d] = fixed.split(".");
+          formatted = parseInt(i, 10).toLocaleString() + "." + d;
+        } else {
+          formatted = fixed;
+        }
+      } else {
+        formatted = useCommas
+          ? Math.floor(value).toLocaleString()
+          : Math.floor(value).toString();
+      }
+      el.textContent = prefix + formatted + suffix;
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+})();
+</script>
 
 </body>
 </html>
