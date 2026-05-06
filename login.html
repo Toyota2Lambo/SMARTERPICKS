@@ -53,13 +53,6 @@
   .right-panel{padding:80px 64px;display:flex;flex-direction:column;justify-content:center;}
   .auth-box{max-width:400px;width:100%;}
 
-  /* TABS */
-  .tabs{display:flex;border:1px solid var(--border);margin-bottom:40px;}
-  .tab{flex:1;padding:13px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;background:transparent;color:var(--text-muted);cursor:pointer;transition:all .2s;border-right:1px solid var(--border);}
-  .tab:last-child{border-right:none;}
-  .tab.active{background:var(--accent);color:#000;}
-  .tab:not(.active):hover{color:var(--text);}
-
   /* PANELS */
   .auth-panel{display:none;}
   .auth-panel.active{display:block;}
@@ -67,60 +60,18 @@
   .auth-title em{font-style:italic;color:var(--accent);}
   .auth-sub{font-size:14px;color:var(--text-muted);margin-bottom:36px;line-height:1.6;}
 
-  /* STEP INDICATOR */
-  .steps{display:flex;gap:0;margin-bottom:36px;}
-  .step{flex:1;padding:10px 12px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px;transition:all .3s;}
-  .step.active{color:var(--accent);border-bottom-color:var(--accent);}
-  .step.done{color:var(--win);border-bottom-color:var(--win);}
-  .step-num{width:18px;height:18px;border-radius:50%;border:1px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0;}
-  .step.done .step-num{background:var(--win);border-color:var(--win);color:#000;}
-
-  /* FORM ELEMENTS */
-  .form-group{margin-bottom:20px;}
-  .form-label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:8px;}
-  .form-input{width:100%;background:var(--bg-surface);border:1px solid var(--border-strong);padding:14px 16px;color:var(--text);font-family:var(--body);font-size:15px;outline:none;transition:border-color .2s;}
-  .form-input:focus{border-color:var(--accent);}
-  .form-input::placeholder{color:var(--text-dim);}
-  .form-error{font-family:var(--mono);font-size:11px;color:#d96565;margin-top:6px;display:none;}
-  .form-error.visible{display:block;}
-
   /* BUTTONS */
   .btn-full{width:100%;padding:16px;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;}
   .btn-gold{background:var(--accent);color:#000;}
   .btn-gold:hover{background:#e6b950;transform:translateY(-1px);}
-  .btn-discord{background:var(--discord);color:#fff;}
-  .btn-discord:hover{background:#4752c4;transform:translateY(-1px);}
   .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border-strong);}
   .btn-ghost:hover{border-color:var(--text-muted);}
   .btn-full:disabled{opacity:.4;cursor:not-allowed;transform:none;}
-
-  /* DISCORD ICON */
-  .discord-icon{width:20px;height:20px;fill:currentColor;}
 
   /* DIVIDER */
   .divider{display:flex;align-items:center;gap:12px;margin:24px 0;}
   .divider-line{flex:1;height:1px;background:var(--border);}
   .divider-text{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);}
-
-  /* STEP CONTENT BLOCKS */
-  .step-block{display:none;}
-  .step-block.active{display:block;}
-
-  /* WHOP CONNECT BLOCK */
-  .whop-block{border:1px solid var(--border);padding:24px;margin-bottom:24px;background:var(--bg-surface);}
-  .whop-block-header{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
-  .whop-logo{width:32px;height:32px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:13px;color:#000;flex-shrink:0;}
-  .whop-block-title{font-weight:600;font-size:15px;}
-  .whop-block-sub{font-size:13px;color:var(--text-muted);line-height:1.6;}
-
-  /* DISCORD CONNECTED STATE */
-  .discord-connected{display:none;border:1px solid rgba(109,190,122,.3);background:rgba(109,190,122,.06);padding:16px 20px;margin-bottom:20px;align-items:center;gap:12px;}
-  .discord-connected.visible{display:flex;}
-  .dc-avatar{width:36px;height:36px;border-radius:50%;background:var(--discord);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:13px;color:#fff;flex-shrink:0;}
-  .dc-info{flex:1;}
-  .dc-name{font-weight:600;font-size:14px;}
-  .dc-tag{font-family:var(--mono);font-size:11px;color:var(--text-muted);}
-  .dc-check{color:var(--win);font-size:18px;}
 
   /* PRICING SUMMARY */
   .plan-summary{border:1px solid var(--border);margin-bottom:24px;}
@@ -136,18 +87,9 @@
   .legal-text{font-family:var(--mono);font-size:10px;color:var(--text-dim);line-height:1.7;margin-top:20px;letter-spacing:.03em;}
   .legal-text a{color:var(--text-dim);text-decoration:underline;}
 
-  /* SIGN IN FORM */
-  .signin-note{font-size:13px;color:var(--text-muted);text-align:center;margin-top:20px;}
-  .signin-note a{color:var(--accent);text-decoration:none;}
-  .signin-note a:hover{text-decoration:underline;}
-
-  /* SUCCESS STATE */
-  .success-block{text-align:center;padding:40px 20px;display:none;}
-  .success-block.visible{display:block;}
+  /* SUCCESS PANEL CONTENTS */
+  .success-inner{text-align:center;padding:20px 0;}
   .success-icon{font-size:48px;margin-bottom:20px;}
-  .success-title{font-family:var(--display);font-size:32px;font-weight:400;letter-spacing:-.01em;margin-bottom:12px;}
-  .success-title em{font-style:italic;color:var(--accent);}
-  .success-sub{font-size:15px;color:var(--text-muted);line-height:1.6;margin-bottom:32px;}
 
   @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
   .auth-box{animation:fadeUp .4s ease-out backwards;}
@@ -202,203 +144,103 @@
   <div class="right-panel">
     <div class="auth-box">
 
-      <!-- TABS -->
-      <div class="tabs">
-        <button class="tab active" onclick="switchTab('signup')">Join Now</button>
-        <button class="tab" onclick="switchTab('signin')">Sign In</button>
-      </div>
+      <!-- DEFAULT STATE -->
+      <div class="auth-panel active" id="panel-default">
+        <div class="auth-title">Get the <em>full</em> card.</div>
+        <p class="auth-sub">One button signs you in or starts your subscription. Whop handles login + payment securely.</p>
 
-      <!-- ══════════════════════════════════════
-           SIGN UP PANEL
-           ══════════════════════════════════════ -->
-      <div class="auth-panel active" id="panel-signup">
-
-        <!-- STEP INDICATORS -->
-        <div class="steps">
-          <div class="step active" id="step-ind-1">
-            <span class="step-num">1</span> Account
-          </div>
-          <div class="step" id="step-ind-2">
-            <span class="step-num">2</span> Discord
-          </div>
-          <div class="step" id="step-ind-3">
-            <span class="step-num">3</span> Premium
-          </div>
-        </div>
-
-        <!-- ── STEP 1: EMAIL ── -->
-        <div class="step-block active" id="step-1">
-          <div class="auth-title">Create your <em>account</em></div>
-          <p class="auth-sub">Enter your email to get started. Free to join — pay only if you want the full card.</p>
-
-          <div class="form-group">
-            <label class="form-label" for="signup-email">Email address</label>
-            <input class="form-input" type="email" id="signup-email" placeholder="you@email.com" autocomplete="email">
-            <div class="form-error" id="email-error">Please enter a valid email address.</div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="signup-name">Display name</label>
-            <input class="form-input" type="text" id="signup-name" placeholder="How you'll appear in Discord">
-            <div class="form-error" id="name-error">Please enter a display name.</div>
-          </div>
-
-          <button class="btn-full btn-gold" onclick="goToStep2()">Continue →</button>
-
-          <div class="legal-text">
-            By continuing you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
-            SMARTERPICKS provides analysis and opinion only. Must be 21+ to bet legally in most US states.
-          </div>
-        </div>
-
-        <!-- ── STEP 2: DISCORD ── -->
-        <div class="step-block" id="step-2">
-          <div class="auth-title">Connect <em>Discord</em></div>
-          <p class="auth-sub">Connect your Discord account so we can give you access to the premium channel when you subscribe.</p>
-
-          <!-- Shown after Discord connected -->
-          <div class="discord-connected" id="discord-connected-state">
-            <div class="dc-avatar" id="dc-avatar-initials">--</div>
-            <div class="dc-info">
-              <div class="dc-name" id="dc-username">Discord User</div>
-              <div class="dc-tag" id="dc-tag">Connected successfully</div>
-            </div>
-            <div class="dc-check">✓</div>
-          </div>
-
-          <!-- Discord connect button (hidden after connect) -->
-          <div id="discord-connect-btn-wrap">
-            <button class="btn-full btn-discord" onclick="connectDiscord()">
-              <svg class="discord-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.055a19.903 19.903 0 0 0 5.993 3.03.077.077 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
-              </svg>
-              Connect Discord Account
-            </button>
-
-            <div class="divider">
-              <div class="divider-line"></div>
-              <div class="divider-text">Why Discord?</div>
-              <div class="divider-line"></div>
-            </div>
-
-            <div style="font-size:13px;color:var(--text-muted);line-height:1.65;padding:0 4px;">
-              Premium picks are delivered in our private Discord channel. Connecting your account lets us automatically give you access the moment you subscribe — no manual approval, no waiting.
-            </div>
-          </div>
-
-          <div style="margin-top:24px;display:flex;gap:12px;">
-            <button class="btn-full btn-ghost" onclick="goToStep(1)" style="flex:0 0 auto;width:auto;padding:14px 20px;">← Back</button>
-            <button class="btn-full btn-gold" id="step2-continue" onclick="goToStep3()" disabled>Continue →</button>
-          </div>
-        </div>
-
-        <!-- ── STEP 3: PAYMENT ── -->
-        <div class="step-block" id="step-3">
-          <div class="auth-title">Choose your <em>plan</em></div>
-          <p class="auth-sub">You'll complete payment securely through Whop. Your Discord role activates instantly after.</p>
-
-          <!-- Plan selector -->
-          <div style="display:flex;gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:20px;">
-            <button class="plan-toggle active" id="toggle-monthly" onclick="selectPlan('monthly')"
-              style="flex:1;padding:13px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;background:var(--accent);color:#000;transition:all .2s;">
-              $29 / Month
-            </button>
-            <button class="plan-toggle" id="toggle-annual" onclick="selectPlan('annual')"
-              style="flex:1;padding:13px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;background:transparent;color:var(--text-muted);transition:all .2s;">
-              $199 / Year <span style="opacity:.7;font-size:10px;">(SAVE $149)</span>
-            </button>
-          </div>
-
-          <!-- Monthly plan summary -->
-          <div class="plan-summary" id="summary-monthly">
-            <div class="plan-summary-header">
-              <span class="plan-summary-name">Premium Monthly</span>
-              <span class="plan-summary-price">$29<span style="font-size:16px;color:var(--text-muted);font-family:var(--mono);font-weight:400;">/mo</span></span>
-            </div>
-            <div class="plan-summary-rows">
-              <div class="plan-summary-row"><span class="chk">✓</span> Full daily pick card (5–8 plays)</div>
-              <div class="plan-summary-row"><span class="chk">✓</span> Line movement alerts</div>
-              <div class="plan-summary-row"><span class="chk">✓</span> Player props & parlays</div>
-              <div class="plan-summary-row"><span class="chk">✓</span> Premium Discord access (instant)</div>
-              <div class="plan-summary-row"><span class="chk">✓</span> Cancel anytime</div>
-            </div>
-          </div>
-
-          <!-- Annual plan summary (hidden by default) -->
-          <div class="plan-summary" id="summary-annual" style="display:none;">
-            <div class="plan-summary-header">
-              <span class="plan-summary-name">Premium Annual</span>
-              <span class="plan-summary-price">$199<span style="font-size:16px;color:var(--text-muted);font-family:var(--mono);font-weight:400;">/yr</span></span>
-            </div>
-            <div class="plan-summary-rows">
-              <div class="plan-summary-row"><span class="chk">✓</span> Everything in Monthly</div>
-              <div class="plan-summary-row"><span class="chk">✓</span> Full historical pick archive</div>
-              <div class="plan-summary-row"><span class="chk">✓</span> Priority Discord role</div>
-              <div class="plan-summary-row"><span class="chk">✓</span> Price locked forever</div>
-              <div class="plan-summary-row"><span class="chk">✓</span> Pro-rated refund if you cancel</div>
-            </div>
-          </div>
-
-          <button class="btn-full btn-gold" onclick="goToWhop()" style="margin-bottom:12px;">
-            Complete Payment on Whop →
-          </button>
-          <button class="btn-full btn-ghost" onclick="goToStep(2)">← Back</button>
-
-          <div class="legal-text">
-            Payment is processed securely by Whop. Your Discord Premium role activates automatically after payment.
-            7-day money-back guarantee — one email, same-day refund.
-            SMARTERPICKS analysis is opinion only, not financial advice. 21+ only.
-          </div>
-        </div>
-
-        <!-- ── SUCCESS STATE ── -->
-        <div class="success-block" id="signup-success">
-          <div class="success-icon">🎉</div>
-          <div class="success-title">You're <em>in.</em></div>
-          <p class="success-sub">Your Discord Premium role is active. Head to the server and check the #premium-picks channel — today's full card is waiting.</p>
-          <a href="index.html" class="btn-full btn-gold">Back to SmarterPicks →</a>
-        </div>
-
-      </div><!-- end signup panel -->
-
-      <!-- ══════════════════════════════════════
-           SIGN IN PANEL
-           ══════════════════════════════════════ -->
-      <div class="auth-panel" id="panel-signin">
-        <div class="auth-title">Welcome <em>back.</em></div>
-        <p class="auth-sub">Sign in with your Discord account to access the members area.</p>
-
-        <button class="btn-full btn-discord" onclick="signInWithWhop()" style="margin-bottom:24px;">
-          <svg class="discord-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.055a19.903 19.903 0 0 0 5.993 3.03.077.077 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
-          </svg>
-          Sign In with Whop
+        <button class="btn-full btn-gold" onclick="startWhopLogin()" style="margin-bottom:24px;">
+          Continue with Whop →
         </button>
 
         <div class="divider">
           <div class="divider-line"></div>
-          <div class="divider-text">Or</div>
+          <div class="divider-text">What you get</div>
           <div class="divider-line"></div>
         </div>
 
-        <div class="form-group">
-          <label class="form-label" for="signin-email">Email address</label>
-          <input class="form-input" type="email" id="signin-email" placeholder="you@email.com">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="signin-password">Password</label>
-          <input class="form-input" type="password" id="signin-password" placeholder="••••••••">
+        <div style="display:flex;gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:20px;">
+          <button id="toggle-monthly" onclick="selectPlan('monthly')"
+            style="flex:1;padding:13px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;background:var(--accent);color:#000;transition:all .2s;">
+            $29 / Month
+          </button>
+          <button id="toggle-annual" onclick="selectPlan('annual')"
+            style="flex:1;padding:13px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;background:transparent;color:var(--text-muted);transition:all .2s;">
+            $199 / Year <span style="opacity:.7;font-size:10px;">(SAVE $149)</span>
+          </button>
         </div>
 
-        <button class="btn-full btn-gold" onclick="handleSignIn()">Sign In →</button>
+        <div class="plan-summary" id="summary-monthly">
+          <div class="plan-summary-header">
+            <span class="plan-summary-name">Premium Monthly</span>
+            <span class="plan-summary-price">$29<span style="font-size:16px;color:var(--text-muted);font-family:var(--mono);font-weight:400;">/mo</span></span>
+          </div>
+          <div class="plan-summary-rows">
+            <div class="plan-summary-row"><span class="chk">✓</span> Full daily pick card (5–8 plays)</div>
+            <div class="plan-summary-row"><span class="chk">✓</span> Line movement alerts</div>
+            <div class="plan-summary-row"><span class="chk">✓</span> Player props & parlays</div>
+            <div class="plan-summary-row"><span class="chk">✓</span> Premium Discord access (instant)</div>
+            <div class="plan-summary-row"><span class="chk">✓</span> Cancel anytime</div>
+          </div>
+        </div>
 
-        <p class="signin-note" style="margin-top:16px;">
-          <a href="#">Forgot your password?</a>
-        </p>
-        <p class="signin-note">
-          Don't have an account? <a href="#" onclick="switchTab('signup')">Join now →</a>
-        </p>
-      </div><!-- end signin panel -->
+        <div class="plan-summary" id="summary-annual" style="display:none;">
+          <div class="plan-summary-header">
+            <span class="plan-summary-name">Premium Annual</span>
+            <span class="plan-summary-price">$199<span style="font-size:16px;color:var(--text-muted);font-family:var(--mono);font-weight:400;">/yr</span></span>
+          </div>
+          <div class="plan-summary-rows">
+            <div class="plan-summary-row"><span class="chk">✓</span> Everything in Monthly</div>
+            <div class="plan-summary-row"><span class="chk">✓</span> Full historical pick archive</div>
+            <div class="plan-summary-row"><span class="chk">✓</span> Priority Discord role</div>
+            <div class="plan-summary-row"><span class="chk">✓</span> Price locked forever</div>
+            <div class="plan-summary-row"><span class="chk">✓</span> Pro-rated refund if you cancel</div>
+          </div>
+        </div>
+
+        <div class="legal-text">
+          By continuing you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+          Payment processed securely by Whop. SMARTERPICKS is analysis only — not financial advice. 21+ only.
+        </div>
+      </div>
+
+      <!-- LOADING (during code → token exchange) -->
+      <div class="auth-panel" id="panel-loading">
+        <div class="auth-title">Checking <em>access</em>…</div>
+        <p class="auth-sub">One moment while Whop confirms your membership.</p>
+      </div>
+
+      <!-- SIGNED IN BUT NO ACTIVE SUBSCRIPTION -->
+      <div class="auth-panel" id="panel-no-access">
+        <div class="auth-title">Almost <em>there.</em></div>
+        <p class="auth-sub">You're signed in. Activate your subscription on Whop to unlock the full pick card.</p>
+
+        <a class="btn-full btn-gold" id="checkout-btn" href="#" target="_blank" rel="noopener" style="margin-bottom:12px;">
+          Subscribe on Whop →
+        </a>
+        <button class="btn-full btn-ghost" onclick="resetToDefault()">← Back</button>
+
+        <div class="legal-text">
+          After paying, return to this page and click <em>Continue with Whop</em> again — your access will unlock automatically.
+        </div>
+      </div>
+
+      <!-- HAS ACCESS — brief celebration, then redirect -->
+      <div class="auth-panel" id="panel-success">
+        <div class="success-inner">
+          <div class="success-icon">🎉</div>
+          <div class="auth-title" style="text-align:center;">You're <em>in.</em></div>
+          <p class="auth-sub" style="text-align:center;">Premium unlocked. Redirecting you to today's full card…</p>
+          <a href="index.html" class="btn-full btn-gold">Go now →</a>
+        </div>
+      </div>
+
+      <!-- ERROR -->
+      <div class="auth-panel" id="panel-error">
+        <div class="auth-title">Something <em>broke.</em></div>
+        <p class="auth-sub" id="error-msg">We couldn't complete sign in. Please try again.</p>
+        <button class="btn-full btn-gold" onclick="resetToDefault()">Try again</button>
+      </div>
 
     </div><!-- end auth-box -->
   </div><!-- end right-panel -->
@@ -406,267 +248,181 @@
 </div><!-- end page grid -->
 
 <script>
-// ============================================================
-// SMARTERPICKS AUTH PAGE — JAVASCRIPT
-// ============================================================
-// SETUP INSTRUCTIONS:
-// 1. Replace WHOP_MONTHLY_URL with your Whop monthly checkout link
-// 2. Replace WHOP_ANNUAL_URL with your Whop annual checkout link
-// 3. Replace DISCORD_CLIENT_ID with your Discord app client ID
-//    (get this at discord.com/developers — create an application,
-//     then copy the "Application ID" — it's the same as Client ID)
-// 4. Replace DISCORD_REDIRECT_URI with:
-//    https://yourdomain.com/login.html
-// ============================================================
+// =============================================================
+// SMARTERPICKS — Whop OAuth (PKCE) + Membership Gating
+// =============================================================
+// One button: "Continue with Whop". On callback we:
+//   1. Exchange the auth code for an access token (PKCE, no secret)
+//   2. Fetch the user's Whop ID via /oauth/userinfo
+//   3. Check has_access for ACCESS_PASS_ID
+//   4. Yes -> store token, redirect to index.html
+//   5. No  -> show subscribe CTA pointing to your Whop checkout
+//
+// THREE THINGS TO FILL IN BELOW:
+//   - WHOP_CLIENT_ID         (from whop.com/dashboard/developer -> your OAuth app)
+//   - WHOP_ACCESS_PASS_ID    (the pass_xxxxx ID for your premium tier)
+//   - CHECKOUT_URL           (your Whop product page or direct checkout link)
+//
+// Whop OAuth app setup: register the EXACT current page URL as a redirect URI.
+// =============================================================
 
 const CONFIG = {
-  WHOP_MONTHLY_URL: "https://whop.com/smarterpicks/checkout/monthly",
-  WHOP_ANNUAL_URL:  "https://whop.com/smarterpicks/checkout/annual",
-  DISCORD_CLIENT_ID: "YOUR_DISCORD_CLIENT_ID",
-  WHOP_CLIENT_ID: "YOUR_WHOP_CLIENT_ID",
-  DISCORD_REDIRECT_URI: "https://smarterpicks.io/login.html",
+  WHOP_CLIENT_ID:       "app_wHDIiOMhTVIujd",
+  WHOP_ACCESS_PASS_ID:  "biz_wDYY7HRvnDbvw2",
+  CHECKOUT_URL_MONTHLY: "https://whop.com/checkout/plan_w3jefZOaCLMU2",
+  CHECKOUT_URL_ANNUAL:  "https://whop.com/checkout/plan_05khhkSEAxoiA",
+
+  AUTHORIZE_URL: "https://api.whop.com/oauth/authorize",
+  TOKEN_URL:     "https://api.whop.com/oauth/token",
+  USERINFO_URL:  "https://api.whop.com/oauth/userinfo",
+  ACCESS_BASE:   "https://api.whop.com/api/v1/users",
+  SCOPE:         "openid profile email",
 };
 
-// ── STATE ──────────────────────────────────────────────────
-let currentStep = 1;
-let discordConnected = false;
+const REDIRECT_URI = window.location.origin + window.location.pathname;
 let selectedPlan = "monthly";
-let discordUser = null;
 
-// ── TAB SWITCHING ──────────────────────────────────────────
-function switchTab(tab) {
-  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+// ── PKCE helpers ──
+function base64url(buf) {
+  return btoa(String.fromCharCode(...new Uint8Array(buf)))
+    .replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+async function sha256(str) {
+  return crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+}
+function randomString(bytes = 32) {
+  return base64url(crypto.getRandomValues(new Uint8Array(bytes)));
+}
+
+// ── UI state ──
+function showPanel(id) {
   document.querySelectorAll(".auth-panel").forEach(p => p.classList.remove("active"));
-  const idx = tab === "signup" ? 0 : 1;
-  document.querySelectorAll(".tab")[idx].classList.add("active");
-  document.getElementById(`panel-${tab}`).classList.add("active");
+  const el = document.getElementById(id);
+  if (el) el.classList.add("active");
+}
+function resetToDefault() {
+  history.replaceState(null, "", window.location.pathname);
+  showPanel("panel-default");
+}
+function showError(msg) {
+  const el = document.getElementById("error-msg");
+  if (el) el.textContent = msg;
+  showPanel("panel-error");
 }
 
-// ── STEP NAVIGATION ───────────────────────────────────────
-function goToStep(n) {
-  // Hide all step blocks
-  document.querySelectorAll(".step-block").forEach(b => b.classList.remove("active"));
-  document.getElementById(`step-${n}`).classList.add("active");
-  currentStep = n;
-
-  // Update step indicators
-  for (let i = 1; i <= 3; i++) {
-    const el = document.getElementById(`step-ind-${i}`);
-    el.classList.remove("active", "done");
-    if (i < n) {
-      el.classList.add("done");
-      el.querySelector(".step-num").textContent = "✓";
-    } else if (i === n) {
-      el.classList.add("active");
-      el.querySelector(".step-num").textContent = i;
-    } else {
-      el.querySelector(".step-num").textContent = i;
-    }
-  }
-}
-
-function goToStep2() {
-  const email = document.getElementById("signup-email").value.trim();
-  const name  = document.getElementById("signup-name").value.trim();
-  let valid = true;
-
-  // Basic email validation
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    document.getElementById("email-error").classList.add("visible");
-    valid = false;
-  } else {
-    document.getElementById("email-error").classList.remove("visible");
-  }
-
-  if (!name) {
-    document.getElementById("name-error").classList.add("visible");
-    valid = false;
-  } else {
-    document.getElementById("name-error").classList.remove("visible");
-  }
-
-  if (valid) goToStep(2);
-}
-
-function goToStep3() {
-  if (!discordConnected) return;
-  goToStep(3);
-}
-
-// ── DISCORD OAUTH ──────────────────────────────────────────
-function connectDiscord() {
-  // Build the Discord OAuth URL
-  const params = new URLSearchParams({
-    client_id:     CONFIG.DISCORD_CLIENT_ID,
-    redirect_uri:  CONFIG.DISCORD_REDIRECT_URI,
-    response_type: "token",
-    scope:         "identify email",
-  });
-
-  const discordURL = `https://discord.com/api/oauth2/authorize?${params.toString()}`;
-
-  // Open Discord auth in a popup window
-  const popup = window.open(
-    discordURL,
-    "discord-auth",
-    "width=500,height=700,scrollbars=yes"
-  );
-
-  // Listen for the popup to send back the token
-  window.addEventListener("message", function handleDiscordMessage(event) {
-    if (event.data && event.data.type === "discord-token") {
-      window.removeEventListener("message", handleDiscordMessage);
-      popup && popup.close();
-      fetchDiscordUser(event.data.token);
-    }
-  });
-
-  // ── DEMO MODE ──
-  // If you haven't set up Discord OAuth yet, this simulates a
-  // successful connection so you can test the UI flow.
-  // Remove the setTimeout block below once Discord OAuth is live.
-  if (CONFIG.DISCORD_CLIENT_ID === "YOUR_DISCORD_CLIENT_ID") {
-    setTimeout(() => {
-      popup && popup.close();
-      simulateDiscordConnect();
-    }, 1500);
-  }
-}
-
-function simulateDiscordConnect() {
-  // Demo only — remove when Discord OAuth is live
-  setDiscordConnected({
-    username: "SharpBettor",
-    discriminator: "0",
-    id: "demo-user"
-  });
-}
-
-function fetchDiscordUser(token) {
-  fetch("https://discord.com/api/users/@me", {
-    headers: { Authorization: `Bearer ${token}` }
-  })
-  .then(r => r.json())
-  .then(user => setDiscordConnected(user))
-  .catch(() => {
-    // Fallback if fetch fails
-    simulateDiscordConnect();
-  });
-}
-
-function setDiscordConnected(user) {
-  discordUser = user;
-  discordConnected = true;
-
-  const name  = user.username || "Discord User";
-  const initials = name.slice(0, 2).toUpperCase();
-
-  document.getElementById("dc-avatar-initials").textContent = initials;
-  document.getElementById("dc-username").textContent = name;
-  document.getElementById("dc-tag").textContent = "Connected ✓";
-
-  document.getElementById("discord-connected-state").classList.add("visible");
-  document.getElementById("discord-connect-btn-wrap").style.display = "none";
-  document.getElementById("step2-continue").disabled = false;
-}
-
-// ── PLAN SELECTION ─────────────────────────────────────────
+// ── Plan toggle (cosmetic — Whop owns checkout) ──
 function selectPlan(plan) {
   selectedPlan = plan;
-
   const monthly = document.getElementById("toggle-monthly");
   const annual  = document.getElementById("toggle-annual");
   const sumM    = document.getElementById("summary-monthly");
   const sumA    = document.getElementById("summary-annual");
-
   if (plan === "monthly") {
-    monthly.style.background = "var(--accent)";
-    monthly.style.color      = "#000";
-    annual.style.background  = "transparent";
-    annual.style.color       = "var(--text-muted)";
-    sumM.style.display = "block";
-    sumA.style.display = "none";
+    monthly.style.background = "var(--accent)"; monthly.style.color = "#000";
+    annual.style.background  = "transparent";   annual.style.color  = "var(--text-muted)";
+    sumM.style.display = "block"; sumA.style.display = "none";
   } else {
-    annual.style.background  = "var(--accent)";
-    annual.style.color       = "#000";
-    monthly.style.background = "transparent";
-    monthly.style.color      = "var(--text-muted)";
-    sumM.style.display = "none";
-    sumA.style.display = "block";
+    annual.style.background  = "var(--accent)"; annual.style.color  = "#000";
+    monthly.style.background = "transparent";   monthly.style.color = "var(--text-muted)";
+    sumM.style.display = "none"; sumA.style.display = "block";
   }
 }
 
-// ── WHOP CHECKOUT ──────────────────────────────────────────
-function goToWhop() {
-  const url = selectedPlan === "annual"
-    ? CONFIG.WHOP_ANNUAL_URL
-    : CONFIG.WHOP_MONTHLY_URL;
-
-  // Open Whop checkout
-  // Whop handles Discord role assignment automatically after payment
-  window.open(url, "_blank");
-
-  // Show success state after a delay (Whop handles actual verification)
-  // In production, Whop sends a webhook — you'd verify on your backend
-  // For now this gives a smooth UX while they complete payment
-  setTimeout(() => {
-    document.querySelectorAll(".step-block").forEach(b => b.classList.remove("active"));
-    document.getElementById("signup-success").classList.add("visible");
-    document.querySelectorAll(".steps, #signup-success ~ *").forEach(el => {
-      if (!el.classList.contains("success-block")) el.style.display = "none";
-    });
-  }, 2000);
-}
-
-// ── SIGN IN WITH DISCORD ───────────────────────────────────
-function signInWithWhop() {
-  // Redirects to Whop OAuth — Whop handles Discord connection automatically
-  const params = new URLSearchParams({
-    client_id:     CONFIG.WHOP_CLIENT_ID,
-    redirect_uri:  CONFIG.DISCORD_REDIRECT_URI,
-    response_type: "token",
-    scope:         "openid",
-  });
-  window.location.href = `https://whop.com/oauth?${params.toString()}`;
-}
-function signInWithWhop_OLD() {
-  const params = new URLSearchParams({
-    client_id:     CONFIG.DISCORD_CLIENT_ID,
-    redirect_uri:  CONFIG.DISCORD_REDIRECT_URI,
-    response_type: "token",
-    scope:         "identify email",
-  });
-
-  window.location.href = `https://discord.com/api/oauth2/authorize?${params.toString()}`;
-}
-
-function handleSignIn() {
-  const email    = document.getElementById("signin-email").value.trim();
-  const password = document.getElementById("signin-password").value;
-  if (!email || !password) {
-    alert("Please enter your email and password.");
+// ── 1) Start login (redirect to Whop) ──
+async function startWhopLogin() {
+  if (CONFIG.WHOP_CLIENT_ID === "YOUR_WHOP_CLIENT_ID") {
+    showError("WHOP_CLIENT_ID is not set in login.html.");
     return;
   }
-  // Wire this to your auth backend (Supabase, Firebase, etc.)
-  // For now redirects to Whop member portal
-  window.location.href = `https://whop.com/smarterpicks/login`;
+  const codeVerifier = randomString(32);
+  const challenge = base64url(await sha256(codeVerifier));
+  const state = randomString(16);
+  sessionStorage.setItem("whop_pkce", JSON.stringify({ codeVerifier, state }));
+
+  const params = new URLSearchParams({
+    response_type: "code",
+    client_id: CONFIG.WHOP_CLIENT_ID,
+    redirect_uri: REDIRECT_URI,
+    scope: CONFIG.SCOPE,
+    state,
+    code_challenge: challenge,
+    code_challenge_method: "S256",
+  });
+  window.location.href = `${CONFIG.AUTHORIZE_URL}?${params}`;
 }
 
-// ── HANDLE DISCORD OAUTH CALLBACK ─────────────────────────
-// When Discord redirects back to this page with a token in the URL hash,
-// this code catches it automatically.
-(function handleOAuthCallback() {
-  const hash = window.location.hash;
-  if (hash && hash.includes("access_token")) {
-    const params = new URLSearchParams(hash.slice(1));
-    const token  = params.get("access_token");
-    if (token) {
-      // Clean up the URL
-      history.replaceState(null, "", window.location.pathname);
-      // If we're on step 2, apply the token
-      fetchDiscordUser(token);
-    }
+// ── 2) Handle callback (?code=…) ──
+async function handleCallback(code, state) {
+  showPanel("panel-loading");
+
+  const stored = JSON.parse(sessionStorage.getItem("whop_pkce") || "{}");
+  if (!stored.state || stored.state !== state) {
+    showError("Sign-in state didn't match (possible CSRF). Please try again.");
+    return;
   }
+
+  try {
+    const tokenRes = await fetch(CONFIG.TOKEN_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        grant_type: "authorization_code",
+        code,
+        redirect_uri: REDIRECT_URI,
+        client_id: CONFIG.WHOP_CLIENT_ID,
+        code_verifier: stored.codeVerifier,
+      }),
+    });
+    if (!tokenRes.ok) throw new Error(`Token exchange failed (${tokenRes.status})`);
+    const tokens = await tokenRes.json();
+
+    const userRes = await fetch(CONFIG.USERINFO_URL, {
+      headers: { Authorization: `Bearer ${tokens.access_token}` },
+    });
+    if (!userRes.ok) throw new Error(`Userinfo failed (${userRes.status})`);
+    const user = await userRes.json();
+    const userId = user.sub || user.id;
+
+    localStorage.setItem("whop_token", tokens.access_token);
+    localStorage.setItem("whop_user_id", userId);
+    if (tokens.refresh_token) localStorage.setItem("whop_refresh", tokens.refresh_token);
+
+    sessionStorage.removeItem("whop_pkce");
+    history.replaceState(null, "", window.location.pathname);
+
+    const accessRes = await fetch(
+      `${CONFIG.ACCESS_BASE}/${userId}/access/${CONFIG.WHOP_ACCESS_PASS_ID}`,
+      { headers: { Authorization: `Bearer ${tokens.access_token}` } }
+    );
+    const access = accessRes.ok ? await accessRes.json() : { has_access: false };
+
+    if (access.has_access) {
+      showPanel("panel-success");
+      setTimeout(() => { window.location.href = "index.html"; }, 1200);
+    } else {
+      const cta = document.getElementById("checkout-btn");
+      if (cta) {
+        cta.href = selectedPlan === "annual"
+          ? CONFIG.CHECKOUT_URL_ANNUAL
+          : CONFIG.CHECKOUT_URL_MONTHLY;
+      }
+      showPanel("panel-no-access");
+    }
+  } catch (err) {
+    console.error(err);
+    showError(err.message);
+  }
+}
+
+// ── 3) Init: detect callback or show default ──
+(function init() {
+  const params = new URLSearchParams(window.location.search);
+  const code  = params.get("code");
+  const state = params.get("state");
+  const err   = params.get("error");
+  if (err) { showError(`Whop returned: ${err}`); return; }
+  if (code && state) { handleCallback(code, state); return; }
+  showPanel("panel-default");
 })();
 </script>
 
