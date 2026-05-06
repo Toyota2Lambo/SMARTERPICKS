@@ -1,48 +1,87 @@
 // ============================================================
 // SMARTERPICKS — Picks Loader with Whop Membership Gating
 // ============================================================
-// Reads whop_token + whop_user_id set by login.html, then asks
-// Whop "does this user have access to ACCESS_PASS_ID?". If yes,
-// premium picks unlock. If no token or no access, only the free
-// pick is shown — every other card is rendered as a locked teaser.
-//
-// THE ONE THING TO KEEP IN SYNC WITH login.html:
-//   ACCESS_PASS_ID — must match what login.html checks
+// Reads whop_token + whop_user_id set by callback.html, then asks
+// Whop "does this user have access to PRODUCT_ID?". On 401 we try
+// to refresh the token once before treating them as logged out.
+// Also gates any element with [data-premium-only] for non-members
+// and swaps the nav login link for a logout when authenticated.
 // ============================================================
 
 const WHOP_CONFIG = {
-  ACCESS_PASS_ID: "biz_wDYY7HRvnDbvw2",
-  ACCESS_BASE:    "https://api.whop.com/api/v1/users",
+  CLIENT_ID:   "app_5RPKKi5gvHwpvo",
+  PRODUCT_ID:  "prod_4yaKtjgti7F9m",   // Smarter Picks Premium
+  ACCESS_BASE: "https://api.whop.com/api/users",
+  TOKEN_URL:   "https://api.whop.com/oauth/token",
 };
 
 // ── STATE ──────────────────────────────────────────────────
 let isMember = false;
-let currentUser = null;
 
 // ── ENTRY POINT ────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", async () => {
   await checkMembership();
   await loadPicks();
   updateNavState();
+  applyPremiumGating();
 });
 
+// ── TOKEN REFRESH ──────────────────────────────────────────
+async function tryRefreshToken() {
+  const refresh = localStorage.getItem("whop_refresh");
+  if (!refresh) return null;
+  try {
+    const res = await fetch(WHOP_CONFIG.TOKEN_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        grant_type:    "refresh_token",
+        refresh_token: refresh,
+        client_id:     WHOP_CONFIG.CLIENT_ID,
+      }),
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    localStorage.setItem("whop_token", data.access_token);
+    if (data.refresh_token) localStorage.setItem("whop_refresh", data.refresh_token);
+    return data.access_token;
+  } catch (_) { return null; }
+}
+
+function logout() {
+  ["whop_token","whop_refresh","whop_user_id","whop_user","whop_access"]
+    .forEach(k => localStorage.removeItem(k));
+  window.location.reload();
+}
+
 // ── MEMBERSHIP CHECK ───────────────────────────────────────
+async function fetchAccess(token, userId) {
+  return fetch(
+    `${WHOP_CONFIG.ACCESS_BASE}/${userId}/access/${WHOP_CONFIG.PRODUCT_ID}`,
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+}
+
 async function checkMembership() {
-  const token  = localStorage.getItem("whop_token");
+  let token   = localStorage.getItem("whop_token");
   const userId = localStorage.getItem("whop_user_id");
   if (!token || !userId) { isMember = false; return; }
 
   try {
-    const res = await fetch(
-      `${WHOP_CONFIG.ACCESS_BASE}/${userId}/access/${WHOP_CONFIG.ACCESS_PASS_ID}`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    let res = await fetchAccess(token, userId);
 
     if (res.status === 401) {
-      // Token expired or revoked — clear so they re-auth next visit
-      localStorage.removeItem("whop_token");
-      localStorage.removeItem("whop_user_id");
-      localStorage.removeItem("whop_refresh");
+      const fresh = await tryRefreshToken();
+      if (fresh) {
+        token = fresh;
+        res = await fetchAccess(token, userId);
+      }
+    }
+
+    if (res.status === 401) {
+      // Refresh failed — clear stale auth, treat as logged out
+      ["whop_token","whop_refresh","whop_user_id","whop_user","whop_access"]
+        .forEach(k => localStorage.removeItem(k));
       isMember = false;
       return;
     }
@@ -50,7 +89,7 @@ async function checkMembership() {
 
     const data = await res.json();
     isMember = !!data.has_access;
-    currentUser = { id: userId };
+    localStorage.setItem("whop_access", JSON.stringify(data));
   } catch (err) {
     console.warn("Membership check failed:", err.message);
     isMember = false;
@@ -59,16 +98,35 @@ async function checkMembership() {
 
 // ── UPDATE NAV BASED ON LOGIN STATE ───────────────────────
 function updateNavState() {
-  const loginBtn = document.getElementById("nav-login-btn");
+  // Match either an id (#nav-login-btn) or the existing class (.nav-login)
+  const loginBtn = document.getElementById("nav-login-btn") ||
+                   document.querySelector(".nav-login");
   if (!loginBtn) return;
 
-  if (isMember) {
-    loginBtn.textContent = "Member";
-    loginBtn.href = "https://whop.com/smarterpicks/hub";
+  const signedIn = !!localStorage.getItem("whop_token");
+
+  if (signedIn) {
+    loginBtn.textContent = isMember ? "Member · Logout" : "Logout";
+    loginBtn.href = "#";
+    loginBtn.onclick = (e) => { e.preventDefault(); logout(); };
   } else {
     loginBtn.textContent = "Login";
     loginBtn.href = "login.html";
+    loginBtn.onclick = null;
   }
+}
+
+// ── GATE ARBITRARY ELEMENTS ────────────────────────────────
+// Anything in the markup with `data-premium-only` is hidden for
+// non-members. Anything with `data-non-member-only` is hidden for
+// members (e.g. upgrade prompts).
+function applyPremiumGating() {
+  document.querySelectorAll("[data-premium-only]").forEach(el => {
+    el.style.display = isMember ? "" : "none";
+  });
+  document.querySelectorAll("[data-non-member-only]").forEach(el => {
+    el.style.display = isMember ? "none" : "";
+  });
 }
 
 // ── LOAD AND RENDER PICKS ──────────────────────────────────
