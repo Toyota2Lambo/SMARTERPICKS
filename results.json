@@ -1,0 +1,17 @@
+{
+  "date": "May 04, 2026",
+  "wins": 5,
+  "losses": 2,
+  "pushes": 0,
+  "net_units": 3.7,
+  "summary_text": "5-2 · +3.7u",
+  "picks": [
+    { "league": "NBA · Playoffs", "pick": "Knicks +6.5",          "odds": "-110", "result": "WON",  "units":  1.91 },
+    { "league": "MLB",            "pick": "Under 7.5 (Yamamoto)",  "odds": "-105", "result": "LOST", "units": -1.05 },
+    { "league": "NHL · Playoffs", "pick": "McDavid O0.5 G",        "odds": "+165", "result": "WON",  "units":  1.65 },
+    { "league": "NBA · Playoffs", "pick": "Total O214.5",          "odds": "-112", "result": "WON",  "units":  1.34 },
+    { "league": "MLB",            "pick": "Cardinals ML",          "odds": "+118", "result": "WON",  "units":  1.18 },
+    { "league": "NHL · Playoffs", "pick": "Panthers -1.5",         "odds": "+135", "result": "WON",  "units":  1.35 },
+    { "league": "NBA · Playoffs", "pick": "Brunson O31.5 pts",     "odds": "+110", "result": "LOST", "units": -1.00 }
+  ]
+}
