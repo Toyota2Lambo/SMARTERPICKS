@@ -11,7 +11,7 @@
 const WHOP_CONFIG = {
   CLIENT_ID:   "app_5RPKKi5gvHwpvo",
   PRODUCT_ID:  "prod_JAuXj9K2RJUjd",   // SmarterPicks (main) — switch to prod_4yaKtjgti7F9m for Premium-only gating
-  ACCESS_BASE: "https://api.whop.com/api/users",
+  ACCESS_BASE: "https://api.whop.com/api/v1/users",
   TOKEN_URL:   "https://api.whop.com/oauth/token",
 };
 
