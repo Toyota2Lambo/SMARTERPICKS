@@ -12,7 +12,7 @@ const WHOP_CONFIG = {
   CLIENT_ID:   "app_5RPKKi5gvHwpvo",
   PRODUCT_ID:  "prod_JAuXj9K2RJUjd",   // SmarterPicks (main) — switch to prod_4yaKtjgti7F9m for Premium-only gating
   ACCESS_BASE: "https://api.whop.com/api/users",
-  TOKEN_URL:   "https://api.whop.com/oauth/token",
+  TOKEN_URL:   "/api/whop-token",   // server-side proxy (adds client_secret)
 };
 
 // ── STATE ──────────────────────────────────────────────────
