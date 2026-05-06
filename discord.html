@@ -406,16 +406,45 @@
 
 <script>
 // ============================================================
-// SETUP — replace the placeholder with your real Discord invite
-// (the same link works for both Free and the in-page CTAs).
-// Premium members are added via Whop's automatic Discord role,
-// so they don't need a separate invite.
+// Two destinations:
+//   FREE_INVITE  — the public Discord server, open to anyone
+//   PREMIUM_HUB  — the Whop-hosted Discord experience for paid
+//                  members (Whop gates non-members into checkout)
+// Premium members get auto-assigned to the premium server via
+// Whop's Discord integration, so they don't need a raw invite.
 // ============================================================
-const DISCORD_INVITE = "https://whop.com/joined/smarterpicks/discord-3dQGAll8tQs1zU/app/";
+const FREE_INVITE = "https://discord.gg/QaYMUvqf39";
+const PREMIUM_HUB = "https://whop.com/joined/smarterpicks/discord-3dQGAll8tQs1zU/app/";
 
+// Free Discord CTAs (hero + final CTA buttons)
 document.querySelectorAll("#join-free-btn, #join-free-btn-2").forEach(btn => {
-  btn.href = DISCORD_INVITE;
+  btn.href = FREE_INVITE;
 });
+
+// Premium CTAs: if the visitor is already a paying member (we can tell
+// from the whop_access blob set by callback.html), send them straight to
+// the Whop Discord hub and relabel the button so it makes sense for them.
+// Non-members keep the "Get Premium" CTA pointing at login.html, which
+// runs the subscribe flow.
+try {
+  const access = JSON.parse(localStorage.getItem("whop_access") || "null");
+  if (access && access.has_access) {
+    const tierBtn = document.querySelector(".tier-btn.gold");
+    if (tierBtn) {
+      tierBtn.href = PREMIUM_HUB;
+      tierBtn.target = "_blank";
+      tierBtn.rel = "noopener";
+      tierBtn.textContent = "Open Premium Discord →";
+    }
+    const ctaBtn = document.querySelector(".btn-large.ghost");
+    if (ctaBtn) {
+      ctaBtn.href = PREMIUM_HUB;
+      ctaBtn.target = "_blank";
+      ctaBtn.rel = "noopener";
+      ctaBtn.textContent = "Open Premium Discord →";
+    }
+  }
+} catch (_) { /* no localStorage / not signed in — leave defaults */ }
 </script>
 
 </body>
