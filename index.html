@@ -359,6 +359,83 @@
     .news-form{flex-direction:column;}
     .news-input{min-width:0;width:100%;}
   }
+
+  /* ==========================================================
+     INTERACTIVE LAYER — view transitions, 3D tilt cards,
+     confidence meter, result-reveal flip, AI pick chat panel,
+     sportsbook deep-link button
+     ========================================================== */
+
+  /* View Transitions API — smooth crossfade between same-origin pages */
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root){ animation: vtFadeOut .2s ease-out forwards; }
+  ::view-transition-new(root){ animation: vtFadeIn  .35s ease-out forwards; }
+  @keyframes vtFadeOut{ to { opacity: 0; transform: translateY(-6px); } }
+  @keyframes vtFadeIn { from{ opacity: 0; transform: translateY(8px); } }
+
+  /* 3D tilt — applied via JS mousemove; CSS just sets the perspective + transition */
+  .picks-grid{perspective:1400px;}
+  .pick-card{transform-style:preserve-3d;}
+  .pick-card:not(.locked){will-change:transform;}
+
+  /* Pick-card layout for new buttons row at the bottom */
+  .pick-tools{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+  .pick-tool{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;border:1px solid var(--border);background:transparent;color:var(--text-muted);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all .2s;}
+  .pick-tool:hover{border-color:var(--accent);color:var(--text);}
+  .pick-tool.primary{border-color:var(--accent-dim);color:var(--accent);}
+  .pick-tool.primary:hover{background:var(--accent);color:#000;}
+
+  /* === CONFIDENCE METER === */
+  .conf-meter{display:flex;align-items:center;gap:10px;margin:10px 0 18px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);}
+  .conf-meter-track{flex:1;height:5px;background:var(--bg-surface);position:relative;overflow:hidden;}
+  .conf-meter-fill{position:absolute;inset:0;width:0;background:linear-gradient(90deg, var(--accent), var(--win));transition:width 1.4s cubic-bezier(.2,.7,.2,1);}
+  .conf-meter-fill.in-view{width:var(--conf,50%);}
+  .pick-card.conf-c .conf-meter-fill{background:linear-gradient(90deg, var(--text-dim), var(--accent));}
+  .pick-card.conf-a .conf-meter-fill{background:linear-gradient(90deg, var(--accent), var(--win));}
+  .conf-label{flex-shrink:0;font-weight:700;color:var(--text);}
+
+  /* === RESULT REVEAL CHIP (post-game flip) ===
+     If a pick has a `result` field, picks-loader inserts this chip
+     on top of the card and animates it in via a flip. */
+  .result-reveal{position:absolute;top:14px;right:14px;perspective:600px;z-index:4;pointer-events:none;}
+  .result-chip{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 10px;color:#000;transform:rotateY(90deg);transform-origin:center;animation:resultFlip .8s cubic-bezier(.2,.9,.3,1.05) forwards;}
+  .result-chip.won { background:var(--win); }
+  .result-chip.lost{ background:var(--loss); color:#fff; }
+  .result-chip.push{ background:var(--text-muted); color:#000; }
+  @keyframes resultFlip{
+    0%   { transform: rotateY(90deg) scale(.9); opacity: 0; }
+    60%  { transform: rotateY(-10deg) scale(1.05); opacity: 1; }
+    100% { transform: rotateY(0deg) scale(1); opacity: 1; }
+  }
+  /* Hide the lock badge if a result is shown (only on member-pick variant) */
+  .pick-card.has-result .lock-badge { display:none; }
+
+  /* === AI PICK EXPLAINER CHAT PANEL === */
+  .chat-panel{margin-top:14px;border-top:1px solid var(--border);padding-top:14px;display:none;}
+  .pick-card.chat-open .chat-panel{display:block;}
+  .chat-msgs{display:flex;flex-direction:column;gap:10px;margin-bottom:10px;max-height:280px;overflow-y:auto;}
+  .chat-msg{font-size:13px;line-height:1.55;padding:10px 12px;border:1px solid var(--border);}
+  .chat-msg.user{background:var(--bg-surface);color:var(--text);align-self:flex-end;max-width:82%;}
+  .chat-msg.assistant{background:transparent;color:var(--text);max-width:100%;}
+  .chat-msg.assistant strong{color:var(--accent);font-weight:600;}
+  .chat-msg.error{border-color:rgba(217,101,101,.4);color:var(--loss);font-family:var(--mono);font-size:11px;}
+  .chat-typing{display:inline-flex;gap:4px;align-items:center;}
+  .chat-typing span{width:6px;height:6px;border-radius:50%;background:var(--text-muted);animation:chatBounce 1.2s infinite ease-in-out;}
+  .chat-typing span:nth-child(2){animation-delay:.15s;}
+  .chat-typing span:nth-child(3){animation-delay:.3s;}
+  @keyframes chatBounce{0%,80%,100%{transform:translateY(0);opacity:.4;}40%{transform:translateY(-3px);opacity:1;}}
+
+  .chat-suggest{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+  .chat-chip{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border:1px solid var(--border);background:var(--bg-surface);color:var(--text-muted);cursor:pointer;transition:all .2s;}
+  .chat-chip:hover{border-color:var(--accent);color:var(--text);}
+
+  .chat-form{display:flex;gap:6px;}
+  .chat-input{flex:1;background:var(--bg-surface);border:1px solid var(--border);padding:10px 12px;color:var(--text);font-family:var(--body);font-size:13px;outline:none;transition:border-color .2s;}
+  .chat-input:focus{border-color:var(--accent);}
+  .chat-send{background:var(--accent);color:#000;border:none;padding:0 14px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .2s;}
+  .chat-send:hover{background:#e6b950;}
+  .chat-send:disabled{opacity:.4;cursor:not-allowed;}
+  .chat-byline{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-top:8px;text-align:right;}
 </style>
 </head>
 <body>
