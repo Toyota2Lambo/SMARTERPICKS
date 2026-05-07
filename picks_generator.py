@@ -14,6 +14,7 @@
 import requests
 import json
 import os
+import re
 import sys
 from datetime import datetime
 
@@ -239,6 +240,240 @@ def save_picks(data):
     print(f"   Premium picks: {len([p for p in data['picks'] if p['is_premium']])}")
 
 
+# ============================================================
+# RESULTS SCORING — runs at the start of each daily run.
+# Reads yesterday's picks.json, fetches final scores from the
+# Odds API, scores each pick (W/L/PUSH/PENDING), writes
+# results.json (yesterday's results card) and appends to
+# history.json (cumulative chart + profit calculator).
+# ============================================================
+
+def team_in(needle, haystack):
+    """Loose case-insensitive name match. 'Knicks' matches 'New York Knicks'."""
+    if not needle or not haystack:
+        return False
+    a, b = needle.lower(), haystack.lower()
+    return a in b or b in a
+
+def find_game_by_teams(away, home, scores):
+    """Find a game in the Odds API /scores response by team names."""
+    for g in scores:
+        ht = g.get("home_team", "")
+        at = g.get("away_team", "")
+        if team_in(home, ht) and team_in(away, at):
+            return g
+    return None
+
+def parse_stake(s):
+    """'1.5u' -> 1.5; defaults to 1.0 if unparseable."""
+    m = re.match(r"(\d+(?:\.\d+)?)", str(s or ""))
+    return float(m.group(1)) if m else 1.0
+
+def american_payout(odds_str):
+    """Units WON per unit risked at the given American odds. -110 -> 0.909, +120 -> 1.20."""
+    s = str(odds_str or "").strip().replace("+", "")
+    try:
+        n = int(float(s))
+    except ValueError:
+        return 1.0
+    if n > 0:
+        return n / 100.0
+    if n < 0:
+        return 100.0 / abs(n)
+    return 1.0
+
+def get_score(game, team_name):
+    for s in (game.get("scores") or []):
+        if s.get("name") == team_name:
+            try:
+                return int(s.get("score"))
+            except (TypeError, ValueError):
+                return None
+    return None
+
+def score_pick_string(pick_str, game, home_score, away_score):
+    """Returns 'WON' / 'LOST' / 'PUSH' / 'PENDING' for spreads, MLs, totals.
+    Player props / parlays / puck lines fall through to PENDING (manual)."""
+    s = (pick_str or "").strip()
+    home, away = game.get("home_team", ""), game.get("away_team", "")
+
+    # Total: "Over 214.5", "Under 7.5"
+    m = re.match(r"^(over|under)\s+(\d+(?:\.\d+)?)$", s, re.I)
+    if m:
+        side, total = m.group(1).lower(), float(m.group(2))
+        actual = home_score + away_score
+        if actual == total: return "PUSH"
+        return "WON" if (side == "over") == (actual > total) else "LOST"
+
+    # Moneyline: "Cardinals ML"
+    m = re.match(r"^(.+?)\s+ml$", s, re.I)
+    if m:
+        name = m.group(1).strip()
+        if home_score == away_score: return "PUSH"
+        if team_in(name, home): return "WON" if home_score > away_score else "LOST"
+        if team_in(name, away): return "WON" if away_score > home_score else "LOST"
+        return "PENDING"
+
+    # Spread: "Knicks +6.5", "Lakers -3.5"
+    m = re.match(r"^(.+?)\s+([+-]\d+(?:\.\d+)?)$", s)
+    if m:
+        name, spread = m.group(1).strip(), float(m.group(2))
+        if team_in(name, home):
+            adj = home_score + spread
+            if adj == away_score: return "PUSH"
+            return "WON" if adj > away_score else "LOST"
+        if team_in(name, away):
+            adj = away_score + spread
+            if adj == home_score: return "PUSH"
+            return "WON" if adj > home_score else "LOST"
+        return "PENDING"
+
+    # Anything else (player props, parlays, puck lines): need a human.
+    return "PENDING"
+
+def score_one_pick(pick, all_scores):
+    out = dict(pick)
+    game = find_game_by_teams(pick.get("away_team"), pick.get("home_team"), all_scores)
+    if not game or not game.get("completed"):
+        out["result"], out["units"] = "PENDING", 0.0
+        return out
+
+    home_score = get_score(game, game.get("home_team", ""))
+    away_score = get_score(game, game.get("away_team", ""))
+    if home_score is None or away_score is None:
+        out["result"], out["units"] = "PENDING", 0.0
+        return out
+
+    result = score_pick_string(pick.get("pick", ""), game, home_score, away_score)
+    stake = parse_stake(pick.get("stake"))
+    if   result == "WON":  units = round(stake * american_payout(pick.get("odds")), 2)
+    elif result == "LOST": units = round(-stake, 2)
+    else:                  units = 0.0
+    out["result"], out["units"] = result, units
+    return out
+
+def fetch_completed_scores():
+    """Pull last 2 days of completed scores across all configured sports."""
+    if not ODDS_API_KEY:
+        return []
+    rows = []
+    for sport in SPORTS:
+        try:
+            r = requests.get(
+                f"https://api.the-odds-api.com/v4/sports/{sport}/scores",
+                params={"apiKey": ODDS_API_KEY, "daysFrom": 2},
+                timeout=10,
+            )
+            if r.status_code == 200:
+                rows.extend(r.json())
+            else:
+                print(f"   ✗ scores {sport}: HTTP {r.status_code}")
+        except Exception as e:
+            print(f"   ✗ scores {sport}: {e}")
+    return rows
+
+def update_history_for_yesterday(date_str, net_units, wins, losses, pushes):
+    """Append yesterday's net into history.json and bump cumulative + stats.
+    No-ops if we've already recorded that date."""
+    history = {"stats": {}, "daily": []}
+    if os.path.exists("history.json"):
+        try:
+            with open("history.json") as f:
+                history = json.load(f)
+        except Exception as e:
+            print(f"   ⚠ couldn't read history.json: {e}")
+
+    iso = None
+    for fmt in ("%B %d, %Y", "%Y-%m-%d"):
+        try:
+            iso = datetime.strptime(date_str, fmt).strftime("%Y-%m-%d")
+            break
+        except (TypeError, ValueError):
+            continue
+    if not iso:
+        iso = datetime.now().strftime("%Y-%m-%d")
+
+    daily = history.get("daily", [])
+    if any(d.get("date") == iso for d in daily):
+        print(f"   {iso} already in history — skipping append")
+        return
+
+    last_cum = daily[-1]["cumulative"] if daily else 0.0
+    daily.append({"date": iso, "units": net_units, "cumulative": round(last_cum + net_units, 2)})
+
+    stats = history.get("stats", {}) or {}
+    stats["wins"]      = stats.get("wins", 0) + wins
+    stats["losses"]    = stats.get("losses", 0) + losses
+    stats["pushes"]    = stats.get("pushes", 0) + pushes
+    stats["total_picks"] = stats.get("total_picks", 0) + wins + losses + pushes
+    stats["net_units"]  = round(daily[-1]["cumulative"], 2)
+    stats["days_recorded"] = len(daily)
+    if stats["wins"] + stats["losses"]:
+        stats["win_pct"] = round(100 * stats["wins"] / (stats["wins"] + stats["losses"]), 1)
+    if daily:
+        stats["avg_daily_units"] = round(sum(d["units"] for d in daily) / len(daily), 2)
+    history["stats"] = stats
+    history["daily"] = daily
+
+    with open("history.json", "w") as f:
+        json.dump(history, f, indent=2)
+    print(f"   ✅ history.json updated ({iso}: {net_units:+.2f}u)")
+
+def score_and_archive_yesterday():
+    """Read existing picks.json, score each pick using yesterday's final
+    scores from the Odds API, write results.json + update history.json."""
+    if not os.path.exists("picks.json"):
+        print("📊 No previous picks.json found — first run, skipping scoring")
+        return
+    try:
+        with open("picks.json") as f:
+            old = json.load(f)
+    except Exception as e:
+        print(f"📊 Couldn't read picks.json ({e}) — skipping scoring")
+        return
+
+    picks = old.get("picks") or []
+    if not picks or picks[0].get("league") == "Coming Soon":
+        print("📊 Previous picks.json was the fallback template — skipping scoring")
+        return
+
+    print(f"\n📊 Scoring yesterday's picks ({old.get('date', 'unknown date')})...")
+    all_scores = fetch_completed_scores()
+    print(f"   Pulled {len(all_scores)} completed games from Odds API")
+
+    scored = [score_one_pick(p, all_scores) for p in picks]
+    wins   = sum(1 for p in scored if p["result"] == "WON")
+    losses = sum(1 for p in scored if p["result"] == "LOST")
+    pushes = sum(1 for p in scored if p["result"] == "PUSH")
+    pending = sum(1 for p in scored if p["result"] == "PENDING")
+    net    = round(sum(p["units"] for p in scored), 2)
+
+    summary = f"{wins}-{losses}"
+    if pushes: summary += f"-{pushes}"
+    summary += f" · {('+' if net >= 0 else '')}{net}u"
+    if pending: summary += f"  ({pending} pending manual scoring)"
+
+    results = {
+        "date":         old.get("date"),
+        "wins":         wins,
+        "losses":       losses,
+        "pushes":       pushes,
+        "net_units":    net,
+        "summary_text": summary,
+        "picks":        scored,
+    }
+    with open("results.json", "w") as f:
+        json.dump(results, f, indent=2)
+    print(f"   ✅ results.json saved: {summary}")
+
+    # Only count fully-scored days against history (so a slate full of
+    # PENDING props doesn't pollute the cumulative chart).
+    if pending == 0 or wins + losses + pushes > 0:
+        update_history_for_yesterday(old.get("date"), net, wins, losses, pushes)
+    else:
+        print("   ⚠ all picks pending — skipping history append")
+
+
 # ── MAIN: RUN EVERYTHING ──────────────────────────────────
 if __name__ == "__main__":
     print(f"\n{'='*50}")
@@ -256,7 +491,14 @@ if __name__ == "__main__":
         print("   Check your GitHub Secrets (see README Step 4)")
         sys.exit(1)
 
-    # Run the pipeline
+    # Step 0: score yesterday's picks BEFORE we overwrite picks.json
+    try:
+        score_and_archive_yesterday()
+    except Exception as e:
+        print(f"⚠ Scoring step failed: {e}")
+        print("   Continuing with today's pick generation anyway.")
+
+    # Step 1: generate today's new card
     games = get_todays_games() if ODDS_API_KEY else []
     data  = generate_picks(games)
     save_picks(data)
