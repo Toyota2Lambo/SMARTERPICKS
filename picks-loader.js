@@ -237,15 +237,17 @@ function resultChip(pick) {
   return `<div class="result-reveal"><div class="result-chip ${cls}">${r}${units ? " · " + units : ""}</div></div>`;
 }
 
-// Confidence meter HTML. Sets --conf as a CSS custom property so the
-// .in-view animation can fill to that width.
+// Confidence meter HTML. Sets --conf as a unitless decimal (0..1)
+// because the CSS uses transform:scaleX(var(--conf)) — GPU-composited,
+// no layout thrash.
 function confidenceMeter(info) {
   if (!info) return "";
+  const decimal = (Math.max(0, Math.min(100, info.percent)) / 100).toFixed(2);
   return `
     <div class="conf-meter">
       <span>Confidence</span>
       <div class="conf-meter-track">
-        <div class="conf-meter-fill" style="--conf:${info.percent}%;"></div>
+        <div class="conf-meter-fill" style="--conf:${decimal};"></div>
       </div>
       <span class="conf-label">${info.label}</span>
     </div>
@@ -447,22 +449,51 @@ function wireCardInteractivity(grid) {
   const cards = grid.querySelectorAll(".pick-card");
 
   // -- 1) 3D tilt on cursor (skip locked + touch devices) --
+  // Throttled to one transform write per animation frame via rAF. This
+  // is the difference between buttery (60fps) and choppy on busy pages.
+  // Inline transition is set once on enter / cleared on leave; mousemove
+  // never touches it. translate3d hints the GPU to give us a layer.
   const isTouch = matchMedia("(hover: none)").matches;
   if (!isTouch) {
     cards.forEach(card => {
       if (card.classList.contains("locked")) return;
+
+      let pendingX = 0, pendingY = 0;
+      let rafId = null;
+      let active = false;
+
+      const apply = () => {
+        rafId = null;
+        if (!active) return;
+        const rotY =  pendingX * 8;
+        const rotX = -pendingY * 6;
+        card.style.transform =
+          `translate3d(0,-4px,0) perspective(1200px) ` +
+          `rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
+      };
+
+      card.addEventListener("mouseenter", () => {
+        active = true;
+        // Snappy transition while the cursor is over the card so tilt
+        // tracks naturally; CSS-defined transition resumes on leave.
+        card.style.transition = "transform 80ms ease-out";
+        card.style.willChange = "transform";
+      });
+
       card.addEventListener("mousemove", (e) => {
         const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width  - 0.5; // -0.5 .. 0.5
-        const y = (e.clientY - r.top)  / r.height - 0.5;
-        const rotY = x * 8;   // max 8deg in either direction
-        const rotX = -y * 6;  // max 6deg
-        card.style.transition = "transform 50ms ease-out, background .2s, box-shadow .25s ease";
-        card.style.transform = `translateY(-4px) perspective(1200px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
+        pendingX = (e.clientX - r.left) / r.width  - 0.5;
+        pendingY = (e.clientY - r.top)  / r.height - 0.5;
+        if (rafId == null) rafId = requestAnimationFrame(apply);
       });
+
       card.addEventListener("mouseleave", () => {
-        card.style.transition = "transform .35s cubic-bezier(.2,.7,.2,1), background .2s, box-shadow .25s ease";
+        active = false;
+        if (rafId != null) { cancelAnimationFrame(rafId); rafId = null; }
+        // Hand control back to the CSS transition for a smooth return.
+        card.style.transition = "";
         card.style.transform = "";
+        card.style.willChange = "";
       });
     });
   }
