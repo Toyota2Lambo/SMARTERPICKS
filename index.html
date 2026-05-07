@@ -240,25 +240,31 @@
      POLISH LAYER — microinteractions, ticker, glow, skeletons
      ========================================================== */
 
-  /* Pick card hover-lift (free cards lift; locked cards stay put) */
-  .pick-card{transition:transform .25s cubic-bezier(.2,.7,.2,1), background .2s, box-shadow .25s ease;}
-  .pick-card:not(.locked):hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.45);z-index:1;}
+  /* Pick card hover-lift — longer, smoother return; box-shadow softened so paint cost is lower */
+  .pick-card{transition:transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s cubic-bezier(.2,.7,.2,1), background .25s ease;}
+  .pick-card:not(.locked):hover{transform:translate3d(0,-4px,0);box-shadow:0 14px 36px rgba(0,0,0,.42);z-index:1;}
 
-  /* Premium card pulsing glow (the locked teaser cards) */
+  /* Premium card glow — slowed so it feels like a heartbeat, not a strobe.
+     Box-shadow can't be GPU-composited but at this duration it's not noticeable. */
   @keyframes premiumGlow{
     0%,100%{box-shadow:0 0 0 1px rgba(212,168,67,.30), 0 0 22px rgba(212,168,67,.10);}
-    50%    {box-shadow:0 0 0 1px rgba(212,168,67,.65), 0 0 34px rgba(212,168,67,.30);}
+    50%    {box-shadow:0 0 0 1px rgba(212,168,67,.55), 0 0 32px rgba(212,168,67,.22);}
   }
-  .pick-card.locked{animation:premiumGlow 2.8s ease-in-out infinite;}
+  .pick-card.locked{animation:premiumGlow 4.5s ease-in-out infinite;}
   @keyframes ctaPulse{
-    0%,100%{box-shadow:0 0 0 0 rgba(212,168,67,.45);}
-    50%    {box-shadow:0 0 0 8px rgba(212,168,67,0);}
+    0%,100%{box-shadow:0 0 0 0 rgba(212,168,67,.40);}
+    50%    {box-shadow:0 0 0 10px rgba(212,168,67,0);}
   }
-  .lock-btn{animation:ctaPulse 2s ease-in-out infinite;}
+  .lock-btn{animation:ctaPulse 3s ease-in-out infinite;}
 
-  /* Scroll-triggered fade-in (applied via JS to sections) */
-  .fade-in{opacity:0;transform:translateY(24px);transition:opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1);will-change:opacity,transform;}
-  .fade-in.in-view{opacity:1;transform:translateY(0);}
+  /* Scroll-triggered fade-in — cinematic easing curve, longer duration */
+  .fade-in{opacity:0;transform:translate3d(0,24px,0);transition:opacity 1s cubic-bezier(.16,.7,.16,1), transform 1s cubic-bezier(.16,.7,.16,1);will-change:opacity,transform;}
+  .fade-in.in-view{opacity:1;transform:translate3d(0,0,0);}
+
+  /* Smooth reveal for sections shown dynamically by JS (yesterday, chart, ticker).
+     JS sets data-revealed after data loads; CSS animates the transition. */
+  [data-reveal]{opacity:0;transform:translate3d(0,12px,0);transition:opacity .55s cubic-bezier(.16,.7,.16,1), transform .55s cubic-bezier(.16,.7,.16,1);}
+  [data-reveal][data-revealed]{opacity:1;transform:translate3d(0,0,0);}
 
   /* Skeleton shimmer used while picks.json is loading */
   @keyframes shimmer{0%{background-position:-200% 0;}100%{background-position:200% 0;}}
@@ -270,7 +276,7 @@
   .ticker::before,.ticker::after{content:"";position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;}
   .ticker::before{left:0;background:linear-gradient(90deg, var(--bg-elevated), transparent);}
   .ticker::after{right:0;background:linear-gradient(-90deg, var(--bg-elevated), transparent);}
-  .ticker-track{display:flex;gap:44px;padding:11px 0;white-space:nowrap;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);animation:tickerScroll 60s linear infinite;width:max-content;}
+  .ticker-track{display:flex;gap:44px;padding:11px 0;white-space:nowrap;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);animation:tickerScroll 60s linear infinite;width:max-content;will-change:transform;}
   .ticker-item{display:inline-flex;align-items:center;gap:10px;flex-shrink:0;}
   .ticker-league{color:var(--accent);font-weight:700;}
   .ticker-time{color:var(--text-dim);}
@@ -433,11 +439,14 @@
   .pick-tool.primary{border-color:var(--accent-dim);color:var(--accent);}
   .pick-tool.primary:hover{background:var(--accent);color:#000;}
 
-  /* === CONFIDENCE METER === */
+  /* === CONFIDENCE METER ===
+     Uses transform:scaleX so the fill is GPU-composited (smooth on
+     every device). The fill spans the full track width and just
+     scales horizontally; transform-origin:left keeps it left-anchored. */
   .conf-meter{display:flex;align-items:center;gap:10px;margin:10px 0 18px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);}
   .conf-meter-track{flex:1;height:5px;background:var(--bg-surface);position:relative;overflow:hidden;}
-  .conf-meter-fill{position:absolute;inset:0;width:0;background:linear-gradient(90deg, var(--accent), var(--win));transition:width 1.4s cubic-bezier(.2,.7,.2,1);}
-  .conf-meter-fill.in-view{width:var(--conf,50%);}
+  .conf-meter-fill{position:absolute;inset:0;background:linear-gradient(90deg, var(--accent), var(--win));transform-origin:left center;transform:scaleX(0);transition:transform 1.4s cubic-bezier(.2,.7,.2,1);will-change:transform;}
+  .conf-meter-fill.in-view{transform:scaleX(var(--conf, .5));}
   .pick-card.conf-c .conf-meter-fill{background:linear-gradient(90deg, var(--text-dim), var(--accent));}
   .pick-card.conf-a .conf-meter-fill{background:linear-gradient(90deg, var(--accent), var(--win));}
   .conf-label{flex-shrink:0;font-weight:700;color:var(--text);}
@@ -458,9 +467,25 @@
   /* Hide the lock badge if a result is shown (only on member-pick variant) */
   .pick-card.has-result .lock-badge { display:none; }
 
-  /* === AI PICK EXPLAINER CHAT PANEL === */
-  .chat-panel{margin-top:14px;border-top:1px solid var(--border);padding-top:14px;display:none;}
-  .pick-card.chat-open .chat-panel{display:block;}
+  /* === AI PICK EXPLAINER CHAT PANEL ===
+     Animated open/close via max-height + opacity instead of display:none
+     (display can't be transitioned). On chat-open we expand smoothly. */
+  .chat-panel{
+    max-height:0;
+    opacity:0;
+    margin-top:0;
+    padding-top:0;
+    border-top:1px solid transparent;
+    overflow:hidden;
+    transition:max-height .4s cubic-bezier(.2,.7,.2,1), opacity .3s ease, padding-top .4s cubic-bezier(.2,.7,.2,1), margin-top .4s cubic-bezier(.2,.7,.2,1), border-color .3s ease;
+  }
+  .pick-card.chat-open .chat-panel{
+    max-height:600px;
+    opacity:1;
+    margin-top:14px;
+    padding-top:14px;
+    border-top-color:var(--border);
+  }
   .chat-msgs{display:flex;flex-direction:column;gap:10px;margin-bottom:10px;max-height:280px;overflow-y:auto;}
   .chat-msg{font-size:13px;line-height:1.55;padding:10px 12px;border:1px solid var(--border);}
   .chat-msg.user{background:var(--bg-surface);color:var(--text);align-self:flex-end;max-width:82%;}
@@ -569,7 +594,7 @@
      YESTERDAY'S RESULTS — populated from results.json by the
      polish-layer script. Hidden gracefully if results.json fails.
      ============================================================ -->
-<section class="yday" id="yday-section" style="display:none;">
+<section class="yday" id="yday-section" data-reveal style="display:none;">
   <div class="container">
     <div class="yday-card">
       <div>
@@ -783,7 +808,7 @@
       <div class="section-meta">Updated nightly · every result logged</div>
     </div>
     <!-- CUMULATIVE P/L CHART — populated by polish-layer from history.json -->
-    <div class="chart-wrap" id="chart-wrap" style="display:none;">
+    <div class="chart-wrap" id="chart-wrap" data-reveal style="display:none;">
       <div class="chart-header">
         <div class="chart-title">Cumulative units · <span id="chart-range">last 36 days</span></div>
         <div class="chart-now" id="chart-now">+0u</div>
@@ -1131,7 +1156,7 @@
           return `<span class="yday-pill ${cls}">${sym} ${escHtml2(p.pick)}</span>`;
         }).join("");
       }
-      wrap.style.display = "";
+      revealEl(wrap);
     })
     .catch(() => { /* leave hidden */ });
 
@@ -1210,7 +1235,18 @@
     const rangeEl = document.getElementById("chart-range");
     if (rangeEl) rangeEl.textContent = `last ${points.length} days`;
 
-    wrap.style.display = "";
+    revealEl(wrap);
+  }
+
+  // Smoothly reveal an element that was display:none — toggles display
+  // back on, then on the next frame sets data-revealed so the CSS
+  // transition (opacity + translateY) kicks in cleanly.
+  function revealEl(el) {
+    if (!el) return;
+    el.style.display = "";
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      el.setAttribute("data-revealed", "");
+    }));
   }
 
   // ---------- 3) PROFIT CALCULATOR ----------
