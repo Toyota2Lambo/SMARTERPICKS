@@ -56,7 +56,10 @@
 const CONFIG = {
   CLIENT_ID:       "app_5RPKKi5gvHwpvo",
   PRODUCT_ID:      "prod_JAuXj9K2RJUjd",  // SmarterPicks (main) — switch to prod_4yaKtjgti7F9m for Premium-only gating
-  REDIRECT_URI:    "https://sharp-line-red.vercel.app/callback.html",
+  // Dynamic so it matches whichever domain login.html sent to Whop.
+  // Must equal what was passed to /oauth/authorize for the token
+  // exchange to succeed.
+  REDIRECT_URI:    window.location.origin + "/callback.html",
 
   TOKEN_URL:    "https://api.whop.com/oauth/token",
   USERINFO_URL: "https://api.whop.com/oauth/userinfo",
