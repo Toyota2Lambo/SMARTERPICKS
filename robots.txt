@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Don't index OAuth callback (no value to crawlers, has query params)
+Disallow: /callback.html
+
+Sitemap: https://smarterpicks.io/sitemap.xml
