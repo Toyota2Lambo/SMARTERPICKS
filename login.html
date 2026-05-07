@@ -273,7 +273,12 @@
 
 const CONFIG = {
   CLIENT_ID:            "app_5RPKKi5gvHwpvo",
-  REDIRECT_URI:         "https://sharp-line-red.vercel.app/callback.html",
+  // Computed from the current page so the same code works on every
+  // domain you point at this Vercel project (smarterpicks.io,
+  // sharp-line-red.vercel.app, preview deploys, localhost). Each
+  // domain you use must also be registered as an allowed redirect
+  // URI in the Whop OAuth app dashboard.
+  REDIRECT_URI:         window.location.origin + "/callback.html",
   CHECKOUT_URL_MONTHLY: "https://whop.com/checkout/plan_VIlKaPMvfDPoj",
   CHECKOUT_URL_ANNUAL:  "https://whop.com/checkout/plan_UvETXgAfoUQj5",
 
