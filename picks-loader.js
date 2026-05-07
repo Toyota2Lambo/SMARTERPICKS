@@ -161,6 +161,7 @@ async function loadPicks() {
     const grid = document.getElementById("picks-grid");
     if (grid && data.picks && data.picks.length > 0) {
       grid.innerHTML = data.picks.map(pick => renderPickCard(pick)).join("");
+      wireCardInteractivity(grid);
     }
 
     // Show member banner if logged in
@@ -187,28 +188,132 @@ function sportIcon(league) {
   return "•";
 }
 
-// Pull confidence grade out of the tags array. Tags look like
-// "Confidence A", "Confidence B+", etc. Returns "a" / "b" / "c" / "".
-function confidenceClass(tags) {
+// Pull confidence info from tags ("Confidence A", "Confidence B+", "Confidence C+").
+// Returns { letter, label, percent, cls } where percent is 0-100 for the meter fill.
+function confidenceInfo(tags) {
   const found = (tags || []).find(t => /confidence/i.test(t));
-  if (!found) return "";
-  const m = found.match(/confidence\s*([abc])/i);
-  return m ? `conf-${m[1].toLowerCase()}` : "";
+  if (!found) return null;
+  const m = found.match(/confidence\s*([abc])\s*([+-])?/i);
+  if (!m) return null;
+  const letter = m[1].toUpperCase();
+  const mod = m[2] || "";
+  const baseline = { A: 92, B: 75, C: 50 }[letter] ?? 50;
+  const adj = mod === "+" ? 8 : mod === "-" ? -8 : 0;
+  const percent = Math.max(20, Math.min(100, baseline + adj));
+  return {
+    letter,
+    label: `${letter}${mod}`,
+    percent,
+    cls: `conf-${letter.toLowerCase()}`,
+  };
+}
+
+// Map sportsbook name -> homepage URL for the "Open in [book]" deep-link button.
+// (Most US books don't expose pre-filled-bet deep links publicly, so we link to
+// the book's homepage. The user can then paste/search the pick. Removes the
+// "where do I even bet this" friction.)
+function bookHref(book) {
+  const map = {
+    "DraftKings": "https://sportsbook.draftkings.com",
+    "FanDuel":    "https://sportsbook.fanduel.com",
+    "Caesars":    "https://sportsbook.caesars.com",
+    "BetMGM":     "https://sports.betmgm.com",
+    "PointsBet":  "https://www.pointsbet.com",
+    "ESPN BET":   "https://espnbet.com",
+    "ESPNBet":    "https://espnbet.com",
+    "Hard Rock":  "https://www.hardrock.bet",
+    "bet365":     "https://www.bet365.com",
+  };
+  return map[book] || null;
+}
+
+// Result chip HTML — shown on cards that have a `result` field set
+// ("WON" / "LOST" / "PUSH"). Animates in via CSS @keyframes resultFlip.
+function resultChip(pick) {
+  if (!pick.result) return "";
+  const r = String(pick.result).toUpperCase();
+  const cls = r === "WON" ? "won" : r === "LOST" ? "lost" : "push";
+  const units = (pick.units != null) ? `${pick.units > 0 ? "+" : ""}${pick.units}u` : "";
+  return `<div class="result-reveal"><div class="result-chip ${cls}">${r}${units ? " · " + units : ""}</div></div>`;
+}
+
+// Confidence meter HTML. Sets --conf as a CSS custom property so the
+// .in-view animation can fill to that width.
+function confidenceMeter(info) {
+  if (!info) return "";
+  return `
+    <div class="conf-meter">
+      <span>Confidence</span>
+      <div class="conf-meter-track">
+        <div class="conf-meter-fill" style="--conf:${info.percent}%;"></div>
+      </div>
+      <span class="conf-label">${info.label}</span>
+    </div>
+  `;
+}
+
+// Tools row at the bottom of each pick card. Always shows "Ask Claude";
+// shows "Open in [book]" only when we know that book's URL.
+function toolsRow(pick) {
+  const url = bookHref(pick.book);
+  const open = url
+    ? `<a class="pick-tool primary" href="${url}" target="_blank" rel="noopener">↗ Open in ${escHtml(pick.book)}</a>`
+    : "";
+  const ask = `<button class="pick-tool ask-btn" type="button">💬 Ask Claude</button>`;
+  return `<div class="pick-tools">${open}${ask}</div>`;
+}
+
+// Embed the pick JSON in a data-attribute so the chat panel can read it
+// without us having to maintain a separate JS map.
+function pickPayload(pick) {
+  const safe = {
+    pick: pick.pick, league: pick.league,
+    away_team: pick.away_team, home_team: pick.home_team,
+    game_detail: pick.game_detail, time: pick.time,
+    odds: pick.odds, book: pick.book, stake: pick.stake,
+    reasoning: pick.reasoning, tags: pick.tags || [],
+  };
+  return escHtml(JSON.stringify(safe));
+}
+
+function chatPanel() {
+  return `
+    <div class="chat-panel">
+      <div class="chat-msgs"></div>
+      <div class="chat-suggest">
+        <button type="button" class="chat-chip">Why this side?</button>
+        <button type="button" class="chat-chip">Worst case scenario?</button>
+        <button type="button" class="chat-chip">Should I parlay this?</button>
+      </div>
+      <form class="chat-form">
+        <input class="chat-input" type="text" placeholder="Ask anything about this pick…" maxlength="240">
+        <button class="chat-send" type="submit">Send</button>
+      </form>
+      <div class="chat-byline">Powered by Claude · responses are analysis, not financial advice</div>
+    </div>
+  `;
 }
 
 // ── RENDER PICK CARD ───────────────────────────────────────
 function renderPickCard(pick) {
-  const tags = (pick.tags || []).map(t => `<span class="tag">${escHtml(t)}</span>`).join("");
-  const icon = sportIcon(pick.league);
-  const confCls = confidenceClass(pick.tags);
+  // Strip the "Confidence X" tag from the visible tag chips since
+  // it now renders as a dedicated meter.
+  const visibleTags = (pick.tags || []).filter(t => !/confidence/i.test(t));
+  const tags = visibleTags.map(t => `<span class="tag">${escHtml(t)}</span>`).join("");
+
+  const icon    = sportIcon(pick.league);
+  const conf    = confidenceInfo(pick.tags);
+  const confCls = conf ? conf.cls : "";
 
   // Members see ALL picks fully
   if (isMember || !pick.is_premium) {
     const classes = ["pick-card"];
     if (isMember && pick.is_premium) classes.push("member-pick");
     if (confCls) classes.push(confCls);
+    if (pick.result) classes.push("has-result");
     return `
-      <div class="${classes.join(" ")}">
+      <div class="${classes.join(" ")}" data-pick='${pickPayload(pick)}'>
+        ${resultChip(pick)}
         ${isMember && pick.is_premium ? '<span class="lock-badge" style="background:var(--win);color:#000;">Members Only</span>' : ""}
         <div class="pick-header">
           <span class="pick-league"><span class="pick-icon">${icon}</span>${escHtml(pick.league)}</span>
@@ -218,6 +323,7 @@ function renderPickCard(pick) {
           ${escHtml(pick.away_team)} <span class="vs">at</span> ${escHtml(pick.home_team)}
         </div>
         <div class="pick-detail">${escHtml(pick.game_detail)}</div>
+        ${confidenceMeter(conf)}
         <div class="pick-call">
           <div class="pick-call-label">The Play</div>
           <div class="pick-call-value">${escHtml(pick.pick)}</div>
@@ -227,6 +333,8 @@ function renderPickCard(pick) {
         </div>
         <p class="pick-reasoning">${escHtml(pick.reasoning)}</p>
         <div class="pick-tags">${tags}</div>
+        ${toolsRow(pick)}
+        ${chatPanel()}
       </div>
     `;
   }
@@ -328,6 +436,137 @@ function escHtml(str) {
 function getTodayString() {
   return new Date().toLocaleDateString("en-US", {
     weekday: "long", year: "numeric", month: "long", day: "numeric"
+  });
+}
+
+// ============================================================
+// CARD INTERACTIVITY — 3D tilt, confidence-meter reveal,
+// AI Pick Explainer chat
+// ============================================================
+function wireCardInteractivity(grid) {
+  const cards = grid.querySelectorAll(".pick-card");
+
+  // -- 1) 3D tilt on cursor (skip locked + touch devices) --
+  const isTouch = matchMedia("(hover: none)").matches;
+  if (!isTouch) {
+    cards.forEach(card => {
+      if (card.classList.contains("locked")) return;
+      card.addEventListener("mousemove", (e) => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width  - 0.5; // -0.5 .. 0.5
+        const y = (e.clientY - r.top)  / r.height - 0.5;
+        const rotY = x * 8;   // max 8deg in either direction
+        const rotX = -y * 6;  // max 6deg
+        card.style.transition = "transform 50ms ease-out, background .2s, box-shadow .25s ease";
+        card.style.transform = `translateY(-4px) perspective(1200px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
+      });
+      card.addEventListener("mouseleave", () => {
+        card.style.transition = "transform .35s cubic-bezier(.2,.7,.2,1), background .2s, box-shadow .25s ease";
+        card.style.transform = "";
+      });
+    });
+  }
+
+  // -- 2) Animate confidence meter fill when card scrolls into view --
+  if ("IntersectionObserver" in window) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const fill = e.target.querySelector(".conf-meter-fill");
+          if (fill) fill.classList.add("in-view");
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    cards.forEach(c => {
+      if (c.querySelector(".conf-meter-fill")) obs.observe(c);
+    });
+  } else {
+    grid.querySelectorAll(".conf-meter-fill").forEach(el => el.classList.add("in-view"));
+  }
+
+  // -- 3) AI Pick Explainer chat --
+  cards.forEach(card => wireChat(card));
+}
+
+function wireChat(card) {
+  const askBtn = card.querySelector(".ask-btn");
+  if (!askBtn) return;
+
+  const panel    = card.querySelector(".chat-panel");
+  const msgsEl   = card.querySelector(".chat-msgs");
+  const form     = card.querySelector(".chat-form");
+  const input    = card.querySelector(".chat-input");
+  const sendBtn  = card.querySelector(".chat-send");
+  const chips    = card.querySelectorAll(".chat-chip");
+  const history  = []; // [{role, content}]
+
+  let pickData = null;
+  try { pickData = JSON.parse(card.dataset.pick || "null"); } catch (_) { pickData = null; }
+  if (!pickData) return;
+
+  askBtn.addEventListener("click", () => {
+    card.classList.toggle("chat-open");
+    askBtn.textContent = card.classList.contains("chat-open") ? "✕ Close" : "💬 Ask Claude";
+    if (card.classList.contains("chat-open")) {
+      setTimeout(() => input && input.focus(), 60);
+    }
+  });
+
+  function appendMessage(role, content, opts = {}) {
+    const div = document.createElement("div");
+    div.className = `chat-msg ${role}${opts.error ? " error" : ""}`;
+    if (opts.html) div.innerHTML = content; else div.textContent = content;
+    msgsEl.appendChild(div);
+    msgsEl.scrollTop = msgsEl.scrollHeight;
+    return div;
+  }
+
+  async function send(question) {
+    const q = (question || "").trim();
+    if (!q) return;
+    input.value = "";
+    sendBtn.disabled = true;
+    appendMessage("user", q);
+    history.push({ role: "user", content: q });
+
+    const typing = appendMessage("assistant", `<span class="chat-typing"><span></span><span></span><span></span></span>`, { html: true });
+
+    try {
+      const res = await fetch("/api/claude-chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pick: pickData, messages: history }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        const msg = err.message || err.error || `HTTP ${res.status}`;
+        typing.remove();
+        appendMessage("assistant", `Couldn't reach the analyst — ${msg}`, { error: true });
+        // Don't push error responses into history
+      } else {
+        const data = await res.json();
+        const text = (data.text || "").trim();
+        typing.remove();
+        appendMessage("assistant", text || "(empty response)");
+        if (text) history.push({ role: "assistant", content: text });
+      }
+    } catch (e) {
+      typing.remove();
+      appendMessage("assistant", `Network error — ${e.message}`, { error: true });
+    } finally {
+      sendBtn.disabled = false;
+      input && input.focus();
+    }
+  }
+
+  form && form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    send(input.value);
+  });
+
+  chips.forEach(chip => {
+    chip.addEventListener("click", () => send(chip.textContent));
   });
 }
 
