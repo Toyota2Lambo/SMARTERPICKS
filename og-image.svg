@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="bg" cx="20%" cy="50%" r="80%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="82%" cy="32%" r="55%">
+      <stop offset="0%" stop-color="#d4a843" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#d4a843" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- subtle grid lines top + bottom for "data terminal" feel -->
+  <line x1="0"    y1="120" x2="1200" y2="120" stroke="#2a2a2a" stroke-width="1"/>
+  <line x1="0"    y1="510" x2="1200" y2="510" stroke="#2a2a2a" stroke-width="1"/>
+
+  <!-- top bar: brand mark + wordmark -->
+  <g transform="translate(80 60)">
+    <rect width="14" height="14" fill="#d4a843" transform="rotate(45 7 7) translate(-3 -3)" />
+    <text x="32" y="14" font-family="Fraunces, Georgia, serif" font-size="22" font-weight="600" fill="#f4efe4" letter-spacing="0">SMARTERPICKS</text>
+    <text x="32" y="38" font-family="JetBrains Mono, ui-monospace, monospace" font-size="11" fill="#d4a843" letter-spacing="2.4" text-transform="uppercase">SHARP · DAILY · LOGGED</text>
+  </g>
+
+  <!-- top bar right: live indicator -->
+  <g transform="translate(1064 60)">
+    <circle cx="0" cy="8" r="4" fill="#6dbe7a"/>
+    <text x="14" y="14" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13" fill="#8a8580" letter-spacing="1.5">LIVE TODAY</text>
+  </g>
+
+  <!-- headline -->
+  <g transform="translate(80 220)">
+    <text font-family="Fraunces, Georgia, serif" font-size="100" font-weight="400" fill="#f4efe4" letter-spacing="-3">
+      <tspan x="0" dy="0">Stop guessing.</tspan>
+      <tspan x="0" dy="105" font-style="italic" font-weight="300" fill="#d4a843">Start winning.</tspan>
+    </text>
+  </g>
+
+  <!-- subhead -->
+  <g transform="translate(80 480)">
+    <text font-family="Inter Tight, system-ui, sans-serif" font-size="26" font-weight="400" fill="#8a8580" letter-spacing="-0.2">AI-powered daily sports betting picks. NBA · MLB · NHL · NFL.</text>
+  </g>
+
+  <!-- footer -->
+  <g transform="translate(80 555)">
+    <line x1="0" y1="0" x2="80" y2="0" stroke="#d4a843" stroke-width="1.5"/>
+    <text x="0" y="28" font-family="JetBrains Mono, ui-monospace, monospace" font-size="14" fill="#5a5550" letter-spacing="3.5">SMARTERPICKS.IO &#160;&#160;·&#160;&#160;21+ &#160;·&#160; BET RESPONSIBLY</text>
+  </g>
+
+  <!-- right-side stats stack -->
+  <g transform="translate(820 220)" font-family="Fraunces, Georgia, serif" fill="#f4efe4">
+    <text font-size="14" font-family="JetBrains Mono, ui-monospace, monospace" fill="#8a8580" letter-spacing="2.4" y="0">YTD · $100 BETTOR</text>
+    <text font-size="58" font-weight="400" letter-spacing="-2" y="56" fill="#6dbe7a">+$3,840</text>
+    <line x1="0" y1="86" x2="280" y2="86" stroke="#2a2a2a" stroke-width="1"/>
+
+    <text font-size="14" font-family="JetBrains Mono, ui-monospace, monospace" fill="#8a8580" letter-spacing="2.4" y="120">PICKS LOGGED</text>
+    <text font-size="58" font-weight="400" letter-spacing="-2" y="176">412</text>
+    <line x1="0" y1="206" x2="280" y2="206" stroke="#2a2a2a" stroke-width="1"/>
+
+    <text font-size="14" font-family="JetBrains Mono, ui-monospace, monospace" fill="#8a8580" letter-spacing="2.4" y="240">ACTIVE MEMBERS</text>
+    <text font-size="58" font-weight="400" letter-spacing="-2" y="296">4.1k+</text>
+  </g>
+</svg>
