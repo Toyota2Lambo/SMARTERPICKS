@@ -1,135 +1,135 @@
 {
-  "date": "May 06, 2026",
-  "date_short": "05-06",
-  "sport_summary": "NBA Playoffs action headlines a loaded Wednesday slate featuring 4 NBA games and 9 MLB contests across both leagues",
+  "date": "May 07, 2026",
+  "date_short": "05-07",
+  "sport_summary": "NBA Playoffs action headlining a 14-game Thursday slate featuring NHL, MLB, and basketball postseason matchups",
   "picks": [
     {
       "league": "NBA \u00b7 Playoffs",
       "time": "7:10 PM ET",
-      "away_team": "Philadelphia 76ers",
-      "home_team": "New York Knicks",
+      "away_team": "Cleveland Cavaliers",
+      "home_team": "Detroit Pistons",
       "game_detail": "NBA Playoffs",
-      "pick": "76ers +7.5",
-      "odds": "-106",
-      "book": "BetMGM",
+      "pick": "Cavaliers +3.5",
+      "odds": "-105",
+      "book": "LowVig.ag",
       "stake": "1.5u",
-      "reasoning": "The market has settled firmly at 7.5 across most books, but BetMGM is offering the best price on the 76ers at -106 for the cover. Philadelphia has enough offensive firepower to keep this competitive, and getting a team at nearly a touchdown in a playoff environment offers strong value on the dog side.",
+      "reasoning": "The market consensus sits at Detroit -3.5, but Cleveland is getting the best price at -105 on LowVig compared to -112 at FanDuel. The Cavaliers are a legitimate playoff squad and 3.5 points is a manageable cushion for a team of their caliber. Line consistency across all books at 3.5 suggests sharp agreement on the number, making the +3.5 at reduced juice the smart play.",
       "tags": [
         "Best Price",
-        "Underdog Cover",
-        "Confidence B"
+        "Playoff Spot",
+        "Confidence B+"
       ],
       "is_premium": false
     },
     {
       "league": "NBA \u00b7 Playoffs",
       "time": "9:40 PM ET",
-      "away_team": "Minnesota Timberwolves",
-      "home_team": "San Antonio Spurs",
+      "away_team": "Los Angeles Lakers",
+      "home_team": "Oklahoma City Thunder",
       "game_detail": "NBA Playoffs",
-      "pick": "Spurs -9.5",
-      "odds": "-115",
-      "book": "DraftKings",
-      "stake": "2u",
-      "reasoning": "San Antonio is priced as massive moneyline favorites ranging from -395 to -435, yet the spread sits at a very manageable -9.5 at DraftKings and BetMGM. The line discrepancy between the ML implied probability and the spread suggests the market expects a dominant Spurs performance, making -9.5 the right side to be on at standard juice.",
+      "pick": "Under 210.5",
+      "odds": "-102",
+      "book": "LowVig.ag",
+      "stake": "1.5u",
+      "reasoning": "OKC is one of the premier defensive teams in the league and a 15.5-point spread signals a mismatch that often leads to garbage time and sloppy offense down the stretch. The consensus total of 210.5 with -102 juice on the Under at LowVig is exceptional value compared to -108 to -114 elsewhere. Blowout dynamics tend to suppress scoring in the fourth quarter, making the Under the lean.",
       "tags": [
-        "Line Value",
-        "Heavy Favorite",
-        "Confidence A"
+        "Best Price",
+        "Blowout Spot",
+        "Confidence B"
       ],
       "is_premium": true
     },
     {
       "league": "NBA \u00b7 Playoffs",
       "time": "7:10 PM ET",
-      "away_team": "Philadelphia 76ers",
-      "home_team": "New York Knicks",
+      "away_team": "New York Knicks",
+      "home_team": "Philadelphia 76ers",
       "game_detail": "NBA Playoffs",
-      "pick": "Under 216.5",
-      "odds": "-108",
-      "book": "DraftKings",
-      "stake": "1.5u",
-      "reasoning": "The total is consistently set at 216.5 across the majority of books with the Under priced at -108 on DraftKings, representing the best available price. Playoff basketball tends to tighten defensively, and with the Knicks playing at home where pace often slows, the Under presents solid value at this number.",
+      "pick": "76ers -1.0",
+      "odds": "-106",
+      "book": "FanDuel",
+      "stake": "1u",
+      "reasoning": "Philadelphia is a home favorite at -1.0 and FanDuel offers the best price at -106, well ahead of -113 at BetOnline. The Sixers playing at home in a tight playoff atmosphere should have a decisive edge, and the minimal spread suggests books view this as nearly a pick'em. Taking the home team at the softest number is the play here.",
       "tags": [
-        "Totals",
-        "Playoff Trends",
+        "Home Favorite",
+        "Best Price",
+        "Confidence B"
+      ],
+      "is_premium": true
+    },
+    {
+      "league": "MLB",
+      "time": "12:36 PM ET",
+      "away_team": "Texas Rangers",
+      "home_team": "New York Yankees",
+      "game_detail": "Regular Season",
+      "pick": "Yankees ML",
+      "odds": "-153",
+      "book": "BetUS",
+      "stake": "1.5u",
+      "reasoning": "New York opens as a heavy home favorite with consensus pricing around -154 to -167, and BetUS offers the best number at -153. The Yankees at home with clear market-wide support as the superior team makes this a strong lean. Shopping the juice here saves meaningful value compared to -167 at BetRivers.",
+      "tags": [
+        "Best Price",
+        "Home Favorite",
         "Confidence B+"
       ],
       "is_premium": true
     },
     {
       "league": "MLB",
-      "time": "2:11 PM ET",
-      "away_team": "Los Angeles Dodgers",
-      "home_team": "Houston Astros",
+      "time": "2:21 PM ET",
+      "away_team": "Cincinnati Reds",
+      "home_team": "Chicago Cubs",
       "game_detail": "Regular Season",
-      "pick": "Dodgers ML",
-      "odds": "-204",
+      "pick": "Under 8.5",
+      "odds": "+107",
+      "book": "LowVig.ag",
+      "stake": "1u",
+      "reasoning": "LowVig is posting +107 on the Under 8.5 while most books have it at even money or -101 to -107, representing clear positive expected value. The Cubs are a strong pitching outfit and an 8.5-run total in what projects as a pitcher's duel offers value on the under, especially at plus money. Getting paid to take the under is a rare pricing inefficiency worth exploiting.",
+      "tags": [
+        "Plus Money",
+        "Line Value",
+        "Confidence B"
+      ],
+      "is_premium": true
+    },
+    {
+      "league": "NHL \u00b7 Playoffs",
+      "time": "8:10 PM ET",
+      "away_team": "Carolina Hurricanes",
+      "home_team": "Philadelphia Flyers",
+      "game_detail": "NHL Playoffs",
+      "pick": "Carolina Hurricanes ML",
+      "odds": "-160",
       "book": "LowVig.ag",
       "stake": "1.5u",
-      "reasoning": "Los Angeles is a consensus -200 to -230 favorite across all nine books, and LowVig.ag offers the best value at -204 with reduced juice. The Dodgers' elite pitching depth and lineup construction make them a strong play in a game with a relatively modest total of 8.5, implying a well-pitched, low-scoring affair that favors the better team.",
+      "reasoning": "Carolina is a consensus heavy favorite ranging from -160 to -175 across books, and LowVig offers the best price at -160, saving nearly 15 cents over BetRivers. The Hurricanes are a playoff powerhouse and the market is in full agreement on their dominance in this matchup. Taking the best available price on the clear superior team is straightforward value.",
       "tags": [
         "Best Price",
-        "Elite Team",
-        "Confidence B+"
+        "Playoff",
+        "Confidence A"
       ],
       "is_premium": true
     },
     {
       "league": "MLB",
       "time": "6:41 PM ET",
-      "away_team": "Texas Rangers",
-      "home_team": "New York Yankees",
+      "away_team": "Athletics",
+      "home_team": "Philadelphia Phillies",
       "game_detail": "Regular Season",
-      "pick": "Yankees -1.5",
-      "odds": "104",
-      "book": "FanDuel",
+      "pick": "Phillies ML",
+      "odds": "-126",
+      "book": "BetOnline.ag",
       "stake": "1u",
-      "reasoning": "The Yankees are listed as heavy -191 to -230 moneyline favorites, yet FanDuel is offering the run line at +104 \u2014 meaning you get paid to take New York to win by 2 or more. A team priced this heavily to win should be expected to win convincingly, and getting plus money on a dominant favorite's run line is exceptional value.",
+      "reasoning": "Philadelphia is universally favored at home against a rebuilding Athletics squad, and BetOnline offers -126 compared to -136 at DraftKings and BetRivers. The Phillies at home with a consistent 20-cent pricing gap across the market signals strong sharp support. Best price on a solid home favorite makes this a clean play.",
       "tags": [
-        "Run Line Value",
-        "Plus Money Favorite",
+        "Best Price",
+        "Home Favorite",
         "Confidence B+"
-      ],
-      "is_premium": true
-    },
-    {
-      "league": "MLB",
-      "time": "6:10 PM ET",
-      "away_team": "Toronto Blue Jays",
-      "home_team": "Tampa Bay Rays",
-      "game_detail": "Regular Season",
-      "pick": "Under 7.5",
-      "odds": "-103",
-      "book": "LowVig.ag",
-      "stake": "1.5u",
-      "reasoning": "The total of 7.5 sits at the lowest number on the board today, and LowVig.ag offers the Under at just -103, which is the sharpest juice available across all books. Both Tampa Bay and Toronto have been pitching-first teams, and a total this low with near-flat juice on the Under signals strong market consensus toward a low-scoring game.",
-      "tags": [
-        "Low Juice",
-        "Pitching Matchup",
-        "Confidence B+"
-      ],
-      "is_premium": true
-    },
-    {
-      "league": "NBA \u00b7 Playoffs",
-      "time": "9:40 PM ET",
-      "away_team": "Minnesota Timberwolves",
-      "home_team": "San Antonio Spurs",
-      "game_detail": "NBA Playoffs",
-      "pick": "Over 216.5",
-      "odds": "-105",
-      "book": "FanDuel",
-      "stake": "1u",
-      "reasoning": "FanDuel offers the Over at 216.5 for -105 while LowVig and BetOnline have moved their total up to 217.5, suggesting upward pressure on the number. This half-point of line shopping advantage combined with the -105 price makes FanDuel the optimal book to grab this total before it moves further, as both teams' offensive capabilities support a high-scoring affair.",
-      "tags": [
-        "Line Shopping",
-        "Steam Move",
-        "Confidence C+"
       ],
       "is_premium": true
     }
   ],
-  "generated_at": "2026-05-06T15:30:14.261380",
-  "generated_at_readable": "May 06, 2026 at 03:30 PM ET"
+  "generated_at": "2026-05-07T15:31:11.730710",
+  "generated_at_readable": "May 07, 2026 at 03:31 PM ET"
 }
