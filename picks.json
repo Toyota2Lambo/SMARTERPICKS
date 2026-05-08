@@ -1,22 +1,22 @@
 {
-  "date": "May 07, 2026",
-  "date_short": "05-07",
-  "sport_summary": "NBA Playoffs action headlining a 14-game Thursday slate featuring NHL, MLB, and basketball postseason matchups",
+  "date": "May 08, 2026",
+  "date_short": "05-08",
+  "sport_summary": "NBA Playoffs action highlights a busy Friday slate featuring 4 NBA games and a full 10-game MLB card",
   "picks": [
     {
       "league": "NBA \u00b7 Playoffs",
       "time": "7:10 PM ET",
-      "away_team": "Cleveland Cavaliers",
-      "home_team": "Detroit Pistons",
-      "game_detail": "NBA Playoffs",
-      "pick": "Cavaliers +3.5",
-      "odds": "-105",
+      "away_team": "New York Knicks",
+      "home_team": "Philadelphia 76ers",
+      "game_detail": "Playoffs",
+      "pick": "New York Knicks +1.5",
+      "odds": "-106",
       "book": "LowVig.ag",
       "stake": "1.5u",
-      "reasoning": "The market consensus sits at Detroit -3.5, but Cleveland is getting the best price at -105 on LowVig compared to -112 at FanDuel. The Cavaliers are a legitimate playoff squad and 3.5 points is a manageable cushion for a team of their caliber. Line consistency across all books at 3.5 suggests sharp agreement on the number, making the +3.5 at reduced juice the smart play.",
+      "reasoning": "The market is nearly split on this game with Philly as only a 1.5-point home favorite, and FanDuel is even offering the Knicks at a positive moneyline (+102). Getting +1.5 at -106 on LowVig is the best available number on this spread, offering real value on a line that suggests a true toss-up. The low vig here limits juice exposure on what projects as a one-possession game.",
       "tags": [
-        "Best Price",
-        "Playoff Spot",
+        "Best Line",
+        "Low Juice",
         "Confidence B+"
       ],
       "is_premium": false
@@ -24,112 +24,112 @@
     {
       "league": "NBA \u00b7 Playoffs",
       "time": "9:40 PM ET",
-      "away_team": "Los Angeles Lakers",
-      "home_team": "Oklahoma City Thunder",
-      "game_detail": "NBA Playoffs",
-      "pick": "Under 210.5",
-      "odds": "-102",
-      "book": "LowVig.ag",
+      "away_team": "San Antonio Spurs",
+      "home_team": "Minnesota Timberwolves",
+      "game_detail": "Playoffs",
+      "pick": "Minnesota Timberwolves +4.5",
+      "odds": "100",
+      "book": "BetMGM",
       "stake": "1.5u",
-      "reasoning": "OKC is one of the premier defensive teams in the league and a 15.5-point spread signals a mismatch that often leads to garbage time and sloppy offense down the stretch. The consensus total of 210.5 with -102 juice on the Under at LowVig is exceptional value compared to -108 to -114 elsewhere. Blowout dynamics tend to suppress scoring in the fourth quarter, making the Under the lean.",
+      "reasoning": "BetMGM is offering the Timberwolves +4.5 at even money while most books have them at -108, representing significant line value. The consensus spread sits at 4.5 across the board, but getting plus-money on a full-game spread with a home underdog in a playoff setting is rare. The Spurs are big moneyline favorites (-200 range) but laying 4.5 with juice is a different proposition than taking the Wolves at free money.",
       "tags": [
-        "Best Price",
-        "Blowout Spot",
-        "Confidence B"
-      ],
-      "is_premium": true
-    },
-    {
-      "league": "NBA \u00b7 Playoffs",
-      "time": "7:10 PM ET",
-      "away_team": "New York Knicks",
-      "home_team": "Philadelphia 76ers",
-      "game_detail": "NBA Playoffs",
-      "pick": "76ers -1.0",
-      "odds": "-106",
-      "book": "FanDuel",
-      "stake": "1u",
-      "reasoning": "Philadelphia is a home favorite at -1.0 and FanDuel offers the best price at -106, well ahead of -113 at BetOnline. The Sixers playing at home in a tight playoff atmosphere should have a decisive edge, and the minimal spread suggests books view this as nearly a pick'em. Taking the home team at the softest number is the play here.",
-      "tags": [
-        "Home Favorite",
-        "Best Price",
-        "Confidence B"
-      ],
-      "is_premium": true
-    },
-    {
-      "league": "MLB",
-      "time": "12:36 PM ET",
-      "away_team": "Texas Rangers",
-      "home_team": "New York Yankees",
-      "game_detail": "Regular Season",
-      "pick": "Yankees ML",
-      "odds": "-153",
-      "book": "BetUS",
-      "stake": "1.5u",
-      "reasoning": "New York opens as a heavy home favorite with consensus pricing around -154 to -167, and BetUS offers the best number at -153. The Yankees at home with clear market-wide support as the superior team makes this a strong lean. Shopping the juice here saves meaningful value compared to -167 at BetRivers.",
-      "tags": [
-        "Best Price",
-        "Home Favorite",
+        "Best Line",
+        "Value Play",
         "Confidence B+"
       ],
       "is_premium": true
     },
     {
-      "league": "MLB",
-      "time": "2:21 PM ET",
-      "away_team": "Cincinnati Reds",
-      "home_team": "Chicago Cubs",
-      "game_detail": "Regular Season",
-      "pick": "Under 8.5",
-      "odds": "+107",
-      "book": "LowVig.ag",
-      "stake": "1u",
-      "reasoning": "LowVig is posting +107 on the Under 8.5 while most books have it at even money or -101 to -107, representing clear positive expected value. The Cubs are a strong pitching outfit and an 8.5-run total in what projects as a pitcher's duel offers value on the under, especially at plus money. Getting paid to take the under is a rare pricing inefficiency worth exploiting.",
+      "league": "NBA \u00b7 Playoffs",
+      "time": "3:10 PM ET",
+      "away_team": "Detroit Pistons",
+      "home_team": "Cleveland Cavaliers",
+      "game_detail": "Playoffs",
+      "pick": "Cleveland Cavaliers -4.5",
+      "odds": "-105",
+      "book": "DraftKings",
+      "stake": "2u",
+      "reasoning": "Cleveland is a significant favorite at home ranging from -170 to -190 on the moneyline, reflecting clear market consensus on the Cavs' superiority in this matchup. DraftKings offers the best price on the -4.5 spread at -105, well below the -108 to -110 found elsewhere. The Cavs' implied win probability across books is well above 60%, making the spread at this price a strong play.",
       "tags": [
-        "Plus Money",
-        "Line Value",
-        "Confidence B"
-      ],
-      "is_premium": true
-    },
-    {
-      "league": "NHL \u00b7 Playoffs",
-      "time": "8:10 PM ET",
-      "away_team": "Carolina Hurricanes",
-      "home_team": "Philadelphia Flyers",
-      "game_detail": "NHL Playoffs",
-      "pick": "Carolina Hurricanes ML",
-      "odds": "-160",
-      "book": "LowVig.ag",
-      "stake": "1.5u",
-      "reasoning": "Carolina is a consensus heavy favorite ranging from -160 to -175 across books, and LowVig offers the best price at -160, saving nearly 15 cents over BetRivers. The Hurricanes are a playoff powerhouse and the market is in full agreement on their dominance in this matchup. Taking the best available price on the clear superior team is straightforward value.",
-      "tags": [
-        "Best Price",
-        "Playoff",
+        "Best Line",
+        "Market Consensus",
         "Confidence A"
       ],
       "is_premium": true
     },
     {
       "league": "MLB",
-      "time": "6:41 PM ET",
-      "away_team": "Athletics",
-      "home_team": "Philadelphia Phillies",
+      "time": "6:11 PM ET",
+      "away_team": "Houston Astros",
+      "home_team": "Cincinnati Reds",
       "game_detail": "Regular Season",
-      "pick": "Phillies ML",
-      "odds": "-126",
-      "book": "BetOnline.ag",
+      "pick": "Cincinnati Reds -1.5",
+      "odds": "152",
+      "book": "FanDuel",
       "stake": "1u",
-      "reasoning": "Philadelphia is universally favored at home against a rebuilding Athletics squad, and BetOnline offers -126 compared to -136 at DraftKings and BetRivers. The Phillies at home with a consistent 20-cent pricing gap across the market signals strong sharp support. Best price on a solid home favorite makes this a clean play.",
+      "reasoning": "The Reds are favored across every book at -130 to -141 on the moneyline, showing strong market consensus as a home favorite. FanDuel offers the Reds -1.5 run line at +152, the highest available number, providing excellent plus-money value if Cincinnati wins comfortably. With a total set at 9.0, this is expected to be a run-heavy game where the favorite covering 1.5 is well within range.",
       "tags": [
-        "Best Price",
-        "Home Favorite",
+        "Best Line",
+        "Plus Money",
+        "Confidence B"
+      ],
+      "is_premium": true
+    },
+    {
+      "league": "MLB",
+      "time": "7:41 PM ET",
+      "away_team": "New York Yankees",
+      "home_team": "Milwaukee Brewers",
+      "game_detail": "Regular Season",
+      "pick": "Under 7.5",
+      "odds": "-101",
+      "book": "MyBookie.ag",
+      "stake": "1.5u",
+      "reasoning": "The total for this game is set at 7.0 on most books with heavy juice on the Under, but DraftKings and BetRivers have it at 7.5 with the Over available near even money. MyBookie offers Under 7.0 at -101, essentially getting a half-run better at near even money compared to shopping the 7.5 line. With a low total reflecting two quality pitching matchups, the Under at this price is the sharpest play on the board.",
+      "tags": [
+        "Best Line",
+        "Low Total",
         "Confidence B+"
+      ],
+      "is_premium": true
+    },
+    {
+      "league": "MLB",
+      "time": "7:16 PM ET",
+      "away_team": "Minnesota Twins",
+      "home_team": "Cleveland Guardians",
+      "game_detail": "Regular Season",
+      "pick": "Over 7.5",
+      "odds": "103",
+      "book": "LowVig.ag",
+      "stake": "1u",
+      "reasoning": "LowVig.ag is offering the Over 7.5 at +103 while most books have it at -105 to -106, making this a clear outlier in the market. Books are nearly split on this total with some listing Under as the lean, but grabbing plus money on the Over creates positive expected value against the consensus price. The Guardians are heavy favorites suggesting they should be generating offensive production at home.",
+      "tags": [
+        "Best Line",
+        "Plus Money",
+        "Confidence C+"
+      ],
+      "is_premium": true
+    },
+    {
+      "league": "MLB",
+      "time": "7:41 PM ET",
+      "away_team": "Philadelphia Phillies",
+      "home_team": "Colorado Rockies",
+      "game_detail": "Regular Season",
+      "pick": "Philadelphia Phillies -1.5",
+      "odds": "108",
+      "book": "FanDuel",
+      "stake": "1u",
+      "reasoning": "The Phillies are dominant moneyline favorites at -208 to -240 across all nine books, reflecting near-universal market agreement that Philadelphia wins this game handily. FanDuel offers the Phillies -1.5 run line at +108, the best available number well above the +101 to +107 found elsewhere. Laying 1.5 runs at plus money with a team this heavily favored offers strong implied value.",
+      "tags": [
+        "Best Line",
+        "Plus Money",
+        "Confidence B"
       ],
       "is_premium": true
     }
   ],
-  "generated_at": "2026-05-07T15:31:11.730710",
-  "generated_at_readable": "May 07, 2026 at 03:31 PM ET"
+  "generated_at": "2026-05-08T15:00:50.856862",
+  "generated_at_readable": "May 08, 2026 at 03:00 PM ET"
 }
