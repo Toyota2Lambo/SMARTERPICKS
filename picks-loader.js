@@ -101,19 +101,30 @@ function updateNavState() {
   // Match either an id (#nav-login-btn) or the existing class (.nav-login)
   const loginBtn = document.getElementById("nav-login-btn") ||
                    document.querySelector(".nav-login");
-  if (!loginBtn) return;
-
-  const signedIn = !!localStorage.getItem("whop_token");
-
-  if (signedIn) {
-    loginBtn.textContent = isMember ? "Member · Logout" : "Logout";
-    loginBtn.href = "#";
-    loginBtn.onclick = (e) => { e.preventDefault(); logout(); };
-  } else {
-    loginBtn.textContent = "Login";
-    loginBtn.href = "login.html";
-    loginBtn.onclick = null;
+  if (loginBtn) {
+    const signedIn = !!localStorage.getItem("whop_token");
+    if (signedIn) {
+      loginBtn.textContent = isMember ? "Member · Logout" : "Logout";
+      loginBtn.href = "#";
+      loginBtn.onclick = (e) => { e.preventDefault(); logout(); };
+    } else {
+      loginBtn.textContent = "Login";
+      loginBtn.href = "login.html";
+      loginBtn.onclick = null;
+    }
   }
+
+  // Members get a premium "Members Area" pill in the nav (and the mobile
+  // drawer); non-members see the gold "Go Premium" CTA instead.
+  const goPremium  = document.getElementById("nav-go-premium");
+  const membersBtn = document.getElementById("nav-members-btn");
+  if (goPremium)  goPremium.style.display  = isMember ? "none" : "inline-block";
+  if (membersBtn) membersBtn.style.display = isMember ? "inline-flex" : "none";
+
+  const drawerGoPremium = document.getElementById("drawer-go-premium");
+  const drawerMembers   = document.getElementById("drawer-members-btn");
+  if (drawerGoPremium) drawerGoPremium.style.display = isMember ? "none" : "block";
+  if (drawerMembers)   drawerMembers.style.display   = isMember ? "block" : "none";
 }
 
 // ── GATE ARBITRARY ELEMENTS ────────────────────────────────

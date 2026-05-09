@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMARTERPICKS — Billing</title>
+
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+
+<!-- Auth gate — only members get here. Same pattern as members.html. -->
+<script>
+(function() {
+  try {
+    var raw = localStorage.getItem("whop_access");
+    if (!raw) { location.replace("login.html"); return; }
+    var access = JSON.parse(raw);
+    if (!access || !access.has_access) { location.replace("login.html"); return; }
+  } catch (_) { location.replace("login.html"); }
+})();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0a0a0a;--bg-elevated:#131313;--bg-surface:#1a1a1a;
+    --border:#2a2a2a;--border-strong:#3a3a3a;
+    --text:#f4efe4;--text-muted:#8a8580;--text-dim:#5a5550;
+    --accent:#d4a843;--accent-dim:#8a6f2d;
+    --win:#6dbe7a;
+    --display:"Fraunces","Times New Roman",serif;
+    --body:"Inter Tight",-apple-system,BlinkMacSystemFont,sans-serif;
+    --mono:"JetBrains Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:400;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;}
+  body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");opacity:.035;pointer-events:none;z-index:100;}
+  .container{max-width:1280px;margin:0 auto;padding:0 32px;}
+
+  /* NAV — mirrors members.html */
+  nav{border-bottom:1px solid var(--border);background:rgba(10,10,10,.92);backdrop-filter:blur(16px);position:sticky;top:0;z-index:50;}
+  .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:16px 32px;max-width:1280px;margin:0 auto;}
+  .logo{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);}
+  .logo-mark{width:9px;height:9px;background:var(--accent);transform:rotate(45deg);flex-shrink:0;}
+  .logo-tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--win);border:1px solid rgba(109,190,122,.4);padding:3px 7px;margin-left:8px;}
+  .nav-back{font-family:var(--mono);font-size:12px;color:var(--text-muted);background:none;border:1px solid var(--border);padding:10px 14px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
+  .nav-back:hover{color:var(--text);border-color:var(--text-muted);}
+
+  /* MAIN */
+  main{flex:1;display:flex;align-items:center;justify-content:center;padding:80px 0;}
+  .billing-card{max-width:560px;width:100%;background:var(--bg-elevated);border:1px solid var(--border);padding:48px 44px;position:relative;overflow:hidden;}
+  .billing-card::before{content:"";position:absolute;top:-30%;right:-30%;width:400px;height:400px;background:radial-gradient(circle,rgba(212,168,67,.08),transparent 65%);pointer-events:none;}
+  .billing-tag{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;display:flex;align-items:center;gap:12px;position:relative;}
+  .billing-tag::before{content:"";width:24px;height:1px;background:var(--accent);}
+  .billing-title{font-family:var(--display);font-size:38px;font-weight:400;letter-spacing:-.02em;line-height:1.05;margin-bottom:16px;position:relative;}
+  .billing-title em{font-style:italic;color:var(--accent);}
+  .billing-sub{font-size:15px;color:var(--text-muted);line-height:1.65;margin-bottom:36px;position:relative;}
+
+  /* STATUS PANEL */
+  .status-grid{border:1px solid var(--border);margin-bottom:36px;position:relative;}
+  .status-row{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+  .status-row:last-child{border-bottom:none;}
+  .status-label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);}
+  .status-value{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text);}
+  .status-value.active{color:var(--win);display:inline-flex;align-items:center;gap:8px;}
+  .status-value.active::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--win);}
+
+  /* BUTTONS */
+  .btn-primary{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:var(--accent);color:#000;padding:17px 24px;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;transition:all .2s;margin-bottom:12px;position:relative;}
+  .btn-primary:hover{background:#e6b950;transform:translateY(-1px);box-shadow:0 8px 24px rgba(212,168,67,.25);}
+  .btn-ghost{display:flex;align-items:center;justify-content:center;width:100%;background:transparent;color:var(--text);padding:14px 24px;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--border-strong);cursor:pointer;text-decoration:none;transition:all .2s;position:relative;}
+  .btn-ghost:hover{border-color:var(--text-muted);}
+
+  /* INFO LINE */
+  .info-line{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.05em;line-height:1.6;margin-top:24px;padding-top:24px;border-top:1px solid var(--border);position:relative;}
+  .info-line a{color:var(--text-muted);text-decoration:underline;}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--border);padding:24px 0;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.05em;}
+
+  @media(max-width:640px){
+    .billing-card{padding:32px 24px;}
+    .billing-title{font-size:30px;}
+    .nav-inner{padding:14px 20px;}
+    .container{padding:0 20px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="members.html" class="logo">
+      <span class="logo-mark"></span>SMARTERPICKS
+      <span class="logo-tag">Members</span>
+    </a>
+    <a href="members.html" class="nav-back">← Back to picks</a>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+    <div class="billing-card">
+      <div class="billing-tag">Subscription</div>
+      <h1 class="billing-title">Manage your <em>billing</em>.</h1>
+      <p class="billing-sub">All payments are processed by Whop. Update your card, switch between monthly and annual, view invoices, or cancel — it all happens in your Whop account.</p>
+
+      <div class="status-grid">
+        <div class="status-row">
+          <span class="status-label">Plan</span>
+          <span class="status-value">Premium</span>
+        </div>
+        <div class="status-row">
+          <span class="status-label">Status</span>
+          <span class="status-value active">Active</span>
+        </div>
+        <div class="status-row">
+          <span class="status-label">Billed by</span>
+          <span class="status-value">Whop</span>
+        </div>
+      </div>
+
+      <!-- Whop billing portal — `whop.com/orders` is the customer-facing
+           subscription manager. If your account uses a different portal
+           URL, swap the href below. -->
+      <a href="https://whop.com/orders/" target="_blank" rel="noopener" class="btn-primary">
+        Manage on Whop ↗
+      </a>
+      <a href="members.html" class="btn-ghost">← Back to members area</a>
+
+      <div class="info-line">
+        Cancel anytime — no runaround. After cancelling on Whop, your access stays active until the end of the current billing period.
+        Questions? Email <a href="mailto:support@smarterpicks.io">support@smarterpicks.io</a>.
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  SMARTERPICKS · Billing managed securely by Whop · 21+ · Bet responsibly
+</footer>
+
+</body>
+</html>

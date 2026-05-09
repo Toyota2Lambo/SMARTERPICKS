@@ -168,10 +168,10 @@ function showSuccess(hasAccess) {
 
     sessionStorage.removeItem("whop_pkce");
 
-    // 5) Bounce to index.html (or back to login.html if no access, so they can hit Subscribe)
+    // 5) Bounce to members.html (or back to login.html if no access, so they can hit Subscribe)
     showSuccess(!!access.has_access);
     setTimeout(() => {
-      window.location.href = access.has_access ? "index.html" : "login.html";
+      window.location.href = access.has_access ? "members.html" : "login.html";
     }, 1200);
   } catch (e) {
     console.error(e);

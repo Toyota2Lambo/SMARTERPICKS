@@ -260,7 +260,7 @@
           <div class="success-icon">🎉</div>
           <div class="auth-title" style="text-align:center;">You're <em>in.</em></div>
           <p class="auth-sub" style="text-align:center;">Premium unlocked. Redirecting you to today's full card…</p>
-          <a href="index.html" class="btn-full btn-gold">Go now →</a>
+          <a href="members.html" class="btn-full btn-gold">Go now →</a>
         </div>
       </div>
 
@@ -422,7 +422,7 @@ function wireCheckoutButton() {
       const access = JSON.parse(accessRaw);
       if (access.has_access) {
         showPanel("panel-success");
-        setTimeout(() => { window.location.href = "index.html"; }, 800);
+        setTimeout(() => { window.location.href = "members.html"; }, 800);
         return;
       }
       // Signed in but no membership — show subscribe CTA

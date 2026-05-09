@@ -86,6 +86,12 @@
   .nav-login:hover{color:var(--text);border-color:var(--text-muted);}
   .nav-cta{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;padding:11px 20px;background:var(--accent);color:#000;border:none;cursor:pointer;font-weight:700;transition:all .2s;text-decoration:none;display:inline-block;}
   .nav-cta:hover{background:#e6b950;transform:translateY(-1px);}
+  /* Premium "Members Area" pill — shown only to active members. Green to
+     visually distinguish from the gold subscribe CTA, with a subtle glow
+     so it reads as the privileged action on the page. */
+  .nav-members{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;padding:11px 18px;background:linear-gradient(135deg,var(--win),#5aa867);color:#000;border:none;cursor:pointer;font-weight:700;transition:all .25s;text-decoration:none;align-items:center;gap:8px;box-shadow:0 0 0 1px rgba(109,190,122,.4), 0 4px 18px rgba(109,190,122,.18);}
+  .nav-members:hover{transform:translateY(-1px);box-shadow:0 0 0 1px rgba(109,190,122,.6), 0 8px 24px rgba(109,190,122,.32);}
+  .nav-members-dot{display:inline-block;width:6px;height:6px;background:#0a0a0a;border-radius:50%;animation:pulse 2s infinite;}
   .hero{padding:90px 0 80px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
   .hero::after{content:"";position:absolute;top:-40%;right:-10%;width:700px;height:700px;background:radial-gradient(circle,rgba(212,168,67,.07) 0%,transparent 70%);pointer-events:none;}
   .hero-meta{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:28px;display:flex;gap:16px;align-items:center;animation:fadeUp .5s ease-out .1s backwards;}
@@ -539,7 +545,12 @@
     <div class="nav-right">
       <!-- WHOP LOGIN BUTTON: replace the href with your Whop login URL -->
       <a href="login.html" class="nav-login">Login</a>
-      <a href="login.html" class="nav-cta">Go Premium ↗</a>
+      <!-- Shown to non-members. picks-loader.js hides this for active members. -->
+      <a href="login.html" class="nav-cta" id="nav-go-premium">Go Premium ↗</a>
+      <!-- Shown to active members only — picks-loader.js toggles display. -->
+      <a href="members.html" class="nav-members" id="nav-members-btn" style="display:none;">
+        <span class="nav-members-dot"></span>Members Area ↗
+      </a>
       <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -560,8 +571,11 @@
     <li><a href="discord.html">Discord</a></li>
   </ul>
   <div class="drawer-cta">
-    <a href="login.html" class="btn-secondary" style="text-align:center;">Login</a>
-    <a href="login.html" class="btn-primary" style="text-align:center;">Go Premium ↗</a>
+    <a href="login.html" class="btn-secondary" id="drawer-login" style="text-align:center;">Login</a>
+    <a href="login.html" class="btn-primary" id="drawer-go-premium" style="text-align:center;">Go Premium ↗</a>
+    <a href="members.html" id="drawer-members-btn" style="display:none;text-align:center;background:linear-gradient(135deg,var(--win),#5aa867);color:#000;padding:17px 32px;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;">
+      Members Area ↗
+    </a>
   </div>
 </aside>
 
