@@ -92,6 +92,11 @@
   .nav-members{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;padding:11px 18px;background:linear-gradient(135deg,var(--win),#5aa867);color:#000;border:none;cursor:pointer;font-weight:700;transition:all .25s;text-decoration:none;align-items:center;gap:8px;box-shadow:0 0 0 1px rgba(109,190,122,.4), 0 4px 18px rgba(109,190,122,.18);}
   .nav-members:hover{transform:translateY(-1px);box-shadow:0 0 0 1px rgba(109,190,122,.6), 0 8px 24px rgba(109,190,122,.32);}
   .nav-members-dot{display:inline-block;width:6px;height:6px;background:#0a0a0a;border-radius:50%;animation:pulse 2s infinite;}
+
+  /* When a member is signed in, drop the marketing announce-bar — they
+     don't need "Unlock Premium" yelled at them. The auth-chrome.js
+     status bar already confirms their state. */
+  body[data-auth-state="member"] .announce-bar{display:none;}
   .hero{padding:90px 0 80px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
   .hero::after{content:"";position:absolute;top:-40%;right:-10%;width:700px;height:700px;background:radial-gradient(circle,rgba(212,168,67,.07) 0%,transparent 70%);pointer-events:none;}
   .hero-meta{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:28px;display:flex;gap:16px;align-items:center;animation:fadeUp .5s ease-out .1s backwards;}
@@ -1028,6 +1033,7 @@
      This script automatically loads today's picks from picks.json
      and fills in the picks section above.
      ============================================================ -->
+<script src="auth-chrome.js"></script>
 <script src="picks-loader.js"></script>
 
 <!-- ============================================================
