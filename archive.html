@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMARTERPICKS — The Pick Archive · Every play we've ever made</title>
+
+<meta name="description" content="Every pick SMARTERPICKS has ever published, with results. Filter by sport or outcome. Use the calculator to see what your bankroll would look like if you'd followed every play.">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="canonical" href="https://smarterpicks.io/archive.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SMARTERPICKS">
+<meta property="og:url" content="https://smarterpicks.io/archive.html">
+<meta property="og:title" content="The SMARTERPICKS Archive — every pick, fully receipts">
+<meta property="og:description" content="Every pick we've ever published, with results. Verify the track record yourself.">
+<meta property="og:image" content="https://smarterpicks.io/og-image.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0a;--bg-elevated:#131313;--bg-surface:#1a1a1a;
+    --border:#2a2a2a;--border-strong:#3a3a3a;
+    --text:#f4efe4;--text-muted:#8a8580;--text-dim:#5a5550;
+    --accent:#d4a843;--accent-dim:#8a6f2d;
+    --win:#6dbe7a;--loss:#d96565;--push:#888;
+    --display:"Fraunces","Times New Roman",serif;
+    --body:"Inter Tight",-apple-system,BlinkMacSystemFont,sans-serif;
+    --mono:"JetBrains Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:400;line-height:1.5;-webkit-font-smoothing:antialiased;}
+  body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");opacity:.035;pointer-events:none;z-index:100;}
+  .container{max-width:1200px;margin:0 auto;padding:0 32px;}
+
+  /* NAV */
+  nav{border-bottom:1px solid var(--border);background:rgba(10,10,10,.92);backdrop-filter:blur(16px);position:sticky;top:0;z-index:50;}
+  .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:16px 32px;max-width:1200px;margin:0 auto;}
+  .logo{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);}
+  .logo-mark{width:9px;height:9px;background:var(--accent);transform:rotate(45deg);flex-shrink:0;}
+  .nav-links{display:flex;gap:32px;list-style:none;font-size:14px;font-weight:500;}
+  .nav-links a{color:var(--text-muted);text-decoration:none;transition:color .2s;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-cta{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;padding:11px 20px;background:var(--accent);color:#000;border:none;cursor:pointer;font-weight:700;text-decoration:none;display:inline-block;transition:all .2s;}
+  .nav-cta:hover{background:#e6b950;transform:translateY(-1px);}
+
+  /* HERO */
+  .hero{padding:80px 0 48px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+  .hero::after{content:"";position:absolute;top:-30%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(212,168,67,.06) 0%,transparent 70%);pointer-events:none;}
+  .hero-tag{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:24px;display:flex;gap:14px;align-items:center;}
+  .hero-tag::before{content:"";width:24px;height:1px;background:var(--accent);}
+  .hero h1{font-family:var(--display);font-weight:400;font-size:clamp(44px,6vw,76px);line-height:1;letter-spacing:-.03em;margin-bottom:22px;max-width:18ch;}
+  .hero h1 em{font-style:italic;color:var(--accent);font-weight:300;}
+  .hero-sub{font-size:17px;color:var(--text-muted);max-width:60ch;line-height:1.65;margin-bottom:36px;}
+
+  /* TRUST STATS GRID */
+  .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);background:var(--border);border:1px solid var(--border);gap:1px;}
+  .trust-cell{background:var(--bg);padding:24px 22px;}
+  .trust-num{font-family:var(--display);font-size:36px;font-weight:400;letter-spacing:-.02em;line-height:1;margin-bottom:8px;}
+  .trust-num.pos{color:var(--win);}
+  .trust-num.neg{color:var(--loss);}
+  .trust-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);}
+  .trust-sub{font-family:var(--mono);font-size:10px;color:var(--text-dim);margin-top:6px;letter-spacing:.04em;}
+
+  /* CALCULATOR PANEL */
+  .calc-section{padding:64px 0;border-bottom:1px solid var(--border);}
+  .calc-card{background:var(--bg-elevated);border:1px solid var(--border);padding:40px 44px;}
+  .calc-tag{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+  .calc-headline{font-family:var(--display);font-size:clamp(26px,3vw,38px);font-weight:400;letter-spacing:-.02em;line-height:1.15;margin-bottom:8px;}
+  .calc-headline em{font-style:italic;color:var(--accent);}
+  .calc-explain{font-size:14px;color:var(--text-muted);margin-bottom:28px;line-height:1.65;max-width:64ch;}
+  .calc-row{display:grid;grid-template-columns:1fr auto;gap:36px;align-items:end;padding-top:24px;border-top:1px solid var(--border);}
+  .calc-slider-wrap{display:flex;flex-direction:column;gap:14px;}
+  .calc-slider-row{display:flex;align-items:center;gap:18px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);}
+  .calc-slider{-webkit-appearance:none;appearance:none;flex:1;height:4px;background:var(--border);outline:none;cursor:pointer;}
+  .calc-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;background:var(--accent);cursor:pointer;border:none;border-radius:0;}
+  .calc-slider::-moz-range-thumb{width:18px;height:18px;background:var(--accent);cursor:pointer;border:none;border-radius:0;}
+  .calc-unit{min-width:72px;text-align:right;color:var(--text);font-weight:700;font-size:13px;}
+  .calc-bigout{font-family:var(--display);font-size:clamp(48px,6vw,76px);font-weight:400;letter-spacing:-.03em;line-height:1;text-align:right;}
+  .calc-bigout.pos{color:var(--win);}
+  .calc-bigout.neg{color:var(--loss);}
+  .calc-bigout.flat{color:var(--text-muted);}
+  .calc-bigout-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-muted);text-align:right;margin-top:8px;}
+
+  /* SECTION HEADER */
+  .section-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:16px;}
+  .section-tag{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+  .section-title{font-family:var(--display);font-size:38px;font-weight:400;letter-spacing:-.02em;line-height:1.05;}
+  .section-title em{font-style:italic;color:var(--accent);}
+  .section-meta{font-family:var(--mono);font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;}
+
+  /* FILTER BAR */
+  .archive-section{padding:64px 0 96px;}
+  .filter-bar{display:flex;flex-direction:column;gap:18px;background:var(--bg-elevated);border:1px solid var(--border);padding:22px 26px;margin-bottom:36px;}
+  .filter-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .filter-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);min-width:64px;}
+  .filter-chips{display:flex;gap:6px;flex-wrap:wrap;}
+  .filter-chip{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;background:transparent;border:1px solid var(--border);color:var(--text-muted);cursor:pointer;transition:all .15s;}
+  .filter-chip:hover{border-color:var(--text-muted);color:var(--text);}
+  .filter-chip.active{background:var(--accent);border-color:var(--accent);color:#000;}
+  .filter-chip.active.win{background:var(--win);border-color:var(--win);}
+  .filter-chip.active.loss{background:var(--loss);border-color:var(--loss);color:#fff;}
+  .filter-chip.active.push{background:var(--push);border-color:var(--push);color:#000;}
+
+  /* ACTIVE-FILTER SUMMARY (live count under filters) */
+  .filter-summary{display:flex;justify-content:space-between;align-items:center;padding:16px 26px;background:var(--bg-surface);border:1px solid var(--border);margin-bottom:24px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);flex-wrap:wrap;gap:10px;}
+  .filter-summary .count{color:var(--text);font-weight:700;}
+  .filter-summary .pos{color:var(--win);font-weight:700;}
+  .filter-summary .neg{color:var(--loss);font-weight:700;}
+  .filter-summary .reset{font-family:var(--mono);font-size:10px;color:var(--text-dim);background:none;border:none;cursor:pointer;text-transform:uppercase;letter-spacing:.06em;text-decoration:underline;text-underline-offset:3px;}
+  .filter-summary .reset:hover{color:var(--text);}
+
+  /* DAY CARDS */
+  .day-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);}
+  .day{background:var(--bg);}
+  .day-head{display:grid;grid-template-columns:auto 1fr auto auto auto;gap:24px;align-items:center;padding:22px 26px;cursor:pointer;text-align:left;background:none;border:none;width:100%;color:var(--text);font-family:var(--body);transition:background .15s;}
+  .day-head:hover{background:var(--bg-elevated);}
+  .day-date{font-family:var(--display);font-size:20px;font-weight:400;letter-spacing:-.01em;}
+  .day-day{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.06em;text-transform:uppercase;}
+  .day-record{font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--text-muted);}
+  .day-net{font-family:var(--display);font-size:22px;font-weight:400;letter-spacing:-.02em;min-width:80px;text-align:right;}
+  .day-net.pos{color:var(--win);}
+  .day-net.neg{color:var(--loss);}
+  .day-net.flat{color:var(--text-muted);}
+  .day-toggle{font-family:var(--mono);font-size:14px;color:var(--accent);transition:transform .25s;}
+  .day.open .day-toggle{transform:rotate(45deg);}
+
+  .day-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .day.open .day-body{max-height:9999px;}
+  .day-picks{padding:0 26px 26px;display:flex;flex-direction:column;gap:1px;background:var(--border);border-top:1px solid var(--border);margin-top:0;}
+
+  /* INDIVIDUAL PICK ROW */
+  .pick-row{background:var(--bg-elevated);padding:18px 22px;display:grid;grid-template-columns:130px 1fr auto auto auto;gap:20px;align-items:center;}
+  .pick-league{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);}
+  .pick-call{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--text);}
+  .pick-call-meta{font-family:var(--mono);font-size:11px;color:var(--text-dim);margin-top:3px;}
+  .pick-odds{font-family:var(--mono);font-size:12px;color:var(--text-muted);}
+  .pick-result{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;text-align:center;min-width:64px;}
+  .pick-result.WON{background:var(--win);color:#000;}
+  .pick-result.LOST{background:var(--loss);color:#fff;}
+  .pick-result.PUSH{background:var(--push);color:#000;}
+  .pick-result.PENDING{background:var(--bg-surface);color:var(--text-dim);border:1px solid var(--border);}
+  .pick-units{font-family:var(--mono);font-size:14px;font-weight:700;min-width:64px;text-align:right;}
+  .pick-units.pos{color:var(--win);}
+  .pick-units.neg{color:var(--loss);}
+  .pick-units.flat{color:var(--text-muted);}
+  .pick-reasoning{grid-column:1/-1;font-size:13px;color:var(--text-muted);line-height:1.6;padding-top:12px;margin-top:8px;border-top:1px dashed var(--border);}
+
+  /* EMPTY STATE */
+  .empty{padding:64px 28px;text-align:center;background:var(--bg-elevated);border:1px solid var(--border);}
+  .empty-icon{font-size:36px;margin-bottom:18px;}
+  .empty-title{font-family:var(--display);font-size:24px;font-weight:400;letter-spacing:-.01em;margin-bottom:10px;}
+  .empty-sub{font-size:14px;color:var(--text-muted);max-width:46ch;margin:0 auto;line-height:1.65;}
+
+  /* HEADS-UP NOTE */
+  .head-note{background:var(--bg-elevated);border:1px solid var(--border);border-left:3px solid var(--accent);padding:18px 22px;margin-bottom:36px;font-size:14px;color:var(--text-muted);line-height:1.65;}
+  .head-note strong{color:var(--text);font-weight:600;}
+
+  /* FOOTER */
+  footer{background:var(--bg);border-top:1px solid var(--border);padding:36px 0;text-align:center;}
+  .footer-line{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.05em;}
+  .footer-line a{color:var(--text-muted);text-decoration:none;margin:0 10px;}
+  .footer-line a:hover{color:var(--accent);}
+
+  /* RESPONSIVE */
+  @media(max-width:860px){
+    .container{padding:0 20px;}
+    .nav-inner{padding:14px 20px;}
+    .nav-links{display:none;}
+    .trust-grid{grid-template-columns:repeat(2,1fr);}
+    .calc-card{padding:28px 22px;}
+    .calc-row{grid-template-columns:1fr;text-align:right;gap:24px;}
+    .day-head{grid-template-columns:1fr auto auto;gap:14px;padding:18px 18px;}
+    .day-day,.day-record{display:none;}
+    .pick-row{grid-template-columns:1fr auto auto;gap:12px;padding:14px 16px;}
+    .pick-league,.pick-odds{display:none;}
+    .pick-reasoning{grid-column:1/-1;}
+    .section-title{font-size:28px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark"></span>SMARTERPICKS</a>
+    <ul class="nav-links">
+      <li><a href="index.html#slate">Today's Picks</a></li>
+      <li><a href="archive.html" style="color:var(--text);">Archive</a></li>
+      <li><a href="discord.html">Discord</a></li>
+    </ul>
+    <a href="login.html" class="nav-cta">Sign in / Join ↗</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-tag">The Pick Archive</div>
+    <h1>Every pick. <em>Every result.</em></h1>
+    <p class="hero-sub">No cherry-picked highlights. No deleted losses. Every play we've ever published is logged here with the date, the line, and what it actually did. Filter by sport or outcome — drag the slider to see what your bankroll would look like if you'd followed every play.</p>
+    <div class="trust-grid" id="trust-grid">
+      <div class="trust-cell">
+        <div class="trust-num" id="stat-picks">—</div>
+        <div class="trust-label">Picks made</div>
+        <div class="trust-sub" id="stat-days-sub">—</div>
+      </div>
+      <div class="trust-cell">
+        <div class="trust-num pos" id="stat-winpct">—</div>
+        <div class="trust-label">Win rate</div>
+        <div class="trust-sub" id="stat-wl-sub">—</div>
+      </div>
+      <div class="trust-cell">
+        <div class="trust-num pos" id="stat-units">—</div>
+        <div class="trust-label">Net units</div>
+        <div class="trust-sub">across all bets</div>
+      </div>
+      <div class="trust-cell">
+        <div class="trust-num pos" id="stat-roi">—</div>
+        <div class="trust-label">ROI</div>
+        <div class="trust-sub">return per dollar risked</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="calc-section">
+  <div class="container">
+    <div class="calc-card">
+      <div class="calc-tag">The Math · Plain English</div>
+      <h2 class="calc-headline">If you'd bet <em>your number</em>, you'd be:</h2>
+      <p class="calc-explain">
+        A "unit" is whatever you'd risk on a typical play. Drag the slider to your usual bet size — we do the math. The number on the right shows your total profit (or loss) if you'd put that amount on every single pick in the filtered set below. Won bets pay out at the listed odds, lost bets cost you the unit. Pushes are zero. No fees, no juice double-counted.
+      </p>
+      <div class="calc-row">
+        <div class="calc-slider-wrap">
+          <div class="calc-slider-row">
+            <span>Your unit size</span>
+            <input type="range" min="10" max="1000" step="5" value="100" class="calc-slider" id="calc-slider">
+            <span class="calc-unit" id="calc-unit-label">$100</span>
+          </div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.04em;">
+            Most of our members run between $25 and $250 per unit.
+          </div>
+        </div>
+        <div>
+          <div class="calc-bigout pos" id="calc-bigout">+$0</div>
+          <div class="calc-bigout-label" id="calc-bigout-label">profit · 0 picks tracked</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHIVE -->
+<section class="archive-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-tag">Verifiable · Updated nightly</div>
+        <h2 class="section-title">Browse <em>every pick</em>.</h2>
+      </div>
+      <div class="section-meta" id="archive-meta">Loading archive…</div>
+    </div>
+
+    <!-- Honest note about backfill -->
+    <div class="head-note" id="head-note" style="display:none;">
+      <strong>Per-pick archive started <span id="archive-since">—</span>.</strong>
+      Older days are summarized as daily totals on the
+      <a href="members.html" style="color:var(--accent);text-decoration:underline;">members track-record chart</a>
+      — every day's net units is logged there, but the individual picks for those days were not saved at the time.
+      Going forward, every pick is permanently archived here.
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+      <div class="filter-row">
+        <span class="filter-label">Sport</span>
+        <div class="filter-chips" id="sport-filters">
+          <button class="filter-chip active" data-filter="sport" data-value="all">All sports</button>
+        </div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">Outcome</span>
+        <div class="filter-chips">
+          <button class="filter-chip active" data-filter="result" data-value="all">All</button>
+          <button class="filter-chip" data-filter="result" data-value="WON">Wins</button>
+          <button class="filter-chip" data-filter="result" data-value="LOST">Losses</button>
+          <button class="filter-chip" data-filter="result" data-value="PUSH">Pushes</button>
+          <button class="filter-chip" data-filter="result" data-value="PENDING">Pending</button>
+        </div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">Range</span>
+        <div class="filter-chips">
+          <button class="filter-chip" data-filter="range" data-value="7">Last 7 days</button>
+          <button class="filter-chip" data-filter="range" data-value="30">Last 30 days</button>
+          <button class="filter-chip active" data-filter="range" data-value="all">All time</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIVE FILTER SUMMARY -->
+    <div class="filter-summary" id="filter-summary">
+      <div>
+        Showing <span class="count" id="fs-picks">0</span> picks
+        <span style="margin:0 10px;color:var(--text-dim);">·</span>
+        <span class="pos"><span id="fs-wins">0</span> wins</span>
+        <span style="margin:0 10px;color:var(--text-dim);">·</span>
+        <span class="neg"><span id="fs-losses">0</span> losses</span>
+        <span style="margin:0 10px;color:var(--text-dim);">·</span>
+        Net <span class="count" id="fs-units">+0u</span>
+      </div>
+      <button class="reset" id="reset-filters">Reset filters</button>
+    </div>
+
+    <!-- DAY LIST -->
+    <div id="day-list-wrap"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-line">
+      SMARTERPICKS · The pick archive · Updated automatically every morning ·
+      <a href="index.html">Home</a>·
+      <a href="members.html">Members</a>·
+      <a href="discord.html">Discord</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ============================================================
+// SMARTERPICKS — Archive page
+//
+// Loads archive.json (and history.json for the trust headlines),
+// renders an aggregate trust panel, an interactive bankroll
+// calculator, three filter rows (sport / outcome / range), and a
+// list of expandable day cards showing every individual pick.
+//
+// Filtering & calculator logic share one render pass: changing any
+// filter recomputes the visible day list and the calculator total.
+// ============================================================
+
+const STATE = {
+  archive: null,        // raw archive.json
+  filters: {
+    sport: "all",
+    result: "all",
+    range: "all",
+  },
+  unit: 100,            // dollars per unit (slider)
+};
+
+// ── BOOT ────────────────────────────────────────────────────
+fetch("archive.json?v=" + Date.now())
+  .then(r => r.ok ? r.json() : Promise.reject(new Error("missing archive.json")))
+  .then(data => {
+    STATE.archive = data;
+    renderTrustHeadlines(data.stats || {}, data.days || []);
+    buildSportFilters(data.days || []);
+    showArchiveSinceNote(data.days || []);
+    wireFilters();
+    wireCalculator();
+    rerender();
+  })
+  .catch(err => {
+    console.warn("archive load failed:", err);
+    document.getElementById("day-list-wrap").innerHTML = emptyState(
+      "Archive coming online",
+      "Today's pick archive hasn't been populated yet. Check back tomorrow morning after the daily run."
+    );
+  });
+
+// ── TRUST HEADLINE NUMBERS ──────────────────────────────────
+function renderTrustHeadlines(stats, days) {
+  const picks  = stats.total_picks ?? days.reduce((a,d) => a + (d.picks?.length || 0), 0);
+  const wins   = stats.wins   ?? 0;
+  const losses = stats.losses ?? 0;
+  const winpct = stats.win_pct ?? (wins+losses ? (100*wins/(wins+losses)).toFixed(1) : 0);
+  const units  = stats.net_units ?? 0;
+  const roi    = stats.roi_pct ?? null;
+  const daysCount = stats.days_recorded ?? days.length;
+
+  setText("stat-picks", picks.toLocaleString());
+  setText("stat-days-sub", `over ${daysCount} day${daysCount === 1 ? "" : "s"}`);
+  setText("stat-winpct", `${winpct}%`);
+  setText("stat-wl-sub", `${wins.toLocaleString()}-${losses.toLocaleString()}`);
+  setText("stat-units", `${units >= 0 ? "+" : ""}${Number(units).toFixed(1)}u`);
+  setText("stat-roi", roi != null ? `${roi >= 0 ? "+" : ""}${Number(roi).toFixed(1)}%` : "—");
+
+  // Color the units / roi cells red if negative
+  const unitsEl = document.getElementById("stat-units");
+  if (unitsEl) unitsEl.classList.toggle("neg", units < 0);
+  unitsEl && unitsEl.classList.toggle("pos", units >= 0);
+  const roiEl = document.getElementById("stat-roi");
+  if (roiEl && roi != null) {
+    roiEl.classList.toggle("neg", roi < 0);
+    roiEl.classList.toggle("pos", roi >= 0);
+  }
+}
+
+// ── SPORT FILTER CHIPS ──────────────────────────────────────
+// Build dynamically so adding/removing a sport in picks.json doesn't
+// require touching this file.
+function buildSportFilters(days) {
+  const sports = new Set();
+  days.forEach(d => (d.picks || []).forEach(p => {
+    const s = sportKey(p.league);
+    if (s) sports.add(s);
+  }));
+  const wrap = document.getElementById("sport-filters");
+  // Keep "All sports" first; append the rest in a friendly order.
+  const order = ["NBA","MLB","NHL","NFL","UFC","MMA","Soccer","Tennis","Golf"];
+  const sorted = [...sports].sort((a,b) => {
+    const ai = order.indexOf(a), bi = order.indexOf(b);
+    if (ai === -1 && bi === -1) return a.localeCompare(b);
+    if (ai === -1) return 1;
+    if (bi === -1) return -1;
+    return ai - bi;
+  });
+  sorted.forEach(sport => {
+    const btn = document.createElement("button");
+    btn.className = "filter-chip";
+    btn.dataset.filter = "sport";
+    btn.dataset.value = sport;
+    btn.textContent = sport;
+    wrap.appendChild(btn);
+  });
+}
+
+// Map "NBA · Playoffs" or "basketball_nba" to a short canonical name
+function sportKey(league) {
+  const s = String(league || "").toLowerCase();
+  if (s.includes("nba") || s.includes("basketball")) return "NBA";
+  if (s.includes("mlb") || s.includes("baseball"))   return "MLB";
+  if (s.includes("nhl") || s.includes("hockey"))     return "NHL";
+  if (s.includes("nfl") || s.includes("football"))   return "NFL";
+  if (s.includes("ufc") || s.includes("mma"))        return "UFC";
+  if (s.includes("soccer") || s.includes("epl"))     return "Soccer";
+  if (s.includes("tennis"))                          return "Tennis";
+  if (s.includes("golf") || s.includes("pga"))       return "Golf";
+  return league || "Other";
+}
+
+// ── ARCHIVE-START NOTE ──────────────────────────────────────
+function showArchiveSinceNote(days) {
+  if (!days.length) return;
+  // Only show the note if the archive's earliest entry is more recent
+  // than the chart history. (We don't have the exact first chart date
+  // here, so we just show it always when there's data — explains the
+  // gap between "412 picks ever" and what's actually browsable.)
+  const earliest = days[days.length - 1];
+  if (!earliest) return;
+  const note = document.getElementById("head-note");
+  const since = document.getElementById("archive-since");
+  if (note && since) {
+    since.textContent = formatDate(earliest.iso_date);
+    note.style.display = "block";
+  }
+}
+
+// ── FILTER WIRING ───────────────────────────────────────────
+function wireFilters() {
+  document.querySelectorAll(".filter-chip").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const dim = btn.dataset.filter;
+      const val = btn.dataset.value;
+      // Toggle active within this dimension
+      document.querySelectorAll(`.filter-chip[data-filter="${dim}"]`)
+        .forEach(b => b.classList.toggle("active", b === btn));
+      STATE.filters[dim] = val;
+      // Add a result-color class to the active chip (visual cue)
+      document.querySelectorAll('.filter-chip[data-filter="result"]').forEach(b => {
+        b.classList.remove("win","loss","push");
+        if (b.classList.contains("active")) {
+          if (b.dataset.value === "WON")  b.classList.add("win");
+          if (b.dataset.value === "LOST") b.classList.add("loss");
+          if (b.dataset.value === "PUSH") b.classList.add("push");
+        }
+      });
+      rerender();
+    });
+  });
+  document.getElementById("reset-filters").addEventListener("click", () => {
+    STATE.filters = { sport: "all", result: "all", range: "all" };
+    document.querySelectorAll(".filter-chip").forEach(b => {
+      b.classList.toggle("active", b.dataset.value === "all");
+      b.classList.remove("win","loss","push");
+    });
+    rerender();
+  });
+}
+
+// ── CALCULATOR ─────────────────────────────────────────────
+function wireCalculator() {
+  const slider = document.getElementById("calc-slider");
+  const label  = document.getElementById("calc-unit-label");
+  if (!slider || !label) return;
+  slider.addEventListener("input", () => {
+    STATE.unit = Number(slider.value) || 0;
+    label.textContent = "$" + STATE.unit;
+    updateCalculator();
+  });
+  // Initial label
+  label.textContent = "$" + slider.value;
+  STATE.unit = Number(slider.value) || 100;
+}
+
+// ── FILTER LOGIC ───────────────────────────────────────────
+function visibleDays() {
+  if (!STATE.archive) return [];
+  let days = STATE.archive.days || [];
+  // Range — slice by date count (newest first, so slice from the start)
+  if (STATE.filters.range !== "all") {
+    const n = parseInt(STATE.filters.range, 10);
+    if (isFinite(n)) days = days.slice(0, n);
+  }
+  // Sport / result filtering happens at the pick level
+  return days.map(d => {
+    const filteredPicks = (d.picks || []).filter(p => {
+      if (STATE.filters.sport !== "all" && sportKey(p.league) !== STATE.filters.sport) return false;
+      if (STATE.filters.result !== "all" && String(p.result || "").toUpperCase() !== STATE.filters.result) return false;
+      return true;
+    });
+    return { ...d, _filteredPicks: filteredPicks };
+  }).filter(d => d._filteredPicks.length > 0);
+}
+
+// ── MAIN RENDER ────────────────────────────────────────────
+function rerender() {
+  const days = visibleDays();
+  renderDayList(days);
+  renderFilterSummary(days);
+  updateCalculator(days);
+
+  // Top-right meta
+  const totalDays = (STATE.archive?.days || []).length;
+  const meta = document.getElementById("archive-meta");
+  if (meta) meta.textContent = `${totalDays} day${totalDays === 1 ? "" : "s"} archived`;
+}
+
+function renderFilterSummary(days) {
+  const picks = days.flatMap(d => d._filteredPicks);
+  const wins   = picks.filter(p => String(p.result).toUpperCase() === "WON").length;
+  const losses = picks.filter(p => String(p.result).toUpperCase() === "LOST").length;
+  const units  = picks.reduce((a,p) => a + (Number(p.units) || 0), 0);
+  setText("fs-picks",  picks.length.toLocaleString());
+  setText("fs-wins",   wins);
+  setText("fs-losses", losses);
+  const u = units;
+  const sign = u >= 0 ? "+" : "";
+  const el = document.getElementById("fs-units");
+  if (el) {
+    el.textContent = `${sign}${u.toFixed(2)}u`;
+    el.classList.toggle("pos", u >= 0);
+    el.classList.toggle("neg", u < 0);
+  }
+}
+
+function updateCalculator() {
+  const days = visibleDays();
+  const picks = days.flatMap(d => d._filteredPicks);
+  const totalUnits = picks.reduce((a,p) => a + (Number(p.units) || 0), 0);
+  const dollars = totalUnits * STATE.unit;
+  const out   = document.getElementById("calc-bigout");
+  const label = document.getElementById("calc-bigout-label");
+  if (!out) return;
+  const sign = dollars >= 0 ? "+" : "−";
+  out.textContent = `${sign}$${Math.round(Math.abs(dollars)).toLocaleString()}`;
+  out.classList.toggle("pos",  dollars > 0.5);
+  out.classList.toggle("neg",  dollars < -0.5);
+  out.classList.toggle("flat", Math.abs(dollars) <= 0.5);
+  if (label) {
+    const verb = dollars > 0.5 ? "up" : dollars < -0.5 ? "down" : "flat";
+    label.textContent = `${verb} · ${picks.length} pick${picks.length === 1 ? "" : "s"} tracked at $${STATE.unit}/unit`;
+  }
+}
+
+function renderDayList(days) {
+  const wrap = document.getElementById("day-list-wrap");
+  if (!wrap) return;
+  if (!days.length) {
+    wrap.innerHTML = emptyState(
+      "No picks match these filters",
+      "Try widening the sport or outcome filter, or hit \"Reset filters\" to start over."
+    );
+    return;
+  }
+  wrap.innerHTML = `<div class="day-list">${days.map(renderDay).join("")}</div>`;
+
+  // Wire expand/collapse on the new buttons
+  wrap.querySelectorAll(".day-head").forEach(btn => {
+    btn.addEventListener("click", () => {
+      btn.parentElement.classList.toggle("open");
+    });
+  });
+}
+
+function renderDay(d) {
+  const picks = d._filteredPicks || d.picks || [];
+  const wins   = picks.filter(p => String(p.result).toUpperCase() === "WON").length;
+  const losses = picks.filter(p => String(p.result).toUpperCase() === "LOST").length;
+  const pushes = picks.filter(p => String(p.result).toUpperCase() === "PUSH").length;
+  const units  = picks.reduce((a,p) => a + (Number(p.units) || 0), 0);
+  const recordStr = `${wins}-${losses}${pushes ? "-"+pushes : ""}`;
+  const netSign = units >= 0 ? "+" : "";
+  const netCls  = Math.abs(units) <= 0.005 ? "flat" : (units > 0 ? "pos" : "neg");
+
+  return `
+    <div class="day">
+      <button class="day-head" type="button">
+        <span class="day-date">${escHtml(formatDate(d.iso_date))}</span>
+        <span class="day-day">${escHtml(weekday(d.iso_date))}</span>
+        <span class="day-record">${recordStr}</span>
+        <span class="day-net ${netCls}">${netSign}${units.toFixed(2)}u</span>
+        <span class="day-toggle">+</span>
+      </button>
+      <div class="day-body">
+        <div class="day-picks">
+          ${picks.map(renderPick).join("")}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderPick(p) {
+  const result = String(p.result || "PENDING").toUpperCase();
+  const units  = Number(p.units || 0);
+  const sign   = units >= 0 ? "+" : "";
+  const cls    = Math.abs(units) <= 0.005 ? "flat" : (units > 0 ? "pos" : "neg");
+  const matchup = p.away_team && p.home_team
+    ? `${escHtml(p.away_team)} at ${escHtml(p.home_team)}`
+    : "";
+  return `
+    <div class="pick-row">
+      <span class="pick-league">${escHtml(p.league || "—")}</span>
+      <div>
+        <div class="pick-call">${escHtml(p.pick || "—")}</div>
+        ${matchup ? `<div class="pick-call-meta">${matchup}</div>` : ""}
+      </div>
+      <span class="pick-odds">${escHtml(p.odds || "—")}${p.stake ? " · " + escHtml(p.stake) : ""}</span>
+      <span class="pick-result ${result}">${result}</span>
+      <span class="pick-units ${cls}">${sign}${units.toFixed(2)}u</span>
+      ${p.reasoning ? `<div class="pick-reasoning">${escHtml(p.reasoning)}</div>` : ""}
+    </div>
+  `;
+}
+
+// ── HELPERS ────────────────────────────────────────────────
+function emptyState(title, body) {
+  return `
+    <div class="empty">
+      <div class="empty-icon">📂</div>
+      <div class="empty-title">${escHtml(title)}</div>
+      <div class="empty-sub">${escHtml(body)}</div>
+    </div>
+  `;
+}
+
+function setText(id, txt) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = txt;
+}
+
+function formatDate(iso) {
+  const m = String(iso || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!m) return iso || "";
+  const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  return `${months[parseInt(m[2],10) - 1] || m[2]} ${parseInt(m[3],10)}, ${m[1]}`;
+}
+
+function weekday(iso) {
+  const m = String(iso || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!m) return "";
+  // Use UTC noon to dodge timezone-flip edge cases
+  const d = new Date(`${iso}T12:00:00Z`);
+  return ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][d.getUTCDay()];
+}
+
+function escHtml(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+</script>
+
+</body>
+</html>

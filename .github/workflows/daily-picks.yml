@@ -40,11 +40,11 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python picks_generator.py
 
-      - name: Commit updated picks.json, results.json, history.json
+      - name: Commit updated data files
         run: |
           git config user.name  "smarterpicks-bot"
           git config user.email "smarterpicks-bot@users.noreply.github.com"
-          git add picks.json results.json history.json
+          git add picks.json results.json history.json archive.json
           if git diff --cached --quiet; then
             echo "No data files changed — nothing to commit."
           else

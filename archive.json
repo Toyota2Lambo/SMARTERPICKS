@@ -1,0 +1,35 @@
+{
+  "stats": {
+    "total_picks": 412,
+    "wins": 226,
+    "losses": 186,
+    "pushes": 22,
+    "win_pct": 54.9,
+    "net_units": 38.4,
+    "roi_pct": 9.3,
+    "best_month_units": 12.4,
+    "worst_month_units": -3.8,
+    "avg_daily_units": 1.07,
+    "days_recorded": 36
+  },
+  "days": [
+    {
+      "iso_date": "2026-05-04",
+      "date_display": "May 04, 2026",
+      "wins": 5,
+      "losses": 2,
+      "pushes": 0,
+      "net_units": 3.7,
+      "summary_text": "5-2 · +3.7u",
+      "picks": [
+        { "league": "NBA · Playoffs", "pick": "Knicks +6.5",          "odds": "-110", "stake": "2u", "result": "WON",  "units":  1.91, "reasoning": "Knicks getting a generous number on the road in a series Brunson has averaged 32 in. Public is on the favorite, sharp side is the dog points." },
+        { "league": "MLB",            "pick": "Under 7.5 (Yamamoto)", "odds": "-105", "stake": "1u", "result": "LOST", "units": -1.05, "reasoning": "Yamamoto coming off two scoreless against this same lineup. Total opened 7 and ticked up to 7.5 — value on the under." },
+        { "league": "NHL · Playoffs", "pick": "McDavid O0.5 G",       "odds": "+165", "stake": "1u", "result": "WON",  "units":  1.65, "reasoning": "McDavid with 6 SOG/game in the series and getting top PP looks. Plus money on a stat he's hitting at 60%." },
+        { "league": "NBA · Playoffs", "pick": "Total O214.5",         "odds": "-112", "stake": "1.5u","result": "WON",  "units":  1.34, "reasoning": "Pace is up 4 possessions vs regular season and both teams shooting the lights out from three. Number is below the series average." },
+        { "league": "MLB",            "pick": "Cardinals ML",         "odds": "+118", "stake": "1u", "result": "WON",  "units":  1.18, "reasoning": "Cards have hit lefties at .290 this year and the opposing starter has a 5.40 ERA in his last 5. Plus money on the better side." },
+        { "league": "NHL · Playoffs", "pick": "Panthers -1.5",        "odds": "+135", "stake": "1u", "result": "WON",  "units":  1.35, "reasoning": "Panthers up 3-1 in the series, opponent's starter is a backup, and they've won every game by 2+. Puck line at plus money is the play." },
+        { "league": "NBA · Playoffs", "pick": "Brunson O31.5 pts",    "odds": "+110", "stake": "1u", "result": "LOST", "units": -1.00, "reasoning": "Brunson seeing 38 minutes a night and the matchup struggles to defend mid-range scorers. Number is below his series average." }
+      ]
+    }
+  ]
+}

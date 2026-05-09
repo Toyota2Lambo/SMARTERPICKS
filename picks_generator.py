@@ -419,6 +419,81 @@ def update_history_for_yesterday(date_str, net_units, wins, losses, pushes):
         json.dump(history, f, indent=2)
     print(f"   ✅ history.json updated ({iso}: {net_units:+.2f}u)")
 
+def append_to_archive(results):
+    """Append a day's full per-pick results to archive.json so the
+    public archive page can show every pick we've ever made.
+
+    Idempotent: keyed off iso_date so re-runs of the same day don't
+    duplicate. Stats block is mirrored from history.json each time
+    so the two files can never disagree.
+    """
+    archive = {"stats": {}, "days": []}
+    if os.path.exists("archive.json"):
+        try:
+            with open("archive.json") as f:
+                archive = json.load(f)
+        except Exception as e:
+            print(f"   ⚠ couldn't read archive.json: {e}")
+
+    date_str = results.get("date") or ""
+    iso = None
+    for fmt in ("%B %d, %Y", "%Y-%m-%d"):
+        try:
+            iso = datetime.strptime(date_str, fmt).strftime("%Y-%m-%d")
+            break
+        except (TypeError, ValueError):
+            continue
+    if not iso:
+        iso = datetime.now().strftime("%Y-%m-%d")
+
+    days = archive.get("days", [])
+    if any(d.get("iso_date") == iso for d in days):
+        print(f"   {iso} already in archive.json — skipping append")
+        return
+
+    # Trim each pick to fields the archive page renders. Reasoning is
+    # kept so members can cross-check the rationale we posted that day.
+    trimmed_picks = []
+    for p in results.get("picks", []) or []:
+        trimmed_picks.append({
+            "league":     p.get("league"),
+            "away_team":  p.get("away_team"),
+            "home_team":  p.get("home_team"),
+            "pick":       p.get("pick"),
+            "odds":       p.get("odds"),
+            "stake":      p.get("stake"),
+            "result":     p.get("result"),
+            "units":      p.get("units"),
+            "reasoning":  p.get("reasoning"),
+        })
+
+    days.insert(0, {
+        "iso_date":     iso,
+        "date_display": results.get("date") or iso,
+        "wins":         results.get("wins", 0),
+        "losses":       results.get("losses", 0),
+        "pushes":       results.get("pushes", 0),
+        "net_units":    results.get("net_units", 0.0),
+        "summary_text": results.get("summary_text", ""),
+        "picks":        trimmed_picks,
+    })
+
+    # Mirror history.json stats so the archive page's headline numbers
+    # match what the chart on the members page is reading from.
+    if os.path.exists("history.json"):
+        try:
+            with open("history.json") as f:
+                hist_stats = json.load(f).get("stats") or {}
+            archive["stats"] = hist_stats
+        except Exception as e:
+            print(f"   ⚠ couldn't mirror history stats into archive: {e}")
+    archive["days"] = days
+
+    with open("archive.json", "w") as f:
+        json.dump(archive, f, indent=2)
+    print(f"   ✅ archive.json updated ({iso}: {len(trimmed_picks)} picks)")
+
+
 def score_and_archive_yesterday():
     """Read existing picks.json, score each pick using yesterday's final
     scores from the Odds API, write results.json + update history.json."""
@@ -470,6 +545,12 @@ def score_and_archive_yesterday():
     # PENDING props doesn't pollute the cumulative chart).
     if pending == 0 or wins + losses + pushes > 0:
         update_history_for_yesterday(old.get("date"), net, wins, losses, pushes)
+        # Per-pick archive happens on the same condition so archive
+        # and history can never drift out of sync.
+        try:
+            append_to_archive(results)
+        except Exception as e:
+            print(f"   ⚠ archive append failed: {e}")
     else:
         print("   ⚠ all picks pending — skipping history append")
 
