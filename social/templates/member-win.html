@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SmarterPicks — Member Win</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  /* member-win: testimonial-style member success post. Used by the
+     backfill generator only. Quotes should be REAL — see backfill
+     README; do not invent member quotes for live posts.
+
+     Renderer passes:
+       {{quote}}        — the member's words, 1-3 sentences
+       {{handle_text}}  — display handle, e.g. "@matty_bets"
+       {{tier_text}}    — e.g. "Premium · 4 months"
+       {{result_text}}  — the headline number, e.g. "+18u"
+       {{result_label}} — small label under the result, e.g. "since joining" */
+  .mw-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    position: relative;
+    z-index: 1;
+  }
+  .mw-quote {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -.015em;
+    line-height: 1.18;
+    font-size: 56px;
+    color: var(--text);
+    position: relative;
+  }
+  body[data-size="story"] .mw-quote { font-size: 68px; }
+
+  .mw-quote::before {
+    content: "“";
+    position: absolute;
+    top: -52px;
+    left: -8px;
+    font-family: var(--display);
+    font-size: 180px;
+    color: var(--accent);
+    line-height: 1;
+    opacity: .6;
+  }
+
+  .mw-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+  }
+  .mw-meta .person {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .mw-handle {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 28px;
+    color: var(--text);
+    letter-spacing: -.01em;
+  }
+  .mw-tier {
+    font-family: var(--mono);
+    font-size: 16px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .mw-result {
+    text-align: right;
+    background: rgba(109,190,122,.1);
+    border: 1px solid rgba(109,190,122,.3);
+    padding: 18px 24px;
+  }
+  .mw-result-num {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 1;
+    letter-spacing: -.02em;
+    color: var(--win);
+  }
+  .mw-result-lbl {
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+</style>
+</head>
+<body data-size="{{size}}">
+  <div class="glow" style="top:25%;right:-12%;width:480px;height:480px;"></div>
+  <div class="stage">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-name">SMARTERPICKS</span>
+    </div>
+
+    <div class="tag">Member Result · Posted with permission</div>
+
+    <div class="mw-body">
+      <p class="mw-quote">{{quote}}</p>
+
+      <div class="mw-meta">
+        <div class="person">
+          <div class="mw-handle">{{handle_text}}</div>
+          <div class="mw-tier">{{tier_text}}</div>
+        </div>
+        <div class="mw-result">
+          <div class="mw-result-num">{{result_text}}</div>
+          <div class="mw-result-lbl">{{result_label}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      smarterpicks.io <span class="dot">·</span>
+      Real members. Real plays. <span class="dot">·</span>
+      Code <span class="promo">FREE30</span>
+    </div>
+  </div>
+</body>
+</html>

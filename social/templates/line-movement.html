@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SmarterPicks — Line Movement Alert</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  /* line-movement: "the line just moved" alert post. Used by the
+     backfill generator and any time we want to publish a sharp-money
+     observation.
+
+     Renderer passes:
+       {{game_text}}     — e.g. "Lakers vs Celtics"
+       {{league_text}}   — e.g. "NBA · Tonight 7:30 ET"
+       {{from_text}}     — opening number, e.g. "-3.5"
+       {{to_text}}       — current number, e.g. "-2.5"
+       {{commentary}}    — 1-2 lines on what the move means
+       {{direction}}     — "up" | "down" (controls arrow + color tint) */
+  .lm-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    position: relative;
+    z-index: 1;
+  }
+  .lm-game {
+    font-family: var(--display);
+    font-weight: 400;
+    letter-spacing: -.02em;
+    line-height: 1.0;
+    font-size: 84px;
+    color: var(--text);
+  }
+  .lm-game em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 300;
+  }
+  body[data-size="story"] .lm-game { font-size: 100px; }
+
+  .lm-league {
+    font-family: var(--mono);
+    font-size: 18px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .lm-move {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    padding: 36px 40px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 24px;
+  }
+  .lm-side {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .lm-side.right { text-align: right; }
+  .lm-side .lbl {
+    font-family: var(--mono);
+    font-size: 16px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .lm-side .val {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 80px;
+    color: var(--text);
+    letter-spacing: -.01em;
+    line-height: 1;
+  }
+
+  .lm-arrow {
+    font-family: var(--display);
+    font-size: 80px;
+    color: var(--accent);
+    line-height: 1;
+    transform: translateY(4px);
+  }
+  body[data-direction="down"] .lm-arrow { color: var(--loss); transform: translateY(4px) rotate(180deg); }
+
+  .lm-commentary {
+    font-family: var(--body);
+    font-size: 26px;
+    line-height: 1.5;
+    color: var(--text-muted);
+    max-width: 92%;
+  }
+  body[data-size="story"] .lm-commentary { font-size: 30px; }
+</style>
+</head>
+<body data-size="{{size}}" data-direction="{{direction}}">
+  <div class="glow" style="top:-10%;left:-15%;width:560px;height:560px;"></div>
+  <div class="stage">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-name">SMARTERPICKS</span>
+    </div>
+
+    <div class="tag">Line moved · Sharp money</div>
+
+    <div class="lm-body">
+      <div>
+        <div class="lm-league">{{league_text}}</div>
+        <h1 class="lm-game">{{game_text}}</h1>
+      </div>
+
+      <div class="lm-move">
+        <div class="lm-side">
+          <div class="lbl">Opened</div>
+          <div class="val">{{from_text}}</div>
+        </div>
+        <div class="lm-arrow">→</div>
+        <div class="lm-side right">
+          <div class="lbl">Now</div>
+          <div class="val">{{to_text}}</div>
+        </div>
+      </div>
+
+      <p class="lm-commentary">{{commentary}}</p>
+    </div>
+
+    <div class="footer">
+      smarterpicks.io <span class="dot">·</span>
+      Members get these in real time <span class="dot">·</span>
+      Code <span class="promo">FREE30</span>
+    </div>
+  </div>
+</body>
+</html>

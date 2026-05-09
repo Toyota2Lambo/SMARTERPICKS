@@ -1,0 +1,252 @@
+/* ============================================================
+   SMARTERPICKS — Social template shared CSS
+   ============================================================
+   Matches the site's visual identity exactly so the IG grid feels
+   like a continuation of smarterpicks.io, not a separate brand.
+   Pulled directly from index.html's design tokens.
+
+   Each template is rendered at one of two sizes:
+     - feed:  1080 × 1080  (square — main grid posts + carousels)
+     - story: 1080 × 1920  (vertical — Story sequences)
+   The renderer sets <body data-size="feed"|"story">; templates
+   adjust internal layout accordingly.
+   ============================================================ */
+
+/* Local font files (renderer.js copies them next to this CSS at
+   render time). Using local files instead of Google Fonts means
+   Puppeteer doesn't have to fetch from the network during render
+   — faster, deterministic, and works in CI without internet jitter. */
+@font-face {
+  font-family: 'Fraunces';
+  src: local('Fraunces'), url('https://fonts.gstatic.com/s/fraunces/v37/6NUi8FxOZUDM4_qOdYxWMXLxXg.woff2') format('woff2');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Fraunces';
+  src: local('Fraunces Italic'), url('https://fonts.gstatic.com/s/fraunces/v37/6NUi8FxOZUDM4_qOdYxYMXLxXg.woff2') format('woff2');
+  font-weight: 300 900;
+  font-style: italic;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Inter Tight';
+  src: local('Inter Tight'), url('https://fonts.gstatic.com/s/intertight/v11/NGSyv5fCK0NPTMRmOMOGsbwBHscZ--g.woff2') format('woff2');
+  font-weight: 300 700;
+  font-display: block;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: local('JetBrains Mono'), url('https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4xD-IQ-PuZJJXxfpAO-Lf1OQk6OThxPA.woff2') format('woff2');
+  font-weight: 400 700;
+  font-display: block;
+}
+
+:root {
+  /* Color tokens — copied 1:1 from index.html so a slide on Instagram
+     and a section on the site share the exact same palette. */
+  --bg:           #0a0a0a;
+  --bg-elevated:  #131313;
+  --bg-surface:   #1a1a1a;
+  --border:       #2a2a2a;
+  --border-strong:#3a3a3a;
+  --text:         #f4efe4;
+  --text-muted:   #8a8580;
+  --text-dim:     #5a5550;
+  --accent:       #d4a843;
+  --accent-dim:   #8a6f2d;
+  --win:          #6dbe7a;
+  --loss:         #d96565;
+  --push:         #888;
+
+  --display: 'Fraunces', 'Times New Roman', serif;
+  --body:    'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono:    'JetBrains Mono', 'Courier New', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  /* Renderer sets the viewport to 1080×1080 or 1080×1920. We size the
+     body to match so the screenshot is exactly the post dimensions. */
+  width:  100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+/* Subtle film grain overlay — same as the site, gives the dark bg
+   some depth instead of looking flat-screen-empty. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: .035;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* ============================================================
+   STAGE — the absolute container every template paints into.
+   Sized to fill the body exactly. Templates compose inside a
+   .stage so the screenshot captures a known viewport.
+   ============================================================ */
+.stage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 80px;
+  position: relative;
+}
+body[data-size="story"] .stage {
+  padding: 100px 80px 140px;
+}
+
+/* ============================================================
+   BRAND HEADER — every template has a header strip with the
+   wordmark + a small tag (e.g. "TODAY'S FREE PICK"). Consistent
+   placement = a recognizable grid.
+   ============================================================ */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: auto;
+}
+.brand-mark {
+  width: 16px;
+  height: 16px;
+  background: var(--accent);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+.brand-name {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 28px;
+  letter-spacing: -.01em;
+  color: var(--text);
+}
+body[data-size="story"] .brand-name { font-size: 32px; }
+
+.tag {
+  font-family: var(--mono);
+  font-size: 18px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.tag::before {
+  content: "";
+  width: 32px;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* ============================================================
+   FOOTER — bottom-fixed brand strip with the URL + promo code.
+   Same on every template so the grid reads as a unit.
+   ============================================================ */
+.footer {
+  font-family: var(--mono);
+  font-size: 16px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: auto;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.footer .dot {
+  color: var(--accent);
+  opacity: .7;
+}
+.footer .promo {
+  color: var(--accent);
+  font-weight: 700;
+}
+body[data-size="story"] .footer { font-size: 18px; }
+
+/* ============================================================
+   TYPE SCALE — kept large because IG aggressively downscales
+   for thumbnails. Small text becomes unreadable mush.
+   ============================================================ */
+.headline {
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: -.02em;
+  line-height: 1.0;
+  color: var(--text);
+}
+.headline em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--accent);
+}
+
+.subhead {
+  font-family: var(--body);
+  font-weight: 400;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.mono {
+  font-family: var(--mono);
+  letter-spacing: .04em;
+}
+
+/* Vertical accent — used to anchor 'the play' or key callouts.
+   Mimics the .pick-call element on the site. */
+.callout {
+  border-left: 3px solid var(--accent);
+  padding: 28px 36px;
+  background: var(--bg-elevated);
+}
+.callout-label {
+  font-family: var(--mono);
+  font-size: 18px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+.callout-value {
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* Result-coloring helpers used by the recap template. */
+.win  { color: var(--win); }
+.loss { color: var(--loss); }
+.push { color: var(--push); }
+
+/* Soft golden glow used to draw the eye on key panels. */
+.glow {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: .12;
+  background: var(--accent);
+  z-index: 0;
+}

@@ -1,0 +1,126 @@
+name: Social — Daily IG Run
+
+# Fires every day AFTER the daily-picks workflow completes successfully.
+# That way picks.json / results.json / history.json are all fresh by the
+# time the social generator reads them. No fixed schedule — we chain off
+# the upstream workflow run so we never beat it to the punch.
+#
+# Manual trigger is also supported (workflow_dispatch) for re-running
+# a day's social posts after editing content.json by hand.
+
+on:
+  workflow_run:
+    workflows: ["Daily Picks"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write       # for the failure-notification step
+
+jobs:
+  social:
+    runs-on: ubuntu-latest
+    # Skip if the upstream Daily Picks run failed — no point posting
+    # social about stale or missing data.
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python deps
+        run: pip install anthropic pydantic requests
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Puppeteer
+        # Puppeteer downloads its own Chromium build during install, so
+        # CI doesn't need a pre-installed browser.
+        run: npm install puppeteer
+
+      - name: Resolve today's directory
+        id: today
+        run: echo "DAY_DIR=social/$(date -u +'%Y-%m-%d')" >> "$GITHUB_OUTPUT"
+
+      - name: Generate content (Claude → content.json)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python social/social_generator.py
+
+      - name: Render images (templates → PNGs)
+        run: node social/renderer.js "${{ steps.today.outputs.DAY_DIR }}/content.json"
+
+      - name: Commit rendered assets
+        # Commit BEFORE publishing so the images deploy via Vercel and
+        # the IG publisher can fetch them from public URLs.
+        run: |
+          git config user.name  "smarterpicks-bot"
+          git config user.email "smarterpicks-bot@users.noreply.github.com"
+          git add "${{ steps.today.outputs.DAY_DIR }}"
+          if git diff --cached --quiet; then
+            echo "Nothing new to commit."
+          else
+            git commit -m "Daily social assets — $(date -u +'%Y-%m-%d')"
+            git push
+          fi
+
+      - name: Publish to Instagram
+        # The publisher polls the public image URL until it 200s, so
+        # there's no separate "wait for Vercel" step needed.
+        env:
+          IG_ACCESS_TOKEN:        ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
+          DISCORD_WEBHOOK_URL:    ${{ secrets.DISCORD_WEBHOOK_URL }}
+          # Override only if the deployed origin isn't smarterpicks.io
+          IG_PUBLIC_BASE_URL:     ${{ secrets.IG_PUBLIC_BASE_URL }}
+        run: python social/ig_publisher.py "${{ steps.today.outputs.DAY_DIR }}"
+
+      - name: Open issue on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const today  = new Date().toISOString().slice(0, 10);
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const title  = `Social workflow failed — ${today}`;
+            const body   = [
+              `The social workflow failed during today's run. The Instagram grid will be missing today's posts until this is resolved.`,
+              ``,
+              `**Run logs:** ${runUrl}`,
+              ``,
+              `Common causes:`,
+              `- ANTHROPIC_API_KEY exhausted, invalid, or rate-limited`,
+              `- IG_ACCESS_TOKEN expired (Meta long-lived tokens last ~60 days; refresh via /me?fields=...&access_token=)`,
+              `- IG_BUSINESS_ACCOUNT_ID wrong (verify in Meta Business Suite)`,
+              `- Vercel deploy stalled — image URLs didn't 200 within 3 min`,
+              `- Puppeteer install failed (rare; usually a CDN hiccup)`,
+              `- Claude returned malformed JSON (the parse step rejected it)`,
+            ].join("\n");
+
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              state: "open",
+              labels: "social-failure",
+              per_page: 50,
+            });
+            if (existing.data.some(i => i.title === title)) {
+              core.info(`Issue already exists for ${today} — not re-filing.`);
+              return;
+            }
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              title,
+              body,
+              labels: ["social-failure"],
+            });

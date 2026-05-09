@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SmarterPicks — Yesterday's Results</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  /* results-recap: a single image showing yesterday's record + units +
+     each pick with its result. Renderer passes:
+       {{record_text}}     — e.g. "5-2"
+       {{record_pushes}}   — e.g. "" or "·1 push"
+       {{net_units_text}}  — e.g. "+3.7u"
+       {{net_units_class}} — "win" or "loss"
+       {{date_text}}       — "May 04, 2026"
+       {{picks_html}}      — pre-rendered <li> items, one per pick */
+  .recap-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    position: relative;
+    z-index: 1;
+  }
+  .recap-headline {
+    font-family: var(--display);
+    font-weight: 400;
+    letter-spacing: -.025em;
+    line-height: .92;
+    color: var(--text);
+    font-size: 132px;
+  }
+  body[data-size="story"] .recap-headline { font-size: 168px; }
+  .recap-headline em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 300;
+  }
+
+  .recap-record {
+    display: flex;
+    align-items: baseline;
+    gap: 36px;
+    margin-top: 4px;
+  }
+  .recap-record .num {
+    font-family: var(--display);
+    font-size: 144px;
+    line-height: 1;
+    letter-spacing: -.04em;
+    font-weight: 400;
+  }
+  .recap-record .num.win  { color: var(--win); }
+  .recap-record .num.loss { color: var(--loss); }
+  body[data-size="story"] .recap-record .num { font-size: 180px; }
+
+  .recap-record .label {
+    font-family: var(--mono);
+    font-size: 18px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    line-height: 1.3;
+  }
+
+  .recap-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .recap-list li {
+    background: var(--bg-elevated);
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    font-family: var(--mono);
+    font-size: 22px;
+    letter-spacing: .02em;
+    color: var(--text);
+  }
+  .recap-list .result {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    font-size: 18px;
+  }
+  .recap-list .result.win  { color: var(--win); }
+  .recap-list .result.loss { color: var(--loss); }
+  .recap-list .result.push { color: var(--push); }
+
+  .recap-date {
+    font-family: var(--mono);
+    font-size: 16px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<body data-size="{{size}}">
+  <div class="glow" style="bottom:-15%;left:-15%;width:600px;height:600px;"></div>
+  <div class="stage">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-name">SMARTERPICKS</span>
+    </div>
+
+    <div class="tag">Yesterday · <span class="recap-date">{{date_text}}</span></div>
+
+    <div class="recap-body">
+      <h1 class="recap-headline">Posted publicly. <em>Receipts visible.</em></h1>
+
+      <div class="recap-record">
+        <span class="num {{net_units_class}}">{{record_text}}</span>
+        <div class="label">
+          Record W–L<br>
+          <span style="color:var(--accent);">{{net_units_text}}</span>
+        </div>
+      </div>
+
+      <ul class="recap-list">{{picks_html}}</ul>
+    </div>
+
+    <div class="footer">
+      smarterpicks.io <span class="dot">·</span>
+      Full archive at <span style="color:var(--accent);">/archive</span> <span class="dot">·</span>
+      Code <span class="promo">FREE30</span>
+    </div>
+  </div>
+</body>
+</html>

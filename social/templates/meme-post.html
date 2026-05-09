@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SmarterPicks — Meme Post</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  /* meme-post: top-text / bottom-text style. The "image" between the
+     two captions is a stylized abstract panel rather than a photo —
+     keeps the brand consistent and dodges any rights / sourcing
+     headaches that come with stock images.
+
+     Renderer passes:
+       {{top_text}}        — the setup line
+       {{bottom_text}}     — the punchline
+       {{image_concept}}   — short alt-text-style description (used for
+                              alt + Discord notification, not rendered) */
+  .meme-body {
+    flex: 1;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 36px;
+    position: relative;
+    z-index: 1;
+  }
+  .meme-text {
+    font-family: var(--display);
+    font-weight: 400;
+    letter-spacing: -.015em;
+    line-height: 1.1;
+    font-size: 64px;
+    color: var(--text);
+    text-align: center;
+  }
+  .meme-text em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 300;
+  }
+  body[data-size="story"] .meme-text { font-size: 76px; }
+
+  .meme-canvas {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* Decorative "result chart" inside the meme canvas — a fake equity
+     curve that goes up, then plummets, then comes back up. Pure CSS,
+     no JS. The curve is built from gradient-on-gradient layers and
+     positioned dots; it reads as "this could be your bankroll" without
+     needing a real image. */
+  .meme-canvas::before {
+    content: "";
+    position: absolute;
+    inset: 8% 6%;
+    background:
+      linear-gradient(180deg, transparent 65%, rgba(217,101,101,.18) 100%),
+      linear-gradient(90deg,
+        transparent 0%, transparent 18%,
+        var(--accent) 18%, var(--accent) 19%,
+        transparent 19%, transparent 38%,
+        var(--accent) 38%, var(--accent) 39%,
+        transparent 39%, transparent 58%,
+        var(--accent) 58%, var(--accent) 59%,
+        transparent 59%, transparent 78%,
+        var(--accent) 78%, var(--accent) 79%,
+        transparent 79%);
+    opacity: .35;
+    mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 100%);
+  }
+  .meme-canvas::after {
+    content: "";
+    position: absolute;
+    inset: 25% 8% 30% 8%;
+    background:
+      radial-gradient(circle at 5% 80%, var(--accent) 0 6px, transparent 7px),
+      radial-gradient(circle at 25% 30%, var(--win) 0 6px, transparent 7px),
+      radial-gradient(circle at 50% 60%, var(--accent) 0 6px, transparent 7px),
+      radial-gradient(circle at 70% 20%, var(--win) 0 6px, transparent 7px),
+      radial-gradient(circle at 90% 75%, var(--loss) 0 6px, transparent 7px);
+    opacity: .8;
+  }
+  .meme-canvas-label {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    z-index: 2;
+  }
+</style>
+</head>
+<body data-size="{{size}}">
+  <div class="glow" style="bottom:-15%;right:-15%;width:540px;height:540px;"></div>
+  <div class="stage">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-name">SMARTERPICKS</span>
+    </div>
+
+    <div class="tag">A bettor's life</div>
+
+    <div class="meme-body">
+      <div class="meme-text">{{top_text}}</div>
+      <div class="meme-canvas" aria-label="{{image_concept}}">
+        <span class="meme-canvas-label">— bankroll.csv —</span>
+      </div>
+      <div class="meme-text"><em>{{bottom_text}}</em></div>
+    </div>
+
+    <div class="footer">
+      smarterpicks.io <span class="dot">·</span>
+      We've all been there <span class="dot">·</span>
+      Code <span class="promo">FREE30</span>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+name: Social — Backfill One Post
+
+# Manual trigger only. Each run consumes the head of social/backfill/queue.json,
+# renders that one slot, publishes it to Instagram, then rewrites the queue
+# minus the published entry.
+#
+# Use this to drip-feed the 30 evergreen posts into the grid before creator
+# outreach. Run it on whatever cadence feels right — once a day is plenty.
+#
+# To repopulate the queue: delete social/backfill/queue.json and re-run
+# social/backfill_generator.py locally (it'll refuse to overwrite an existing
+# queue, so you have to delete first).
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry-run (render + commit but skip the IG publish)?"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+jobs:
+  publish-one:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python deps
+        run: pip install requests
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Puppeteer
+        run: npm install puppeteer
+
+      - name: Pop one slot from the queue
+        id: slot
+        run: |
+          python3 - <<'PY'
+          import json, os, sys, pathlib
+          q_path = pathlib.Path("social/backfill/queue.json")
+          if not q_path.exists():
+              print("::error::No queue.json — run social/backfill_generator.py first.")
+              sys.exit(1)
+          q = json.loads(q_path.read_text())
+          remaining = q.get("remaining") or []
+          if not remaining:
+              print("::warning::Queue is empty. Nothing to publish.")
+              with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+                  f.write("EMPTY=1\n")
+              sys.exit(0)
+          slot = remaining[0]
+          slot_dir = f"social/backfill/{slot['slot_id']}"
+          q["remaining"] = remaining[1:]
+          q.setdefault("published", []).append({**slot, "consumed_workflow_run": os.environ.get("GITHUB_RUN_ID")})
+          q_path.write_text(json.dumps(q, indent=2))
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write(f"SLOT_ID={slot['slot_id']}\n")
+              f.write(f"SLOT_DIR={slot_dir}\n")
+              f.write(f"SLOT_KIND={slot['kind']}\n")
+              f.write("EMPTY=0\n")
+          print(f"Popped slot: {slot['slot_id']} ({slot['kind']})")
+          PY
+
+      - name: Render images (if queue had a slot)
+        if: steps.slot.outputs.EMPTY != '1'
+        run: node social/renderer.js "${{ steps.slot.outputs.SLOT_DIR }}/content.json"
+
+      - name: Commit slot + queue update
+        if: steps.slot.outputs.EMPTY != '1'
+        run: |
+          git config user.name  "smarterpicks-bot"
+          git config user.email "smarterpicks-bot@users.noreply.github.com"
+          git add social/backfill/queue.json "${{ steps.slot.outputs.SLOT_DIR }}"
+          if git diff --cached --quiet; then
+            echo "Nothing new to commit (slot may already exist on disk)."
+          else
+            git commit -m "Backfill: ${{ steps.slot.outputs.SLOT_ID }} (${{ steps.slot.outputs.SLOT_KIND }})"
+            git push
+          fi
+
+      - name: Publish to Instagram
+        if: steps.slot.outputs.EMPTY != '1' && inputs.dry_run != 'true'
+        env:
+          IG_ACCESS_TOKEN:        ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
+          DISCORD_WEBHOOK_URL:    ${{ secrets.DISCORD_WEBHOOK_URL }}
+          IG_PUBLIC_BASE_URL:     ${{ secrets.IG_PUBLIC_BASE_URL }}
+          IG_SKIP_STORIES:        "1"     # backfill posts go to the grid, not stories
+        run: python social/ig_publisher.py "${{ steps.slot.outputs.SLOT_DIR }}"
+
+      - name: Note dry-run
+        if: steps.slot.outputs.EMPTY != '1' && inputs.dry_run == 'true'
+        run: echo "✓ Dry-run: rendered + committed ${{ steps.slot.outputs.SLOT_ID }} but skipped IG publish."
