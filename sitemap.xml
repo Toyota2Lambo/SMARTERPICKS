@@ -6,13 +6,37 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://smarterpicks.io/login.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://smarterpicks.io/archive.html</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://smarterpicks.io/discord.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://smarterpicks.io/login.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://smarterpicks.io/terms.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://smarterpicks.io/privacy.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://smarterpicks.io/disclaimer.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <!--
+    Intentionally omitted: members.html, billing.html, callback.html
+    These are noindex'd / private and shouldn't appear in search results.
+  -->
 </urlset>

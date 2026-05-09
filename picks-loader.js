@@ -8,12 +8,18 @@
 // and swaps the nav login link for a logout when authenticated.
 // ============================================================
 
-const WHOP_CONFIG = {
-  CLIENT_ID:   "app_5RPKKi5gvHwpvo",
-  PRODUCT_ID:  "prod_JAuXj9K2RJUjd",   // SmarterPicks (main) — switch to prod_4yaKtjgti7F9m for Premium-only gating
-  ACCESS_BASE: "https://api.whop.com/api/v1/users",
-  TOKEN_URL:   "https://api.whop.com/oauth/token",
-};
+// Read the shared Whop config that whop-config.js sets on window. Fall
+// back to a hardcoded copy ONLY so a forgotten <script> tag doesn't break
+// auth — but log loudly so we notice the drift in console.
+const WHOP_CONFIG = window.WHOP_CONFIG || (function () {
+  console.warn("[picks-loader] whop-config.js not loaded — using fallback constants. Add <script src='whop-config.js'></script> before picks-loader.js.");
+  return {
+    CLIENT_ID:   "app_5RPKKi5gvHwpvo",
+    PRODUCT_ID:  "prod_JAuXj9K2RJUjd",
+    ACCESS_BASE: "https://api.whop.com/api/v1/users",
+    TOKEN_URL:   "https://api.whop.com/oauth/token",
+  };
+})();
 
 // ── STATE ──────────────────────────────────────────────────
 let isMember = false;
@@ -49,6 +55,14 @@ async function tryRefreshToken() {
 }
 
 function logout() {
+  // Prefer the shared logout from auth-chrome.js (it's the single
+  // source of truth for "what keys must we clear"). Fall back to an
+  // inline cleanup if auth-chrome happens not to be loaded on this
+  // page so we never silently no-op a logout click.
+  if (typeof window.smarterpicksLogout === "function") {
+    window.smarterpicksLogout();
+    return;
+  }
   ["whop_token","whop_refresh","whop_user_id","whop_user","whop_access"]
     .forEach(k => localStorage.removeItem(k));
   window.location.reload();
@@ -155,9 +169,12 @@ async function loadPicks() {
     const summaryEl = document.getElementById("slate-summary");
     if (summaryEl && data.sport_summary) summaryEl.textContent = data.sport_summary;
 
-    // Count picks
+    // Count picks. _premiumCount is read by getPremiumCount() so the
+    // lock-overlay copy ("Subscribe to unlock all N premium picks today")
+    // matches the actual slate instead of the hardcoded fallback.
     const freePicks    = data.picks.filter(p => !p.is_premium).length;
     const premiumPicks = data.picks.filter(p =>  p.is_premium).length;
+    _premiumCount = premiumPicks;
 
     const countEl = document.getElementById("pick-count");
     if (countEl) {
@@ -180,9 +197,35 @@ async function loadPicks() {
 
   } catch (err) {
     console.warn("Picks loader:", err.message);
-    const grid = document.getElementById("picks-grid");
-    if (grid) grid.innerHTML = renderLoadingCard();
+    renderPicksError(err.message);
   }
+}
+
+// Render an honest error state instead of leaving the skeleton
+// shimmering forever when picks.json can't load. The most common
+// cause is the daily generator workflow not having run yet (or
+// having failed) — calling that out beats silent failure.
+function renderPicksError(detail) {
+  const grid = document.getElementById("picks-grid");
+  if (grid) {
+    grid.innerHTML = `
+      <div class="pick-card" style="grid-column:1/-1;text-align:center;padding:48px 32px;">
+        <div style="font-size:32px;margin-bottom:16px;">⚠️</div>
+        <div style="font-family:var(--display);font-size:24px;font-weight:400;letter-spacing:-.01em;margin-bottom:10px;">Today's slate isn't loading.</div>
+        <p style="color:var(--text-muted);font-size:14px;line-height:1.6;max-width:48ch;margin:0 auto 22px;">
+          We couldn't fetch picks.json. The morning generator may still be running, or the file may be temporarily unreachable. Try refreshing in a minute.
+        </p>
+        <button onclick="location.reload()" style="font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:13px 24px;background:var(--accent);color:#000;border:none;cursor:pointer;">Refresh →</button>
+      </div>
+    `;
+  }
+  const dateEl = document.getElementById("slate-date");
+  if (dateEl) dateEl.textContent = "Picks unavailable";
+  const countEl = document.getElementById("pick-count");
+  if (countEl) countEl.textContent = "Refresh in a moment";
+  // Surface the underlying message in console so a debugger can see it,
+  // but don't show the raw error to the user — it'd be noise.
+  if (detail) console.warn("picks.json detail:", detail);
 }
 
 // Map league string -> sport icon emoji. Falls back to a neutral dot.
@@ -416,9 +459,13 @@ function showMemberBanner() {
 
 // ── HELPERS ────────────────────────────────────────────────
 let _cachedPicks = null;
+let _premiumCount = null;   // populated when picks.json loads
 
 function getPremiumCount() {
-  return 6; // fallback count shown in lock overlay
+  // Return the actual count once picks.json loads. While we're still
+  // fetching, fall back to a conservative "the rest" so the overlay
+  // never reads "0 premium picks" mid-render.
+  return _premiumCount != null ? _premiumCount : 6;
 }
 
 function renderLoadingCard() {

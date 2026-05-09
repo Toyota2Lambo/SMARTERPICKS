@@ -276,6 +276,7 @@
 
 </div><!-- end page grid -->
 
+<script src="whop-config.js"></script>
 <script>
 // =============================================================
 // SMARTERPICKS — Whop OAuth (PKCE) + Membership Gating
@@ -295,20 +296,20 @@
 // Whop OAuth app setup: register the EXACT current page URL as a redirect URI.
 // =============================================================
 
-const CONFIG = {
+// Shared with callback.html and picks-loader.js via whop-config.js.
+// REDIRECT_URI is computed per-page so the same code works on every
+// domain you point at this project (smarterpicks.io, vercel preview
+// deploys, localhost). Each domain you use must also be registered
+// as an allowed redirect URI in the Whop OAuth app dashboard.
+const CONFIG = Object.assign({}, window.WHOP_CONFIG || {
   CLIENT_ID:            "app_5RPKKi5gvHwpvo",
-  // Computed from the current page so the same code works on every
-  // domain you point at this Vercel project (smarterpicks.io,
-  // sharp-line-red.vercel.app, preview deploys, localhost). Each
-  // domain you use must also be registered as an allowed redirect
-  // URI in the Whop OAuth app dashboard.
-  REDIRECT_URI:         window.location.origin + "/callback.html",
   CHECKOUT_URL_MONTHLY: "https://whop.com/checkout/plan_VIlKaPMvfDPoj",
   CHECKOUT_URL_ANNUAL:  "https://whop.com/checkout/plan_UvETXgAfoUQj5",
-
-  AUTHORIZE_URL: "https://api.whop.com/oauth/authorize",
-  SCOPE:         "openid profile email",
-};
+  AUTHORIZE_URL:        "https://api.whop.com/oauth/authorize",
+  SCOPE:                "openid profile email",
+}, {
+  REDIRECT_URI: window.location.origin + "/callback.html",
+});
 let selectedPlan = "monthly";
 
 // ── PKCE helpers ──

@@ -18,6 +18,7 @@ on:
 
 permissions:
   contents: write
+  issues: write     # notify-on-failure step opens an issue
 
 jobs:
   generate:
@@ -51,3 +52,49 @@ jobs:
             git commit -m "Daily picks update — $(date -u +'%Y-%m-%d')"
             git push
           fi
+
+      # If anything above this step failed, file an issue so we hear about
+      # it instead of finding out from a confused member. Uses GITHUB_TOKEN —
+      # no extra secrets to configure.
+      - name: Open issue on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const today  = new Date().toISOString().slice(0, 10);
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const title  = `Daily picks workflow failed — ${today}`;
+            const body   = [
+              `The daily picks workflow failed during today's run. The site likely shows stale data until this is resolved.`,
+              ``,
+              `**Run logs:** ${runUrl}`,
+              ``,
+              `Common causes:`,
+              `- ODDS_API_KEY exhausted, invalid, or rate-limited`,
+              `- ANTHROPIC_API_KEY exhausted, invalid, or rate-limited`,
+              `- The Odds API returned zero games (every configured sport off-season)`,
+              `- Claude returned malformed JSON the parser couldn't recover`,
+              `- A push to main with a bug in picks_generator.py`,
+              ``,
+              `Triggered by: workflow run \`${context.runId}\``,
+            ].join("\n");
+
+            // Avoid duplicate issues — if today's failure already filed one, skip.
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              state: "open",
+              labels: "workflow-failure",
+              per_page: 50,
+            });
+            if (existing.data.some(i => i.title === title)) {
+              core.info(`Issue already exists for ${today} — not re-filing.`);
+              return;
+            }
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              title,
+              body,
+              labels: ["workflow-failure"],
+            });

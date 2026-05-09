@@ -47,6 +47,7 @@
     <div class="err-detail" id="err-detail"></div>
   </div>
 
+<script src="whop-config.js"></script>
 <script>
 // =============================================================
 // SMARTERPICKS — Whop OAuth callback handler
@@ -60,18 +61,22 @@
 // 7. Redirects to index.html
 // =============================================================
 
-const CONFIG = {
-  CLIENT_ID:       "app_5RPKKi5gvHwpvo",
-  PRODUCT_ID:      "prod_JAuXj9K2RJUjd",  // SmarterPicks (main) — switch to prod_4yaKtjgti7F9m for Premium-only gating
-  // Dynamic so it matches whichever domain login.html sent to Whop.
-  // Must equal what was passed to /oauth/authorize for the token
-  // exchange to succeed.
-  REDIRECT_URI:    window.location.origin + "/callback.html",
-
+// Shared with login.html and picks-loader.js via whop-config.js.
+// REDIRECT_URI is computed per-page because we may be hosted on
+// multiple domains and Whop wants the exact origin used by the
+// /oauth/authorize call.
+const CONFIG = Object.assign({}, window.WHOP_CONFIG || {
+  // Fallback — only used if whop-config.js isn't loaded. The script
+  // tag below this <script> handles loading; this guard just keeps
+  // the page from white-screening on a misconfigured deploy.
+  CLIENT_ID:    "app_5RPKKi5gvHwpvo",
+  PRODUCT_ID:   "prod_JAuXj9K2RJUjd",
   TOKEN_URL:    "https://api.whop.com/oauth/token",
   USERINFO_URL: "https://api.whop.com/oauth/userinfo",
   ACCESS_BASE:  "https://api.whop.com/api/v1/users",
-};
+}, {
+  REDIRECT_URI: window.location.origin + "/callback.html",
+});
 
 function showError(title, msg, detail) {
   document.getElementById("spinner").style.display = "none";

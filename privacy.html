@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMARTERPICKS — Privacy Policy</title>
+<meta name="description" content="What SMARTERPICKS collects, what it doesn't, and how your data is handled.">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="canonical" href="https://smarterpicks.io/privacy.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0a;--bg-elevated:#131313;--bg-surface:#1a1a1a;
+    --border:#2a2a2a;--border-strong:#3a3a3a;
+    --text:#f4efe4;--text-muted:#8a8580;--text-dim:#5a5550;
+    --accent:#d4a843;--win:#6dbe7a;--loss:#d96565;
+    --display:"Fraunces","Times New Roman",serif;
+    --body:"Inter Tight",-apple-system,BlinkMacSystemFont,sans-serif;
+    --mono:"JetBrains Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");opacity:.035;pointer-events:none;z-index:100;}
+  .container{max-width:780px;margin:0 auto;padding:0 32px;}
+  nav{border-bottom:1px solid var(--border);background:rgba(10,10,10,.92);backdrop-filter:blur(16px);position:sticky;top:0;z-index:50;}
+  .nav-inner{max-width:1200px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;}
+  .logo{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);}
+  .logo-mark{width:9px;height:9px;background:var(--accent);transform:rotate(45deg);flex-shrink:0;}
+  .nav-back{font-family:var(--mono);font-size:12px;color:var(--text-muted);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--border);padding:10px 14px;transition:color .2s, border-color .2s;}
+  .nav-back:hover{color:var(--text);border-color:var(--text-muted);}
+
+  header.page-head{padding:80px 0 24px;border-bottom:1px solid var(--border);}
+  .page-head .tag{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;display:flex;align-items:center;gap:14px;}
+  .page-head .tag::before{content:"";width:24px;height:1px;background:var(--accent);}
+  .page-head h1{font-family:var(--display);font-weight:400;font-size:clamp(40px,5vw,56px);letter-spacing:-.02em;line-height:1.05;margin-bottom:14px;}
+  .page-head h1 em{font-style:italic;color:var(--accent);font-weight:300;}
+  .page-head .updated{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.06em;text-transform:uppercase;}
+
+  main{padding:48px 0 96px;}
+  main h2{font-family:var(--display);font-size:24px;font-weight:400;letter-spacing:-.01em;margin:48px 0 12px;color:var(--text);}
+  main h2:first-of-type{margin-top:0;}
+  main h2 .num{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--accent);margin-right:14px;letter-spacing:.06em;display:inline-block;min-width:30px;}
+  main p{font-size:16px;color:var(--text-muted);margin-bottom:14px;line-height:1.7;}
+  main p strong{color:var(--text);font-weight:600;}
+  main ul{margin:14px 0 14px 22px;color:var(--text-muted);}
+  main li{margin-bottom:8px;line-height:1.65;}
+  main a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;}
+  main a:hover{color:var(--win);}
+
+  .callout{background:var(--bg-elevated);border-left:3px solid var(--accent);padding:18px 22px;margin:24px 0;font-size:15px;line-height:1.65;color:var(--text-muted);}
+  .callout strong{color:var(--text);}
+  .data-table{margin:24px 0;border:1px solid var(--border);}
+  .data-row{display:grid;grid-template-columns:200px 1fr;gap:24px;padding:14px 18px;border-bottom:1px solid var(--border);font-size:14px;}
+  .data-row:last-child{border-bottom:none;}
+  .data-row .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);}
+  .data-row .val{color:var(--text);}
+
+  footer{border-top:1px solid var(--border);padding:36px 0;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.05em;}
+  footer a{color:var(--text-muted);text-decoration:none;margin:0 10px;}
+  footer a:hover{color:var(--accent);}
+
+  @media(max-width:640px){
+    .container{padding:0 20px;}
+    .nav-inner{padding:14px 20px;}
+    header.page-head{padding:48px 0 20px;}
+    .data-row{grid-template-columns:1fr;gap:6px;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark"></span>SMARTERPICKS</a>
+    <a href="index.html" class="nav-back">← Back to site</a>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="container">
+    <div class="tag">Legal · Privacy Policy</div>
+    <h1>Privacy <em>Policy.</em></h1>
+    <div class="updated">Last updated: May 2026</div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <div class="callout">
+      <strong>Plain-English summary:</strong> We collect the minimum amount of data we need to run the Service — basically your Whop account info and your IP for rate limiting. We do not see or store your payment details (Whop handles that). We do not run third-party analytics or ad trackers. You can ask us to delete your data at any time.
+    </div>
+
+    <h2><span class="num">1.</span>What We Collect</h2>
+    <p>Here's everything SMARTERPICKS collects, where it's stored, and what we do with it:</p>
+    <div class="data-table">
+      <div class="data-row">
+        <div class="lbl">Whop account info</div>
+        <div class="val">When you sign in with Whop OAuth, we receive your Whop user ID, name, and email. Used to verify your subscription status and address you in the Service.</div>
+      </div>
+      <div class="data-row">
+        <div class="lbl">Auth tokens</div>
+        <div class="val">A Whop access token and refresh token are stored in your browser's <code>localStorage</code> so you stay signed in between visits. They are not sent to any third party other than Whop's API.</div>
+      </div>
+      <div class="data-row">
+        <div class="lbl">IP address</div>
+        <div class="val">Your IP is read transiently for rate limiting on our chat API (so a single attacker can't drain our budget). We do not log it persistently or correlate it with your account.</div>
+      </div>
+      <div class="data-row">
+        <div class="lbl">Chat content</div>
+        <div class="val">Questions you type into the "Ask Claude" chat panel are sent to Anthropic to generate a reply. The pick context (league, line, reasoning) is sent alongside. Conversations are not stored on our servers.</div>
+      </div>
+      <div class="data-row">
+        <div class="lbl">Newsletter email</div>
+        <div class="val">If you sign up for the newsletter, your email goes to our email provider for delivery only.</div>
+      </div>
+    </div>
+
+    <h2><span class="num">2.</span>What We Don't Collect</h2>
+    <ul>
+      <li><strong>Payment details.</strong> Whop is the merchant of record. They process your card; we never see it.</li>
+      <li><strong>No third-party analytics or ad pixels.</strong> No Google Analytics, no Facebook Pixel, no fingerprinting tools.</li>
+      <li><strong>No tracking cookies.</strong> We use <code>localStorage</code> for auth state — not for tracking — and there are no other cookies set by this site.</li>
+      <li><strong>No betting history.</strong> We don't know which picks you actually placed, where you placed them, or what you wagered. We never ask.</li>
+    </ul>
+
+    <h2><span class="num">3.</span>Third Parties</h2>
+    <p>We rely on a small number of services to run the Site. Each only sees the data it needs to do its job:</p>
+    <ul>
+      <li><strong>Whop</strong> — handles authentication, subscriptions, billing, and refunds. See <a href="https://whop.com/privacy" target="_blank" rel="noopener">Whop's Privacy Policy</a>.</li>
+      <li><strong>Anthropic (Claude)</strong> — receives your chat questions plus the pick they're about. See <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">Anthropic's Privacy Policy</a>.</li>
+      <li><strong>The Odds API</strong> — provides game odds and final scores. We send no user data here.</li>
+      <li><strong>Vercel</strong> — hosts the Site. Their server logs may include IP and request URL for routine operations.</li>
+    </ul>
+
+    <h2><span class="num">4.</span>Data Retention</h2>
+    <p>Auth tokens live in your browser until you log out or they expire. Chat conversations are not retained server-side once the response is returned. IP-based rate-limit counters are kept in memory for at most a few minutes. If you cancel and request deletion of your account info, we'll work with Whop to remove what we control.</p>
+
+    <h2><span class="num">5.</span>Your Rights</h2>
+    <p>Depending on where you live, you may have the right to access, correct, delete, or export the personal data we hold about you. To exercise any of these rights, email <a href="mailto:support@smarterpicks.io">support@smarterpicks.io</a> from the email associated with your Whop account. We'll respond within a reasonable time and at no cost.</p>
+    <p>You can sign yourself out at any time with the "Logout" link in the header on any page — that immediately clears your tokens from this device.</p>
+
+    <h2><span class="num">6.</span>Children</h2>
+    <p>The Service is restricted to users <strong>21 and older</strong>. We do not knowingly collect data from anyone under 21. If you believe a minor has signed up, please contact us and we'll remove the account.</p>
+
+    <h2><span class="num">7.</span>Security</h2>
+    <p>We use HTTPS for all traffic. Auth tokens never leave your browser except in calls to Whop's API. The Service has no admin dashboard with access to user data. That said: no system is perfectly secure. If you suspect a security issue, please email us so we can investigate.</p>
+
+    <h2><span class="num">8.</span>Changes to This Policy</h2>
+    <p>If we change what we collect or how we use it, we'll update this page and bump the "Last updated" date. Material changes will be communicated through the Service or by email.</p>
+
+    <h2><span class="num">9.</span>Contact</h2>
+    <p>Email <a href="mailto:support@smarterpicks.io">support@smarterpicks.io</a> with any privacy question or request.</p>
+
+    <div class="callout" style="margin-top:48px;">
+      See also: <a href="terms.html">Terms of Service</a> and <a href="disclaimer.html">Risk Disclaimer</a>.
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  SMARTERPICKS · 21+ · Bet Responsibly · 1-800-GAMBLER ·
+  <a href="terms.html">Terms</a>·
+  <a href="privacy.html">Privacy</a>·
+  <a href="disclaimer.html">Disclaimer</a>
+</footer>
+
+</body>
+</html>

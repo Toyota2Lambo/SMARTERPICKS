@@ -98,6 +98,10 @@
       .forEach(k => localStorage.removeItem(k));
     location.reload();
   }
+  // Expose on window so picks-loader.js (and any future caller) can
+  // route through the same path instead of duplicating the cleanup
+  // list. Single source of truth for "what does logout actually mean".
+  window.smarterpicksLogout = logout;
 
   // Inject the status-bar CSS + the [data-auth-show] visibility rules
   // so individual pages don't have to duplicate this. Runs immediately

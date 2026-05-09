@@ -579,8 +579,22 @@ if __name__ == "__main__":
         print(f"⚠ Scoring step failed: {e}")
         print("   Continuing with today's pick generation anyway.")
 
-    # Step 1: generate today's new card
+    # Step 1: generate today's new card.
+    #
+    # Refusing to call Claude on an empty games list is important: with
+    # nothing to ground on, Claude will happily fabricate picks for
+    # games that don't exist. Better to ship the "Coming Soon" template
+    # so the site clearly shows we don't have data, and exit non-zero
+    # so the workflow's failure-notification step fires.
     games = get_todays_games() if ODDS_API_KEY else []
+    if not games:
+        print("\n❌ No games returned from The Odds API.")
+        print("   This usually means: API key is invalid, daily quota is")
+        print("   exhausted, or every configured sport's season is dark.")
+        print("   Skipping Claude call — would otherwise fabricate picks.")
+        print("   Saving the fallback template so the site shows 'updating'.")
+        save_picks(get_manual_fallback())
+        sys.exit(2)
     data  = generate_picks(games)
     save_picks(data)
 

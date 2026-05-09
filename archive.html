@@ -604,10 +604,20 @@ function renderDayList(days) {
   const wrap = document.getElementById("day-list-wrap");
   if (!wrap) return;
   if (!days.length) {
-    wrap.innerHTML = emptyState(
-      "No picks match these filters",
-      "Try widening the sport or outcome filter, or hit \"Reset filters\" to start over."
-    );
+    // Distinguish "archive is empty" from "no filter match" — the latter
+    // points the user back at filters; the former asks them to wait.
+    const totalDays = (STATE.archive && STATE.archive.days || []).length;
+    if (totalDays === 0) {
+      wrap.innerHTML = emptyState(
+        "Archive is populating",
+        "The first day's picks will be archived after tomorrow morning's run. Once that lands, every published pick stays here permanently — wins, losses, and pushes."
+      );
+    } else {
+      wrap.innerHTML = emptyState(
+        "No picks match these filters",
+        "Try widening the sport, outcome, or range — or hit \"Reset filters\" to start over."
+      );
+    }
     return;
   }
   wrap.innerHTML = `<div class="day-list">${days.map(renderDay).join("")}</div>`;
