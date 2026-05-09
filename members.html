@@ -186,15 +186,61 @@
   /* CHART (cumulative P/L) */
   .record{padding:64px 0;}
   .chart-wrap{background:var(--bg-elevated);border:1px solid var(--border);padding:28px;}
-  .chart-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px;flex-wrap:wrap;gap:14px;}
+  .chart-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px;flex-wrap:wrap;gap:18px;}
+  .chart-header-left{display:flex;flex-direction:column;gap:6px;}
   .chart-title{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);}
   .chart-now{font-family:var(--display);font-size:28px;font-weight:400;letter-spacing:-.02em;color:var(--win);}
-  .chart-svg{width:100%;height:200px;display:block;}
+  .chart-summary{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-top:2px;}
+  .chart-summary .pos{color:var(--win);}
+  .chart-summary .neg{color:var(--loss);}
+
+  /* Range filter tabs */
+  .chart-range-tabs{display:flex;gap:1px;background:var(--border);border:1px solid var(--border);}
+  .chart-range-tabs button{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:8px 14px;background:transparent;color:var(--text-muted);border:none;cursor:pointer;transition:background .15s, color .15s;}
+  .chart-range-tabs button:hover{color:var(--text);}
+  .chart-range-tabs button.active{background:var(--accent);color:#000;}
+
+  /* SVG body — wraps chart so the absolutely-positioned tooltip
+     anchors to the chart, not the page. */
+  .chart-body{position:relative;}
+  .chart-svg{width:100%;height:220px;display:block;cursor:crosshair;}
   .chart-line{fill:none;stroke:var(--accent);stroke-width:2;}
   .chart-fill{fill:url(#chartGrad);}
   .chart-grid{stroke:var(--border);stroke-width:1;stroke-dasharray:2 4;}
   .chart-axis{font-family:var(--mono);font-size:10px;fill:var(--text-dim);letter-spacing:.06em;}
+  .chart-axis.zero{fill:var(--text-muted);font-weight:700;}
   .chart-pulse{fill:var(--accent);}
+
+  /* Per-day point markers — color-coded by that day's net units.
+     Always rendered so the chart shows its actual resolution; on hover
+     the active one gets a ring (rendered as a separate SVG circle). */
+  .chart-point{transition:r .15s ease;}
+  .chart-point.win{fill:var(--win);}
+  .chart-point.loss{fill:var(--loss);}
+  .chart-point.flat{fill:var(--text-muted);}
+
+  /* Hover crosshair + active-point ring — toggled by JS via .visible */
+  .chart-crosshair{stroke:var(--text-muted);stroke-width:1;stroke-dasharray:3 3;opacity:0;transition:opacity .15s;pointer-events:none;}
+  .chart-crosshair.visible{opacity:.5;}
+  .chart-active-ring{fill:none;stroke:var(--accent);stroke-width:2;opacity:0;transition:opacity .15s;pointer-events:none;}
+  .chart-active-ring.visible{opacity:1;}
+
+  /* Floating tooltip — anchored to chart-body, follows the active point */
+  .chart-tooltip{position:absolute;pointer-events:none;background:var(--bg);border:1px solid var(--border-strong);padding:10px 14px;font-family:var(--mono);letter-spacing:.04em;line-height:1.5;opacity:0;transition:opacity .12s ease;transform:translate(-50%,calc(-100% - 12px));white-space:nowrap;z-index:5;box-shadow:0 8px 22px rgba(0,0,0,.5);min-width:148px;}
+  .chart-tooltip.visible{opacity:1;}
+  .chart-tooltip::after{content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%) rotate(45deg);width:8px;height:8px;background:var(--bg);border-right:1px solid var(--border-strong);border-bottom:1px solid var(--border-strong);}
+  .chart-tooltip .tt-date{color:var(--text-muted);text-transform:uppercase;font-size:10px;letter-spacing:.1em;margin-bottom:6px;}
+  .chart-tooltip .tt-cum{color:var(--text);font-weight:700;font-size:13px;}
+  .chart-tooltip .tt-day{font-size:11px;margin-top:4px;}
+  .chart-tooltip .tt-day.win{color:var(--win);}
+  .chart-tooltip .tt-day.loss{color:var(--loss);}
+  .chart-tooltip .tt-day.flat{color:var(--text-muted);}
+
+  /* Stack range tabs below header text on narrow screens */
+  @media(max-width:640px){
+    .chart-header{flex-direction:column;align-items:stretch;}
+    .chart-range-tabs{align-self:flex-start;}
+  }
 
   /* FOOTER (slim — members don't need full marketing footer) */
   footer{background:var(--bg);border-top:1px solid var(--border);padding:36px 0;text-align:center;}
@@ -327,22 +373,44 @@
       <div>
         <div class="section-tag">Cumulative P/L · Live</div>
         <h2 class="section-title">Your <em>track record</em>.</h2>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.65;max-width:64ch;margin-top:14px;">
+          This is exactly where you'd be if you'd followed every pick we posted —
+          same stake, same line, no skipping the losers. One unit on the chart
+          equals one unit you risked. Hover any day to see what we ran that
+          day and what it did to the running total. Losing days included on
+          purpose: a track record that hides them isn't one.
+        </p>
       </div>
       <div class="section-meta">Updated nightly · all results logged</div>
     </div>
     <div class="chart-wrap" id="chart-wrap" data-reveal style="display:none;">
       <div class="chart-header">
-        <div class="chart-title">Cumulative units · <span id="chart-range">last 36 days</span></div>
-        <div class="chart-now" id="chart-now">+0u</div>
+        <div class="chart-header-left">
+          <div class="chart-title">Cumulative units · <span id="chart-range">last 30 days</span></div>
+          <div class="chart-now" id="chart-now">+0u</div>
+          <div class="chart-summary" id="chart-summary">—</div>
+        </div>
+        <div class="chart-range-tabs" id="chart-range-tabs">
+          <button data-range="7" type="button">7D</button>
+          <button data-range="30" type="button" class="active">30D</button>
+          <button data-range="all" type="button">All</button>
+        </div>
       </div>
-      <svg class="chart-svg" id="chart-svg" viewBox="0 0 800 200" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"  stop-color="#d4a843" stop-opacity="0.28"/>
-            <stop offset="100%" stop-color="#d4a843" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-      </svg>
+      <div class="chart-body">
+        <svg class="chart-svg" id="chart-svg" viewBox="0 0 800 220" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"  stop-color="#d4a843" stop-opacity="0.28"/>
+              <stop offset="100%" stop-color="#d4a843" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="chart-tooltip" id="chart-tooltip">
+          <div class="tt-date"></div>
+          <div class="tt-cum"></div>
+          <div class="tt-day"></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -400,67 +468,264 @@
     return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
   }
 
-  // Cumulative P/L chart
+  // ────────────────────────────────────────────────────────────
+  // Cumulative P/L chart — interactive
+  //
+  // Renders an SVG line + area for the cumulative-units series plus
+  // per-day point markers (color-coded by that day's P/L). Hovering
+  // anywhere on the chart snaps a vertical crosshair to the nearest
+  // day and shows a tooltip with the date, that day's units, and the
+  // running total. Range tabs (7D / 30D / All) re-slice the data.
+  //
+  // Listeners are wired ONCE on the SVG element; subsequent renders
+  // (range switches) just update _chartCtx, which the handlers read.
+  // ────────────────────────────────────────────────────────────
+  let _historyData = null;
+  let _activeRange = "30";
+  let _chartCtx    = null;            // { xy, points, W, H }
+  let _hoverWired  = false;
+
   fetch("history.json?v=" + Date.now())
     .then(r => r.ok ? r.json() : Promise.reject())
-    .then(data => renderChart(data))
+    .then(data => {
+      _historyData = data;
+      // If we have less than 30 days, default to "All" so the chart
+      // doesn't look truncated.
+      const total = (data.daily || []).length;
+      if (total < 14) {
+        _activeRange = "all";
+        toggleActiveTab("all");
+      } else if (total < 30) {
+        _activeRange = "all";
+        toggleActiveTab("all");
+      }
+      renderChart(_activeRange);
+      wireRangeTabs();
+    })
     .catch(() => { /* leave chart hidden */ });
 
-  function renderChart(data) {
+  function rangeSlice(daily, key) {
+    if (key === "all") return daily;
+    const n = parseInt(key, 10);
+    if (!isFinite(n)) return daily;
+    return daily.slice(-n);
+  }
+
+  function fmtDay(iso) {
+    const m = String(iso || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!m) return iso || "";
+    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    return `${months[parseInt(m[2],10) - 1] || m[2]} ${parseInt(m[3],10)}`;
+  }
+
+  function dayClass(units) {
+    const u = Number(units || 0);
+    if (u >  0.001) return "win";
+    if (u < -0.001) return "loss";
+    return "flat";
+  }
+
+  function toggleActiveTab(rangeKey) {
+    const tabs = document.getElementById("chart-range-tabs");
+    if (!tabs) return;
+    tabs.querySelectorAll("button").forEach(b => {
+      b.classList.toggle("active", b.dataset.range === rangeKey);
+    });
+  }
+
+  function renderChart(rangeKey) {
+    if (!_historyData) return;
     const wrap = document.getElementById("chart-wrap");
-    const svg = document.getElementById("chart-svg");
-    if (!wrap || !svg || !data || !data.daily || data.daily.length < 2) return;
+    const svg  = document.getElementById("chart-svg");
+    if (!wrap || !svg) return;
 
-    const W = 800, H = 200, PAD_X = 40, PAD_Y = 24;
-    const points = data.daily;
-    const cums = points.map(p => p.cumulative);
+    const points = rangeSlice(_historyData.daily || [], rangeKey);
+    if (points.length < 2) return;
+
+    // Layout constants (viewBox is 800x220)
+    const W = 800, H = 220, PAD_X = 48, PAD_Y = 28;
+    const cums = points.map(p => Number(p.cumulative) || 0);
     const minY = Math.min(0, ...cums);
-    const maxY = Math.max(...cums);
+    const maxY = Math.max(0, ...cums);
     const yRange = (maxY - minY) || 1;
-
     const xStep = (W - PAD_X * 2) / (points.length - 1);
     const yScale = (v) => PAD_Y + (H - PAD_Y * 2) * (1 - (v - minY) / yRange);
+    const zeroY = yScale(0);
 
-    const linePath = points.map((p, i) => {
-      const x = PAD_X + i * xStep;
-      const y = yScale(p.cumulative);
-      return `${i === 0 ? "M" : "L"} ${x.toFixed(2)} ${y.toFixed(2)}`;
-    }).join(" ");
-    const fillPath = `${linePath} L ${(PAD_X + (points.length - 1) * xStep).toFixed(2)} ${H - PAD_Y} L ${PAD_X} ${H - PAD_Y} Z`;
+    const xy = points.map((p, i) => ({
+      x: PAD_X + i * xStep,
+      y: yScale(Number(p.cumulative) || 0),
+      p,
+    }));
 
-    const grid = `<line class="chart-grid" x1="${PAD_X}" y1="${yScale(0)}" x2="${W - PAD_X}" y2="${yScale(0)}"/>`;
+    const linePath = xy.map((pt, i) =>
+      `${i === 0 ? "M" : "L"} ${pt.x.toFixed(2)} ${pt.y.toFixed(2)}`
+    ).join(" ");
+    const fillPath = `${linePath} L ${xy[xy.length-1].x.toFixed(2)} ${H - PAD_Y} L ${xy[0].x.toFixed(2)} ${H - PAD_Y} Z`;
+
+    // Zero baseline (dashed) — drawn even when minY is 0 so it stays
+    // visually anchored
+    const grid = `<line class="chart-grid" x1="${PAD_X}" y1="${zeroY.toFixed(2)}" x2="${W - PAD_X}" y2="${zeroY.toFixed(2)}"/>`;
+
     const xLabels = `
-      <text class="chart-axis" x="${PAD_X}" y="${H - 6}" text-anchor="start">${points[0].date.slice(5)}</text>
-      <text class="chart-axis" x="${W - PAD_X}" y="${H - 6}" text-anchor="end">${points[points.length-1].date.slice(5)}</text>
+      <text class="chart-axis" x="${PAD_X}" y="${H - 8}" text-anchor="start">${fmtDay(points[0].date)}</text>
+      <text class="chart-axis" x="${W - PAD_X}" y="${H - 8}" text-anchor="end">${fmtDay(points[points.length-1].date)}</text>
     `;
     const yLabels = `
-      <text class="chart-axis" x="6" y="${yScale(maxY) + 4}" text-anchor="start">+${maxY.toFixed(1)}u</text>
-      <text class="chart-axis" x="6" y="${yScale(minY) - 4}" text-anchor="start">${minY >= 0 ? "+" : ""}${minY.toFixed(1)}u</text>
-    `;
-    const lastX = PAD_X + (points.length - 1) * xStep;
-    const lastY = yScale(cums[cums.length - 1]);
-    const pulse = `
-      <circle class="chart-pulse" cx="${lastX.toFixed(2)}" cy="${lastY.toFixed(2)}" r="4"/>
-      <circle class="chart-pulse" cx="${lastX.toFixed(2)}" cy="${lastY.toFixed(2)}" r="9" opacity="0.25"/>
+      <text class="chart-axis" x="6" y="${(yScale(maxY) + 4).toFixed(2)}" text-anchor="start">+${maxY.toFixed(1)}u</text>
+      <text class="chart-axis" x="6" y="${(yScale(minY) - 4).toFixed(2)}" text-anchor="start">${minY >= 0 ? "+" : ""}${minY.toFixed(1)}u</text>
+      <text class="chart-axis zero" x="6" y="${(zeroY + 3).toFixed(2)}" text-anchor="start">0</text>
     `;
 
+    // Per-day point markers — color by that day's P/L
+    const dots = xy.map((pt, i) =>
+      `<circle class="chart-point ${dayClass(pt.p.units)}" cx="${pt.x.toFixed(2)}" cy="${pt.y.toFixed(2)}" r="3"/>`
+    ).join("");
+
+    // Pulse on the most recent day
+    const last = xy[xy.length - 1];
+    const pulse = `
+      <circle class="chart-pulse" cx="${last.x.toFixed(2)}" cy="${last.y.toFixed(2)}" r="4"/>
+      <circle class="chart-pulse" cx="${last.x.toFixed(2)}" cy="${last.y.toFixed(2)}" r="9" opacity="0.25"/>
+    `;
+
+    // Hover overlays — start invisible, JS toggles .visible
+    const crosshair  = `<line class="chart-crosshair" id="chart-crosshair" x1="0" y1="${PAD_Y}" x2="0" y2="${(H - PAD_Y).toFixed(2)}"/>`;
+    const activeRing = `<circle class="chart-active-ring" id="chart-active-ring" cx="0" cy="0" r="6"/>`;
+
     const defs = svg.querySelector("defs");
-    const inner = grid + `<path class="chart-fill" d="${fillPath}"/>` +
-                          `<path class="chart-line" d="${linePath}"/>` +
-                          xLabels + yLabels + pulse;
+    const inner = grid +
+                  `<path class="chart-fill" d="${fillPath}"/>` +
+                  `<path class="chart-line" d="${linePath}"/>` +
+                  xLabels + yLabels + dots + pulse + crosshair + activeRing;
     while (defs.nextSibling) svg.removeChild(defs.nextSibling);
     svg.insertAdjacentHTML("beforeend", inner);
 
+    // Update header values
+    const v = cums[cums.length - 1];
     const nowEl = document.getElementById("chart-now");
     if (nowEl) {
-      const v = cums[cums.length - 1];
       nowEl.textContent = (v >= 0 ? "+" : "") + v.toFixed(1) + "u";
       nowEl.style.color = v >= 0 ? "var(--win)" : "var(--loss)";
     }
     const rangeEl = document.getElementById("chart-range");
     if (rangeEl) rangeEl.textContent = `last ${points.length} days`;
 
+    // Range summary line: how many wins / losses in the visible window
+    const sumEl = document.getElementById("chart-summary");
+    if (sumEl) {
+      const wins   = points.filter(p => Number(p.units) >  0.001).length;
+      const losses = points.filter(p => Number(p.units) < -0.001).length;
+      const flats  = points.length - wins - losses;
+      const flatStr = flats ? ` · ${flats} flat` : "";
+      sumEl.innerHTML = `<span class="pos">${wins} winning</span> · <span class="neg">${losses} losing</span>${flatStr}`;
+    }
+
+    // Stash render context for the hover handlers
+    _chartCtx = { xy, W, H };
+
     revealEl(wrap);
+    wireChartHoverOnce(svg);
+  }
+
+  function wireRangeTabs() {
+    const tabs = document.getElementById("chart-range-tabs");
+    if (!tabs) return;
+    tabs.querySelectorAll("button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const r = btn.dataset.range;
+        if (r === _activeRange) return;
+        _activeRange = r;
+        toggleActiveTab(r);
+        renderChart(r);
+      });
+    });
+  }
+
+  // Wire mousemove / mouseleave / touch handlers on the SVG once.
+  // Subsequent renders just update _chartCtx + the in-DOM crosshair
+  // and ring elements, so we don't accumulate listeners.
+  function wireChartHoverOnce(svg) {
+    if (_hoverWired) return;
+    _hoverWired = true;
+
+    const tooltip = document.getElementById("chart-tooltip");
+    if (!tooltip) return;
+    const ttDate = tooltip.querySelector(".tt-date");
+    const ttCum  = tooltip.querySelector(".tt-cum");
+    const ttDay  = tooltip.querySelector(".tt-day");
+
+    function updateAt(svgPxX) {
+      if (!_chartCtx) return;
+      const { xy, W, H } = _chartCtx;
+
+      // Find the nearest data point by x distance (linear scan — fast
+      // enough for ~365 points, no need for binary search yet)
+      let best = 0, bestD = Infinity;
+      for (let i = 0; i < xy.length; i++) {
+        const d = Math.abs(xy[i].x - svgPxX);
+        if (d < bestD) { bestD = d; best = i; }
+      }
+      const pt = xy[best];
+
+      // Update crosshair + ring (these were re-created on the latest
+      // render, so re-query them every time)
+      const crosshair  = document.getElementById("chart-crosshair");
+      const activeRing = document.getElementById("chart-active-ring");
+      if (crosshair) {
+        crosshair.setAttribute("x1", pt.x);
+        crosshair.setAttribute("x2", pt.x);
+        crosshair.classList.add("visible");
+      }
+      if (activeRing) {
+        activeRing.setAttribute("cx", pt.x);
+        activeRing.setAttribute("cy", pt.y);
+        activeRing.classList.add("visible");
+      }
+
+      // Tooltip content
+      const u = Number(pt.p.units || 0);
+      ttDate.textContent = fmtDay(pt.p.date);
+      const cum = Number(pt.p.cumulative) || 0;
+      ttCum.textContent  = `${cum >= 0 ? "+" : ""}${cum.toFixed(1)}u total`;
+      const cls = dayClass(u);
+      ttDay.className   = "tt-day " + cls;
+      ttDay.textContent = `${u >= 0 ? "+" : ""}${u.toFixed(1)}u that day`;
+
+      // Position tooltip relative to chart-body (the SVG's offset parent)
+      const wrap     = svg.parentElement;
+      const wrapRect = wrap.getBoundingClientRect();
+      const svgRect  = svg.getBoundingClientRect();
+      const px = (pt.x / W) * svgRect.width  + (svgRect.left - wrapRect.left);
+      const py = (pt.y / H) * svgRect.height + (svgRect.top  - wrapRect.top);
+      tooltip.style.left = px + "px";
+      tooltip.style.top  = py + "px";
+      tooltip.classList.add("visible");
+    }
+
+    function hide() {
+      const crosshair  = document.getElementById("chart-crosshair");
+      const activeRing = document.getElementById("chart-active-ring");
+      if (crosshair)  crosshair.classList.remove("visible");
+      if (activeRing) activeRing.classList.remove("visible");
+      tooltip.classList.remove("visible");
+    }
+
+    function svgPxFromClient(clientX) {
+      const rect = svg.getBoundingClientRect();
+      const W = (_chartCtx && _chartCtx.W) || 800;
+      return (clientX - rect.left) * (W / rect.width);
+    }
+
+    svg.addEventListener("mousemove", (e) => updateAt(svgPxFromClient(e.clientX)));
+    svg.addEventListener("mouseleave", hide);
+    svg.addEventListener("touchstart", (e) => {
+      if (e.touches[0]) updateAt(svgPxFromClient(e.touches[0].clientX));
+    }, { passive: true });
+    svg.addEventListener("touchmove", (e) => {
+      if (e.touches[0]) updateAt(svgPxFromClient(e.touches[0].clientX));
+    }, { passive: true });
+    svg.addEventListener("touchend", hide);
   }
 
   function revealEl(el) {
