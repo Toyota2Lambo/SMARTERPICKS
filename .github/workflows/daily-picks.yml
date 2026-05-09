@@ -40,13 +40,13 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python picks_generator.py
 
-      - name: Commit updated picks.json
+      - name: Commit updated picks.json, results.json, history.json
         run: |
           git config user.name  "smarterpicks-bot"
           git config user.email "smarterpicks-bot@users.noreply.github.com"
-          git add picks.json
+          git add picks.json results.json history.json
           if git diff --cached --quiet; then
-            echo "No changes to picks.json — nothing to commit."
+            echo "No data files changed — nothing to commit."
           else
             git commit -m "Daily picks update — $(date -u +'%Y-%m-%d')"
             git push
