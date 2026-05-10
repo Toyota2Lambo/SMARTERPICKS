@@ -627,25 +627,12 @@
   </div>
 </section>
 
-<!-- ============================================================
-     YESTERDAY'S RESULTS — populated from results.json by the
-     polish-layer script. Hidden gracefully if results.json fails.
-     ============================================================ -->
-<section class="yday" id="yday-section" data-reveal style="display:none;">
-  <div class="container">
-    <div class="yday-card">
-      <div>
-        <div class="yday-tag">Yesterday's results · <span id="yday-date">—</span></div>
-        <div class="yday-title">Posted publicly. <em style="font-style:italic;color:var(--accent);">Receipts visible.</em></div>
-      </div>
-      <div class="yday-pills" id="yday-pills"></div>
-      <div class="yday-net" id="yday-net">
-        <span id="yday-net-num">+0u</span>
-        <small id="yday-net-record">0-0</small>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- Yesterday's daily-detail banner intentionally lives ONLY on
+     members.html now. The marketing landing leads with aggregate
+     numbers (hero stats, proof bar, record summary) and lets curious
+     prospects dig into the day-by-day picture from /archive.html.
+     This keeps a single bad day from being the first thing a new
+     visitor sees. -->
 
 <!-- ============================================================
      TODAY'S PICKS SECTION
@@ -844,46 +831,26 @@
       </div>
       <div class="section-meta">Updated nightly · every result logged</div>
     </div>
-    <!-- CUMULATIVE P/L CHART — populated by polish-layer from history.json -->
-    <div class="chart-wrap" id="chart-wrap" data-reveal style="display:none;">
-      <div class="chart-header">
-        <div class="chart-title">Cumulative units · <span id="chart-range">last 36 days</span></div>
-        <div class="chart-now" id="chart-now">+0u</div>
-      </div>
-      <svg class="chart-svg" id="chart-svg" viewBox="0 0 800 200" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"  stop-color="#d4a843" stop-opacity="0.28"/>
-            <stop offset="100%" stop-color="#d4a843" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <!-- grid + paths injected at runtime -->
-      </svg>
-    </div>
-
+    <!-- The day-by-day chart and the most-recent-picks table both live
+         on members.html now. The marketing page shows aggregate stats
+         only; anyone who wants to see the full per-day curve or every
+         individual pick can hit the public archive. -->
     <div class="record-grid">
       <div class="record-intro">
-        <p>Every pick is logged before the game and updated after. Losses stay in the record — we don't hide them. Every tipster claiming 80%+ is either lying or showing you their best 6 picks from a lucky week.</p>
-        <p>Realistic edge in sports betting is 53–58% over hundreds of plays. We aim for that, show all the work, and let you judge for yourself.</p>
-        <p><a href="archive.html">Full archive — every pick since launch →</a></p>
+        <p>Every pick is logged before the game. Every result is posted after. We don't pull the losses — they're a real part of any honest record.</p>
+        <p>Realistic long-term edge in sports betting is 53–58% over hundreds of plays. Anyone claiming 80% is either lying or showing you their best week. We aim for the honest range, post all the work, and let the math compound over time.</p>
+        <p><strong style="color:var(--text);">Aggregate-only on this page on purpose.</strong> The full day-by-day cumulative chart and the live cards lives in the <a href="members.html">members area</a>; every individual pick we've ever made lives in the public <a href="archive.html">pick archive</a> if you want to verify it yourself.</p>
       </div>
       <div>
-        <table class="record-table">
-          <thead>
-            <tr><th>Date</th><th>League</th><th>Pick</th><th>Odds</th><th>Result</th><th style="text-align:right">Units</th></tr>
-          </thead>
-          <tbody id="record-tbody">
-            <!-- Populated by polish layer from archive.json (most recent
-                 8 picks). Falls back to a single "archive populating"
-                 row if no per-pick data is logged yet. -->
-            <tr><td colspan="6" style="padding:24px;text-align:center;color:var(--text-dim);font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;">Loading recent picks…</td></tr>
-          </tbody>
-        </table>
-        <div class="record-summary">
-          <div><div class="summary-num" id="rs-record">0-0</div><div class="summary-label">Record W–L</div></div>
+        <div class="record-summary" style="margin-top:0;">
+          <div><div class="summary-num" id="rs-record">0-0</div><div class="summary-label">Record W–L · All Time</div></div>
           <div><div class="summary-num" id="rs-best">+$0</div><div class="summary-label">Best Month · $100/u</div></div>
-          <div><div class="summary-num" id="rs-units">+0u</div><div class="summary-label">Net Units</div></div>
-          <div><div class="summary-num" id="rs-roi">+0%</div><div class="summary-label">ROI</div></div>
+          <div><div class="summary-num" id="rs-units">+0u</div><div class="summary-label">Net Units · All Time</div></div>
+          <div><div class="summary-num" id="rs-roi">+0%</div><div class="summary-label">ROI · All Time</div></div>
+        </div>
+        <div style="margin-top:24px;display:flex;gap:14px;flex-wrap:wrap;">
+          <a href="archive.html" class="btn-secondary" style="padding:13px 22px;">Browse every pick →</a>
+          <a href="login.html" class="btn-primary" style="padding:13px 22px;">Unlock today's full card →</a>
         </div>
       </div>
     </div>
@@ -891,25 +858,44 @@
 </section>
 
 <!-- ============================================================
-     RECENT DAYS — replaces the old testimonials block. Pulls the
-     last three logged days from history.json and renders one card
-     per day with the net result. Honest social proof: real numbers
-     instead of fabricated quotes. populateRecentDays() in the
-     polish layer fills #recent-grid.
+     WHAT YOU GET — sales-focused feature grid that replaces the
+     daily-results cards on the marketing page. Three cards describe
+     what a paying member actually receives every morning. The
+     daily-results cards moved to members.html where they belong —
+     this section drives conversion, the chart drives retention.
      ============================================================ -->
-<section class="testimonials">
+<section class="testimonials" style="background:var(--bg);">
   <div class="container">
     <div class="section-header">
       <div>
-        <div class="section-tag">Last Three Days · Public Log</div>
-        <h2 class="section-title">Recent <em>days.</em></h2>
+        <div class="section-tag">What Your $29 Buys</div>
+        <h2 class="section-title">Three things you get <em>every morning.</em></h2>
       </div>
-      <div class="section-meta">Want every day since launch? <a href="archive.html" style="color:var(--accent);text-decoration:underline;text-underline-offset:3px;">Browse the full archive →</a></div>
+      <div class="section-meta">No tip-of-the-iceberg drips. The full card, every day.</div>
     </div>
-    <div class="testi-grid" id="recent-grid">
-      <div class="testi-card recent-card-skel"><div class="skeleton-line" style="width:35%;"></div><div class="skeleton-line" style="width:55%;height:48px;margin-top:16px;"></div><div class="skeleton-line" style="width:80%;margin-top:18px;"></div></div>
-      <div class="testi-card recent-card-skel"><div class="skeleton-line" style="width:35%;"></div><div class="skeleton-line" style="width:55%;height:48px;margin-top:16px;"></div><div class="skeleton-line" style="width:80%;margin-top:18px;"></div></div>
-      <div class="testi-card recent-card-skel"><div class="skeleton-line" style="width:35%;"></div><div class="skeleton-line" style="width:55%;height:48px;margin-top:16px;"></div><div class="skeleton-line" style="width:80%;margin-top:18px;"></div></div>
+    <div class="testi-grid">
+
+      <div class="testi-card" style="display:flex;flex-direction:column;gap:18px;">
+        <div class="get-num" style="font-family:var(--display);font-size:48px;font-weight:300;font-style:italic;color:var(--accent);line-height:1;">01</div>
+        <div class="get-title" style="font-family:var(--display);font-size:24px;font-weight:400;letter-spacing:-.01em;">The full pick card.</div>
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.65;">5 to 8 plays across NBA, MLB, NHL, and NFL — published before lock every morning. Each pick comes with the reasoning, the line we like, the stake size, and the book offering the best price. No "lean", no vague "I like the Knicks" — the full play, with the why attached.</p>
+        <div style="margin-top:auto;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">Free tier sees 1 pick · Members see all of them</div>
+      </div>
+
+      <div class="testi-card" style="display:flex;flex-direction:column;gap:18px;">
+        <div class="get-num" style="font-family:var(--display);font-size:48px;font-weight:300;font-style:italic;color:var(--accent);line-height:1;">02</div>
+        <div class="get-title" style="font-family:var(--display);font-size:24px;font-weight:400;letter-spacing:-.01em;">Ask Claude on every pick.</div>
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.65;">Every member-side pick card has a chat panel. Ask why this side, what the worst case looks like, whether to parlay it, what the line move means — the AI analyst reads the full pick context and answers in plain English. Built in, no extra subscription.</p>
+        <div style="margin-top:auto;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">Powered by Claude · Unlimited per pick</div>
+      </div>
+
+      <div class="testi-card" style="display:flex;flex-direction:column;gap:18px;">
+        <div class="get-num" style="font-family:var(--display);font-size:48px;font-weight:300;font-style:italic;color:var(--accent);line-height:1;">03</div>
+        <div class="get-title" style="font-family:var(--display);font-size:24px;font-weight:400;letter-spacing:-.01em;">Premium Discord access.</div>
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.65;">The working room — line-move alerts, prop discussion, late-game sweat threads, the brag board, and a direct line to the analyst on tough plays. Light moderation, no hype-bro spam, no "do you have any plays?" replies.</p>
+        <div style="margin-top:auto;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">Members-only channels · Activate instantly on subscribe</div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1163,15 +1149,10 @@
 // ============================================================
 (function () {
 
-  // ---------- 0) RECENT-PICKS TABLE ----------
-  // Populates the "receipts" table in the track-record section with
-  // the most recent 8 individually-archived picks. Pulls from
-  // archive.json (per-pick) — falls back to an honest "archive is
-  // populating" row if no day has been logged yet.
-  fetch("archive.json?v=" + Date.now())
-    .then(r => r.ok ? r.json() : Promise.reject())
-    .then(data => populateRecentPicksTable(data))
-    .catch(() => populateRecentPicksTable(null));
+  // (Per-pick archive table fetch removed from the marketing page —
+  // the full per-pick browser lives at /archive.html and the daily
+  // detail lives on members.html. The aggregate stats below cover
+  // what a prospect needs.)
 
   function populateRecentPicksTable(data) {
     const tbody = document.getElementById("record-tbody");
@@ -1222,35 +1203,10 @@
     return String(l || "").split(/[·\-–]/)[0].trim();
   }
 
-  // ---------- 1) YESTERDAY'S RESULTS ----------
-  fetch("results.json?v=" + Date.now())
-    .then(r => r.ok ? r.json() : Promise.reject())
-    .then(data => {
-      const wrap = document.getElementById("yday-section");
-      if (!wrap || !data) return;
-      const dateEl = document.getElementById("yday-date");
-      const pillsEl = document.getElementById("yday-pills");
-      const numEl = document.getElementById("yday-net-num");
-      const recEl = document.getElementById("yday-net-record");
-      const netEl = document.getElementById("yday-net");
-
-      if (dateEl) dateEl.textContent = data.date || "yesterday";
-      if (recEl)  recEl.textContent  = `${data.wins || 0}-${data.losses || 0}${data.pushes ? "-" + data.pushes : ""} record`;
-
-      const net = Number(data.net_units || 0);
-      if (numEl) numEl.textContent = (net >= 0 ? "+" : "") + net.toFixed(1) + "u";
-      if (netEl) netEl.classList.add(net >= 0 ? "up" : "down");
-
-      if (pillsEl) {
-        pillsEl.innerHTML = (data.picks || []).map(p => {
-          const cls = p.result === "WON" ? "win" : p.result === "LOST" ? "loss" : "push";
-          const sym = p.result === "WON" ? "✓" : p.result === "LOST" ? "✗" : "—";
-          return `<span class="yday-pill ${cls}">${sym} ${escHtml2(p.pick)}</span>`;
-        }).join("");
-      }
-      revealEl(wrap);
-    })
-    .catch(() => { /* leave hidden */ });
+  // (Yesterday's-results fetch removed from the marketing page —
+  // results.json now feeds members.html exclusively. Aggregate stats
+  // for the public landing come from history.json via populateLiveStats
+  // below, which never highlights a single bad day.)
 
   function escHtml2(s) {
     return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
@@ -1268,12 +1224,13 @@
     .then(r => r.ok ? r.json() : Promise.reject())
     .then(data => {
       _historyCache = data;
-      renderChart(data);
+      // renderChart() and populateRecentDays() intentionally NOT called
+      // on the marketing page — chart + recent-day cards live on
+      // members.html now. Only the calculator + aggregate stats run here.
       wireCalculator(data);
       populateLiveStats(data);
-      populateRecentDays(data);
     })
-    .catch(() => { /* leave chart + calculator hidden / static */ });
+    .catch(() => { /* leave calculator + stats at placeholder values */ });
 
   // Render the three "Recent days" cards from history.json's daily array.
   // Each card is a real logged day with net units + the dollar equivalent

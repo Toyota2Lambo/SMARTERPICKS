@@ -17,6 +17,7 @@ import os
 import re
 import sys
 from datetime import datetime
+from statistics import median
 
 # ── API KEYS ──────────────────────────────────────────────
 # These come from your GitHub Secrets (explained in README)
@@ -34,8 +35,177 @@ SPORTS = [
     "americanfootball_nfl",
 ]
 
-# How many picks to generate total (1 will be free, rest locked)
-TOTAL_PICKS = 7
+# Pick-count is adaptive — see target_pick_count() below. We cap the
+# slate at this ceiling on the busiest days; on light days we generate
+# fewer high-confidence plays rather than padding to fill a quota.
+MAX_PICKS = 7
+MIN_PICKS = 3
+
+# ── EV / CONSENSUS HELPERS ────────────────────────────────
+# When we ship games to Claude, we also ship a per-market consensus
+# summary so Claude can avoid "value plays" that aren't actually value.
+# A pick at -110 isn't value if every book on earth has it at -110;
+# it's only value if the cited book is meaningfully better than the
+# median across books.
+
+def american_to_implied(odds: int) -> float:
+    """American odds → implied win probability (0-1)."""
+    if odds > 0:
+        return 100.0 / (odds + 100.0)
+    return abs(odds) / (abs(odds) + 100.0)
+
+
+def compute_market_consensus(game: dict) -> dict:
+    """Walk every bookmaker for a game and, per market+outcome, build
+    {best_price, best_book, median_price, edge_bps}. Returns a dict
+    keyed by market_key → outcome_name → consensus.
+    edge_bps = how many basis points of implied-probability the BEST
+    price beats the MEDIAN by. Positive bps = the best book is offering
+    a meaningfully better number; <50 bps means there's basically no
+    line to exploit."""
+    out = {}
+    for bk in game.get("bookmakers", []) or []:
+        book_title = bk.get("title") or bk.get("key") or "?"
+        for mkt in bk.get("markets", []) or []:
+            mkey = mkt.get("key")  # h2h | spreads | totals
+            if not mkey:
+                continue
+            for oc in mkt.get("outcomes", []) or []:
+                price = oc.get("price")
+                if price is None:
+                    continue
+                # Outcome name + (point if present) keys it uniquely:
+                # spread/total outcomes share names, point disambiguates.
+                point = oc.get("point")
+                key = (oc.get("name", "?"), point) if point is not None else (oc.get("name", "?"),)
+                out.setdefault(mkey, {}).setdefault(key, []).append((int(price), book_title))
+
+    summary = {}
+    for mkey, outcomes in out.items():
+        summary[mkey] = {}
+        for key, prices in outcomes.items():
+            if not prices:
+                continue
+            # Best = most generous to the bettor (highest American odds value
+            # when treating positive as positive, negative as less-negative).
+            best_price, best_book = max(prices, key=lambda p: american_to_implied(p[0]) * -1)
+            med = int(round(median(p[0] for p in prices)))
+            edge = (american_to_implied(med) - american_to_implied(best_price)) * 10000  # in bps
+            summary[mkey]["__".join(str(k) for k in key)] = {
+                "best": best_price,
+                "best_book": best_book,
+                "median": med,
+                "edge_bps": round(edge, 1),
+                "n_books": len(prices),
+            }
+    return summary
+
+
+# ── ESPN CONTEXT ENRICHMENT ───────────────────────────────
+# ESPN exposes undocumented JSON endpoints for scoreboards and league
+# news. We pull two things best-effort: today's MLB starting pitchers
+# (the single most predictive signal in MLB betting) and a short
+# league-wide injury feed for NBA/NHL. Failures are non-fatal — the
+# generator works without enrichment, just less informed.
+
+ESPN_TIMEOUT = 8
+
+def _espn_get(url: str, params: dict | None = None):
+    try:
+        r = requests.get(url, params=params or {}, timeout=ESPN_TIMEOUT,
+                         headers={"User-Agent": "SmarterPicks/1.0"})
+        if r.ok:
+            return r.json()
+        print(f"   ⚠ ESPN {r.status_code} for {url}")
+    except Exception as e:
+        print(f"   ⚠ ESPN fetch failed ({e}) for {url}")
+    return None
+
+
+def fetch_espn_context(games: list) -> dict:
+    """Returns {team_name_lower: 'short context string'} merged across
+    sources. Used downstream to annotate each game line in the prompt."""
+    ctx: dict[str, list[str]] = {}
+    sport_keys = {g.get("sport_key") for g in games}
+
+    # ── MLB starters ──
+    if "baseball_mlb" in sport_keys:
+        today = datetime.now().strftime("%Y%m%d")
+        data = _espn_get(
+            "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard",
+            params={"dates": today},
+        )
+        for ev in (data or {}).get("events", []) or []:
+            for comp in (ev.get("competitions") or [{}])[0].get("competitors", []):
+                team_name = (comp.get("team", {}).get("displayName") or "").lower()
+                probables = comp.get("probables") or []
+                if not team_name or not probables:
+                    continue
+                ath = probables[0].get("athlete", {})
+                name = ath.get("displayName")
+                if not name:
+                    continue
+                # Pull ERA from the pitcher's recent stats if present
+                era = None
+                for s in (ath.get("statistics") or []):
+                    if s.get("name", "").lower() == "era" and s.get("value") is not None:
+                        era = s["value"]
+                        break
+                line = f"Probable starter: {name}" + (f" (ERA {era})" if era else "")
+                ctx.setdefault(team_name, []).append(line)
+
+    # ── NBA / NHL injuries (league-wide feed) ──
+    league_paths = []
+    if "basketball_nba" in sport_keys:
+        league_paths.append(("basketball/nba", "NBA"))
+    if "icehockey_nhl" in sport_keys:
+        league_paths.append(("hockey/nhl", "NHL"))
+
+    for path, label in league_paths:
+        data = _espn_get(f"https://site.api.espn.com/apis/site/v2/sports/{path}/news/injuries")
+        for art in (data or {}).get("articles", []) or []:
+            # ESPN injury articles describe individual player situations.
+            # We pull the team name and a single-line summary. Best-effort.
+            cats = art.get("categories", []) or []
+            team_name = next(
+                (c.get("team", {}).get("displayName", "").lower()
+                 for c in cats if c.get("type") == "team" and c.get("team")),
+                None,
+            )
+            headline = (art.get("headline") or art.get("description") or "").strip()
+            if team_name and headline:
+                ctx.setdefault(team_name, []).append(f"[{label} injury] {headline}")
+
+    # Cap each team's context at 3 lines so the prompt doesn't bloat
+    return {team: " | ".join(lines[:3]) for team, lines in ctx.items()}
+
+
+def annotate_game_with_context(game: dict, espn_ctx: dict) -> str:
+    """Build a single short context line for a game by looking up
+    home + away team names in the ESPN context map. Returns "" if no
+    context was found."""
+    bits = []
+    for team_field in ("home_team", "away_team"):
+        name = (game.get(team_field) or "").lower()
+        # ESPN team names sometimes differ from Odds API ("Yankees" vs
+        # "New York Yankees"). Try direct match, then suffix match.
+        match = espn_ctx.get(name)
+        if not match:
+            match = next((v for k, v in espn_ctx.items() if name in k or k in name), None)
+        if match:
+            bits.append(f"{game.get(team_field)}: {match}")
+    return " || ".join(bits)
+
+
+def target_pick_count(num_games: int) -> int:
+    """Slate-aware cap. Forcing 7 picks on a 5-game Tuesday is how you
+    end up with a card full of C+ filler. Roughly: ~1 pick per 4 games,
+    bounded by [MIN_PICKS, MAX_PICKS]. Claude is also allowed to return
+    FEWER than this if it can't honestly identify that many plays it
+    likes."""
+    if num_games <= 0:
+        return MIN_PICKS
+    return max(MIN_PICKS, min(MAX_PICKS, num_games // 4 + 2))
 
 # Your brand name (shows up in the script logs)
 BRAND_NAME = "SMARTERPICKS"
@@ -89,12 +259,42 @@ def generate_picks(games):
     """
     print("\n🤖 Sending data to Claude AI to generate picks...")
 
-    # Only send the first 15 games to keep the prompt manageable
-    # Claude gets the matchups, lines, and odds for each game
-    games_for_prompt = games[:15] if len(games) > 15 else games
+    # Send up to 20 games to Claude (was 15) so on big slates there's
+    # more material to filter from. Adaptive pick-count + tighter rules
+    # below mean we don't pad — we just have a wider candidate pool.
+    games_for_prompt = games[:20] if len(games) > 20 else games
 
-    # Format the data cleanly for Claude
-    games_text = json.dumps(games_for_prompt, indent=2)
+    # Pre-compute per-market consensus across books for each game.
+    # Claude sees this annotated next to the raw game so it can avoid
+    # picking sides where the cited book isn't actually beating the
+    # market. Full odds objects stay available too — consensus is
+    # additive, not a replacement.
+    print("   📐 Computing per-market consensus across books…")
+    enriched = []
+    for g in games_for_prompt:
+        consensus = compute_market_consensus(g)
+        enriched.append({**g, "_consensus": consensus})
+
+    # Best-effort ESPN enrichment — MLB starters + NBA/NHL injury notes.
+    # Attached as a separate "context" block in the prompt because
+    # cramming it inside each game object made the prompt noisy.
+    print("   📡 Fetching ESPN context (starters, injuries)…")
+    espn_ctx = fetch_espn_context(games_for_prompt)
+    context_lines = []
+    for g in games_for_prompt:
+        line = annotate_game_with_context(g, espn_ctx)
+        if line:
+            context_lines.append(f"- {line}")
+    context_block = (
+        "\n".join(context_lines) if context_lines
+        else "(no ESPN context available — pick on odds alone, with extra caution)"
+    )
+    print(f"   ✓ ESPN context: {len(context_lines)} games annotated")
+
+    games_text = json.dumps(enriched, indent=2)
+
+    # Adaptive ceiling: 5-game slate caps at 3 picks, 28+ games caps at 7.
+    pick_target = target_pick_count(len(games))
 
     # ── THE PROMPT ──
     # This is the instruction we give Claude.
@@ -103,17 +303,49 @@ def generate_picks(games):
     prompt = f"""You are a sharp sports betting analyst for {BRAND_NAME}.
 Today is {datetime.now().strftime("%A, %B %d, %Y")}.
 
-Here is today's live odds data from sportsbooks:
+Here is today's live odds data from sportsbooks ({len(games_for_prompt)} games).
+Each game object includes a "_consensus" field we computed locally:
+  - For each market+outcome it gives {{best, best_book, median, edge_bps, n_books}}
+  - "best" = most generous American odds across all books
+  - "median" = the median price across all books offering that side
+  - "edge_bps" = how many basis points of implied probability the BEST beats the MEDIAN.
+                edge_bps < 50 means there is essentially NO line value — every book is in
+                agreement on that number, so pretending to find an edge there is a fiction.
 
 {games_text}
 
-Generate exactly {TOTAL_PICKS} betting picks from this data.
+ADDITIONAL CONTEXT — pulled live from ESPN (probable starters, injuries):
+{context_block}
 
-Rules:
-- Only pick games that are actually in the data above
+Generate UP TO {pick_target} betting picks from this data — but it is BETTER to return
+fewer high-quality picks than to pad the card with weak plays. Quality over quantity.
+A {pick_target}-pick day where every play is genuinely Confidence B or higher beats a
+7-pick day with three C+ filler plays.
+
+Pick-quality rules (all enforced — a pick that violates these will hurt the track record):
+- Only pick games that are actually in the data above.
+- USE the "_consensus" field. A pick is only worth posting if "edge_bps" for that side
+  is at least 100 (1% of implied probability) — preferably 200+. If every book is within
+  a tick of the median, there is no edge to exploit. Skip it.
+- USE the ESPN context block above. If a probable MLB starter has a high ERA, that is
+  relevant to a totals pick. If a star NBA player is listed injured, that changes the
+  spread analysis. Reference these specifically in your reasoning when applicable.
+- AT MOST ONE pick may have odds shorter than -150 (heavy moneyline favorites).
+  These crater the unit math when they lose. One per day, max — and only if the
+  edge is genuine (edge_bps ≥ 200), not because "they should win".
+- Avoid stacking the card with a single bet type. No more than 2 totals (Over/Under)
+  in a row, no more than 3 moneylines total.
+- Pick strings must be CLEAN. Just the side: "Lakers +5.5", "Under 7.5", "Cardinals ML".
+  Do NOT add parenthetical commentary inside the pick string (e.g. "Under 7.5 (Yamamoto pitching)")
+  — put that in the reasoning field instead. Parentheticals break our automated scorer.
+- Cite the "best_book" from the consensus block as the book in your pick. Do not invent
+  a book name not present in the data.
+
+Output rules:
 - Be specific — reference actual numbers, spreads, and totals from the data
 - Reasoning should be 2-3 sentences, analytical, and reference the odds or line
-- Confidence ratings: A (very confident), B+ (confident), B (solid), C+ (speculative)
+- Confidence ratings: A (very confident), B+ (confident), B (solid), C+ (speculative).
+  If a candidate would only rate C+, prefer to drop it entirely.
 - Stake sizes: 2u (strong), 1.5u (moderate), 1u (small/speculative)
 - The first pick (index 0) has is_premium set to FALSE — this is the free pick
 - All other picks have is_premium set to TRUE — these are locked for subscribers
@@ -295,6 +527,13 @@ def score_pick_string(pick_str, game, home_score, away_score):
     """Returns 'WON' / 'LOST' / 'PUSH' / 'PENDING' for spreads, MLs, totals.
     Player props / parlays / puck lines fall through to PENDING (manual)."""
     s = (pick_str or "").strip()
+    # Strip parenthetical commentary BEFORE regex matching so picks like
+    # "Under 7.5 (Yamamoto pitching)" or "Lakers -3.5 (best line at DK)"
+    # still match the canonical "<side> <number>" patterns below. The
+    # generator prompt also tells Claude not to write parentheticals,
+    # but defense-in-depth: when a pending-scorer pick blows up the
+    # results page, the parser should be the second line of defense.
+    s = re.sub(r"\s*\([^)]*\)", "", s).strip()
     home, away = game.get("home_team", ""), game.get("away_team", "")
 
     # Total: "Over 214.5", "Under 7.5"

@@ -178,17 +178,36 @@ async function loadPicks() {
 
     const countEl = document.getElementById("pick-count");
     if (countEl) {
+      const total = freePicks + premiumPicks;
       if (isMember) {
-        countEl.textContent = `Full card unlocked · ${freePicks + premiumPicks} picks today`;
+        countEl.textContent = `Full card unlocked · ${total} picks today`;
       } else {
-        countEl.textContent = `${freePicks} free · ${premiumPicks} premium · subscribe to unlock`;
+        // Matches the 3-card limit + "more" tile rendered below.
+        countEl.textContent = `Free preview · ${freePicks} free pick + ${total - freePicks} premium behind the paywall`;
       }
     }
 
-    // Render pick cards
+    // Render pick cards.
+    //
+    // Members see the full slate. Non-members on the public landing
+    // (index.html) see exactly THREE cards on purpose: the free pick
+    // plus two locked premium teasers, then a tasteful "+N more"
+    // unlock tile. Spamming a non-member with 6 blurred cards reads
+    // as desperate; showing just enough to prove there's more behind
+    // the paywall converts better.
     const grid = document.getElementById("picks-grid");
     if (grid && data.picks && data.picks.length > 0) {
-      grid.innerHTML = data.picks.map(pick => renderPickCard(pick)).join("");
+      let visiblePicks = data.picks;
+      let hiddenCount  = 0;
+      if (!isMember) {
+        const FREE_PAGE_LIMIT = 3;
+        visiblePicks = data.picks.slice(0, FREE_PAGE_LIMIT);
+        hiddenCount  = Math.max(0, data.picks.length - FREE_PAGE_LIMIT);
+      }
+      grid.innerHTML = visiblePicks.map(pick => renderPickCard(pick)).join("");
+      if (!isMember && hiddenCount > 0) {
+        grid.insertAdjacentHTML("beforeend", renderMoreTile(hiddenCount));
+      }
       wireCardInteractivity(grid);
     }
 
@@ -420,6 +439,35 @@ function renderPickCard(pick) {
         <div class="lock-title">Members Only</div>
         <div class="lock-sub">Subscribe to unlock all ${getPremiumCount()} premium picks today</div>
         <a href="login.html" class="lock-btn">Unlock for $29/mo →</a>
+      </div>
+    </div>
+  `;
+}
+
+// ── "MORE PICKS BEHIND THE PAYWALL" TILE ───────────────────
+// Slots into the .picks-grid like a normal card so the layout stays
+// even (3 cards in the row instead of 2 + an awkward strip below).
+// Tone is suggestive, not nag-y: "there are N more, here's how to
+// see them" — no flashing arrows, no countdown timers.
+function renderMoreTile(hiddenCount) {
+  const noun = hiddenCount === 1 ? "pick" : "picks";
+  return `
+    <div class="pick-card more-tile" style="background:linear-gradient(180deg, var(--bg-elevated), var(--bg)); border-left:3px solid var(--accent); padding:36px 32px; display:flex; flex-direction:column; justify-content:center; text-align:center; gap:18px;">
+      <div style="font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);">
+        + ${hiddenCount} more ${noun} on today's full card
+      </div>
+      <div style="font-family:var(--display);font-size:30px;font-weight:400;line-height:1.1;letter-spacing:-.01em;color:var(--text);">
+        The plays we like most<br>
+        <em style="font-style:italic;color:var(--accent);font-weight:300;">are behind the paywall.</em>
+      </div>
+      <p style="font-size:13px;color:var(--text-muted);line-height:1.55;max-width:32ch;margin:0 auto;">
+        Free tier sees today's free pick. Members see the full card — line moves, props, the best bet of the day, and the reasoning on each one.
+      </p>
+      <a href="login.html" style="display:inline-block;background:var(--accent);color:#000;padding:14px 22px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;margin-top:6px;transition:background .2s, transform .2s;">
+        Unlock all ${hiddenCount + 1} picks · $29/mo →
+      </a>
+      <div style="font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">
+        7-day money-back · cancel anytime
       </div>
     </div>
   `;
