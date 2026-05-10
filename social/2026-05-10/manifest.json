@@ -1,0 +1,156 @@
+{
+  "rendered_at": "2026-05-10T14:23:54.851Z",
+  "content_file": "content.json",
+  "renders": [
+    {
+      "file": "pick-post-1.png",
+      "template": "daily-pick-card.html",
+      "group": "ig_pick_post",
+      "slide_index": 1,
+      "size": {
+        "width": 1080,
+        "height": 1080
+      }
+    },
+    {
+      "file": "pick-post-2.png",
+      "template": "daily-pick-card.html",
+      "group": "ig_pick_post",
+      "slide_index": 2,
+      "size": {
+        "width": 1080,
+        "height": 1080
+      }
+    },
+    {
+      "file": "pick-post-3.png",
+      "template": "daily-pick-card.html",
+      "group": "ig_pick_post",
+      "slide_index": 3,
+      "size": {
+        "width": 1080,
+        "height": 1080
+      }
+    },
+    {
+      "file": "results-recap.png",
+      "template": "results-recap.html",
+      "group": "ig_results_post",
+      "slide_index": null,
+      "size": {
+        "width": 1080,
+        "height": 1080
+      }
+    },
+    {
+      "file": "educational-1.png",
+      "template": "educational-carousel.html",
+      "group": "ig_carousel_topic",
+      "slide_index": 1,
+      "size": {
+        "width": 1080,
+        "height": 1080
+      }
+    },
+    {
+      "file": "educational-2.png",
+      "template": "educational-carousel.html",
+      "group": "ig_carousel_topic",
+      "slide_index": 2,
+      "size": {
+        "width": 1080,
+        "height": 1080
+      }
+    },
+    {
+      "file": "educational-3.png",
+      "template": "educational-carousel.html",
+      "group": "ig_carousel_topic",
+      "slide_index": 3,
+      "size": {
+        "width": 1080,
+        "height": 1080
+      }
+    },
+    {
+      "file": "educational-4.png",
+      "template": "educational-carousel.html",
+      "group": "ig_carousel_topic",
+      "slide_index": 4,
+      "size": {
+        "width": 1080,
+        "height": 1080
+      }
+    },
+    {
+      "file": "educational-5.png",
+      "template": "educational-carousel.html",
+      "group": "ig_carousel_topic",
+      "slide_index": 5,
+      "size": {
+        "width": 1080,
+        "height": 1080
+      }
+    },
+    {
+      "file": "story-1.png",
+      "template": "daily-pick-card.html",
+      "group": "story_sequence",
+      "slide_index": 1,
+      "size": {
+        "width": 1080,
+        "height": 1920
+      }
+    },
+    {
+      "file": "story-2.png",
+      "template": "daily-pick-card.html",
+      "group": "story_sequence",
+      "slide_index": 2,
+      "size": {
+        "width": 1080,
+        "height": 1920
+      }
+    },
+    {
+      "file": "story-3.png",
+      "template": "daily-pick-card.html",
+      "group": "story_sequence",
+      "slide_index": 3,
+      "size": {
+        "width": 1080,
+        "height": 1920
+      }
+    },
+    {
+      "file": "story-4.png",
+      "template": "daily-pick-card.html",
+      "group": "story_sequence",
+      "slide_index": 4,
+      "size": {
+        "width": 1080,
+        "height": 1920
+      }
+    },
+    {
+      "file": "story-5.png",
+      "template": "daily-pick-card.html",
+      "group": "story_sequence",
+      "slide_index": 5,
+      "size": {
+        "width": 1080,
+        "height": 1920
+      }
+    },
+    {
+      "file": "meme.png",
+      "template": "meme-post.html",
+      "group": "meme_post",
+      "slide_index": null,
+      "size": {
+        "width": 1080,
+        "height": 1080
+      }
+    }
+  ]
+}

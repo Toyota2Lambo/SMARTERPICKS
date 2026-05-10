@@ -1,0 +1,115 @@
+{
+  "generated_at": "2026-05-10T14:23:29.624824+00:00",
+  "model": "claude-sonnet-4-6",
+  "carousel_topic": "Why variance is real and one losing month proves nothing",
+  "source": {
+    "picks_date": "May 10, 2026",
+    "results_date": "May 09, 2026",
+    "history_stats": {
+      "total_picks": 423,
+      "wins": 229,
+      "losses": 194,
+      "pushes": 22,
+      "win_pct": 54.1,
+      "net_units": 32.34,
+      "roi_pct": 9.3,
+      "best_month_units": 12.4,
+      "worst_month_units": -3.8,
+      "avg_daily_units": 0.87,
+      "days_recorded": 37
+    }
+  },
+  "content": {
+    "ig_pick_post": {
+      "caption": "76ers ML at +102 in a near pick'em game. The market is telling you something. Full breakdown on the card — 21+, bet responsibly.",
+      "slide1_text": "The market says pick'em.\nFanDuel is still paying you to take Philly.",
+      "slide2_text": "Philadelphia 76ers ML\n+102 · FanDuel / DraftKings\n\nKnicks implied at -118 to -125. Spread sits at -1.5. That gap is the edge.",
+      "slide3_text": "Full 7-game card at smarterpicks.io\nFirst month free — code FREE30\n21+ · Bet responsibly",
+      "hashtags": [
+        "sportsbetting",
+        "sportspicks",
+        "nbapicks",
+        "nbaplayoffs",
+        "76ers",
+        "philadelphiasports",
+        "freepick",
+        "bettinganalysis",
+        "moneyline",
+        "sharpbetting",
+        "basketballbetting",
+        "nba2026",
+        "bettingtips",
+        "oddsanalysis",
+        "smarterpicks",
+        "nbabetting",
+        "sportsbettingcommunity",
+        "valuebets"
+      ]
+    },
+    "ig_results_post": {
+      "caption": "Yesterday: 0-6, -7.50u. Worst day of the month. We're posting it because that's what a public record means. YTD still +32.3u at 54.1%.",
+      "headline_text": "May 9: 0-6 · -7.50u\nYTD: 229-194 · +32.3u",
+      "hashtags": [
+        "sportsbetting",
+        "sportspicks",
+        "bettingrecord",
+        "publicrecord",
+        "bettinganalysis",
+        "trackrecord",
+        "transparency",
+        "sportsbettingcommunity",
+        "nbapicks",
+        "mlbpicks",
+        "sharpbetting",
+        "bettingtips",
+        "losingday",
+        "variance",
+        "smarterpicks",
+        "honestbetting",
+        "oddsanalysis",
+        "responsiblegambling"
+      ]
+    },
+    "ig_carousel_topic": {
+      "topic": "Why variance is real and one losing month proves nothing",
+      "slide1_text": "One losing month doesn't mean your system is broken.\n\nHere's the math that proves it.",
+      "slide2_text": "Most bettors see a rough 3-4 week stretch and conclude:\n'This doesn't work.'\n\nThat's not analysis. That's recency bias.",
+      "slide3_text": "At a 54% win rate, you will still lose 4 or more bets in a row roughly 1 in 9 times.\n\nVariance doesn't care about your confidence. It's just math.",
+      "slide4_text": "Real example:\n100-bet sample at 54% win rate.\nExpected wins: 54. Realistic range: 46–62.\n\nThat 46-win stretch isn't a broken system — it's a normal distribution.",
+      "slide5_text": "The edge shows up over hundreds of bets, not dozens.\n\nTrack everything. Resize if needed. Don't quit in the sample size that doesn't count yet.",
+      "caption": "One bad month isn't a verdict — it's noise. Save this before the next losing streak hits and your brain starts lying to you.",
+      "hashtags": [
+        "sportsbetting",
+        "bettingeducation",
+        "variance",
+        "expectedvalue",
+        "bettingmindset",
+        "sharpbetting",
+        "bankrollmanagement",
+        "sportsbettingcommunity",
+        "bettinganalysis",
+        "winrate",
+        "mathofbetting",
+        "bettingtips",
+        "smarterpicks",
+        "oddsanalysis",
+        "longtermbetting",
+        "bettingstrategy",
+        "samplesize",
+        "responsiblegambling"
+      ]
+    },
+    "story_sequence": [
+      "Card drops in 30 min. 7 games today — NBA playoffs and a full MLB slate. Free pick goes live first.",
+      "Poll time: 76ers or Knicks tonight? No wrong answer — just curious where the crowd is.",
+      "Last call. Locks start in under an hour. Free pick is up. Full card at smarterpicks.io — code FREE30 for your first month.",
+      "Through the early games: tracking live. Check the link in bio for the running card update.",
+      "That's a wrap on Sunday. Results post hits at 9 AM tomorrow — wins and losses, all of it. See you then."
+    ],
+    "meme_post": {
+      "top_text": "Me after going 0-6 on a Saturday:",
+      "bottom_text": "'Good thing I believe in sample size'",
+      "image_concept": "A man in a betting app glow sitting alone at a kitchen table at midnight, nodding slowly and convincingly at nothing, coffee gone cold."
+    }
+  }
+}
