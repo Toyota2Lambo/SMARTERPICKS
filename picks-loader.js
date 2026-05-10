@@ -123,7 +123,7 @@ function updateNavState() {
       loginBtn.onclick = (e) => { e.preventDefault(); logout(); };
     } else {
       loginBtn.textContent = "Login";
-      loginBtn.href = "login.html";
+      loginBtn.href = "login";
       loginBtn.onclick = null;
     }
   }
@@ -438,7 +438,7 @@ function renderPickCard(pick) {
         <div class="lock-icon">🔒</div>
         <div class="lock-title">Members Only</div>
         <div class="lock-sub">Subscribe to unlock all ${getPremiumCount()} premium picks today</div>
-        <a href="login.html" class="lock-btn">Unlock for $29/mo →</a>
+        <a href="login" class="lock-btn">Unlock for $29/mo →</a>
       </div>
     </div>
   `;
@@ -463,7 +463,7 @@ function renderMoreTile(hiddenCount) {
       <p style="font-size:13px;color:var(--text-muted);line-height:1.55;max-width:32ch;margin:0 auto;">
         Free tier sees today's free pick. Members see the full card — line moves, props, the best bet of the day, and the reasoning on each one.
       </p>
-      <a href="login.html" style="display:inline-block;background:var(--accent);color:#000;padding:14px 22px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;margin-top:6px;transition:background .2s, transform .2s;">
+      <a href="login" style="display:inline-block;background:var(--accent);color:#000;padding:14px 22px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;margin-top:6px;transition:background .2s, transform .2s;">
         Unlock all ${hiddenCount + 1} picks · $29/mo →
       </a>
       <div style="font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">

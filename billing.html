@@ -15,10 +15,10 @@
 (function() {
   try {
     var raw = localStorage.getItem("whop_access");
-    if (!raw) { location.replace("login.html"); return; }
+    if (!raw) { location.replace("login"); return; }
     var access = JSON.parse(raw);
-    if (!access || !access.has_access) { location.replace("login.html"); return; }
-  } catch (_) { location.replace("login.html"); }
+    if (!access || !access.has_access) { location.replace("login"); return; }
+  } catch (_) { location.replace("login"); }
 })();
 </script>
 
@@ -95,11 +95,11 @@
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="members.html" class="logo">
+    <a href="members" class="logo">
       <span class="logo-mark"></span>SMARTERPICKS
       <span class="logo-tag">Members</span>
     </a>
-    <a href="members.html" class="nav-back">← Back to picks</a>
+    <a href="members" class="nav-back">← Back to picks</a>
   </div>
 </nav>
 
@@ -131,7 +131,7 @@
       <a href="https://whop.com/orders/" target="_blank" rel="noopener" class="btn-primary">
         Manage on Whop ↗
       </a>
-      <a href="members.html" class="btn-ghost">← Back to members area</a>
+      <a href="members" class="btn-ghost">← Back to members area</a>
 
       <div class="info-line">
         Cancel anytime — no runaround. After cancelling on Whop, your access stays active until the end of the current billing period.

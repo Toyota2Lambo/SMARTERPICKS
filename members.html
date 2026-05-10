@@ -22,10 +22,10 @@
 (function() {
   try {
     var raw = localStorage.getItem("whop_access");
-    if (!raw) { location.replace("login.html"); return; }
+    if (!raw) { location.replace("login"); return; }
     var access = JSON.parse(raw);
-    if (!access || !access.has_access) { location.replace("login.html"); return; }
-  } catch (_) { location.replace("login.html"); }
+    if (!access || !access.has_access) { location.replace("login"); return; }
+  } catch (_) { location.replace("login"); }
 })();
 </script>
 
@@ -305,7 +305,7 @@
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="members.html" class="logo">
+    <a href="members" class="logo">
       <span class="logo-mark"></span>SMARTERPICKS
       <span class="logo-tag">Members</span>
     </a>
@@ -313,11 +313,11 @@
       <li><a href="#slate">Today's Picks</a></li>
       <li><a href="#yday-section">Yesterday</a></li>
       <li><a href="#record">Track Record</a></li>
-      <li><a href="archive.html">Archive</a></li>
-      <li><a href="discord.html">Discord</a></li>
+      <li><a href="archive">Archive</a></li>
+      <li><a href="discord">Discord</a></li>
     </ul>
     <div class="nav-right">
-      <a href="billing.html" class="nav-billing">Billing</a>
+      <a href="billing" class="nav-billing">Billing</a>
       <button class="nav-logout" id="member-logout">Logout</button>
     </div>
   </div>
@@ -402,7 +402,7 @@
         <div class="section-tag">Last Three Days · Quick Glance</div>
         <h2 class="section-title">Recent <em>days.</em></h2>
       </div>
-      <div class="section-meta"><a href="archive.html" style="color:var(--accent);text-decoration:underline;text-underline-offset:3px;">Browse the full archive →</a></div>
+      <div class="section-meta"><a href="archive" style="color:var(--accent);text-decoration:underline;text-underline-offset:3px;">Browse the full archive →</a></div>
     </div>
     <div class="recent-grid" id="recent-grid">
       <div class="recent-card recent-card-skel"><div class="skeleton-line" style="width:35%;"></div><div class="skeleton-line" style="width:55%;height:48px;margin-top:16px;"></div><div class="skeleton-line" style="width:80%;margin-top:18px;"></div></div>
@@ -466,9 +466,9 @@
   <div class="container">
     <div class="footer-line">
       SMARTERPICKS · Members area
-      <a href="discord.html">Discord</a>·
-      <a href="billing.html">Billing</a>·
-      <a href="index.html">Public site</a>
+      <a href="discord">Discord</a>·
+      <a href="billing">Billing</a>·
+      <a href="index">Public site</a>
     </div>
   </div>
 </footer>
@@ -574,7 +574,7 @@
           </div>
           <div class="recent-card-net ${cls}">${u >= 0 ? "+" : ""}${u.toFixed(1)}u</div>
           <div class="recent-card-detail">A $100/unit follower would have ${verb} <strong>${dollarStr}</strong> on this slate.</div>
-          <a href="archive.html" class="recent-card-link">View this day in archive →</a>
+          <a href="archive" class="recent-card-link">View this day in archive →</a>
         </div>
       `;
     }).join("");
@@ -830,7 +830,7 @@
     logoutBtn.addEventListener("click", () => {
       ["whop_token","whop_refresh","whop_user_id","whop_user","whop_access"]
         .forEach(k => localStorage.removeItem(k));
-      location.href = "index.html";
+      location.href = "index";
     });
   }
 })();

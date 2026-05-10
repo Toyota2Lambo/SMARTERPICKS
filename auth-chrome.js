@@ -74,7 +74,7 @@
         <span class="auth-sep">·</span>
         <span class="auth-msg">You're signed in across the site</span>
         <span class="auth-sep">·</span>
-        <a href="members.html" class="auth-link">Open Members Area →</a>
+        <a href="members" class="auth-link">Open Members Area →</a>
         <span class="auth-sep">·</span>
         <a href="#" class="auth-link" data-action="logout">Logout</a>
       `;
@@ -85,7 +85,7 @@
         <span class="auth-sep">·</span>
         <span class="auth-msg">No active subscription yet</span>
         <span class="auth-sep">·</span>
-        <a href="login.html" class="auth-link">Activate subscription →</a>
+        <a href="login" class="auth-link">Activate subscription →</a>
         <span class="auth-sep">·</span>
         <a href="#" class="auth-link" data-action="logout">Logout</a>
       `;

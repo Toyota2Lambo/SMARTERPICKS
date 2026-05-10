@@ -8,14 +8,14 @@
 <!-- SEO -->
 <meta name="description" content="Sign in to SmarterPicks or activate your subscription to unlock the full daily pick card. Whop handles login + payment securely.">
 <meta name="theme-color" content="#0a0a0a">
-<link rel="canonical" href="https://smarterpicks.io/login.html">
+<link rel="canonical" href="https://smarterpicks.io/login">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/favicon.svg">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SMARTERPICKS">
-<meta property="og:url" content="https://smarterpicks.io/login.html">
+<meta property="og:url" content="https://smarterpicks.io/login">
 <meta property="og:title" content="Sign in to SMARTERPICKS — Unlock the full pick card">
 <meta property="og:description" content="One button to subscribe or sign in. Daily pick card, line move alerts, and the members' Discord — all unlocked the moment your subscription is active.">
 <meta property="og:image" content="https://smarterpicks.io/og-image.svg">
@@ -130,8 +130,8 @@
 
 <!-- NAV -->
 <nav>
-  <a href="index.html" class="logo"><span class="logo-mark"></span>SMARTERPICKS</a>
-  <a href="index.html" class="nav-back">← Back to site</a>
+  <a href="index" class="logo"><span class="logo-mark"></span>SMARTERPICKS</a>
+  <a href="index" class="nav-back">← Back to site</a>
 </nav>
 
 <div class="page">
@@ -260,7 +260,7 @@
           <div class="success-icon">🎉</div>
           <div class="auth-title" style="text-align:center;">You're <em>in.</em></div>
           <p class="auth-sub" style="text-align:center;">Premium unlocked. Redirecting you to today's full card…</p>
-          <a href="members.html" class="btn-full btn-gold">Go now →</a>
+          <a href="members" class="btn-full btn-gold">Go now →</a>
         </div>
       </div>
 
@@ -423,7 +423,7 @@ function wireCheckoutButton() {
       const access = JSON.parse(accessRaw);
       if (access.has_access) {
         showPanel("panel-success");
-        setTimeout(() => { window.location.href = "members.html"; }, 800);
+        setTimeout(() => { window.location.href = "members"; }, 800);
         return;
       }
       // Signed in but no membership — show subscribe CTA
