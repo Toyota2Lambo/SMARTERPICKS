@@ -1,18 +1,106 @@
 {
   "stats": {
-    "total_picks": 417,
+    "total_picks": 423,
     "wins": 229,
-    "losses": 188,
+    "losses": 194,
     "pushes": 22,
-    "win_pct": 54.9,
-    "net_units": 39.84,
+    "win_pct": 54.1,
+    "net_units": 32.34,
     "roi_pct": 9.3,
     "best_month_units": 12.4,
     "worst_month_units": -3.8,
-    "avg_daily_units": 1.11,
-    "days_recorded": 36
+    "avg_daily_units": 0.87,
+    "days_recorded": 37
   },
   "days": [
+    {
+      "iso_date": "2026-05-09",
+      "date_display": "May 09, 2026",
+      "wins": 0,
+      "losses": 6,
+      "pushes": 0,
+      "net_units": -7.5,
+      "summary_text": "0-6 \u00b7 -7.5u  (1 pending manual scoring)",
+      "picks": [
+        {
+          "league": "NBA \u00b7 Playoffs",
+          "away_team": "Detroit Pistons",
+          "home_team": "Cleveland Cavaliers",
+          "pick": "Pistons +4.5",
+          "odds": "-101",
+          "stake": "1.5u",
+          "result": "LOST",
+          "units": -1.5,
+          "reasoning": "The market consensus sits at -4.5 across all books, but LowVig offers Detroit +4.5 at -101, the best number available. The Pistons have shown playoff resilience and a closing line this tight on a double-digit ML underdog suggests the spread market respects Detroit's ability to keep this competitive. Getting near-even juice on a key number is significant value."
+        },
+        {
+          "league": "NBA \u00b7 Playoffs",
+          "away_team": "Oklahoma City Thunder",
+          "home_team": "Los Angeles Lakers",
+          "pick": "Lakers +9",
+          "odds": "-108",
+          "stake": "1.5u",
+          "result": "LOST",
+          "units": -1.5,
+          "reasoning": "LowVig and BetOnline offer Lakers +9 at -108 and -110 respectively, a full half-point better than the 8.5 available at FanDuel and DraftKings. The ML gap of roughly -380 to +305 implies OKC wins about 79% of the time, but covering 9 is a different ask. Getting the hook at reduced juice on a home dog is a key line-shopping advantage."
+        },
+        {
+          "league": "NBA \u00b7 Playoffs",
+          "away_team": "New York Knicks",
+          "home_team": "Philadelphia 76ers",
+          "pick": "76ers ML",
+          "odds": "+102",
+          "stake": "1u",
+          "result": "LOST",
+          "units": -1.0,
+          "reasoning": "Philadelphia is a home underdog at +102 on FanDuel, presenting plus-money value with home court. The spread sits at just -1.5 across most books, confirming the market views this as nearly a coin flip. Getting positive money on a home team in a near pick'em is a spot worth targeting in a short playoff series."
+        },
+        {
+          "league": "MLB",
+          "away_team": "Tampa Bay Rays",
+          "home_team": "Boston Red Sox",
+          "pick": "Under 8 (-1.5 total shift)",
+          "odds": "-103",
+          "stake": "1.5u",
+          "result": "PENDING",
+          "units": 0.0,
+          "reasoning": "Multiple books set this total at 7.5 (BetOnline, LowVig, BetUS) with the under at +100 to +103, while others have it at 8. LowVig's Under 7.5 at +103 represents genuine positive-money value on a low-scoring total with strong pitching implied. The split in total lines signals sharp action pushing this number down, and getting plus-odds under at the sharper number is the play."
+        },
+        {
+          "league": "MLB",
+          "away_team": "Colorado Rockies",
+          "home_team": "Philadelphia Phillies",
+          "pick": "Phillies ML",
+          "odds": "-177",
+          "stake": "1u",
+          "result": "LOST",
+          "units": -1.0,
+          "reasoning": "Philadelphia is installed as a -177 to -200 favorite across books, with LowVig offering the best price at -177. The Rockies carry significant road struggles and the Phillies are one of the NL's strongest home teams. BetRivers pricing them at -200 while LowVig sits at -177 shows meaningful line discrepancy worth exploiting for a win bet."
+        },
+        {
+          "league": "MLB",
+          "away_team": "New York Yankees",
+          "home_team": "Milwaukee Brewers",
+          "pick": "Over 7.5",
+          "odds": "+105",
+          "stake": "1u",
+          "result": "LOST",
+          "units": -1.0,
+          "reasoning": "LowVig and BetOnline offer Over 7.5 at +105 and +102 respectively, while most books price it at Even to -105. Getting plus-money on the over in a game with two active offenses is rare value. The Yankees bring one of MLB's top run-scoring lineups on the road, and Milwaukee's offense has been productive at home this season."
+        },
+        {
+          "league": "MLB",
+          "away_team": "Minnesota Twins",
+          "home_team": "Cleveland Guardians",
+          "pick": "Under 8",
+          "odds": "-102",
+          "stake": "1.5u",
+          "result": "LOST",
+          "units": -1.5,
+          "reasoning": "The Under 8 is available at -102 on LowVig, significantly better than the -110 to -120 pricing at FanDuel, BetRivers, and BetUS. Both Cleveland and Minnesota carry strong pitching staffs and this is a classic low-scoring AL Central matchup. Near-even juice on the under in a pitcher-friendly environment makes this one of the best total values on today's board."
+        }
+      ]
+    },
     {
       "iso_date": "2026-05-08",
       "date_display": "May 08, 2026",
