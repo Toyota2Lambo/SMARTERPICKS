@@ -303,12 +303,24 @@
       <div class="filter-row">
         <span class="filter-label">Outcome</span>
         <div class="filter-chips">
-          <button class="filter-chip active" data-filter="result" data-value="all">All</button>
-          <button class="filter-chip" data-filter="result" data-value="WON">Wins</button>
+          <!-- "Wins" is the default outcome filter so first-time visitors
+               land on the winning days. Filters are non-destructive — the
+               losing days are one click away on the "All" / "Losses"
+               chips, and the headline stats above this row stay aggregate
+               (all-time, never filtered) so the trust numbers can't lie. -->
+          <button class="filter-chip" data-filter="result" data-value="all">All</button>
+          <button class="filter-chip active win" data-filter="result" data-value="WON">Wins</button>
           <button class="filter-chip" data-filter="result" data-value="LOST">Losses</button>
           <button class="filter-chip" data-filter="result" data-value="PUSH">Pushes</button>
           <button class="filter-chip" data-filter="result" data-value="PENDING">Pending</button>
         </div>
+      </div>
+      <!-- Default-view disclosure so a casual visitor isn't misled into
+           thinking they're seeing every play when the filter is on. -->
+      <div style="font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--text-dim);padding-left:2px;">
+        Showing <span style="color:var(--win);">winning days</span> by default.
+        Click <strong style="color:var(--text);">All</strong> for every result, or
+        <strong style="color:var(--loss);">Losses</strong> to see what we missed.
       </div>
       <div class="filter-row">
         <span class="filter-label">Range</span>
@@ -369,7 +381,12 @@ const STATE = {
   archive: null,        // raw archive.json
   filters: {
     sport: "all",
-    result: "all",
+    // Default to wins-only so the page leads with positive results.
+    // The trust headlines at the top stay aggregate (all-time) regardless
+    // of this filter, and the chip + the disclosure under the filter row
+    // make the default state visible. Click "All" / "Losses" to see the
+    // honest day list.
+    result: "WON",
     range: "all",
   },
   unit: 100,            // dollars per unit (slider)
@@ -596,7 +613,16 @@ function updateCalculator() {
   out.classList.toggle("flat", Math.abs(dollars) <= 0.5);
   if (label) {
     const verb = dollars > 0.5 ? "up" : dollars < -0.5 ? "down" : "flat";
-    label.textContent = `${verb} · ${picks.length} pick${picks.length === 1 ? "" : "s"} tracked at $${STATE.unit}/unit`;
+    // Surface what's actually being counted. With result=WON the dollar
+    // number above is wins-only and not realizable in real life — the
+    // label has to say so or the calculator becomes a lie.
+    const filterNote =
+      STATE.filters.result === "WON"   ? " (winners only — switch to All for real net)" :
+      STATE.filters.result === "LOST"  ? " (losing picks only)" :
+      STATE.filters.result === "PUSH"  ? " (pushes only)" :
+      STATE.filters.result === "PENDING" ? " (pending picks only)" :
+      ""; // "All" — no caveat needed
+    label.textContent = `${verb} · ${picks.length} pick${picks.length === 1 ? "" : "s"} at $${STATE.unit}/unit${filterNote}`;
   }
 }
 
