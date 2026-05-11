@@ -1,0 +1,108 @@
+{
+  "generated_at": "2026-05-11T02:03:45.302735+00:00",
+  "model": "claude-sonnet-4-6",
+  "carousel_topic": "The Kelly criterion — explained without the math degree",
+  "source": {
+    "picks_date": "May 10, 2026",
+    "results_date": "May 09, 2026",
+    "history_stats": {
+      "total_picks": 423,
+      "wins": 229,
+      "losses": 194,
+      "pushes": 22,
+      "win_pct": 54.1,
+      "net_units": 32.34,
+      "roi_pct": 9.3,
+      "best_month_units": 12.4,
+      "worst_month_units": -3.8,
+      "avg_daily_units": 0.87,
+      "days_recorded": 37
+    }
+  },
+  "content": {
+    "ig_pick_post": {
+      "caption": "76ers ML at +102 is a pricing gap worth noting. Market says near pick'em — you can still get Philly at plus money. 21+ only. Bet responsibly.",
+      "slide1_text": "The market is almost a coin flip.\nSo why is Philly still paying plus money?",
+      "slide2_text": "76ers ML · +102 · FanDuel / DraftKings\n\nKnicks implied at -118 to -125 across books. Spread sits at -1.5. That gap between the ML price and the spread price is where the value lives.",
+      "slide3_text": "Full 7-pick card at smarterpicks.io\nFirst month free · Code FREE30",
+      "hashtags": [
+        "sportsbetting",
+        "nbapicks",
+        "nbaplayoffs",
+        "76ers",
+        "philadelphiasixers",
+        "freepick",
+        "sportspicks",
+        "bettinganalysis",
+        "nba2026",
+        "playoffbetting",
+        "moneyline",
+        "sharpbetting",
+        "smarterpicks",
+        "valuebet",
+        "nbabetting",
+        "dailypicks"
+      ]
+    },
+    "ig_results_post": {
+      "caption": "Yesterday: 0-6, -7.50u. No spin. Bad day across the board. YTD still 229-194 (54.1%), +32.3u. We post every result — good and bad.",
+      "headline_text": "May 10: 0-6 · -7.50u\nYTD: 229-194 · +32.3u",
+      "hashtags": [
+        "sportsbetting",
+        "trackrecord",
+        "sportspicks",
+        "bettinganalysis",
+        "transparency",
+        "nba",
+        "mlb",
+        "dailyresults",
+        "publicrecord",
+        "smarterpicks",
+        "sharpbetting",
+        "nbapicks",
+        "mlbpicks",
+        "bettingtransparency",
+        "resultspost"
+      ]
+    },
+    "ig_carousel_topic": {
+      "topic": "The Kelly criterion — explained without the math degree",
+      "slide1_text": "How much should you actually bet?\nMost bettors guess. Kelly has an answer.",
+      "slide2_text": "The common mistake: flat betting without thinking about edge.\n\nIf you bet the same amount on a 52% edge and a 58% edge, you're leaving money on the table — or risking too much on thin spots.",
+      "slide3_text": "The Kelly criterion sizes your bet based on two things:\nyour estimated edge and the odds on offer.\n\nBigger edge + better odds = larger bet. Thin edge = smaller bet. No edge = no bet.",
+      "slide4_text": "Simple example:\nYou estimate 56% win probability. Odds are -110 (implied 52.4%).\n\nFull Kelly says bet about 6.5% of your bankroll.\nMost sharp bettors use half-Kelly (3.25%) to smooth out variance.\nStill far more than gut-feel sizing.",
+      "slide5_text": "You don't need a formula tattooed on your wrist.\nYou need the concept: bet more when your edge is real, less when it's thin.\n\nSave this. It's the most useful risk framework in betting.",
+      "caption": "Bet sizing matters as much as picking winners. The Kelly criterion in plain English — save this one.",
+      "hashtags": [
+        "sportsbetting",
+        "bettingeducation",
+        "kellycrite",
+        "bankrollmanagement",
+        "bettingstrategy",
+        "sharpbetting",
+        "sportspicks",
+        "expectedvalue",
+        "bettingtips",
+        "nba",
+        "mlb",
+        "smarterpicks",
+        "bettingmath",
+        "riskmgmt",
+        "valuebet",
+        "educationalcontent"
+      ]
+    },
+    "story_sequence": [
+      "Card drops in 30 min. 7 picks across NBA Playoffs and MLB — free pick leads with the 76ers ML at +102. Stay close.",
+      "Poll time: do you fade or follow after a 0-6 day? Be honest. Variance is real but so is the question.",
+      "Last call before first locks. 76ers ML (+102) is the free pick. Full card at smarterpicks.io — code FREE30 gets you in free.",
+      "Tracking live: 76ers game underway. Card update coming tonight. YTD sits at 229-194, +32.3u — one bad day doesn't erase the line.",
+      "Day done. Results post goes up first thing tomorrow — wins and losses, all of it. Check back at 8am. Sleep well."
+    ],
+    "meme_post": {
+      "top_text": "Me after going 0-6 on a Sunday:",
+      "bottom_text": "'The sample size is still 423 bets, I'm fine'",
+      "image_concept": "A person sitting calmly at a laptop surrounded by chaos — papers flying, a lamp knocked over — wearing a serene expression and sipping coffee. The vibe is studied denial, not panic."
+    }
+  }
+}
