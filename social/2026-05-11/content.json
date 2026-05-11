@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-11T02:03:45.302735+00:00",
+  "generated_at": "2026-05-11T02:10:51.088902+00:00",
   "model": "claude-sonnet-4-6",
   "carousel_topic": "The Kelly criterion — explained without the math degree",
   "source": {
@@ -21,88 +21,95 @@
   },
   "content": {
     "ig_pick_post": {
-      "caption": "76ers ML at +102 is a pricing gap worth noting. Market says near pick'em — you can still get Philly at plus money. 21+ only. Bet responsibly.",
-      "slide1_text": "The market is almost a coin flip.\nSo why is Philly still paying plus money?",
-      "slide2_text": "76ers ML · +102 · FanDuel / DraftKings\n\nKnicks implied at -118 to -125 across books. Spread sits at -1.5. That gap between the ML price and the spread price is where the value lives.",
-      "slide3_text": "Full 7-pick card at smarterpicks.io\nFirst month free · Code FREE30",
+      "caption": "76ers ML at +102 — the market is nearly a pick'em, but you can still get Philly at plus money. That's the kind of edge we look for. 21+, bet responsibly.",
+      "slide1_text": "The market says coin flip.\nWe say take the plus money.\n\nFree pick inside.",
+      "slide2_text": "Philadelphia 76ers ML\n+102 · FanDuel / DraftKings\n\nKnicks implied at -118 to -125. Spread is -1.5. You're getting paid to take the side the line says is a near-toss-up.",
+      "slide3_text": "Full 7-pick card at smarterpicks.io\nFirst month free — code FREE30\n21+ · Bet responsibly",
       "hashtags": [
         "sportsbetting",
+        "sportspicks",
         "nbapicks",
         "nbaplayoffs",
         "76ers",
         "philadelphiasixers",
         "freepick",
-        "sportspicks",
         "bettinganalysis",
+        "nbaodds",
+        "moneyline",
+        "bettingtips",
+        "sharpbetting",
+        "sportsbettingpicks",
+        "fantasysports",
         "nba2026",
         "playoffbetting",
-        "moneyline",
-        "sharpbetting",
-        "smarterpicks",
-        "valuebet",
-        "nbabetting",
-        "dailypicks"
+        "valuebets",
+        "smarterpicks"
       ]
     },
     "ig_results_post": {
-      "caption": "Yesterday: 0-6, -7.50u. No spin. Bad day across the board. YTD still 229-194 (54.1%), +32.3u. We post every result — good and bad.",
-      "headline_text": "May 10: 0-6 · -7.50u\nYTD: 229-194 · +32.3u",
+      "caption": "0-6 yesterday. -7.50u. No spin — that's a brutal day and we're posting it. YTD still sits at 229-194, +32.3u. We move forward. 21+, bet responsibly.",
+      "headline_text": "May 10 Results: 0-6 · -7.50u",
       "hashtags": [
         "sportsbetting",
-        "trackrecord",
         "sportspicks",
+        "bettingresults",
+        "publictrackrecord",
         "bettinganalysis",
-        "transparency",
         "nba",
         "mlb",
-        "dailyresults",
-        "publicrecord",
-        "smarterpicks",
         "sharpbetting",
+        "sportsbettingpicks",
+        "bettingtransparency",
+        "accountability",
+        "oddsanalysis",
         "nbapicks",
         "mlbpicks",
-        "bettingtransparency",
-        "resultspost"
+        "bettingtips",
+        "valuebets",
+        "sportsbettingcommunity",
+        "smarterpicks"
       ]
     },
     "ig_carousel_topic": {
       "topic": "The Kelly criterion — explained without the math degree",
-      "slide1_text": "How much should you actually bet?\nMost bettors guess. Kelly has an answer.",
-      "slide2_text": "The common mistake: flat betting without thinking about edge.\n\nIf you bet the same amount on a 52% edge and a 58% edge, you're leaving money on the table — or risking too much on thin spots.",
-      "slide3_text": "The Kelly criterion sizes your bet based on two things:\nyour estimated edge and the odds on offer.\n\nBigger edge + better odds = larger bet. Thin edge = smaller bet. No edge = no bet.",
-      "slide4_text": "Simple example:\nYou estimate 56% win probability. Odds are -110 (implied 52.4%).\n\nFull Kelly says bet about 6.5% of your bankroll.\nMost sharp bettors use half-Kelly (3.25%) to smooth out variance.\nStill far more than gut-feel sizing.",
-      "slide5_text": "You don't need a formula tattooed on your wrist.\nYou need the concept: bet more when your edge is real, less when it's thin.\n\nSave this. It's the most useful risk framework in betting.",
-      "caption": "Bet sizing matters as much as picking winners. The Kelly criterion in plain English — save this one.",
+      "slide1_text": "How much should you actually bet?\n\nMost bettors guess. Kelly gives you a framework.",
+      "slide2_text": "The common mistake:\nbetting the same flat amount on every play regardless of edge or odds.\n\nA 60% edge at -110 is not the same as a 54% edge at +200. Treating them the same costs you money over time.",
+      "slide3_text": "Kelly's insight: bet a percentage of your bankroll proportional to your edge.\n\nBigger edge + better odds = bigger bet.\nSmaller edge = smaller bet.\nNo edge = no bet.\n\nSize follows the math, not the hype.",
+      "slide4_text": "Simple example:\nYou have a 56% win probability on a -110 line.\nFull Kelly says bet about 6% of your bankroll.\n\nMost sharp bettors use Half Kelly (3% here) to reduce variance while keeping the edge working.",
+      "slide5_text": "You don't need a formula tattooed on your arm.\nJust ask: 'Am I betting more when my edge is bigger?'\n\nIf yes, you're already thinking the right way.\nSave this — it's worth revisiting.",
+      "caption": "Bet sizing is where most bankrolls quietly bleed out. The Kelly criterion fixes that. Swipe through — this one's worth saving.",
       "hashtags": [
         "sportsbetting",
-        "bettingeducation",
-        "kellycrite",
         "bankrollmanagement",
         "bettingstrategy",
+        "kellycriteron",
+        "bettingeducation",
         "sharpbetting",
-        "sportspicks",
+        "oddsanalysis",
+        "sportsbettingtips",
         "expectedvalue",
-        "bettingtips",
-        "nba",
-        "mlb",
-        "smarterpicks",
         "bettingmath",
-        "riskmgmt",
-        "valuebet",
-        "educationalcontent"
+        "responsiblegambling",
+        "sportspicks",
+        "bettinganalysis",
+        "valuebets",
+        "sportsbettingcommunity",
+        "learnbetting",
+        "smarterpicks",
+        "bettingmindset"
       ]
     },
     "story_sequence": [
-      "Card drops in 30 min. 7 picks across NBA Playoffs and MLB — free pick leads with the 76ers ML at +102. Stay close.",
-      "Poll time: do you fade or follow after a 0-6 day? Be honest. Variance is real but so is the question.",
-      "Last call before first locks. 76ers ML (+102) is the free pick. Full card at smarterpicks.io — code FREE30 gets you in free.",
-      "Tracking live: 76ers game underway. Card update coming tonight. YTD sits at 229-194, +32.3u — one bad day doesn't erase the line.",
-      "Day done. Results post goes up first thing tomorrow — wins and losses, all of it. Check back at 8am. Sleep well."
+      "Card drops in 30 min. 7 picks across NBA Playoffs and MLB — free pick leads it off. Set a reminder.",
+      "Poll time: which sport do you trust more for value right now — NBA Playoffs or MLB? Reply with your take.",
+      "Last call before first locks. 76ers ML at +102 is the free play today. Full card at smarterpicks.io — code FREE30 gets you the first month on us.",
+      "Tracking today's card live. Check the link in bio for real-time updates as games go final.",
+      "Wrapping up Monday. Full results post in the morning — win or lose, we post it all. See you at 8am."
     ],
     "meme_post": {
-      "top_text": "Me after going 0-6 on a Sunday:",
-      "bottom_text": "'The sample size is still 423 bets, I'm fine'",
-      "image_concept": "A person sitting calmly at a laptop surrounded by chaos — papers flying, a lamp knocked over — wearing a serene expression and sipping coffee. The vibe is studied denial, not panic."
+      "top_text": "Me after going 0-6: 'I just need to trust the process'",
+      "bottom_text": "The process, sweating a -7.50u day in silence",
+      "image_concept": "A man in a suit sitting completely still at a desk, staring blankly at a laptop screen showing a red spreadsheet, with a single motivational poster on the wall behind him that says 'TRUST THE PROCESS'."
     }
   }
 }
