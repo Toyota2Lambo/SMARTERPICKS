@@ -8,14 +8,14 @@
 <!-- SEO -->
 <meta name="description" content="Join 4,100+ sports bettors in the SmarterPicks Discord. Free to join — premium channels with line-move alerts, daily card, and props discussion unlock with your subscription.">
 <meta name="theme-color" content="#0a0a0a">
-<link rel="canonical" href="https://smarterpicks.io/discord">
+<link rel="canonical" href="https://smarterpicks.io/discord.html">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/favicon.svg">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SMARTERPICKS">
-<meta property="og:url" content="https://smarterpicks.io/discord">
+<meta property="og:url" content="https://smarterpicks.io/discord.html">
 <meta property="og:title" content="SMARTERPICKS Discord — The room where the picks happen.">
 <meta property="og:description" content="4,100+ bettors talking lines, sweating live games, and posting receipts in real time. Free to join, premium channels included with subscription.">
 <meta property="og:image" content="https://smarterpicks.io/og-image.svg">
@@ -55,13 +55,8 @@
   .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:16px 32px;max-width:1280px;margin:0 auto;}
   .logo{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);}
   .logo-mark{width:9px;height:9px;background:var(--accent);transform:rotate(45deg);flex-shrink:0;}
-  .nav-back{font-family:var(--mono);font-size:12px;color:var(--text-muted);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:color .2s;padding:8px 12px;border:1px solid transparent;}
+  .nav-back{font-family:var(--mono);font-size:12px;color:var(--text-muted);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:color .2s;}
   .nav-back:hover{color:var(--text);}
-  /* Members-only "Members Area" link in the discord nav — green tint
-     so it visually stands out from the default back link. Hidden by
-     default; auth-chrome.js shows it via [data-auth-show="member"]. */
-  .nav-members-back{color:var(--win,#6dbe7a);border-color:rgba(109,190,122,.4);background:rgba(109,190,122,.08);}
-  .nav-members-back:hover{color:var(--win,#6dbe7a);background:rgba(109,190,122,.15);border-color:rgba(109,190,122,.6);}
 
   /* HERO */
   .hero{padding:120px 0 90px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;text-align:center;}
@@ -193,11 +188,8 @@
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="index" class="logo"><span class="logo-mark"></span>SMARTERPICKS</a>
-    <div style="display:flex;gap:10px;align-items:center;">
-      <a href="index" class="nav-back">← Back to site</a>
-      <a href="members" class="nav-back nav-members-back" data-auth-show="member">Members Area ↗</a>
-    </div>
+    <a href="index.html" class="logo"><span class="logo-mark"></span>SMARTERPICKS</a>
+    <a href="index.html" class="nav-back">← Back to site</a>
   </div>
 </nav>
 
@@ -264,7 +256,7 @@
           <li><span class="chk">✓</span> Brag board — members post wins</li>
           <li><span class="chk">✓</span> Direct line to the analyst on tough plays</li>
         </ul>
-        <a class="tier-btn gold" href="login">Get Premium — $29/mo →</a>
+        <a class="tier-btn gold" href="login.html">Start 7-day free trial →</a>
       </div>
     </div>
   </div>
@@ -415,7 +407,7 @@
         </svg>
         Join Free Discord
       </a>
-      <a class="btn-large ghost" href="login">Get Premium — Discord role auto-assigned →</a>
+      <a class="btn-large ghost" href="login.html">Start 7-day free trial — Discord role auto-assigned →</a>
     </div>
   </div>
 </section>
@@ -426,17 +418,16 @@
     <div class="footer-bottom">
       <div>© 2026 SMARTERPICKS · ALL RIGHTS RESERVED</div>
       <div>
-        <a href="index">Home</a>
-        <a href="login">Login</a>
-        <a href="privacy">Privacy</a>
-        <a href="terms">Terms</a>
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
       </div>
       <div>21+ · BET RESPONSIBLY · 1-800-GAMBLER</div>
     </div>
   </div>
 </footer>
 
-<script src="auth-chrome.js"></script>
 <script>
 // ============================================================
 // Two destinations:
