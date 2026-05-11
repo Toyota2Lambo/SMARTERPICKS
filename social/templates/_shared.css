@@ -12,36 +12,14 @@
    adjust internal layout accordingly.
    ============================================================ */
 
-/* Local font files (renderer.js copies them next to this CSS at
-   render time). Using local files instead of Google Fonts means
-   Puppeteer doesn't have to fetch from the network during render
-   — faster, deterministic, and works in CI without internet jitter. */
-@font-face {
-  font-family: 'Fraunces';
-  src: local('Fraunces'), url('https://fonts.gstatic.com/s/fraunces/v37/6NUi8FxOZUDM4_qOdYxWMXLxXg.woff2') format('woff2');
-  font-weight: 300 900;
-  font-style: normal;
-  font-display: block;
-}
-@font-face {
-  font-family: 'Fraunces';
-  src: local('Fraunces Italic'), url('https://fonts.gstatic.com/s/fraunces/v37/6NUi8FxOZUDM4_qOdYxYMXLxXg.woff2') format('woff2');
-  font-weight: 300 900;
-  font-style: italic;
-  font-display: block;
-}
-@font-face {
-  font-family: 'Inter Tight';
-  src: local('Inter Tight'), url('https://fonts.gstatic.com/s/intertight/v11/NGSyv5fCK0NPTMRmOMOGsbwBHscZ--g.woff2') format('woff2');
-  font-weight: 300 700;
-  font-display: block;
-}
-@font-face {
-  font-family: 'JetBrains Mono';
-  src: local('JetBrains Mono'), url('https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4xD-IQ-PuZJJXxfpAO-Lf1OQk6OThxPA.woff2') format('woff2');
-  font-weight: 400 700;
-  font-display: block;
-}
+/* Fonts via Google Fonts CSS API.
+   The previous setup hardcoded specific hashed .woff2 URLs which Google
+   periodically rotates, so renders silently fell back to Times New Roman
+   and Courier New (the "tacky font" bug). The CSS-API endpoint always
+   returns the currently-valid URLs, so this stays evergreen.
+   font-display:block tells Puppeteer to wait (matches document.fonts.ready
+   in renderer.js) instead of painting with a fallback face. */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter+Tight:wght@300..700&family=JetBrains+Mono:wght@400..700&display=block');
 
 :root {
   /* Color tokens — copied 1:1 from index.html so a slide on Instagram
