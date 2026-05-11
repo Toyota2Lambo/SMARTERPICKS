@@ -54,6 +54,69 @@ function esc(s) {
     .replace(/'/g,  "&#039;");
 }
 
+/** Map league string to a sport emoji. Mirrors picks-loader.js's
+ *  sportIcon() so the IG slide matches the site exactly. */
+function sportIcon(league) {
+  const s = String(league || "").toLowerCase();
+  if (s.includes("nba") || s.includes("basketball")) return "🏀";
+  if (s.includes("mlb") || s.includes("baseball"))   return "⚾";
+  if (s.includes("nhl") || s.includes("hockey"))     return "🏒";
+  if (s.includes("nfl") || s.includes("football"))   return "🏈";
+  if (s.includes("ufc") || s.includes("mma"))        return "🥊";
+  if (s.includes("soccer") || s.includes("epl"))     return "⚽";
+  if (s.includes("tennis"))                          return "🎾";
+  if (s.includes("golf") || s.includes("pga"))       return "⛳";
+  return "•";
+}
+
+/** Pull "Confidence A/B/C±" out of the tags array and return a meter
+ *  decimal (0..1), the label, and the CSS class. Same logic as
+ *  picks-loader.js's confidenceInfo() so site and IG stay aligned. */
+function confidenceInfo(tags) {
+  const found = (tags || []).find(t => /confidence/i.test(t));
+  if (!found) return { letter: "B", label: "B", pct: 0.75 };
+  const m = found.match(/confidence\s*([abc])\s*([+-])?/i);
+  if (!m) return { letter: "B", label: "B", pct: 0.75 };
+  const letter = m[1].toUpperCase();
+  const mod = m[2] || "";
+  const baseline = { A: 92, B: 75, C: 50 }[letter] || 75;
+  const adj = mod === "+" ? 8 : mod === "-" ? -8 : 0;
+  const pct = Math.max(20, Math.min(100, baseline + adj)) / 100;
+  return { letter, label: `${letter}${mod}`, pct };
+}
+
+/** Build the placeholder set for site-pick-card.html from a pick object
+ *  loaded from picks.json. Returns ONLY plain text — except tags_html,
+ *  which we render here because the template renderer doesn't allow
+ *  HTML through {{placeholders}} (it escapes them for safety). */
+function livePickFields(p) {
+  const conf = confidenceInfo(p.tags);
+  // Tags minus the Confidence one (it's rendered as the meter)
+  const visibleTags = (p.tags || []).filter(t => !/confidence/i.test(t));
+  const tagsHtml = visibleTags
+    .map(t => `<span class="pick-tag">${esc(t)}</span>`)
+    .join("");
+
+  return {
+    sport_icon:  sportIcon(p.league),
+    league:      p.league      || "",
+    time:        p.time        || "",
+    away_team:   p.away_team   || "",
+    home_team:   p.home_team   || "",
+    game_detail: p.game_detail || "",
+    conf_pct:    String(conf.pct),
+    conf_letter: conf.label,
+    pick:        p.pick        || "",
+    odds:        p.odds        || "",
+    book:        p.book        || "",
+    stake:       p.stake       || "",
+    reasoning:   p.reasoning   || "",
+    // tags_html is pre-rendered HTML. The renderer's substitute() routine
+    // recognizes the _html suffix and skips escaping for those keys.
+    tags_html:   tagsHtml,
+  };
+}
+
 /** Drop any text that isn't safe to put inside a CSS data attribute
  *  (used for things like data-direction). */
 function attr(s) {
@@ -88,26 +151,71 @@ function buildManifest(payload) {
   const renders = [];
 
   // 1) Daily pick post — 3-slide carousel (feed)
+  // Slide 1: editorial hook (daily-pick-card.html)
+  // Slide 2: faithful copy of the live site pick card (site-pick-card.html)
+  //          falls back to the hook template if today_free_pick is missing
+  // Slide 3: CTA / "see the full card" (daily-pick-card.html)
   if (c.ig_pick_post) {
-    const slides = [
-      { label: "Today's Free Pick", text: c.ig_pick_post.slide1_text },
-      { label: "The Play",          text: c.ig_pick_post.slide2_text },
-      { label: "The Full Card",     text: c.ig_pick_post.slide3_text },
-    ];
-    slides.forEach((s, i) => renders.push({
+    const livePick = (payload.source && payload.source.today_free_pick) || null;
+
+    const slideOne = {
       template: "daily-pick-card.html",
-      output:   `pick-post-${i + 1}.png`,
+      output:   "pick-post-1.png",
       group:    "ig_pick_post",
-      slide_index: i + 1,
+      slide_index: 1,
       size:     FEED_SIZE,
       content:  {
         size:        "feed",
-        slide_label: s.label,
-        slide_text:  s.text,
-        slide_index: i + 1,
-        slide_total: slides.length,
+        slide_label: "Today's Free Pick",
+        slide_text:  c.ig_pick_post.slide1_text,
+        slide_index: 1,
+        slide_total: 3,
       },
-    }));
+    };
+
+    const slideTwo = livePick
+      ? {
+          template: "site-pick-card.html",
+          output:   "pick-post-2.png",
+          group:    "ig_pick_post",
+          slide_index: 2,
+          size:     FEED_SIZE,
+          content:  Object.assign(
+            { size: "feed", slide_index: 2, slide_total: 3 },
+            livePickFields(livePick)
+          ),
+        }
+      : {
+          template: "daily-pick-card.html",
+          output:   "pick-post-2.png",
+          group:    "ig_pick_post",
+          slide_index: 2,
+          size:     FEED_SIZE,
+          content:  {
+            size:        "feed",
+            slide_label: "The Play",
+            slide_text:  c.ig_pick_post.slide2_text,
+            slide_index: 2,
+            slide_total: 3,
+          },
+        };
+
+    const slideThree = {
+      template: "daily-pick-card.html",
+      output:   "pick-post-3.png",
+      group:    "ig_pick_post",
+      slide_index: 3,
+      size:     FEED_SIZE,
+      content:  {
+        size:        "feed",
+        slide_label: "The Full Card",
+        slide_text:  c.ig_pick_post.slide3_text,
+        slide_index: 3,
+        slide_total: 3,
+      },
+    };
+
+    renders.push(slideOne, slideTwo, slideThree);
   }
 
   // 2) Yesterday's results — 1 image (feed)
