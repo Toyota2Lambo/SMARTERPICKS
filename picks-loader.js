@@ -26,11 +26,31 @@ let isMember = false;
 
 // ── ENTRY POINT ────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", async () => {
+  wireCheckoutLinks();
   await checkMembership();
   await loadPicks();
   updateNavState();
   applyPremiumGating();
 });
+
+// Reads window.WHOP_CONFIG and writes per-plan checkout URLs onto every
+// element tagged [data-checkout="monthly|annual|free"]. The HTML has
+// the current URLs hardcoded as a no-JS fallback, but this overrides
+// them at runtime so a plan-ID change in whop-config.js cascades to
+// every checkout button on the page without grepping. Safe no-op if
+// whop-config.js isn't loaded or the element wasn't tagged.
+function wireCheckoutLinks() {
+  const cfg = window.WHOP_CONFIG || {};
+  const map = {
+    monthly: cfg.CHECKOUT_URL_MONTHLY,
+    annual:  cfg.CHECKOUT_URL_ANNUAL,
+    free:    "login", // free tier: send through OAuth, no Whop checkout
+  };
+  document.querySelectorAll("[data-checkout]").forEach(el => {
+    const target = map[el.dataset.checkout];
+    if (target) el.href = target;
+  });
+}
 
 // ── TOKEN REFRESH ──────────────────────────────────────────
 async function tryRefreshToken() {
