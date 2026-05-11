@@ -74,39 +74,42 @@ CAROUSEL_TOPICS = [
 
 
 # ── OUTPUT SCHEMA (Pydantic) ──────────────────────────────
+# IMPORTANT: keep these descriptions free of em dashes and arrows. Claude
+# reads the schema and treats the descriptions as voice examples; if they
+# contain "—" it will sprinkle them everywhere in its output.
 class IGPickPost(BaseModel):
     """3-slide carousel announcing today's free pick."""
-    caption: str          = Field(description="Instagram caption, 80-220 chars, no hashtags here")
-    slide1_text: str      = Field(description="Slide 1 — the headline / hook for today's free pick. Short, punchy, fits a card.")
-    slide2_text: str      = Field(description="Slide 2 — the actual pick + odds + why. Tight 2-3 lines.")
-    slide3_text: str      = Field(description="Slide 3 — CTA line, e.g. 'Full card unlocked at smarterpicks.io · Code FREE30'.")
+    caption: str          = Field(description="Instagram caption, 80 to 220 chars, no hashtags here.")
+    slide1_text: str      = Field(description="Slide 1, the headline or hook for today's free pick. Short, punchy, fits a card.")
+    slide2_text: str      = Field(description="Slide 2, the actual pick plus odds plus brief why. Tight, 2 to 3 lines.")
+    slide3_text: str      = Field(description="Slide 3, CTA line, e.g. 'Full card unlocked at smarterpicks.io. Code FREE30.'")
     hashtags: List[str]   = Field(min_length=8, max_length=18, description="Mix of broad (#sportsbetting) and specific (#nbapicks). No leading #.")
 
 
 class IGResultsPost(BaseModel):
     """Single-image post recapping yesterday's slate."""
-    caption: str          = Field(description="80-180 char caption acknowledging both wins and losses.")
-    headline_text: str    = Field(description="Big-text overlay for the image. e.g. 'Yesterday: 5-2 · +3.7u'.")
+    caption: str          = Field(description="80 to 180 char caption acknowledging both wins and losses.")
+    headline_text: str    = Field(description="Big-text overlay for the image. Example: 'Yesterday: 5-2, +3.7u'.")
     hashtags: List[str]   = Field(min_length=8, max_length=18)
 
 
 class IGCarouselTopic(BaseModel):
     """5-slide educational carousel on a rotating topic."""
     topic: str            = Field(description="The chosen educational topic (echoed back from the prompt).")
-    slide1_text: str      = Field(description="Slide 1 — title slide. Single bold question or claim.")
-    slide2_text: str      = Field(description="Slide 2 — set up the misconception or starting point.")
-    slide3_text: str      = Field(description="Slide 3 — the key insight or correction.")
-    slide4_text: str      = Field(description="Slide 4 — concrete example or worked number.")
-    slide5_text: str      = Field(description="Slide 5 — payoff + soft CTA.")
-    caption: str          = Field(description="120-260 char caption summarizing the carousel and inviting saves/shares.")
+    slide1_text: str      = Field(description="Slide 1, title slide. Single bold question or claim.")
+    slide2_text: str      = Field(description="Slide 2, set up the misconception or starting point.")
+    slide3_text: str      = Field(description="Slide 3, the key insight or correction.")
+    slide4_text: str      = Field(description="Slide 4, concrete example or worked number.")
+    slide5_text: str      = Field(description="Slide 5, payoff plus soft CTA.")
+    caption: str          = Field(description="120 to 260 char caption summarizing the carousel and inviting saves or shares.")
     hashtags: List[str]   = Field(min_length=8, max_length=18)
 
 
 class MemePost(BaseModel):
     """Meme-style image post for personality / community."""
-    top_text: str         = Field(description="Top caption — set up the joke, max 90 chars.")
-    bottom_text: str      = Field(description="Bottom caption — punchline, max 90 chars.")
-    image_concept: str    = Field(description="One-sentence description of the visual concept (used in alt text + Discord notification).")
+    top_text: str         = Field(description="Top caption, set up the joke, max 90 chars.")
+    bottom_text: str      = Field(description="Bottom caption, punchline, max 90 chars.")
+    image_concept: str    = Field(description="One-sentence description of the visual concept (used in alt text and Discord notification).")
 
 
 class DailyContent(BaseModel):
@@ -116,6 +119,56 @@ class DailyContent(BaseModel):
     ig_carousel_topic: IGCarouselTopic
     story_sequence: List[str] = Field(min_length=5, max_length=5, description="Five short story texts: morning teaser, midday poll, pre-lock reminder, live tracker, night recap.")
     meme_post: MemePost
+
+
+# ── POST-PROCESSING SCRUB ─────────────────────────────────
+# Hard backstop: walks the generated content and strips characters Claude
+# was told not to use. The prompt is the primary defense; this catches
+# anything that slipped through regardless. Touches every string in
+# the nested dict (captions, slides, hashtags) and leaves non-strings alone.
+_PUNCT_REPLACEMENTS = [
+    # Em dashes → comma (most natural in our voice)
+    (" — ", ", "),
+    (" —", ","),
+    ("— ", ", "),
+    ("—", "-"),
+    # En dashes outside of numeric contexts
+    (" – ", ", "),
+    ("–", "-"),
+    # Arrows
+    (" → ", " to "),
+    (" ← ", " from "),
+    ("→", " to "),
+    ("←", " from "),
+    ("↑", "up"),
+    ("↓", "down"),
+    ("⇒", " to "),
+    ("⟶", " to "),
+    # Smart quotes
+    ("‘", "'"),
+    ("’", "'"),
+    ("“", '"'),
+    ("”", '"'),
+    # Ellipsis character
+    ("…", "..."),
+]
+
+def strip_ai_punct(obj):
+    """Recursively scrub banned punctuation from every string in a structure."""
+    if isinstance(obj, str):
+        s = obj
+        for old, new in _PUNCT_REPLACEMENTS:
+            s = s.replace(old, new)
+        # Collapse any accidental double spaces / double commas the replacements may have created
+        while "  " in s:
+            s = s.replace("  ", " ")
+        s = s.replace(", ,", ",").replace(",,", ",")
+        return s.strip()
+    if isinstance(obj, dict):
+        return {k: strip_ai_punct(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [strip_ai_punct(v) for v in obj]
+    return obj
 
 
 # ── DATA LOADING ──────────────────────────────────────────
@@ -188,30 +241,58 @@ def history_headline(history_data: dict) -> str:
 
 
 # ── PROMPTS ───────────────────────────────────────────────
-SYSTEM_PROMPT = """You write the Instagram content for SmarterPicks — a daily AI-powered sports-betting analysis service. You speak in the brand's voice across every post we publish.
+SYSTEM_PROMPT = """You write the Instagram content for SmarterPicks, a daily AI-powered sports-betting analysis service. You speak in the brand's voice across every post we publish.
 
-VOICE — non-negotiable:
+VOICE (non-negotiable):
 - Confident but humble. Direct. Clean. Evidence-driven.
 - Never hype. Never "lock of the year". Never "easy money". Never "guaranteed".
-- Acknowledge variance and losing days openly. We post the losses publicly — your captions reflect that honesty.
-- We are an analysis service, not a sportsbook and not financial advice. The site says this; your captions should match that posture.
-- Tone is like a sharp friend explaining a play, not a Twitter degen yelling. No emoji-spam. One emoji per caption max — usually none.
+- Acknowledge variance and losing days openly. We post the losses publicly, and your captions reflect that honesty.
+- We are an analysis service, not a sportsbook and not financial advice. The site says this, your captions match that posture.
+- Tone is like a sharp friend explaining a play, not a Twitter degen yelling. No emoji-spam. One emoji per caption max, usually none.
 - Plain English. If you'd say "expected value" out loud, write "expected value", not "+EV".
+
+PUNCTUATION (hard rules, do not break these):
+- NEVER use em dashes. The character "—" is banned. Use a comma, period, or parentheses instead.
+- NEVER use en dashes ("–") except inside numeric ranges that are already conventional like "53-58%". Default: use a hyphen "-" if you need a dash.
+- NEVER use arrows of any kind: →, ←, ↑, ↓, ⇒, ⟶. Write the word: "to", "from", "up", "down", "leads to".
+- NEVER use smart quotes (curly quotes). Use plain ' and ".
+- NEVER use the ellipsis character "…". Write three dots: "...".
+
+PHRASES TO AVOID (these are AI tells, never write them):
+- "Here's the case" / "Here's the deal" / "Here's the thing"
+- "Let's dive in" / "Let's break it down" / "Let's unpack"
+- "It's worth noting" / "Worth mentioning"
+- "When it comes to..."
+- "The key takeaway is..."
+- "In this guide" / "In this post" / "In this carousel"
+- "Save this one" / "Save for reference" / "Bookmark this" / "Pin this"
+- "Plain English version" / "Explained without the math degree" / "The simple version"
+- "You don't need X, you need Y" parallel structures
+- "Bigger X, bigger Y. Smaller X, smaller Y" balanced parallels
+- Closing summary lines that wrap up what you just said
+- Anything that sounds like a LinkedIn carousel or a Medium post intro
+
+SENTENCE STRUCTURE:
+- Vary length aggressively. Mix 5-word sentences with 15-word sentences.
+- Don't open every paragraph with the same connector word.
+- Drop the wrap-up sentence at the end. End on a strong specific line and stop.
+- Skip the rhetorical question opener ("Ever wonder why...?"). Just state the thing.
+- If you want emphasis, use a short sentence, not a dash break.
 
 WHAT WE STAND FOR:
 - Public track record. We post wins AND losses every morning.
-- Realistic win rates (53-58% is the honest target — anyone claiming 80% is selling something).
-- Subscription is $29/month or $199/year through Whop. New members can use code FREE30 for the first month free.
-- 21+ only. Bet responsibly. We always include a soft responsible-gambling note when we mention real money.
+- Realistic win rates (53 to 58 percent is the honest target, anyone claiming 80 percent is selling something).
+- Subscription is $29.99 a month or $199 a year through Whop. New members can use code FREE30 for the first month free.
+- 21 plus only. Bet responsibly. We include a soft responsible-gambling note when we mention real money.
 
 CONTENT FORMAT RULES:
-- Captions are 80-260 characters depending on the post type. Tighter is better.
+- Captions are 80 to 260 characters depending on the post type. Tighter is better.
 - Hashtags go in the dedicated hashtags array (NEVER in the caption text). Mix broad (#sportsbetting, #sportspicks) with specific (#nbapicks, #mlbpicks).
-- Slide texts are tight — they're rendered onto an image card, so 1-3 short lines each. Lead with the punchy line.
-- Story texts are even tighter — 1-2 lines each, conversational.
-- For meme posts, set up + punchline. Self-deprecating bettor humor only — never punching down at users.
+- Slide texts are tight. They get rendered onto an image card, so 1 to 3 short lines each. Lead with the punchy line.
+- Story texts are even tighter, 1 to 2 lines each, conversational.
+- For meme posts: set up, then punchline. Self-deprecating bettor humor only, never punching down at users.
 
-You will be given today's picks, yesterday's result, and the cumulative track record. Use those numbers — be specific, not vague."""
+You will be given today's picks, yesterday's result, and the cumulative track record. Use those numbers and be specific, not vague."""
 
 
 def build_user_prompt(picks_data, results_data, history_data, carousel_topic) -> str:
@@ -295,16 +376,30 @@ def main() -> int:
     today_dir.mkdir(parents=True, exist_ok=True)
     out_path = today_dir / "content.json"
 
+    # Pull today's free pick out of picks.json so the renderer can paint
+    # slide 2 of the carousel as a faithful copy of the live site card
+    # (sport icon, league chip, "The Play" block, reasoning, tags). We
+    # grab the first pick where is_premium is falsy.
+    today_free_pick = None
+    for p in (picks_data.get("picks") or []):
+        if not p.get("is_premium", True):
+            today_free_pick = p
+            break
+
     payload = {
         "generated_at":      datetime.now(timezone.utc).isoformat(),
         "model":             MODEL_ID,
         "carousel_topic":    carousel_topic,
         "source": {
-            "picks_date":     picks_data.get("date"),
-            "results_date":   results_data.get("date"),
-            "history_stats":  (history_data or {}).get("stats") or {},
+            "picks_date":      picks_data.get("date"),
+            "results_date":    results_data.get("date"),
+            "history_stats":   (history_data or {}).get("stats") or {},
+            "today_free_pick": today_free_pick,
+            "results_picks":   results_data.get("picks") or [],
         },
-        "content": content.model_dump(),
+        # Scrub em dashes, arrows, smart quotes etc. one last time before
+        # this content gets baked into image renders or IG captions.
+        "content": strip_ai_punct(content.model_dump()),
     }
     with open(out_path, "w") as f:
         json.dump(payload, f, indent=2, ensure_ascii=False)
