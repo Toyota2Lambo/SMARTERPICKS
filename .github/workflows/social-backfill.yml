@@ -103,4 +103,5 @@ jobs:
 
       - name: Note dry-run
         if: steps.slot.outputs.EMPTY != '1' && inputs.dry_run == 'true'
-        run: echo "✓ Dry-run: rendered + committed ${{ steps.slot.outputs.SLOT_ID }} but skipped IG publish."
+        run: |
+          echo "✓ Dry-run: rendered + committed ${{ steps.slot.outputs.SLOT_ID }} but skipped IG publish."
