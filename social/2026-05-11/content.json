@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-11T02:21:41.698574+00:00",
+  "generated_at": "2026-05-11T02:28:19.081416+00:00",
   "model": "claude-sonnet-4-6",
   "carousel_topic": "The Kelly criterion — explained without the math degree",
   "source": {
@@ -21,33 +21,33 @@
   },
   "content": {
     "ig_pick_post": {
-      "caption": "76ers ML at +102 — the market says near pick'em on the spread, but you can still get Philly at plus money. That's a line worth noting. 21+, bet responsibly.",
-      "slide1_text": "The market is almost even.\nSo why are you paying juice on the Knicks?",
-      "slide2_text": "Philadelphia 76ers ML\n+102 · FanDuel / DraftKings\nKnicks implied at -118 to -125 — that gap is the play.",
-      "slide3_text": "Full card (7 plays) at smarterpicks.io\nNew members: code FREE30 — first month on us.",
+      "caption": "Sixers ML at plus money when the spread is nearly a pick'em. That's a pricing gap worth noting. 21+ only, bet responsibly.",
+      "slide1_text": "The market is almost even.\nSo why are the Sixers still paying you to bet them?",
+      "slide2_text": "Philadelphia 76ers ML · +102\nKnicks are -118 to -125 implied. Spread sits at -1.5.\nGetting plus money on a near coin-flip is the edge.",
+      "slide3_text": "Full card — 6 more plays — at smarterpicks.io\nFirst month free with code FREE30",
       "hashtags": [
         "sportsbetting",
         "sportspicks",
         "nbapicks",
         "nbaplayoffs",
-        "philadelphiasixers",
         "76ers",
-        "knicks",
-        "moneyline",
-        "bettinganalysis",
+        "philadelphiasixers",
         "freepick",
-        "smarterpicks",
-        "nba2026",
-        "playoffbetting",
+        "bettinganalysis",
+        "nbaodds",
+        "bestbets",
+        "handicapping",
+        "valuebet",
+        "moneyline",
+        "playoffbasketball",
+        "sportsbettingtips",
         "sharpbetting",
-        "valuebetting",
-        "basketballbets",
-        "fanduel",
-        "draftkings"
+        "dailypicks",
+        "bettingcommunity"
       ]
     },
     "ig_results_post": {
-      "caption": "Yesterday: 0-6, -7.50u. Every play missed. We post the losses the same way we post the wins — that's the whole point. Back today with 7 plays.",
+      "caption": "0-6 yesterday. -7.50u. No spin — that's a rough one. YTD still sits at 229-194, +32.3u. We post the losses the same as the wins.",
       "headline_text": "May 10 · 0-6 · -7.50u",
       "hashtags": [
         "sportsbetting",
@@ -55,61 +55,59 @@
         "bettingresults",
         "trackrecord",
         "publicrecord",
+        "bettinganalysis",
         "nbapicks",
         "mlbpicks",
-        "bettinganalysis",
-        "transparentbetting",
-        "smarterpicks",
-        "sportsanalysis",
+        "handicapping",
+        "accountability",
+        "sportsodds",
+        "dailybets",
         "bettingcommunity",
-        "honesthandicapping",
-        "nbaplayoffs",
-        "mlb2026",
-        "valuebetting",
         "sharpbetting",
-        "betresponsibly"
+        "sportsbettingtips",
+        "lossesbelong",
+        "honesthandicapping",
+        "bestbets"
       ]
     },
     "ig_carousel_topic": {
       "topic": "The Kelly criterion — explained without the math degree",
       "slide1_text": "How much should you actually bet?\nMost bettors guess. Kelly gives you a framework.",
-      "slide2_text": "The common mistake: flat-betting every play the same amount regardless of edge.\nBut not every edge is equal — so why treat them that way?",
-      "slide3_text": "Kelly says: bet a fraction of your bankroll proportional to your edge.\nBigger edge = bigger bet. Smaller edge = smaller bet. No edge = no bet.",
-      "slide4_text": "Example: You have a 55% win probability on a -110 line (break-even is 52.4%).\nFull Kelly suggests ~4.5% of bankroll. Most sharps use Half Kelly (2.25%) to reduce variance.\nOn a $1,000 roll: that's a $22.50 play — not $100.",
-      "slide5_text": "You don't need the formula memorized.\nYou need the idea: size your bets to match your confidence, not your emotions.\nSave this and revisit it every time you're tempted to chase.",
-      "caption": "Bet sizing is where most bankrolls actually break. The Kelly criterion in plain English — save this one.",
+      "slide2_text": "The common mistake: flat-betting everything the same size regardless of edge.\nA 52% win-rate play and a 58% win-rate play are not the same bet — sizing them identically throws away value and inflates risk.",
+      "slide3_text": "Kelly's core idea: bet a fraction of your bankroll proportional to your edge.\nBigger edge = bigger bet. No edge = no bet.\nIt's not about being bold — it's about being calibrated.",
+      "slide4_text": "Simple version: edge ÷ odds.\nIf you estimate 57% win probability on a -110 line (implied 52.4%), your edge is ~4.6%.\nFull Kelly says bet about 4.6% of bankroll. Most sharps use half-Kelly (2.3%) to smooth variance.",
+      "slide5_text": "You don't need the formula memorized.\nYou need the mindset: size reflects confidence, not emotion.\nSave this if you're still betting the same unit on every play regardless of edge.",
+      "caption": "Kelly criterion in plain English — why your bet sizing matters as much as your pick. Save this one.",
       "hashtags": [
         "sportsbetting",
         "bettingeducation",
-        "kellycriteria",
+        "kellycrite",
         "bankrollmanagement",
         "bettingstrategy",
-        "sharpbetting",
         "expectedvalue",
-        "sportspicks",
-        "bettingmath",
-        "sportsanalysis",
-        "smarterpicks",
-        "bettingcommunity",
-        "valuebetting",
+        "sharpbetting",
         "handicapping",
-        "bettingtips",
-        "responsiblegambling",
-        "nba",
-        "mlb"
+        "sportsbettingtips",
+        "bettingmath",
+        "unitsbetting",
+        "bettingcommunity",
+        "sportspicks",
+        "valuebetting",
+        "bettingadvice",
+        "oddsanalysis"
       ]
     },
     "story_sequence": [
-      "Monday card drops in 30 min — 7 plays across NBA Playoffs and MLB. Free pick is live on the feed.",
-      "Quick poll: do you size your bets differently based on edge, or flat-bet everything? No wrong answer — genuinely curious.",
-      "Last call before first locks. 76ers ML +102 is the free play. Full card at smarterpicks.io — code FREE30 if you're not in yet.",
-      "Checking in: 76ers game underway. Tracking all 7 plays live. Updates in the morning as always — wins and losses both.",
-      "Rough one yesterday (0-6, -7.50u) — no sugarcoating it. YTD still sitting at 54.1% and +32.3u over 37 days. Tomorrow we recap today's slate honestly."
+      "Card drops in 30 min. Free NBA Playoffs pick today — and it's at plus money. Stay tuned.",
+      "Poll: Do you size your bets differently based on your edge, or flat-bet everything? (Swipe to vote — no wrong answer, genuinely curious.)",
+      "Last call. Games lock soon. Sixers ML +102 is the free play — full breakdown in the feed post. Full card at smarterpicks.io, code FREE30.",
+      "NBA update coming. Tracking the Sixers game live. Card currently 0-0 on the day — let's see how tonight goes.",
+      "That's a wrap on Monday. Full results posted tomorrow morning — wins, losses, all of it. YTD sits at 229-194, +32.3u. See you at 8am."
     ],
     "meme_post": {
-      "top_text": "Me after going 0-6: 'variance is a natural part of any long-term strategy'",
-      "bottom_text": "Me placing the exact same bet again the next day:",
-      "image_concept": "Distracted boyfriend meme — boyfriend labeled 'me' looking at a new bet slip, girlfriend labeled 'my own advice about bankroll management' being ignored."
+      "top_text": "Me on Friday: 'I have a disciplined bankroll management system'",
+      "bottom_text": "Me after going 0-6 on Saturday: 'I have a system'",
+      "image_concept": "Drake-style reaction meme: top panel shows a confident person pointing at a neat spreadsheet labeled 'bankroll plan'; bottom panel shows the same person staring blankly at a calculator displaying a very small number."
     }
   }
 }
