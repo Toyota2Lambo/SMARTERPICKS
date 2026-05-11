@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-11T16:10:53.086791+00:00",
+  "generated_at": "2026-05-11T18:43:24.063472+00:00",
   "model": "claude-sonnet-4-6",
   "carousel_topic": "The Kelly criterion — explained without the math degree",
   "source": {
@@ -17,14 +17,174 @@
       "worst_month_units": -3.8,
       "avg_daily_units": 0.85,
       "days_recorded": 38
-    }
+    },
+    "today_free_pick": {
+      "league": "MLB",
+      "time": "6:11 PM ET",
+      "away_team": "Los Angeles Angels",
+      "home_team": "Cleveland Guardians",
+      "game_detail": "Regular Season",
+      "pick": "Guardians -1.5",
+      "odds": "+140",
+      "book": "BetRivers",
+      "stake": "1.5u",
+      "reasoning": "BetRivers is offering +140 on the Guardians -1.5 run line versus a median of +126 across the market — a massive 258 bps of edge, the highest spread edge on the entire slate. Joey Cantillo gets the ball for Cleveland against a struggling Angels offense, and the Guardians are favored at -164 to -175 on the moneyline, implying a high win probability that makes the run line a strong value at plus-money. Getting a team this heavily favored at +140 to cover -1.5 represents a genuine pricing inefficiency.",
+      "tags": [
+        "Line Value",
+        "Pitching Matchup",
+        "Confidence B+"
+      ],
+      "is_premium": false
+    },
+    "results_picks": [
+      {
+        "league": "NBA · Playoffs",
+        "time": "3:40 PM ET",
+        "away_team": "New York Knicks",
+        "home_team": "Philadelphia 76ers",
+        "game_detail": "NBA Playoffs",
+        "pick": "Philadelphia 76ers ML",
+        "odds": "+102",
+        "book": "FanDuel",
+        "stake": "1.5u",
+        "reasoning": "The market is nearly a pick'em on the spread at -1.5, yet you can still get the 76ers at plus money (+102) on the moneyline at FanDuel and DraftKings. Implied probability on the Knicks ML ranges from -118 to -125 across books, suggesting the true line is closer to a coin flip — making Philly ML positive expected value at home. Buying the outright win at +102 rather than laying -110 on the spread offers better risk-adjusted value.",
+        "tags": [
+          "Value ML",
+          "Home Dog",
+          "Confidence B"
+        ],
+        "is_premium": false,
+        "result": "LOST",
+        "units": -1.5
+      },
+      {
+        "league": "NBA · Playoffs",
+        "time": "7:40 PM ET",
+        "away_team": "San Antonio Spurs",
+        "home_team": "Minnesota Timberwolves",
+        "game_detail": "NBA Playoffs",
+        "pick": "Minnesota Timberwolves +4.5",
+        "odds": "100",
+        "book": "LowVig.ag",
+        "stake": "1.5u",
+        "reasoning": "LowVig offers the Wolves +4.5 at even money, the best spread price available versus -105 to -114 elsewhere. The Spurs are heavy ML favorites (-185 to -200), but the spread consensus sits at 4.5 with Bovada and MyBookie pushing to 5.0 — suggesting line pressure may move this further. Getting a full point of cushion at plus money on a home underdog is sharp value.",
+        "tags": [
+          "Best Line",
+          "Spread Value",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 1.5
+      },
+      {
+        "league": "MLB",
+        "time": "1:41 PM ET",
+        "away_team": "Minnesota Twins",
+        "home_team": "Cleveland Guardians",
+        "game_detail": "Regular Season",
+        "pick": "Under 7.5",
+        "odds": "-118",
+        "book": "LowVig.ag",
+        "stake": "1u",
+        "reasoning": "The total is set at a low 7.5 across nearly every book, signaling sharp expectation of a low-scoring game. The under is consistently juiced (-118 to -125) while the over is offered at even money or better, indicating public over money being faded. LowVig offers the best price on the under at -118, and a sub-8 total in this pitching-friendly matchup supports the lean.",
+        "tags": [
+          "Total",
+          "Pitcher's Duel",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 0.85
+      },
+      {
+        "league": "MLB",
+        "time": "2:11 PM ET",
+        "away_team": "Seattle Mariners",
+        "home_team": "Chicago White Sox",
+        "game_detail": "Regular Season",
+        "pick": "Seattle Mariners ML",
+        "odds": "-126",
+        "book": "BetUS",
+        "stake": "1.5u",
+        "reasoning": "Seattle is a road favorite ranging from -126 to -136 across books, with BetUS offering the best price at -126. The White Sox are one of baseball's worst teams, and the Mariners' pitching staff profile fits a short road favorite spot well. The consistent line across all nine books with no outlier suggests sharp agreement on Seattle's edge here.",
+        "tags": [
+          "Road Favorite",
+          "Best Price",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "LOST",
+        "units": -1.5
+      },
+      {
+        "league": "MLB",
+        "time": "2:36 PM ET",
+        "away_team": "Chicago Cubs",
+        "home_team": "Texas Rangers",
+        "game_detail": "Regular Season",
+        "pick": "Over 8.0",
+        "odds": "100",
+        "book": "LowVig.ag",
+        "stake": "1u",
+        "reasoning": "LowVig and Bovada both offer the over at even money (+100), while most books price it between -102 and -106 — creating a clear best-line opportunity at LowVig. The Rangers are a mid-range offense at home and the Cubs have shown run-scoring ability on the road. Getting the over at a neutral price in a game where the market isn't hammering the under is a solid spot.",
+        "tags": [
+          "Total",
+          "Best Line",
+          "Confidence C+"
+        ],
+        "is_premium": true,
+        "result": "LOST",
+        "units": -1.0
+      },
+      {
+        "league": "MLB",
+        "time": "1:36 PM ET",
+        "away_team": "Colorado Rockies",
+        "home_team": "Philadelphia Phillies",
+        "game_detail": "Regular Season",
+        "pick": "Philadelphia Phillies -1.5",
+        "odds": "-136",
+        "book": "DraftKings",
+        "stake": "1u",
+        "reasoning": "The Phillies are dominant -295 to -345 ML favorites against one of baseball's worst teams in Colorado. DraftKings offers the Phillies run line at -136, while BetOnline and LowVig are at -138 to -140 — making DraftKings the clear best number. A team this heavily favored winning by 2+ runs is a high-probability outcome, and the -136 price represents solid value versus laying -295+ on the moneyline.",
+        "tags": [
+          "Run Line",
+          "Best Price",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 0.74
+      },
+      {
+        "league": "MLB",
+        "time": "1:36 PM ET",
+        "away_team": "Tampa Bay Rays",
+        "home_team": "Boston Red Sox",
+        "game_detail": "Regular Season",
+        "pick": "Under 8.0",
+        "odds": "-102",
+        "book": "BetOnline.ag",
+        "stake": "1u",
+        "reasoning": "The total for this game sits at 8.0 with a heavy lean toward the under across the board, priced between -102 and -122 at various books. BetOnline offers the under at the best available price of -102, nearly a free look at the under. The consensus of books pricing the over at even money or worse signals sharp under action in what shapes up as a pitching-favorable matchup.",
+        "tags": [
+          "Total",
+          "Best Line",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 0.98
+      }
+    ]
   },
   "content": {
     "ig_pick_post": {
-      "caption": "Free pick is live. Guardians -1.5 at +140 on BetRivers — 258 bps above market median. Here's the case.",
-      "slide1_text": "Today's Free Pick\nGuardians -1.5\n+140 on BetRivers",
-      "slide2_text": "Market median: +126\nEdge: 258 bps — highest spread value on today's slate\nJoey Cantillo on the mound for Cleveland",
-      "slide3_text": "Full 5-pick card at smarterpicks.io\nCode FREE30 — first month on us\n21+ · Bet responsibly",
+      "caption": "Free pick is live. Guardians -1.5 at +140 on BetRivers, well above the market median of +126. That gap matters.",
+      "slide1_text": "FREE PICK: Monday MLB\nGuardians -1.5\nBetRivers posting +140",
+      "slide2_text": "Market median is +126 across the books.\nBetRivers has +140. That's 258 basis points of spread edge, the widest gap on today's entire slate.\nJoey Cantillo starts for Cleveland.",
+      "slide3_text": "Full card (5 picks total) at smarterpicks.io\nFirst month free with code FREE30\n21+ only. Bet responsibly.",
       "hashtags": [
         "sportsbetting",
         "sportspicks",
@@ -36,74 +196,80 @@
         "bettinganalysis",
         "baseballbetting",
         "valuebetting",
-        "sharpbetting",
-        "dailypicks",
-        "bettingedge",
-        "sportsanalysis",
         "mlb2026",
-        "smarterpicks"
+        "sharpbetting",
+        "bettingodds",
+        "sportsanalysis",
+        "guardiansmlb",
+        "mlbtoday",
+        "bettingvalue",
+        "oddsboost"
       ]
     },
     "ig_results_post": {
-      "caption": "Sunday: 4-3, net +0.07u. Three bets didn't close our way — we're posting all of them. YTD sits at 233-197, +32.4u, 54.2%.",
-      "headline_text": "Sunday May 10: 4-3 · +0.07u\nYTD: 233-197 · +32.4u · 54.2%",
+      "caption": "Sunday: 4-3, +0.07u. Won the record, barely won the units. Three losses kept it close. Posting it all the same.",
+      "headline_text": "Sunday: 4-3, +0.07u\nYTD: 233-197, +32.4u",
       "hashtags": [
         "sportsbetting",
         "sportspicks",
         "bettingresults",
-        "trackedrecord",
         "mlbpicks",
-        "nhlpicks",
-        "transparentbetting",
+        "trackedrecord",
         "bettinganalysis",
         "publicrecord",
-        "valuebetting",
-        "sharpbetting",
-        "sportsbettingtips",
-        "dailypicks",
-        "bettingedge",
         "sportsanalysis",
-        "mlb2026"
+        "bettingodds",
+        "mlbbetting",
+        "sharpbetting",
+        "valuebetting",
+        "bettingtracker",
+        "mlb2026",
+        "sportsbettinglife",
+        "winsandlosses",
+        "bettingrecord",
+        "accountability"
       ]
     },
     "ig_carousel_topic": {
-      "topic": "The Kelly criterion — explained without the math degree",
-      "slide1_text": "Why betting the same amount every game is quietly costing you money",
-      "slide2_text": "Most bettors use flat stakes — 1 unit, every game, no matter what.\nThe problem: not every edge is equal.\nA 54% edge and a 62% edge shouldn't get the same bet.",
-      "slide3_text": "Kelly says: size your bet to match your edge.\nBigger edge → bigger bet. Smaller edge → smaller bet.\nThe formula scales your stake to the actual probability you've identified — not your gut.",
-      "slide4_text": "Simple example:\nYou think a team has a 57% chance to win. The book implies 50%.\nFull Kelly says bet about 14% of your bankroll.\nMost sharps use Half Kelly (7%) to cushion variance.\nSmall edge = small bet. That's the point.",
-      "slide5_text": "You don't need a math degree — you need the discipline to bet less when the edge is thin.\nKelly doesn't guarantee wins. It helps you survive the losing stretches long enough to let your edge play out.\nSave this one.",
-      "caption": "Flat staking ignores the size of your edge. Kelly criterion fixes that — here's the plain-English version. Save for reference.",
+      "topic": "The Kelly criterion, explained without the math degree",
+      "slide1_text": "How much should you actually bet?\nKelly has an answer.\nMost bettors ignore it.",
+      "slide2_text": "The common mistake: flat-betting everything the same size regardless of edge.\nA 3% edge and a 12% edge are not the same bet.\nSizing them identically throws away value or blows up your bankroll.",
+      "slide3_text": "Kelly sizes your bet based on two things: your edge and the odds.\nBigger edge, larger stake. Thinner edge, smaller stake.\nThe formula punishes both overbetting and underbetting.",
+      "slide4_text": "Example: You find a bet with a 56% win probability at -110 odds (1.909 decimal).\nFull Kelly says stake 6.4% of your bankroll.\nMost serious bettors use half-Kelly (3.2%) to reduce variance without killing expected growth.",
+      "slide5_text": "You don't need to run the formula every pick.\nBut understanding it changes how you think about bet sizing.\nEdge without discipline is just noise.",
+      "caption": "Kelly criterion, sized down to what actually matters. Understand this and you'll think about every bet differently.",
       "hashtags": [
         "sportsbetting",
         "bettingeducation",
-        "kellycriteria",
+        "kellycrite rion",
         "bankrollmanagement",
-        "valuebetting",
         "bettingstrategy",
+        "valuebetting",
+        "bettingmath",
         "sharpbetting",
         "sportsanalysis",
-        "bettingmath",
-        "responsiblegambling",
-        "sportsbettingtips",
+        "bettingodds",
+        "expectedvalue",
+        "mlbpicks",
+        "sportspicks",
         "bettingtools",
-        "edgebetting",
-        "mlbbetting",
-        "nhlapicks",
-        "smarterpicks"
+        "bettingtips",
+        "gamblingawareness",
+        "responsiblegambling",
+        "bettingmindset"
       ]
     },
     "story_sequence": [
-      "Card drops in 30 minutes. Free pick today is an MLB run line with the highest spread edge on the slate — 258 bps above median. Stay close.",
-      "Poll time: do you bet run lines or stick to moneylines? Swipe up to vote — genuinely curious how you play MLB.",
-      "Last call. Today's full card — 5 plays across MLB and NHL — is live at smarterpicks.io. Locks start this afternoon. Code FREE30 if you're not in yet.",
-      "Live update: tracking today's card as games go final. Check back for the running tally — we post every result, win or loss.",
-      "Monday card is a wrap. Full results post goes up first thing tomorrow morning. YTD sits at 233-197 heading in — let's see where we land."
+      "Card drops in 30 minutes. Five MLB and NHL picks, including a free one with 258 bps of spread edge. Stay close.",
+      "Poll time: run line or moneyline? Which do you actually trust more? Drop your answer below.",
+      "Last call. Games start locking this afternoon. Full card is live at smarterpicks.io, code FREE30 gets you the first month free.",
+      "Live update: tracking today's card in real time. Check the site for the running tally as games close out tonight.",
+      "Monday card is settled. Full results post goes up tomorrow morning. YTD stays at 233-197, +32.4u. Check back at 8am."
     ],
     "meme_post": {
-      "top_text": "Me at 6pm: I'm only betting the two plays I actually researched",
-      "bottom_text": "Me at 9pm: and that's why I also need the Rockies first-five",
-      "image_concept": "A two-panel meme showing a confident person at a desk with two sticky notes, then the same person surrounded by a chaotic wall of sticky notes and open browser tabs."
+      "top_text": "Me at 6pm: I'll only bet the free pick, I'm being disciplined",
+      "bottom_text": "Me at 6:03pm: okay but the Avalanche puck line at +189 is RIGHT THERE",
+      "image_concept": "Man in business casual sitting calmly at a desk, then immediately leaning forward intensely at a laptop screen two seconds later, split-panel format."
     }
   }
 }

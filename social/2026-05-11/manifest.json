@@ -1,5 +1,5 @@
 {
-  "rendered_at": "2026-05-11T16:11:15.763Z",
+  "rendered_at": "2026-05-11T18:43:44.456Z",
   "content_file": "content.json",
   "renders": [
     {
@@ -14,7 +14,7 @@
     },
     {
       "file": "pick-post-2.png",
-      "template": "daily-pick-card.html",
+      "template": "site-pick-card.html",
       "group": "ig_pick_post",
       "slide_index": 2,
       "size": {
