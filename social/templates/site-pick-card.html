@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SmarterPicks — Live Pick Card</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  /* Mirrors the .pick-card design from index.html so this slide of the
+     carousel looks like a literal screenshot of the live site card.
+     All placeholders ({{league}}, {{pick}}, etc.) are populated by
+     renderer.js from picks.json's first non-premium pick. */
+  .card-shell {
+    flex: 1;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    padding: 44px 44px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 0 1px rgba(212,168,67,.18), 0 24px 60px rgba(0,0,0,.45);
+  }
+  .pick-card-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+  }
+  .league-chip {
+    font-family: var(--mono);
+    font-size: 16px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 7px 12px;
+    border: 1px solid var(--accent-dim);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .league-icon { font-size: 20px; line-height: 1; }
+  .pick-time {
+    font-family: var(--mono);
+    font-size: 16px;
+    color: var(--text-dim);
+    letter-spacing: .04em;
+    flex-shrink: 0;
+  }
+  .matchup {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 52px;
+    line-height: 1.05;
+    letter-spacing: -.02em;
+    color: var(--text);
+  }
+  .matchup em {
+    font-style: italic;
+    color: var(--text-dim);
+    font-size: 0.7em;
+    margin: 0 8px;
+    font-weight: 300;
+  }
+  .pick-detail {
+    font-size: 18px;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+
+  /* Confidence meter — same gradient + scaleX trick as the site */
+  .conf-meter {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .conf-track {
+    flex: 1;
+    height: 7px;
+    background: var(--bg-surface);
+    position: relative;
+    overflow: hidden;
+  }
+  .conf-fill {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--accent), var(--win));
+    transform-origin: left center;
+    transform: scaleX(var(--conf, 0.6));
+  }
+  .conf-letter {
+    color: var(--text);
+    font-weight: 700;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  /* "The Play" block — bold gold-bordered callout */
+  .play-block {
+    background: var(--bg-surface);
+    padding: 24px 28px;
+    border-left: 3px solid var(--accent);
+  }
+  .play-label {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .play-value {
+    font-family: var(--mono);
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.1;
+    letter-spacing: -.01em;
+    margin-bottom: 8px;
+  }
+  .play-odds {
+    font-family: var(--mono);
+    font-size: 16px;
+    color: var(--accent);
+    letter-spacing: .04em;
+  }
+
+  .reasoning {
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    /* Clamp very long reasoning text so it never overflows the canvas */
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .pick-tags {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .pick-tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--text-dim);
+    padding: 5px 9px;
+    border: 1px solid var(--border);
+  }
+
+  .slide-pager {
+    font-family: var(--mono);
+    font-size: 16px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 22px;
+  }
+  .slide-pager .of { opacity: .5; margin: 0 6px; }
+  .slide-pager .num { color: var(--accent); }
+</style>
+</head>
+<body data-size="{{size}}">
+  <div class="glow" style="top:-12%;right:-15%;width:520px;height:520px;"></div>
+  <div class="stage">
+
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-name">SMARTERPICKS</span>
+    </div>
+
+    <div class="tag">Today's Free Pick</div>
+
+    <div class="card-shell">
+      <div class="pick-card-row">
+        <span class="league-chip"><span class="league-icon">{{sport_icon}}</span>{{league}}</span>
+        <span class="pick-time">{{time}}</span>
+      </div>
+
+      <div class="matchup">{{away_team}} <em>at</em> {{home_team}}</div>
+
+      <div class="pick-detail">{{game_detail}}</div>
+
+      <div class="conf-meter">
+        <span>Confidence</span>
+        <div class="conf-track"><div class="conf-fill" style="--conf:{{conf_pct}}"></div></div>
+        <span class="conf-letter">{{conf_letter}}</span>
+      </div>
+
+      <div class="play-block">
+        <div class="play-label">The Play</div>
+        <div class="play-value">{{pick}}</div>
+        <div class="play-odds">{{odds}} &nbsp;&middot;&nbsp; {{book}} &nbsp;&middot;&nbsp; Stake {{stake}}</div>
+      </div>
+
+      <p class="reasoning">{{reasoning}}</p>
+
+      <div class="pick-tags">{{tags_html}}</div>
+    </div>
+
+    <div class="slide-pager">
+      <span class="num">{{slide_index}}</span>
+      <span class="of">/</span>
+      <span>{{slide_total}}</span>
+    </div>
+
+    <div class="footer">
+      smarterpicks.io <span class="dot">&middot;</span>
+      Code <span class="promo">FREE30</span> <span class="dot">&middot;</span>
+      1 month free
+    </div>
+
+  </div>
+</body>
+</html>
