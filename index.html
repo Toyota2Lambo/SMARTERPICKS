@@ -86,17 +86,6 @@
   .nav-login:hover{color:var(--text);border-color:var(--text-muted);}
   .nav-cta{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;padding:11px 20px;background:var(--accent);color:#000;border:none;cursor:pointer;font-weight:700;transition:all .2s;text-decoration:none;display:inline-block;}
   .nav-cta:hover{background:#e6b950;transform:translateY(-1px);}
-  /* Premium "Members Area" pill — shown only to active members. Green to
-     visually distinguish from the gold subscribe CTA, with a subtle glow
-     so it reads as the privileged action on the page. */
-  .nav-members{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;padding:11px 18px;background:linear-gradient(135deg,var(--win),#5aa867);color:#000;border:none;cursor:pointer;font-weight:700;transition:all .25s;text-decoration:none;align-items:center;gap:8px;box-shadow:0 0 0 1px rgba(109,190,122,.4), 0 4px 18px rgba(109,190,122,.18);}
-  .nav-members:hover{transform:translateY(-1px);box-shadow:0 0 0 1px rgba(109,190,122,.6), 0 8px 24px rgba(109,190,122,.32);}
-  .nav-members-dot{display:inline-block;width:6px;height:6px;background:#0a0a0a;border-radius:50%;animation:pulse 2s infinite;}
-
-  /* When a member is signed in, drop the marketing announce-bar — they
-     don't need "Unlock Premium" yelled at them. The auth-chrome.js
-     status bar already confirms their state. */
-  body[data-auth-state="member"] .announce-bar{display:none;}
   .hero{padding:90px 0 80px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
   .hero::after{content:"";position:absolute;top:-40%;right:-10%;width:700px;height:700px;background:radial-gradient(circle,rgba(212,168,67,.07) 0%,transparent 70%);pointer-events:none;}
   .hero-meta{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:28px;display:flex;gap:16px;align-items:center;animation:fadeUp .5s ease-out .1s backwards;}
@@ -299,22 +288,6 @@
   /* Testimonial card hover (existing markup, just polish) */
   .testi-card{transition:transform .25s cubic-bezier(.2,.7,.2,1), background .2s;}
   .testi-card:hover{transform:translateY(-3px);background:var(--bg-surface);}
-
-  /* Recent-day cards — share .testi-card layout for visual rhythm but
-     present a real day's result instead of a fabricated quote. */
-  .recent-card{display:flex;flex-direction:column;gap:18px;height:100%;}
-  .recent-card-head{display:flex;justify-content:space-between;align-items:baseline;}
-  .recent-card-date{font-family:var(--display);font-size:24px;font-weight:400;letter-spacing:-.01em;}
-  .recent-card-day{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);}
-  .recent-card-net{font-family:var(--display);font-size:56px;font-weight:400;letter-spacing:-.03em;line-height:1;}
-  .recent-card-net.up{color:var(--win);}
-  .recent-card-net.down{color:var(--loss);}
-  .recent-card-net.flat{color:var(--text-muted);}
-  .recent-card-detail{font-size:14px;color:var(--text-muted);line-height:1.55;}
-  .recent-card-detail strong{color:var(--text);font-family:var(--mono);font-weight:700;}
-  .recent-card-link{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);text-decoration:none;margin-top:auto;display:inline-flex;align-items:center;gap:6px;border-top:1px solid var(--border);padding-top:14px;}
-  .recent-card-link:hover{color:var(--text);}
-  .recent-card-skel{min-height:200px;}
 
   /* Reduce-motion users: kill all animations/transitions for accessibility */
   @media (prefers-reduced-motion: reduce){
@@ -543,7 +516,7 @@
 <!-- ANNOUNCEMENT BAR -->
 <div class="announce-bar">
   🔥 NBA Playoffs Week 2 — Full pick card live now <span>·</span> Members up $3,840 YTD <span>·</span>
-  <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj" data-checkout="monthly">Unlock Premium →</a>
+  <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7">Start 7-day free trial →</a>
 </div>
 
 <!-- LIVE GAME TICKER (populated by polish-layer script from picks.json) -->
@@ -556,23 +529,17 @@
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="/" class="logo"><span class="logo-mark"></span>SMARTERPICKS</a>
+    <a href="#" class="logo"><span class="logo-mark"></span>SMARTERPICKS</a>
     <ul class="nav-links">
       <li><a href="#slate">Today's Picks</a></li>
       <li><a href="#record">Track Record</a></li>
-      <li><a href="archive">Archive</a></li>
       <li><a href="#pricing">Pricing</a></li>
-      <li><a href="discord">Discord</a></li>
+      <li><a href="discord.html">Discord</a></li>
     </ul>
     <div class="nav-right">
       <!-- WHOP LOGIN BUTTON: replace the href with your Whop login URL -->
-      <a href="login" class="nav-login">Login</a>
-      <!-- Shown to non-members. picks-loader.js hides this for active members. -->
-      <a href="login" class="nav-cta" id="nav-go-premium">Go Premium ↗</a>
-      <!-- Shown to active members only — picks-loader.js toggles display. -->
-      <a href="members" class="nav-members" id="nav-members-btn" style="display:none;">
-        <span class="nav-members-dot"></span>Members Area ↗
-      </a>
+      <a href="login.html" class="nav-login">Login</a>
+      <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="nav-cta">Free Trial ↗</a>
       <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -589,16 +556,12 @@
     <li><a href="#how">How It Works</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#record">Track Record</a></li>
-    <li><a href="archive">Archive</a></li>
     <li><a href="#faq">FAQ</a></li>
-    <li><a href="discord">Discord</a></li>
+    <li><a href="discord.html">Discord</a></li>
   </ul>
   <div class="drawer-cta">
-    <a href="login" class="btn-secondary" id="drawer-login" style="text-align:center;">Login</a>
-    <a href="login" class="btn-primary" id="drawer-go-premium" style="text-align:center;">Go Premium ↗</a>
-    <a href="members" id="drawer-members-btn" style="display:none;text-align:center;background:linear-gradient(135deg,var(--win),#5aa867);color:#000;padding:17px 32px;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;">
-      Members Area ↗
-    </a>
+    <a href="login.html" class="btn-secondary" style="text-align:center;">Login</a>
+    <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="btn-primary" style="text-align:center;">Start 7-day free trial →</a>
   </div>
 </aside>
 
@@ -609,30 +572,43 @@
     <h1>Stop guessing. Start <em>winning.</em></h1>
     <p class="hero-sub">AI-powered daily insights on every major sport. Game previews, sharp line movement, prop edges, and the plays the public isn't making — delivered before tip-off.</p>
     <div class="hero-actions">
-      <a href="login" class="btn-primary">Unlock All Picks →</a>
+      <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="btn-primary">Start 7-day free trial →</a>
       <a href="#slate" class="btn-secondary">See Today's Free Pick</a>
     </div>
     <div class="hero-trust">
-      <span>$100 bettors up <span id="ht-profit">+$0</span> on the public log</span><span class="dot">·</span>
-      <span><span id="ht-picks">0</span> picks publicly tracked</span><span class="dot">·</span>
-      <span><span id="ht-winpct">—</span>% win rate</span><span class="dot">·</span>
+      <span>$100 bettors up $3,840 this year</span><span class="dot">·</span>
+      <span>412 picks publicly logged</span><span class="dot">·</span>
+      <span>4,100+ active members</span><span class="dot">·</span>
       <span>Cancel anytime</span>
     </div>
     <div class="hero-stats">
-      <div class="stat"><div class="stat-num"><span style="font-size:30px;color:var(--text-muted);vertical-align:top;margin-top:8px;display:inline-block;">+$</span><span id="hs-profit">0</span></div><div class="stat-label">$100 Bettor Profit · Logged</div></div>
-      <div class="stat"><div class="stat-num" id="hs-picks">0</div><div class="stat-label">Picks Logged Public</div></div>
-      <div class="stat"><div class="stat-num"><span id="hs-winpct">—</span><span style="font-size:22px;color:var(--text-muted)">%</span></div><div class="stat-label">Win Rate · All-Time</div></div>
-      <div class="stat"><div class="stat-num">7<span style="font-size:22px;color:var(--text-muted)">-day</span></div><div class="stat-label">Money-Back Guarantee</div></div>
+      <div class="stat"><div class="stat-num"><span style="font-size:30px;color:var(--text-muted);vertical-align:top;margin-top:8px;display:inline-block;">+$</span>3,840</div><div class="stat-label">$100 Bettor Profit · YTD</div></div>
+      <div class="stat"><div class="stat-num">412</div><div class="stat-label">Picks Logged Public</div></div>
+      <div class="stat"><div class="stat-num">4.1k</div><div class="stat-label">Active Members</div></div>
+      <div class="stat"><div class="stat-num">7<span style="font-size:22px;color:var(--text-muted)">-day</span></div><div class="stat-label">Free Trial · Both Plans</div></div>
     </div>
   </div>
 </section>
 
-<!-- Yesterday's daily-detail banner intentionally lives ONLY on
-     members.html now. The marketing landing leads with aggregate
-     numbers (hero stats, proof bar, record summary) and lets curious
-     prospects dig into the day-by-day picture from /archive.html.
-     This keeps a single bad day from being the first thing a new
-     visitor sees. -->
+<!-- ============================================================
+     YESTERDAY'S RESULTS — populated from results.json by the
+     polish-layer script. Hidden gracefully if results.json fails.
+     ============================================================ -->
+<section class="yday" id="yday-section" data-reveal style="display:none;">
+  <div class="container">
+    <div class="yday-card">
+      <div>
+        <div class="yday-tag">Yesterday's results · <span id="yday-date">—</span></div>
+        <div class="yday-title">Posted publicly. <em style="font-style:italic;color:var(--accent);">Receipts visible.</em></div>
+      </div>
+      <div class="yday-pills" id="yday-pills"></div>
+      <div class="yday-net" id="yday-net">
+        <span id="yday-net-num">+0u</span>
+        <small id="yday-net-record">0-0</small>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ============================================================
      TODAY'S PICKS SECTION
@@ -686,10 +662,10 @@
 <!-- SOCIAL PROOF BAR -->
 <div class="proof-bar">
   <div class="proof-inner">
-    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num" id="pb-profit">+$0</span> profit on $100/unit logged</span></div>
-    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num" id="pb-picks">0</span> picks publicly tracked</span></div>
-    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num" id="pb-winpct">—%</span> win rate</span></div>
-    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num">7-day</span> money-back guarantee</span></div>
+    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num counter">+$3,840</span> profit on $100/unit YTD</span></div>
+    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num counter">412</span> picks publicly tracked</span></div>
+    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num counter">4,100+</span> members</span></div>
+    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num counter">7-day</span> free trial · both plans</span></div>
     <div class="proof-item"><span class="proof-dot"></span><span>Cancel anytime, no questions</span></div>
   </div>
 </div>
@@ -756,27 +732,28 @@
     <div class="plans-grid">
 
       <div class="plan">
-        <div class="plan-name">Free</div>
+        <div class="plan-name">7-Day Trial</div>
         <div class="plan-price"><sup>$</sup>0</div>
-        <div class="plan-sub">One free pick daily. No card needed.</div>
+        <div class="plan-sub">Try the full Premium card for a week. No charge.</div>
         <div class="plan-divider"></div>
         <ul class="plan-features">
-          <li><span class="chk">✓</span> 1 free pick per day with full reasoning</li>
-          <li><span class="chk">✓</span> Daily newsletter delivered at noon ET</li>
-          <li><span class="chk">✓</span> Full public track record access</li>
-          <li><span class="chk">✓</span> Free Discord community</li>
-          <li class="inactive"><span class="crs">—</span> Full daily pick card (5–8 plays)</li>
-          <li class="inactive"><span class="crs">—</span> Player props & parlays</li>
-          <li class="inactive"><span class="crs">—</span> Line movement alerts</li>
-          <li class="inactive"><span class="crs">—</span> Best bet of the day</li>
+          <li><span class="chk">✓</span> 7 days of the full premium pick card</li>
+          <li><span class="chk">✓</span> Line movement alerts during your trial</li>
+          <li><span class="chk">✓</span> Player props & same-game parlays</li>
+          <li><span class="chk">✓</span> Premium Discord access for the week</li>
+          <li><span class="chk">✓</span> Cancel before day 7 — never charged</li>
+          <li class="inactive"><span class="crs">—</span> Auto-converts to a paid plan if not cancelled</li>
+          <li class="inactive"><span class="crs">—</span> Pick your plan at checkout</li>
         </ul>
-        <a href="login" class="plan-btn ghost" data-checkout="free">Start Free →</a>
+        <!-- Whop checkout URL — replace with your real trial-enabled monthly plan URL.
+             Format: https://whop.com/checkout/plan_xxxxxxxxxx?trial=7 -->
+        <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="plan-btn ghost">Start 7-day free trial →</a>
       </div>
 
       <div class="plan featured">
         <div class="plan-badge">Most Popular</div>
         <div class="plan-name">Premium</div>
-        <div class="plan-price"><sup>$</sup>29<sub>/mo</sub></div>
+        <div class="plan-price"><sup>$</sup>29<span style="font-size:0.42em;color:var(--text-muted);font-family:var(--body);font-weight:500;">.99</span><sub>/mo</sub></div>
         <div class="plan-sub">Everything. Every day. Full card unlocked.</div>
         <div class="plan-divider"></div>
         <ul class="plan-features">
@@ -789,13 +766,15 @@
           <li><span class="chk">✓</span> Weekly recap & trends breakdown</li>
           <li><span class="chk">✓</span> Cancel anytime — one click, no runaround</li>
         </ul>
-        <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj" class="plan-btn gold" data-checkout="monthly">Get Premium — $29/mo →</a>
+        <!-- Whop checkout URL — monthly plan with 7-day trial -->
+        <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="plan-btn gold">Start 7-day free trial →</a>
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);text-align:center;margin-top:10px;">$29.99/month after your trial ends</div>
       </div>
 
       <div class="plan">
         <div class="plan-name">Annual</div>
         <div class="plan-price"><sup>$</sup>199<sub>/yr</sub></div>
-        <div class="plan-sub">Save $149 vs monthly. Lock in the rate forever.</div>
+        <div class="plan-sub">Save 44% vs monthly. Lock in the rate forever.</div>
         <div class="plan-divider"></div>
         <ul class="plan-features">
           <li><span class="chk">✓</span> Everything in Premium, full access</li>
@@ -807,15 +786,17 @@
           <li><span class="chk">✓</span> Price never increases while subscribed</li>
           <li><span class="chk">✓</span> Pro-rated refund if you cancel</li>
         </ul>
-        <a href="https://whop.com/checkout/plan_UvETXgAfoUQj5" class="plan-btn dark" data-checkout="annual">Get Annual — $199/yr →</a>
+        <!-- Whop checkout URL — yearly plan with 7-day trial -->
+        <a href="https://whop.com/checkout/plan_UvETXgAfoUQj5?trial=7" class="plan-btn dark">Start 7-day free trial →</a>
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);text-align:center;margin-top:10px;">$199/year after your trial · Save 44%</div>
       </div>
 
     </div>
     <div class="pricing-guarantee">
       <div class="guarantee-icon">🛡</div>
       <div>
-        <div class="guarantee-title">7-day money-back, no questions</div>
-        <div class="guarantee-body">Not feeling it in the first week? One email and we refund you same day. Not a "contact support and wait 5 business days" situation. We'd rather you leave happy than stay unhappy.</div>
+        <div class="guarantee-title">7-day free trial, then bill on day 8</div>
+        <div class="guarantee-body">No charge for the first week — try the full premium card and decide for yourself. Cancel anytime in your Whop dashboard before day 7 and you'll never be billed. Stay in and we'll charge the plan you picked.</div>
       </div>
     </div>
   </div>
@@ -831,71 +812,93 @@
       </div>
       <div class="section-meta">Updated nightly · every result logged</div>
     </div>
-    <!-- The day-by-day chart and the most-recent-picks table both live
-         on members.html now. The marketing page shows aggregate stats
-         only; anyone who wants to see the full per-day curve or every
-         individual pick can hit the public archive. -->
+    <!-- CUMULATIVE P/L CHART — populated by polish-layer from history.json -->
+    <div class="chart-wrap" id="chart-wrap" data-reveal style="display:none;">
+      <div class="chart-header">
+        <div class="chart-title">Cumulative units · <span id="chart-range">last 36 days</span></div>
+        <div class="chart-now" id="chart-now">+0u</div>
+      </div>
+      <svg class="chart-svg" id="chart-svg" viewBox="0 0 800 200" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"  stop-color="#d4a843" stop-opacity="0.28"/>
+            <stop offset="100%" stop-color="#d4a843" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <!-- grid + paths injected at runtime -->
+      </svg>
+    </div>
+
     <div class="record-grid">
       <div class="record-intro">
-        <p>Every pick is logged before the game. Every result is posted after. We don't pull the losses — they're a real part of any honest record.</p>
-        <p>Realistic long-term edge in sports betting is 53–58% over hundreds of plays. Anyone claiming 80% is either lying or showing you their best week. We aim for the honest range, post all the work, and let the math compound over time.</p>
-        <p><strong style="color:var(--text);">Aggregate-only on this page on purpose.</strong> The full day-by-day cumulative chart and the live cards lives in the <a href="members">members area</a>; every individual pick we've ever made lives in the public <a href="archive">pick archive</a> if you want to verify it yourself.</p>
+        <p>Every pick is logged before the game and updated after. Losses stay in the record — we don't hide them. Every tipster claiming 80%+ is either lying or showing you their best 6 picks from a lucky week.</p>
+        <p>Realistic edge in sports betting is 53–58% over hundreds of plays. We aim for that, show all the work, and let you judge for yourself.</p>
+        <p><a href="#">Full archive — every pick since launch →</a></p>
       </div>
       <div>
-        <div class="record-summary" style="margin-top:0;">
-          <div><div class="summary-num" id="rs-record">0-0</div><div class="summary-label">Record W–L · All Time</div></div>
-          <div><div class="summary-num" id="rs-best">+$0</div><div class="summary-label">Best Month · $100/u</div></div>
-          <div><div class="summary-num" id="rs-units">+0u</div><div class="summary-label">Net Units · All Time</div></div>
-          <div><div class="summary-num" id="rs-roi">+0%</div><div class="summary-label">ROI · All Time</div></div>
-        </div>
-        <div style="margin-top:24px;display:flex;gap:14px;flex-wrap:wrap;">
-          <a href="archive" class="btn-secondary" style="padding:13px 22px;">Browse every pick →</a>
-          <a href="login" class="btn-primary" style="padding:13px 22px;">Unlock today's full card →</a>
+        <table class="record-table">
+          <thead>
+            <tr><th>Date</th><th>League</th><th>Pick</th><th>Odds</th><th>Result</th><th style="text-align:right">Units</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>04-30</td><td>NBA</td><td>Heat ML</td><td>+135</td><td><span class="result-won">WON</span></td><td style="text-align:right" class="units-pos">+2.70u</td></tr>
+            <tr><td>04-30</td><td>MLB</td><td>Yankees -1.5</td><td>+125</td><td><span class="result-lost">LOST</span></td><td style="text-align:right" class="units-neg">-2.00u</td></tr>
+            <tr><td>04-29</td><td>NHL</td><td>Panthers/Canes O5.5</td><td>-110</td><td><span class="result-won">WON</span></td><td style="text-align:right" class="units-pos">+0.91u</td></tr>
+            <tr><td>04-29</td><td>NBA</td><td>Tatum O28.5 pts</td><td>-115</td><td><span class="result-won">WON</span></td><td style="text-align:right" class="units-pos">+0.87u</td></tr>
+            <tr><td>04-28</td><td>MLB</td><td>Phillies/Mets U8</td><td>-108</td><td><span class="result-push">PUSH</span></td><td style="text-align:right">0.00u</td></tr>
+            <tr><td>04-28</td><td>NBA</td><td>Cavs +4.5</td><td>-110</td><td><span class="result-lost">LOST</span></td><td style="text-align:right" class="units-neg">-1.10u</td></tr>
+            <tr><td>04-27</td><td>NHL</td><td>Avs ML</td><td>-145</td><td><span class="result-won">WON</span></td><td style="text-align:right" class="units-pos">+1.38u</td></tr>
+            <tr><td>04-27</td><td>MLB</td><td>Skenes O7.5 K</td><td>+105</td><td><span class="result-won">WON</span></td><td style="text-align:right" class="units-pos">+2.10u</td></tr>
+          </tbody>
+        </table>
+        <div class="record-summary">
+          <div><div class="summary-num counter">226-186</div><div class="summary-label">Record W–L</div></div>
+          <div><div class="summary-num counter">+$1,240</div><div class="summary-label">Best Month</div></div>
+          <div><div class="summary-num counter">+38.4u</div><div class="summary-label">Net Units</div></div>
+          <div><div class="summary-num counter">+9.3%</div><div class="summary-label">ROI</div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     WHAT YOU GET — sales-focused feature grid that replaces the
-     daily-results cards on the marketing page. Three cards describe
-     what a paying member actually receives every morning. The
-     daily-results cards moved to members.html where they belong —
-     this section drives conversion, the chart drives retention.
-     ============================================================ -->
-<section class="testimonials" style="background:var(--bg);">
+<!-- TESTIMONIALS -->
+<section class="testimonials">
   <div class="container">
     <div class="section-header">
       <div>
-        <div class="section-tag">What Your $29 Buys</div>
-        <h2 class="section-title">Three things you get <em>every morning.</em></h2>
+        <div class="section-tag">Member Results</div>
+        <h2 class="section-title">What they're <em>saying.</em></h2>
       </div>
-      <div class="section-meta">No tip-of-the-iceberg drips. The full card, every day.</div>
     </div>
     <div class="testi-grid">
-
-      <div class="testi-card" style="display:flex;flex-direction:column;gap:18px;">
-        <div class="get-num" style="font-family:var(--display);font-size:48px;font-weight:300;font-style:italic;color:var(--accent);line-height:1;">01</div>
-        <div class="get-title" style="font-family:var(--display);font-size:24px;font-weight:400;letter-spacing:-.01em;">The full pick card.</div>
-        <p style="font-size:14px;color:var(--text-muted);line-height:1.65;">5 to 8 plays across NBA, MLB, NHL, and NFL — published before lock every morning. Each pick comes with the reasoning, the line we like, the stake size, and the book offering the best price. No "lean", no vague "I like the Knicks" — the full play, with the why attached.</p>
-        <div style="margin-top:auto;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">Free tier sees 1 pick · Members see all of them</div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Finally a picks service that shows you the losses too. That alone told me it was legit. Up 18 units following the full card in my first month."</div>
+        <div class="testi-meta">
+          <div class="testi-avatar">MR</div>
+          <div><div class="testi-name">Marcus R.</div><div class="testi-handle">Premium · 3 months</div></div>
+          <div class="testi-result">+18u</div>
+        </div>
       </div>
-
-      <div class="testi-card" style="display:flex;flex-direction:column;gap:18px;">
-        <div class="get-num" style="font-family:var(--display);font-size:48px;font-weight:300;font-style:italic;color:var(--accent);line-height:1;">02</div>
-        <div class="get-title" style="font-family:var(--display);font-size:24px;font-weight:400;letter-spacing:-.01em;">Ask Claude on every pick.</div>
-        <p style="font-size:14px;color:var(--text-muted);line-height:1.65;">Every member-side pick card has a chat panel. Ask why this side, what the worst case looks like, whether to parlay it, what the line move means — the AI analyst reads the full pick context and answers in plain English. Built in, no extra subscription.</p>
-        <div style="margin-top:auto;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">Powered by Claude · Unlimited per pick</div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"The line movement alerts alone are worth the $29. Got into Knicks +7 before it dropped to +6. That half point hit in overtime."</div>
+        <div class="testi-meta">
+          <div class="testi-avatar">JT</div>
+          <div><div class="testi-name">Jade T.</div><div class="testi-handle">Annual · 5 months</div></div>
+          <div class="testi-result">+31u</div>
+        </div>
       </div>
-
-      <div class="testi-card" style="display:flex;flex-direction:column;gap:18px;">
-        <div class="get-num" style="font-family:var(--display);font-size:48px;font-weight:300;font-style:italic;color:var(--accent);line-height:1;">03</div>
-        <div class="get-title" style="font-family:var(--display);font-size:24px;font-weight:400;letter-spacing:-.01em;">Premium Discord access.</div>
-        <p style="font-size:14px;color:var(--text-muted);line-height:1.65;">The working room — line-move alerts, prop discussion, late-game sweat threads, the brag board, and a direct line to the analyst on tough plays. Light moderation, no hype-bro spam, no "do you have any plays?" replies.</p>
-        <div style="margin-top:auto;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">Members-only channels · Activate instantly on subscribe</div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★☆</div>
+        <div class="testi-quote">"Had a rough 3-week stretch and they just kept being straight about it in the recap. No spin. When it turned around it really turned around."</div>
+        <div class="testi-meta">
+          <div class="testi-avatar">DK</div>
+          <div><div class="testi-name">Devon K.</div><div class="testi-handle">Premium · 7 months</div></div>
+          <div class="testi-result">+22u</div>
+        </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -967,14 +970,14 @@
 <!-- FINAL CTA -->
 <section class="final-cta">
   <div class="container">
-    <div class="cta-tag">7-Day Money-Back · Cancel In Two Clicks</div>
+    <div class="cta-tag">Join 4,100+ subscribers</div>
     <h2 class="cta-title">Stop leaving money on the <em>table.</em></h2>
-    <p class="cta-sub">The full pick card, line alerts, props, and best bet of the day — every morning. $29/month. Cancel whenever you want.</p>
+    <p class="cta-sub">The full pick card, line alerts, props, and best bet of the day — every morning. Try it free for 7 days, then $29.99/month or $199/year. Cancel anytime.</p>
     <div class="cta-buttons">
-      <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj" class="btn-primary" data-checkout="monthly">Get Premium — $29/mo →</a>
-      <a href="login" class="btn-secondary" data-checkout="free">Start Free First</a>
+      <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="btn-primary">Start 7-day free trial →</a>
+      <a href="#pricing" class="btn-secondary">View pricing</a>
     </div>
-    <div class="cta-fineprint">7-day money-back · No contracts · Cancel in 2 clicks · 21+ only · Bet responsibly</div>
+    <div class="cta-fineprint">7-day free trial · No contracts · Cancel in 2 clicks · 21+ only · Bet responsibly</div>
   </div>
 </section>
 
@@ -991,30 +994,15 @@
       </div>
       <div class="footer-col">
         <h4>Product</h4>
-        <ul>
-          <li><a href="#slate">Today's Picks</a></li>
-          <li><a href="archive">Pick Archive</a></li>
-          <li><a href="#record">Track Record</a></li>
-          <li><a href="discord">Discord</a></li>
-        </ul>
+        <ul><li><a href="#">Today's Picks</a></li><li><a href="#">Track Record</a></li><li><a href="#">Newsletter</a></li><li><a href="#">Discord</a></li></ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
-        <ul>
-          <li><a href="#how">Methodology</a></li>
-          <li><a href="#newsletter">Newsletter</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="mailto:support@smarterpicks.io">Contact</a></li>
-        </ul>
+        <ul><li><a href="#">About</a></li><li><a href="#">Methodology</a></li><li><a href="#">Affiliates</a></li><li><a href="#">Contact</a></li></ul>
       </div>
       <div class="footer-col">
         <h4>Legal</h4>
-        <ul>
-          <li><a href="terms">Terms of Service</a></li>
-          <li><a href="privacy">Privacy Policy</a></li>
-          <li><a href="disclaimer">Risk Disclaimer</a></li>
-          <li><a href="https://www.ncpgambling.org/" target="_blank" rel="noopener">Responsible Gambling ↗</a></li>
-        </ul>
+        <ul><li><a href="#">Terms of Service</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Disclaimer</a></li><li><a href="#">Responsible Gambling</a></li></ul>
       </div>
     </div>
     <div class="footer-bottom">
@@ -1029,8 +1017,6 @@
      This script automatically loads today's picks from picks.json
      and fills in the picks section above.
      ============================================================ -->
-<script src="whop-config.js"></script>
-<script src="auth-chrome.js"></script>
 <script src="picks-loader.js"></script>
 
 <!-- ============================================================
@@ -1149,174 +1135,50 @@
 // ============================================================
 (function () {
 
-  // (Per-pick archive table fetch removed from the marketing page —
-  // the full per-pick browser lives at /archive.html and the daily
-  // detail lives on members.html. The aggregate stats below cover
-  // what a prospect needs.)
+  // ---------- 1) YESTERDAY'S RESULTS ----------
+  fetch("results.json?v=" + Date.now())
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(data => {
+      const wrap = document.getElementById("yday-section");
+      if (!wrap || !data) return;
+      const dateEl = document.getElementById("yday-date");
+      const pillsEl = document.getElementById("yday-pills");
+      const numEl = document.getElementById("yday-net-num");
+      const recEl = document.getElementById("yday-net-record");
+      const netEl = document.getElementById("yday-net");
 
-  function populateRecentPicksTable(data) {
-    const tbody = document.getElementById("record-tbody");
-    if (!tbody) return;
+      if (dateEl) dateEl.textContent = data.date || "yesterday";
+      if (recEl)  recEl.textContent  = `${data.wins || 0}-${data.losses || 0}${data.pushes ? "-" + data.pushes : ""} record`;
 
-    const days = (data && data.days) || [];
-    // Flatten picks across all days, keeping each pick's date for display.
-    // archive.json stores days newest-first, so this scan order is fine.
-    const flat = [];
-    for (const d of days) {
-      for (const p of (d.picks || [])) {
-        flat.push({ ...p, _date: d.iso_date });
-        if (flat.length >= 8) break;
+      const net = Number(data.net_units || 0);
+      if (numEl) numEl.textContent = (net >= 0 ? "+" : "") + net.toFixed(1) + "u";
+      if (netEl) netEl.classList.add(net >= 0 ? "up" : "down");
+
+      if (pillsEl) {
+        pillsEl.innerHTML = (data.picks || []).map(p => {
+          const cls = p.result === "WON" ? "win" : p.result === "LOST" ? "loss" : "push";
+          const sym = p.result === "WON" ? "✓" : p.result === "LOST" ? "✗" : "—";
+          return `<span class="yday-pill ${cls}">${sym} ${escHtml2(p.pick)}</span>`;
+        }).join("");
       }
-      if (flat.length >= 8) break;
-    }
-
-    if (flat.length === 0) {
-      tbody.innerHTML = `
-        <tr><td colspan="6" style="padding:24px;text-align:center;color:var(--text-dim);font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;">
-          Archive is populating · first day's picks land tomorrow morning · <a href="archive" style="color:var(--accent);text-decoration:underline;">browse archive →</a>
-        </td></tr>
-      `;
-      return;
-    }
-
-    tbody.innerHTML = flat.map(p => {
-      const result = String(p.result || "PENDING").toUpperCase();
-      const u = Number(p.units || 0);
-      const cls = result === "WON" ? "result-won" : result === "LOST" ? "result-lost" : "result-push";
-      const ucls = Math.abs(u) < 0.005 ? "" : (u > 0 ? "units-pos" : "units-neg");
-      const usign = u >= 0 ? "+" : "";
-      const dateStr = (p._date || "").slice(5);  // "MM-DD" from "YYYY-MM-DD"
-      return `
-        <tr>
-          <td>${escHtml2(dateStr)}</td>
-          <td>${escHtml2(shortLeague(p.league))}</td>
-          <td>${escHtml2(p.pick || "—")}</td>
-          <td>${escHtml2(p.odds || "—")}</td>
-          <td><span class="${cls}">${result}</span></td>
-          <td style="text-align:right" class="${ucls}">${usign}${u.toFixed(2)}u</td>
-        </tr>
-      `;
-    }).join("");
-  }
-  function shortLeague(l) {
-    // "NBA · Playoffs" → "NBA". The full label is too wide for the table.
-    return String(l || "").split(/[·\-–]/)[0].trim();
-  }
-
-  // (Yesterday's-results fetch removed from the marketing page —
-  // results.json now feeds members.html exclusively. Aggregate stats
-  // for the public landing come from history.json via populateLiveStats
-  // below, which never highlights a single bad day.)
+      revealEl(wrap);
+    })
+    .catch(() => { /* leave hidden */ });
 
   function escHtml2(s) {
     return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
   }
 
-  // ---------- 2) CUMULATIVE P/L CHART + LIVE STATS ----------
-  // Single fetch feeds three things on the landing page so the
-  // numbers can never disagree with each other or the chart:
-  //   - the chart                                  (renderChart)
-  //   - the unit-size profit calculator            (wireCalculator)
-  //   - every "412 picks" / "+$3,840" stat in the  (populateLiveStats)
-  //     hero, the proof bar, and the record summary
+  // ---------- 2) CUMULATIVE P/L CHART ----------
   let _historyCache = null;
   fetch("history.json?v=" + Date.now())
     .then(r => r.ok ? r.json() : Promise.reject())
     .then(data => {
       _historyCache = data;
-      // renderChart() and populateRecentDays() intentionally NOT called
-      // on the marketing page — chart + recent-day cards live on
-      // members.html now. Only the calculator + aggregate stats run here.
+      renderChart(data);
       wireCalculator(data);
-      populateLiveStats(data);
     })
-    .catch(() => { /* leave calculator + stats at placeholder values */ });
-
-  // Render the three "Recent days" cards from history.json's daily array.
-  // Each card is a real logged day with net units + the dollar equivalent
-  // at $100/unit. If history.json is empty, the skeleton stays in place.
-  function populateRecentDays(data) {
-    const grid = document.getElementById("recent-grid");
-    const daily = (data && data.daily) || [];
-    if (!grid || daily.length === 0) return;
-
-    const recent = daily.slice(-3).reverse(); // newest first
-    grid.innerHTML = recent.map(d => {
-      const u = Number(d.units || 0);
-      const cls = u > 0.005 ? "up" : u < -0.005 ? "down" : "flat";
-      const dollars = Math.round(u * 100);
-      const dollarStr = `${dollars >= 0 ? "+" : "−"}$${Math.abs(dollars).toLocaleString()}`;
-      const verb = u > 0.005 ? "made" : u < -0.005 ? "lost" : "broken even on";
-      return `
-        <div class="testi-card recent-card">
-          <div class="recent-card-head">
-            <div class="recent-card-date">${escHtml2(formatRecentDate(d.date))}</div>
-            <div class="recent-card-day">${escHtml2(weekdayName(d.date))}</div>
-          </div>
-          <div class="recent-card-net ${cls}">${u >= 0 ? "+" : ""}${u.toFixed(1)}u</div>
-          <div class="recent-card-detail">
-            A $100/unit follower would have ${verb} <strong>${dollarStr}</strong> on this slate. Every play tracked publicly.
-          </div>
-          <a href="archive" class="recent-card-link">View this day in archive →</a>
-        </div>
-      `;
-    }).join("");
-  }
-  function formatRecentDate(iso) {
-    const m = String(iso || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
-    if (!m) return iso || "";
-    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    return `${months[parseInt(m[2],10) - 1]} ${parseInt(m[3],10)}`;
-  }
-  function weekdayName(iso) {
-    const m = String(iso || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
-    if (!m) return "";
-    const d = new Date(`${iso}T12:00:00Z`);
-    return ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][d.getUTCDay()];
-  }
-
-  // Sync every "stat" element on the page from history.json's stats
-  // block. If a slot is missing in the data it stays at its placeholder
-  // value rather than blanking out — keeps the page never-empty.
-  function populateLiveStats(data) {
-    const s = (data && data.stats) || {};
-
-    // $100/unit profit (units * $100), formatted with sign and commas
-    const profitDollars = Math.round((s.net_units || 0) * 100);
-    const profitWithSign = (profitDollars >= 0 ? "+$" : "−$") +
-      Math.abs(profitDollars).toLocaleString();
-
-    // Hero stats (no $ prefix on hs-profit — there's a separate "+$" span)
-    setStat("hs-profit",  Math.abs(profitDollars).toLocaleString());
-    setStat("hs-picks",   (s.total_picks || 0).toLocaleString());
-    if (s.win_pct != null) setStat("hs-winpct", String(s.win_pct));
-
-    // Hero trust line
-    setStat("ht-profit",  profitWithSign);
-    setStat("ht-picks",   (s.total_picks || 0).toLocaleString());
-    if (s.win_pct != null) setStat("ht-winpct", String(s.win_pct));
-
-    // Proof bar
-    setStat("pb-profit",  profitWithSign);
-    setStat("pb-picks",   (s.total_picks || 0).toLocaleString());
-    if (s.win_pct != null) setStat("pb-winpct", `${s.win_pct}%`);
-
-    // Record summary
-    setStat("rs-record",  `${s.wins || 0}-${s.losses || 0}`);
-    if (s.best_month_units != null) {
-      const best = Math.round(s.best_month_units * 100);
-      setStat("rs-best", `${best >= 0 ? "+" : "−"}$${Math.abs(best).toLocaleString()}`);
-    }
-    const nu = Number(s.net_units || 0);
-    setStat("rs-units", `${nu >= 0 ? "+" : ""}${nu.toFixed(1)}u`);
-    if (s.roi_pct != null) {
-      setStat("rs-roi", `${s.roi_pct >= 0 ? "+" : ""}${Number(s.roi_pct).toFixed(1)}%`);
-    }
-  }
-  function setStat(id, txt) {
-    const el = document.getElementById(id);
-    if (el) el.textContent = txt;
-  }
+    .catch(() => { /* leave chart + calculator hidden / static */ });
 
   function renderChart(data) {
     const wrap = document.getElementById("chart-wrap");
@@ -1451,59 +1313,17 @@
   if (backdrop) backdrop.addEventListener("click", closeDrawer);
   drawer && drawer.querySelectorAll("a").forEach(a => a.addEventListener("click", closeDrawer));
 
-  // ---------- 6) NEWSLETTER ----------
-  // Posts to /api/newsletter, which validates + rate-limits server-side
-  // and forwards to whichever ESP is wired into NEWSLETTER_WEBHOOK_URL.
-  // Falls back to "queued" status (202) if no webhook is configured —
-  // the operator can pull signups from Vercel logs in that window.
+  // ---------- 6) NEWSLETTER (UI-only stub) ----------
+  // Wire this to ConvertKit/Mailchimp/Beehiiv when you're ready.
   const newsForm  = document.getElementById("news-form");
   const newsEmail = document.getElementById("news-email");
   if (newsForm && newsEmail) {
-    newsForm.addEventListener("submit", async (e) => {
+    newsForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      const email = (newsEmail.value || "").trim();
-      // Lightweight client-side check — server re-validates anyway.
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        showNewsMsg("That email doesn't look right — try again.", true);
-        return;
-      }
-
-      const submitBtn = newsForm.querySelector("button[type=submit]");
-      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Signing up…"; }
-
-      try {
-        const res = await fetch("/api/newsletter", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
-        });
-        if (res.ok || res.status === 202) {
-          newsForm.innerHTML = `<div class="news-ok">✓ You're on the list. Check your inbox tomorrow.</div>`;
-        } else if (res.status === 429) {
-          showNewsMsg("Too many signups — try again in a minute.", true);
-          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Sign up →"; }
-        } else {
-          const data = await res.json().catch(() => ({}));
-          showNewsMsg(data.message || "Couldn't sign up just now — try again in a minute.", true);
-          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Sign up →"; }
-        }
-      } catch (_) {
-        showNewsMsg("Network hiccup — try again in a minute.", true);
-        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Sign up →"; }
-      }
+      const email = newsEmail.value.trim();
+      if (!email) return;
+      newsForm.innerHTML = `<div class="news-ok">✓ You're on the list. Check your inbox tomorrow.</div>`;
     });
-  }
-  function showNewsMsg(text, isError) {
-    let msg = document.getElementById("news-msg");
-    if (!msg) {
-      msg = document.createElement("div");
-      msg.id = "news-msg";
-      msg.style.cssText = "font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-top:10px;";
-      const form = document.getElementById("news-form");
-      if (form && form.parentNode) form.parentNode.appendChild(msg);
-    }
-    msg.style.color = isError ? "var(--loss)" : "var(--win)";
-    msg.textContent = text;
   }
 })();
 </script>
