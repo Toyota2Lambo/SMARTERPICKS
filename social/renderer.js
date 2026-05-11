@@ -54,6 +54,40 @@ function esc(s) {
     .replace(/'/g,  "&#039;");
 }
 
+/** Wrap "key" tokens (numbers, odds, currency, units, percentages,
+ *  W-L records, and a few brand-specific tokens) in <span class="kw">
+ *  so they render in the accent gold on dark background. Editorial
+ *  emphasis on the things readers actually care about in a betting
+ *  post: the lines and the receipts. Everything else stays plain.
+ *
+ *  Returns ESCAPED HTML — pass to a {{key_html}} placeholder, which
+ *  the renderer's fillTemplate() lets through unescaped. */
+const KW_TOKEN_RE = new RegExp([
+  // Currency: $29, $199, $3,840.50
+  '\\$[\\d,]+(?:\\.\\d+)?',
+  // Signed numbers with optional unit/percent: +135, -1.5, +3.7u, -2.0u, +9.3%
+  '[+\\-]\\d+(?:\\.\\d+)?[u%]?\\b',
+  // Records / score-like: 5-2, 226-186, 233-197-22
+  '\\b\\d+-\\d+(?:-\\d+)?\\b',
+  // Trailing unit / percentage: 38u, 9.3%, 54%
+  '\\b\\d+(?:\\.\\d+)?[u%]\\b',
+  // Specific brand tokens
+  '\\b(?:FREE30|WON|LOST|PUSH)\\b',
+].join('|'), 'g');
+
+function colorize(text) {
+  if (!text) return "";
+  // First escape so user content can't break out of the template.
+  // Then wrap matches. The wrapped span tags survive because esc()
+  // only neutralizes &, <, >, ", ' — not letters or punctuation.
+  return esc(text).replace(KW_TOKEN_RE, (m) => {
+    if (m === "WON")  return '<span class="kw win">'  + m + '</span>';
+    if (m === "LOST") return '<span class="kw loss">' + m + '</span>';
+    if (m === "PUSH") return '<span class="kw push">' + m + '</span>';
+    return '<span class="kw">' + m + '</span>';
+  });
+}
+
 /** Map league string to a sport emoji. Mirrors picks-loader.js's
  *  sportIcon() so the IG slide matches the site exactly. */
 function sportIcon(league) {
@@ -165,11 +199,13 @@ function buildManifest(payload) {
       slide_index: 1,
       size:     FEED_SIZE,
       content:  {
-        size:        "feed",
-        slide_label: "Today's Free Pick",
-        slide_text:  c.ig_pick_post.slide1_text,
-        slide_index: 1,
-        slide_total: 3,
+        size:           "feed",
+        slide_label:    "Today's Free Pick",
+        slide_text:     c.ig_pick_post.slide1_text,
+        slide_text_html: colorize(c.ig_pick_post.slide1_text),
+        slide_index:    1,
+        slide_total:    3,
+        numeral:        "01",
       },
     };
 
@@ -181,7 +217,7 @@ function buildManifest(payload) {
           slide_index: 2,
           size:     FEED_SIZE,
           content:  Object.assign(
-            { size: "feed", slide_index: 2, slide_total: 3 },
+            { size: "feed", slide_index: 2, slide_total: 3, numeral: "02" },
             livePickFields(livePick)
           ),
         }
@@ -192,11 +228,13 @@ function buildManifest(payload) {
           slide_index: 2,
           size:     FEED_SIZE,
           content:  {
-            size:        "feed",
-            slide_label: "The Play",
-            slide_text:  c.ig_pick_post.slide2_text,
-            slide_index: 2,
-            slide_total: 3,
+            size:           "feed",
+            slide_label:    "The Play",
+            slide_text:     c.ig_pick_post.slide2_text,
+            slide_text_html: colorize(c.ig_pick_post.slide2_text),
+            slide_index:    2,
+            slide_total:    3,
+            numeral:        "02",
           },
         };
 
@@ -207,11 +245,13 @@ function buildManifest(payload) {
       slide_index: 3,
       size:     FEED_SIZE,
       content:  {
-        size:        "feed",
-        slide_label: "The Full Card",
-        slide_text:  c.ig_pick_post.slide3_text,
-        slide_index: 3,
-        slide_total: 3,
+        size:           "feed",
+        slide_label:    "The Full Card",
+        slide_text:     c.ig_pick_post.slide3_text,
+        slide_text_html: colorize(c.ig_pick_post.slide3_text),
+        slide_index:    3,
+        slide_total:    3,
+        numeral:        "03",
       },
     };
 
@@ -276,13 +316,15 @@ function buildManifest(payload) {
       slide_index: i + 1,
       size:     FEED_SIZE,
       content:  {
-        size:        "feed",
-        topic:       k.topic,
-        slide_role:  s.role,
-        slide_text:  s.text,
-        slide_index: i + 1,
-        slide_total: slides.length,
-        pips_html:   pipsHtml(i + 1, slides.length),
+        size:            "feed",
+        topic:           k.topic,
+        slide_role:      s.role,
+        slide_text:      s.text,
+        slide_text_html: colorize(s.text),
+        slide_index:     i + 1,
+        slide_total:     slides.length,
+        pips_html:       pipsHtml(i + 1, slides.length),
+        numeral:         String(i + 1).padStart(2, "0"),
       },
     }));
   }
@@ -297,11 +339,13 @@ function buildManifest(payload) {
       slide_index: i + 1,
       size:     STORY_SIZE,
       content:  {
-        size:        "story",
-        slide_label: labels[i] || `Story ${i + 1}`,
-        slide_text:  text,
-        slide_index: i + 1,
-        slide_total: c.story_sequence.length,
+        size:            "story",
+        slide_label:     labels[i] || `Story ${i + 1}`,
+        slide_text:      text,
+        slide_text_html: colorize(text),
+        slide_index:     i + 1,
+        slide_total:     c.story_sequence.length,
+        numeral:         String(i + 1).padStart(2, "0"),
       },
     }));
   }
