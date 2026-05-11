@@ -14,24 +14,47 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 36px;
+    gap: 28px;
     position: relative;
     z-index: 1;
+    /* Push the headline ~10% off vertical center for editorial weight,
+       so the eye lands above the optical middle, not dead-center. */
+    transform: translateY(-4%);
   }
   .slide-headline {
     font-family: var(--display);
     font-weight: 400;
-    letter-spacing: -.02em;
-    line-height: 1.04;
-    font-size: 88px;
+    letter-spacing: -.025em;
+    line-height: 1.02;
+    font-size: 96px;
     color: var(--text);
+    /* Constrain line length so headlines wrap into readable measure
+       (~14 words) instead of running pole-to-pole and looking flat. */
+    max-width: 18ch;
   }
   .slide-headline em {
     font-style: italic;
     color: var(--accent);
     font-weight: 300;
   }
-  body[data-size="story"] .slide-headline { font-size: 104px; }
+  body[data-size="story"] .slide-headline {
+    font-size: 112px;
+    max-width: 16ch;
+  }
+
+  /* Small mono label that reads like a section header above the headline */
+  .slide-meta {
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .slide-meta .arrow {
+    color: var(--accent);
+    margin: 0 8px;
+  }
 
   .slide-pager {
     font-family: var(--mono);
@@ -39,13 +62,25 @@
     letter-spacing: .12em;
     text-transform: uppercase;
     color: var(--text-dim);
+    z-index: 1;
+    position: relative;
   }
   .slide-pager .of { opacity: .5; margin: 0 6px; }
-  .slide-pager .num { color: var(--accent); }
+  .slide-pager .num {
+    color: var(--accent);
+    font-weight: 700;
+    /* Slightly larger so the current slide reads at a glance */
+    font-size: 18px;
+  }
 </style>
 </head>
 <body data-size="{{size}}">
   <div class="glow" style="top:-12%;right:-15%;width:520px;height:520px;"></div>
+
+  <!-- Editorial ghosted numeral behind the headline. Adds magazine-style
+       depth without competing for attention. -->
+  <div class="num-watermark">{{numeral}}</div>
+
   <div class="stage">
     <div class="brand">
       <span class="brand-mark"></span>
@@ -55,7 +90,10 @@
     <div class="tag">{{slide_label}}</div>
 
     <div class="card-body">
-      <div class="slide-headline">{{slide_text}}</div>
+      <div class="slide-meta">
+        Slide <span class="arrow">/</span> {{slide_index}} of {{slide_total}}
+      </div>
+      <div class="slide-headline">{{slide_text_html}}</div>
     </div>
 
     <div class="slide-pager">
