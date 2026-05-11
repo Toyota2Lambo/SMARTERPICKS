@@ -8,14 +8,14 @@
 <!-- SEO -->
 <meta name="description" content="Sign in to SmarterPicks or activate your subscription to unlock the full daily pick card. Whop handles login + payment securely.">
 <meta name="theme-color" content="#0a0a0a">
-<link rel="canonical" href="https://smarterpicks.io/login">
+<link rel="canonical" href="https://smarterpicks.io/login.html">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/favicon.svg">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SMARTERPICKS">
-<meta property="og:url" content="https://smarterpicks.io/login">
+<meta property="og:url" content="https://smarterpicks.io/login.html">
 <meta property="og:title" content="Sign in to SMARTERPICKS — Unlock the full pick card">
 <meta property="og:description" content="One button to subscribe or sign in. Daily pick card, line move alerts, and the members' Discord — all unlocked the moment your subscription is active.">
 <meta property="og:image" content="https://smarterpicks.io/og-image.svg">
@@ -130,8 +130,8 @@
 
 <!-- NAV -->
 <nav>
-  <a href="index" class="logo"><span class="logo-mark"></span>SMARTERPICKS</a>
-  <a href="index" class="nav-back">← Back to site</a>
+  <a href="index.html" class="logo"><span class="logo-mark"></span>SMARTERPICKS</a>
+  <a href="index.html" class="nav-back">← Back to site</a>
 </nav>
 
 <div class="page">
@@ -191,18 +191,18 @@
         <div style="display:flex;gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:20px;">
           <button id="toggle-monthly" onclick="selectPlan('monthly')"
             style="flex:1;padding:13px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;background:var(--accent);color:#000;transition:all .2s;">
-            $29 / Month
+            $29.99 / Month
           </button>
           <button id="toggle-annual" onclick="selectPlan('annual')"
             style="flex:1;padding:13px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;background:transparent;color:var(--text-muted);transition:all .2s;">
-            $199 / Year <span style="opacity:.7;font-size:10px;">(SAVE $149)</span>
+            $199 / Year <span style="opacity:.7;font-size:10px;">(SAVE 44%)</span>
           </button>
         </div>
 
         <div class="plan-summary" id="summary-monthly">
           <div class="plan-summary-header">
             <span class="plan-summary-name">Premium Monthly</span>
-            <span class="plan-summary-price">$29<span style="font-size:16px;color:var(--text-muted);font-family:var(--mono);font-weight:400;">/mo</span></span>
+            <span class="plan-summary-price">$29<span style="font-size:18px;color:var(--text-muted);font-family:var(--mono);font-weight:400;">.99</span><span style="font-size:16px;color:var(--text-muted);font-family:var(--mono);font-weight:400;">/mo</span></span>
           </div>
           <div class="plan-summary-rows">
             <div class="plan-summary-row"><span class="chk">✓</span> Full daily pick card (5–8 plays)</div>
@@ -228,7 +228,7 @@
         </div>
 
         <div class="legal-text">
-          By continuing you agree to our <a href="terms">Terms of Service</a> and <a href="privacy">Privacy Policy</a>.
+          By continuing you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
           Payment processed securely by Whop. SMARTERPICKS is analysis only — not financial advice. 21+ only.
         </div>
       </div>
@@ -245,12 +245,12 @@
         <p class="auth-sub">You're signed in. Activate your subscription on Whop to unlock the full pick card.</p>
 
         <a class="btn-full btn-gold" id="checkout-btn" href="#" target="_blank" rel="noopener" style="margin-bottom:12px;">
-          Subscribe on Whop →
+          Start 7-day free trial →
         </a>
         <button class="btn-full btn-ghost" onclick="resetToDefault()">← Back</button>
 
         <div class="legal-text">
-          After paying, return to this page and click <em>Sign in with Whop</em> — your access will unlock automatically.
+          After your trial starts, return to this page and click <em>Continue with Whop</em> — your access will unlock automatically. You won't be charged until day 8.
         </div>
       </div>
 
@@ -260,7 +260,7 @@
           <div class="success-icon">🎉</div>
           <div class="auth-title" style="text-align:center;">You're <em>in.</em></div>
           <p class="auth-sub" style="text-align:center;">Premium unlocked. Redirecting you to today's full card…</p>
-          <a href="members" class="btn-full btn-gold">Go now →</a>
+          <a href="index.html" class="btn-full btn-gold">Go now →</a>
         </div>
       </div>
 
@@ -276,7 +276,6 @@
 
 </div><!-- end page grid -->
 
-<script src="whop-config.js"></script>
 <script>
 // =============================================================
 // SMARTERPICKS — Whop OAuth (PKCE) + Membership Gating
@@ -296,20 +295,22 @@
 // Whop OAuth app setup: register the EXACT current page URL as a redirect URI.
 // =============================================================
 
-// Shared with callback.html and picks-loader.js via whop-config.js.
-// REDIRECT_URI is computed per-page so the same code works on every
-// domain you point at this project (smarterpicks.io, vercel preview
-// deploys, localhost). Each domain you use must also be registered
-// as an allowed redirect URI in the Whop OAuth app dashboard.
-const CONFIG = Object.assign({}, window.WHOP_CONFIG || {
+const CONFIG = {
   CLIENT_ID:            "app_5RPKKi5gvHwpvo",
-  CHECKOUT_URL_MONTHLY: "https://whop.com/checkout/plan_VIlKaPMvfDPoj",
-  CHECKOUT_URL_ANNUAL:  "https://whop.com/checkout/plan_UvETXgAfoUQj5",
-  AUTHORIZE_URL:        "https://api.whop.com/oauth/authorize",
-  SCOPE:                "openid profile email",
-}, {
-  REDIRECT_URI: window.location.origin + "/callback.html",
-});
+  // Computed from the current page so the same code works on every
+  // domain you point at this Vercel project (smarterpicks.io,
+  // sharp-line-red.vercel.app, preview deploys, localhost). Each
+  // domain you use must also be registered as an allowed redirect
+  // URI in the Whop OAuth app dashboard.
+  REDIRECT_URI:         window.location.origin + "/callback.html",
+  // Whop checkout URLs — must be the trial-enabled monthly + yearly plan
+  // links. trial=7 tells Whop to start a 7-day free trial before billing.
+  CHECKOUT_URL_MONTHLY: "https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7",
+  CHECKOUT_URL_ANNUAL:  "https://whop.com/checkout/plan_UvETXgAfoUQj5?trial=7",
+
+  AUTHORIZE_URL: "https://api.whop.com/oauth/authorize",
+  SCOPE:         "openid profile email",
+};
 let selectedPlan = "monthly";
 
 // ── PKCE helpers ──
@@ -423,7 +424,7 @@ function wireCheckoutButton() {
       const access = JSON.parse(accessRaw);
       if (access.has_access) {
         showPanel("panel-success");
-        setTimeout(() => { window.location.href = "members"; }, 800);
+        setTimeout(() => { window.location.href = "index.html"; }, 800);
         return;
       }
       // Signed in but no membership — show subscribe CTA
