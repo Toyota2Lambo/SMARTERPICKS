@@ -51,7 +51,14 @@ import requests
 
 # ── CONFIG ────────────────────────────────────────────────
 GRAPH_API_VERSION = "v21.0"
-GRAPH_BASE        = f"https://graph.facebook.com/{GRAPH_API_VERSION}"
+# Use graph.instagram.com (not graph.facebook.com) because we're auth'd
+# via Instagram Business Login — tokens look like "IGAAOK..." and only
+# work against the Instagram host. If you re-do the Meta app setup with
+# Facebook Login for Business and get a "EAAB..." token, swap this to
+# `https://graph.facebook.com/{GRAPH_API_VERSION}`. The Graph endpoints
+# (/media, /media_publish, etc.) exist on both hosts with identical
+# request shapes; only the hostname differs.
+GRAPH_BASE        = f"https://graph.instagram.com/{GRAPH_API_VERSION}"
 
 # How long to wait for the deployed image URL to be reachable before
 # submitting to IG. Vercel deploys are usually <30s; we give 3 min total.
