@@ -1,18 +1,106 @@
 {
   "stats": {
-    "total_picks": 423,
-    "wins": 229,
-    "losses": 194,
+    "total_picks": 430,
+    "wins": 233,
+    "losses": 197,
     "pushes": 22,
-    "win_pct": 54.1,
-    "net_units": 32.34,
+    "win_pct": 54.2,
+    "net_units": 32.41,
     "roi_pct": 9.3,
     "best_month_units": 12.4,
     "worst_month_units": -3.8,
-    "avg_daily_units": 0.87,
-    "days_recorded": 37
+    "avg_daily_units": 0.85,
+    "days_recorded": 38
   },
   "days": [
+    {
+      "iso_date": "2026-05-10",
+      "date_display": "May 10, 2026",
+      "wins": 4,
+      "losses": 3,
+      "pushes": 0,
+      "net_units": 0.07,
+      "summary_text": "4-3 \u00b7 +0.07u",
+      "picks": [
+        {
+          "league": "NBA \u00b7 Playoffs",
+          "away_team": "New York Knicks",
+          "home_team": "Philadelphia 76ers",
+          "pick": "Philadelphia 76ers ML",
+          "odds": "+102",
+          "stake": "1.5u",
+          "result": "LOST",
+          "units": -1.5,
+          "reasoning": "The market is nearly a pick'em on the spread at -1.5, yet you can still get the 76ers at plus money (+102) on the moneyline at FanDuel and DraftKings. Implied probability on the Knicks ML ranges from -118 to -125 across books, suggesting the true line is closer to a coin flip \u2014 making Philly ML positive expected value at home. Buying the outright win at +102 rather than laying -110 on the spread offers better risk-adjusted value."
+        },
+        {
+          "league": "NBA \u00b7 Playoffs",
+          "away_team": "San Antonio Spurs",
+          "home_team": "Minnesota Timberwolves",
+          "pick": "Minnesota Timberwolves +4.5",
+          "odds": "100",
+          "stake": "1.5u",
+          "result": "WON",
+          "units": 1.5,
+          "reasoning": "LowVig offers the Wolves +4.5 at even money, the best spread price available versus -105 to -114 elsewhere. The Spurs are heavy ML favorites (-185 to -200), but the spread consensus sits at 4.5 with Bovada and MyBookie pushing to 5.0 \u2014 suggesting line pressure may move this further. Getting a full point of cushion at plus money on a home underdog is sharp value."
+        },
+        {
+          "league": "MLB",
+          "away_team": "Minnesota Twins",
+          "home_team": "Cleveland Guardians",
+          "pick": "Under 7.5",
+          "odds": "-118",
+          "stake": "1u",
+          "result": "WON",
+          "units": 0.85,
+          "reasoning": "The total is set at a low 7.5 across nearly every book, signaling sharp expectation of a low-scoring game. The under is consistently juiced (-118 to -125) while the over is offered at even money or better, indicating public over money being faded. LowVig offers the best price on the under at -118, and a sub-8 total in this pitching-friendly matchup supports the lean."
+        },
+        {
+          "league": "MLB",
+          "away_team": "Seattle Mariners",
+          "home_team": "Chicago White Sox",
+          "pick": "Seattle Mariners ML",
+          "odds": "-126",
+          "stake": "1.5u",
+          "result": "LOST",
+          "units": -1.5,
+          "reasoning": "Seattle is a road favorite ranging from -126 to -136 across books, with BetUS offering the best price at -126. The White Sox are one of baseball's worst teams, and the Mariners' pitching staff profile fits a short road favorite spot well. The consistent line across all nine books with no outlier suggests sharp agreement on Seattle's edge here."
+        },
+        {
+          "league": "MLB",
+          "away_team": "Chicago Cubs",
+          "home_team": "Texas Rangers",
+          "pick": "Over 8.0",
+          "odds": "100",
+          "stake": "1u",
+          "result": "LOST",
+          "units": -1.0,
+          "reasoning": "LowVig and Bovada both offer the over at even money (+100), while most books price it between -102 and -106 \u2014 creating a clear best-line opportunity at LowVig. The Rangers are a mid-range offense at home and the Cubs have shown run-scoring ability on the road. Getting the over at a neutral price in a game where the market isn't hammering the under is a solid spot."
+        },
+        {
+          "league": "MLB",
+          "away_team": "Colorado Rockies",
+          "home_team": "Philadelphia Phillies",
+          "pick": "Philadelphia Phillies -1.5",
+          "odds": "-136",
+          "stake": "1u",
+          "result": "WON",
+          "units": 0.74,
+          "reasoning": "The Phillies are dominant -295 to -345 ML favorites against one of baseball's worst teams in Colorado. DraftKings offers the Phillies run line at -136, while BetOnline and LowVig are at -138 to -140 \u2014 making DraftKings the clear best number. A team this heavily favored winning by 2+ runs is a high-probability outcome, and the -136 price represents solid value versus laying -295+ on the moneyline."
+        },
+        {
+          "league": "MLB",
+          "away_team": "Tampa Bay Rays",
+          "home_team": "Boston Red Sox",
+          "pick": "Under 8.0",
+          "odds": "-102",
+          "stake": "1u",
+          "result": "WON",
+          "units": 0.98,
+          "reasoning": "The total for this game sits at 8.0 with a heavy lean toward the under across the board, priced between -102 and -122 at various books. BetOnline offers the under at the best available price of -102, nearly a free look at the under. The consensus of books pricing the over at even money or worse signals sharp under action in what shapes up as a pitching-favorable matchup."
+        }
+      ]
+    },
     {
       "iso_date": "2026-05-09",
       "date_display": "May 09, 2026",
