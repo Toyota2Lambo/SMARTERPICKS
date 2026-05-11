@@ -229,12 +229,51 @@ def files_for_group(manifest: dict, group: str) -> List[str]:
     return [r["file"] for r in items]
 
 
+VALID_ONLY_TOKENS = {
+    "ig_pick_post", "ig_results_post", "ig_carousel_topic", "meme_post",
+    "story:1", "story:2", "story:3", "story:4", "story:5", "stories",
+}
+
+
+def parse_only_arg(argv: list) -> set:
+    """Parses `--only=<token>[,<token>...]` from argv. Returns the set of
+    selected tokens (empty set = publish everything, default behaviour).
+
+    Valid tokens (case-insensitive, dashes/colons accepted):
+      ig_pick_post · ig_results_post · ig_carousel_topic · meme_post
+      stories · story:1 · story:2 · story:3 · story:4 · story:5
+
+    Designed to be called by the staggered-posting workflows so each
+    cron slot publishes exactly one piece from the morning-rendered
+    batch.
+    """
+    selected: set = set()
+    for arg in argv:
+        if not arg.startswith("--only="):
+            continue
+        for tok in arg.split("=", 1)[1].split(","):
+            tok = tok.strip().lower()
+            if not tok:
+                continue
+            if tok not in VALID_ONLY_TOKENS:
+                print(f"⚠ Unknown --only token '{tok}' — ignored. Valid: {sorted(VALID_ONLY_TOKENS)}", file=sys.stderr)
+                continue
+            selected.add(tok)
+    return selected
+
+
 def main() -> int:
-    if len(sys.argv) < 2:
-        print("Usage: python social/ig_publisher.py <social/YYYY-MM-DD>", file=sys.stderr)
+    positional = [a for a in sys.argv[1:] if not a.startswith("--")]
+    if not positional:
+        print("Usage: python social/ig_publisher.py <social/YYYY-MM-DD> [--only=<token>,...]", file=sys.stderr)
         return 1
 
-    day_dir = Path(sys.argv[1]).resolve()
+    only = parse_only_arg(sys.argv[1:])
+    def should_run(token: str) -> bool:
+        # Empty set = publish everything (back-compat with old usage)
+        return not only or token in only
+
+    day_dir = Path(positional[0]).resolve()
     content_path  = day_dir / "content.json"
     manifest_path = day_dir / "manifest.json"
     if not content_path.exists() or not manifest_path.exists():
@@ -282,9 +321,12 @@ def main() -> int:
 
     print(f"📤 Publishing {rel_dir} to Instagram (account {account_id})")
 
+    if only:
+        print(f"   (selective publish — --only={sorted(only)})")
+
     # ── 1) Daily pick post (3-slide carousel) ──
     pick_files = files_for_group(manifest, "ig_pick_post")
-    if pick_files and content.get("ig_pick_post"):
+    if should_run("ig_pick_post") and pick_files and content.get("ig_pick_post"):
         pp = content["ig_pick_post"]
         cap = build_caption(pp.get("caption"), pp.get("hashtags"))
         run("ig_pick_post (carousel)",
@@ -294,7 +336,7 @@ def main() -> int:
 
     # ── 2) Yesterday's results (single image) ──
     res_files = files_for_group(manifest, "ig_results_post")
-    if res_files and content.get("ig_results_post"):
+    if should_run("ig_results_post") and res_files and content.get("ig_results_post"):
         rp = content["ig_results_post"]
         cap = build_caption(rp.get("caption"), rp.get("hashtags"))
         run("ig_results_post (image)",
@@ -304,7 +346,7 @@ def main() -> int:
 
     # ── 3) Educational carousel (5-slide carousel) ──
     edu_files = files_for_group(manifest, "ig_carousel_topic")
-    if edu_files and content.get("ig_carousel_topic"):
+    if should_run("ig_carousel_topic") and edu_files and content.get("ig_carousel_topic"):
         ep = content["ig_carousel_topic"]
         cap = build_caption(ep.get("caption"), ep.get("hashtags"))
         run("ig_carousel_topic (carousel)",
@@ -314,7 +356,7 @@ def main() -> int:
 
     # ── 4) Meme post (single image) ──
     meme_files = files_for_group(manifest, "meme_post")
-    if meme_files and content.get("meme_post"):
+    if should_run("meme_post") and meme_files and content.get("meme_post"):
         mp = content["meme_post"]
         # Memes have no hashtags field — use a small fixed set for discoverability.
         cap = build_caption(mp.get("image_concept", ""), ["sportsbetting", "bettorsbelike", "smarterpicks"])
@@ -324,11 +366,15 @@ def main() -> int:
         time.sleep(DELAY_BETWEEN_POSTS_S)
 
     # ── 5) Stories (5 vertical posts) ──
+    # --only=stories selects all five; --only=story:N selects exactly one.
     if skip_stories:
         summary.append("(stories skipped via IG_SKIP_STORIES=1)")
     else:
         story_files = files_for_group(manifest, "story_sequence")
         for i, f in enumerate(story_files, 1):
+            tok = f"story:{i}"
+            if not (should_run("stories") or should_run(tok)):
+                continue
             run(f"story {i}/{len(story_files)}",
                 lambda f=f: publish_single_image(image_url=url_for(f),
                                                  caption="", token=token,

@@ -94,16 +94,18 @@ jobs:
           echo "❌ Could not push assets after 5 attempts — main is moving faster than this workflow can rebase. Re-run manually."
           exit 1
 
-      - name: Publish to Instagram
-        # The publisher polls the public image URL until it 200s, so
-        # there's no separate "wait for Vercel" step needed.
+      - name: Publish morning posts (pick carousel + Story 1)
+        # The morning run only ships the headline pieces. The four
+        # remaining grid/story slots get published throughout the day
+        # by .github/workflows/social-stagger.yml on its own cron
+        # schedule. See ig_publisher's --only flag for the contract.
         env:
           IG_ACCESS_TOKEN:        ${{ secrets.IG_ACCESS_TOKEN }}
           IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
           DISCORD_WEBHOOK_URL:    ${{ secrets.DISCORD_WEBHOOK_URL }}
           # Override only if the deployed origin isn't smarterpicks.io
           IG_PUBLIC_BASE_URL:     ${{ secrets.IG_PUBLIC_BASE_URL }}
-        run: python social/ig_publisher.py "${{ steps.today.outputs.DAY_DIR }}"
+        run: python social/ig_publisher.py "${{ steps.today.outputs.DAY_DIR }}" --only=ig_pick_post,story:1
 
       - name: Open issue on failure
         if: failure()

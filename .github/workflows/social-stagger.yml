@@ -1,0 +1,163 @@
+name: Social — Staggered Publish
+
+# Picks up the morning-rendered assets (already in the repo by the time
+# this fires) and publishes one piece per cron slot so the IG grid +
+# Stories spread across the day instead of all landing in the same
+# 5-minute window after Daily Picks finishes.
+#
+# Schedules below are UTC. ET conversions assume EDT (Mar-Nov); during
+# EST the times drift one hour later. GitHub cron has no DST awareness,
+# so we accept the twice-yearly drift rather than maintaining two sets.
+#
+#   16:00 UTC  →  12:00 PM EDT / 11:00 AM EST  ·  Story 2 (midday poll)
+#   21:00 UTC  →   5:00 PM EDT /  4:00 PM EST  ·  Story 3 + educational carousel
+#   00:00 UTC  →   8:00 PM EDT /  7:00 PM EST  ·  Story 4 + yesterday's results recap
+#   03:30 UTC  →  11:30 PM EDT / 10:30 PM EST  ·  Story 5 + meme
+#
+# Story 1 + the headline pick carousel still ship in the morning batch
+# (see social-daily.yml). That's intentional — the morning hero post is
+# the one piece that genuinely needs to land before lock.
+#
+# Manual trigger is also supported via workflow_dispatch. Pass an
+# `only` input to override which piece publishes (e.g. "story:5,meme_post").
+
+on:
+  schedule:
+    - cron: "0 16 * * *"   # Story 2
+    - cron: "0 21 * * *"   # Story 3 + educational carousel
+    - cron: "0 0 * * *"    # Story 4 + results recap
+    - cron: "30 3 * * *"   # Story 5 + meme
+  workflow_dispatch:
+    inputs:
+      only:
+        description: 'Comma-separated --only tokens (e.g. "story:5,meme_post"). Leave empty for the schedule-mapped default.'
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+  issues: write       # for the failure-notification step
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python deps
+        run: pip install requests
+
+      - name: Resolve today's directory
+        id: today
+        # The morning workflow renders into social/YYYY-MM-DD (UTC date).
+        # Late-night cron slots (00:00 UTC, 03:30 UTC) are technically the
+        # NEXT UTC day, so for those we want yesterday's UTC date — that's
+        # the directory the morning workflow created on the day this slate
+        # actually corresponds to.
+        run: |
+          NOW_HOUR=$(date -u +%-H)
+          if [ "$NOW_HOUR" -lt 6 ]; then
+            # Past midnight UTC but before the next morning's run — the
+            # current "marketing day" is yesterday in UTC terms.
+            DAY=$(date -u -d "yesterday" +'%Y-%m-%d')
+          else
+            DAY=$(date -u +'%Y-%m-%d')
+          fi
+          echo "DAY_DIR=social/$DAY" >> "$GITHUB_OUTPUT"
+          echo "Using day dir: social/$DAY"
+
+      - name: Resolve --only token for this slot
+        id: only
+        # Map cron schedule → which post(s) to publish. workflow_dispatch
+        # can override via the `only` input. The github.event.schedule
+        # value is exactly the cron string from above.
+        run: |
+          OVERRIDE='${{ github.event.inputs.only }}'
+          if [ -n "$OVERRIDE" ]; then
+            echo "ONLY=$OVERRIDE" >> "$GITHUB_OUTPUT"
+            echo "Manual override: $OVERRIDE"
+            exit 0
+          fi
+          SCHEDULE='${{ github.event.schedule }}'
+          case "$SCHEDULE" in
+            "0 16 * * *")  ONLY="story:2" ;;
+            "0 21 * * *")  ONLY="story:3,ig_carousel_topic" ;;
+            "0 0 * * *")   ONLY="story:4,ig_results_post" ;;
+            "30 3 * * *")  ONLY="story:5,meme_post" ;;
+            *)             ONLY="" ;;
+          esac
+          if [ -z "$ONLY" ]; then
+            echo "❌ Unknown schedule '$SCHEDULE' and no manual override given."
+            exit 1
+          fi
+          echo "ONLY=$ONLY" >> "$GITHUB_OUTPUT"
+          echo "Schedule $SCHEDULE → publishing --only=$ONLY"
+
+      - name: Verify the day's content + manifest exist
+        # Defense in depth: if the morning render failed and never
+        # committed assets, fail loudly here instead of erroring deep
+        # inside the publisher.
+        run: |
+          DAY_DIR="${{ steps.today.outputs.DAY_DIR }}"
+          if [ ! -f "$DAY_DIR/content.json" ] || [ ! -f "$DAY_DIR/manifest.json" ]; then
+            echo "❌ Missing content.json or manifest.json in $DAY_DIR — morning render didn't produce assets."
+            echo "Re-run social-daily.yml to regenerate, then re-run this slot."
+            exit 1
+          fi
+
+      - name: Publish this slot's piece(s)
+        env:
+          IG_ACCESS_TOKEN:        ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
+          DISCORD_WEBHOOK_URL:    ${{ secrets.DISCORD_WEBHOOK_URL }}
+          IG_PUBLIC_BASE_URL:     ${{ secrets.IG_PUBLIC_BASE_URL }}
+        run: |
+          python social/ig_publisher.py \
+            "${{ steps.today.outputs.DAY_DIR }}" \
+            --only="${{ steps.only.outputs.ONLY }}"
+
+      - name: Open issue on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const today  = new Date().toISOString().slice(0, 10);
+            const slot   = `${{ steps.only.outputs.ONLY }}` || `(unknown slot)`;
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const title  = `Staggered social failed — ${today} · ${slot}`;
+            const body   = [
+              `Staggered IG publish failed for slot **${slot}** on ${today}.`,
+              ``,
+              `**Run logs:** ${runUrl}`,
+              ``,
+              `Common causes:`,
+              `- Morning render workflow didn't run / didn't commit assets → re-run social-daily.yml`,
+              `- IG_ACCESS_TOKEN expired (Meta long-lived tokens last ~60 days)`,
+              `- Instagram returned subcode 33 (account permission issue)`,
+              `- Vercel hadn't deployed the morning's assets when publish polled`,
+            ].join("\n");
+
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              state: "open",
+              labels: "social-failure",
+              per_page: 50,
+            });
+            if (existing.data.some(i => i.title === title)) {
+              core.info(`Issue already exists for ${title} — not re-filing.`);
+              return;
+            }
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              title,
+              body,
+              labels: ["social-failure"],
+            });
