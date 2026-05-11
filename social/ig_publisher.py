@@ -240,7 +240,12 @@ def main() -> int:
         print("❌ IG_ACCESS_TOKEN and IG_BUSINESS_ACCOUNT_ID must both be set.", file=sys.stderr)
         return 1
 
-    base_url     = os.environ.get("IG_PUBLIC_BASE_URL", "https://smarterpicks.io").rstrip("/")
+    # `or` (not just `.get(..., default)`) because the workflow passes
+    # IG_PUBLIC_BASE_URL through as a step-level env var even when the
+    # GitHub secret/variable is unset — Python then sees an empty string,
+    # not None, so .get() returns "" and we end up posting relative URLs
+    # that Instagram can't fetch ("/social/...png").
+    base_url     = (os.environ.get("IG_PUBLIC_BASE_URL") or "https://smarterpicks.io").rstrip("/")
     skip_stories = os.environ.get("IG_SKIP_STORIES") == "1"
     dry_run      = os.environ.get("IG_DRY_RUN") == "1"
 
