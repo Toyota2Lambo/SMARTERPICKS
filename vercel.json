@@ -1,9 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-
-  "// cleanUrls": "Strips the .html extension from every static page so URLs are /archive instead of /archive.html. Old .html URLs (links from external sites, search results, anyone who bookmarked one) auto-redirect 308 to the clean version.",
   "cleanUrls": true,
-
-  "// trailingSlash": "false = canonical URL is /archive (no trailing slash). Vercel will redirect /archive/ to /archive so we don't end up with two URLs for the same page (bad for SEO).",
   "trailingSlash": false
 }
