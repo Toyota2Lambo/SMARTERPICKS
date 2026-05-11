@@ -8,49 +8,23 @@
 // and swaps the nav login link for a logout when authenticated.
 // ============================================================
 
-// Read the shared Whop config that whop-config.js sets on window. Fall
-// back to a hardcoded copy ONLY so a forgotten <script> tag doesn't break
-// auth — but log loudly so we notice the drift in console.
-const WHOP_CONFIG = window.WHOP_CONFIG || (function () {
-  console.warn("[picks-loader] whop-config.js not loaded — using fallback constants. Add <script src='whop-config.js'></script> before picks-loader.js.");
-  return {
-    CLIENT_ID:   "app_5RPKKi5gvHwpvo",
-    PRODUCT_ID:  "prod_JAuXj9K2RJUjd",
-    ACCESS_BASE: "https://api.whop.com/api/v1/users",
-    TOKEN_URL:   "https://api.whop.com/oauth/token",
-  };
-})();
+const WHOP_CONFIG = {
+  CLIENT_ID:   "app_5RPKKi5gvHwpvo",
+  PRODUCT_ID:  "prod_JAuXj9K2RJUjd",   // SmarterPicks (main) — switch to prod_4yaKtjgti7F9m for Premium-only gating
+  ACCESS_BASE: "https://api.whop.com/api/v1/users",
+  TOKEN_URL:   "https://api.whop.com/oauth/token",
+};
 
 // ── STATE ──────────────────────────────────────────────────
 let isMember = false;
 
 // ── ENTRY POINT ────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", async () => {
-  wireCheckoutLinks();
   await checkMembership();
   await loadPicks();
   updateNavState();
   applyPremiumGating();
 });
-
-// Reads window.WHOP_CONFIG and writes per-plan checkout URLs onto every
-// element tagged [data-checkout="monthly|annual|free"]. The HTML has
-// the current URLs hardcoded as a no-JS fallback, but this overrides
-// them at runtime so a plan-ID change in whop-config.js cascades to
-// every checkout button on the page without grepping. Safe no-op if
-// whop-config.js isn't loaded or the element wasn't tagged.
-function wireCheckoutLinks() {
-  const cfg = window.WHOP_CONFIG || {};
-  const map = {
-    monthly: cfg.CHECKOUT_URL_MONTHLY,
-    annual:  cfg.CHECKOUT_URL_ANNUAL,
-    free:    "login", // free tier: send through OAuth, no Whop checkout
-  };
-  document.querySelectorAll("[data-checkout]").forEach(el => {
-    const target = map[el.dataset.checkout];
-    if (target) el.href = target;
-  });
-}
 
 // ── TOKEN REFRESH ──────────────────────────────────────────
 async function tryRefreshToken() {
@@ -75,14 +49,6 @@ async function tryRefreshToken() {
 }
 
 function logout() {
-  // Prefer the shared logout from auth-chrome.js (it's the single
-  // source of truth for "what keys must we clear"). Fall back to an
-  // inline cleanup if auth-chrome happens not to be loaded on this
-  // page so we never silently no-op a logout click.
-  if (typeof window.smarterpicksLogout === "function") {
-    window.smarterpicksLogout();
-    return;
-  }
   ["whop_token","whop_refresh","whop_user_id","whop_user","whop_access"]
     .forEach(k => localStorage.removeItem(k));
   window.location.reload();
@@ -135,30 +101,19 @@ function updateNavState() {
   // Match either an id (#nav-login-btn) or the existing class (.nav-login)
   const loginBtn = document.getElementById("nav-login-btn") ||
                    document.querySelector(".nav-login");
-  if (loginBtn) {
-    const signedIn = !!localStorage.getItem("whop_token");
-    if (signedIn) {
-      loginBtn.textContent = isMember ? "Member · Logout" : "Logout";
-      loginBtn.href = "#";
-      loginBtn.onclick = (e) => { e.preventDefault(); logout(); };
-    } else {
-      loginBtn.textContent = "Login";
-      loginBtn.href = "login";
-      loginBtn.onclick = null;
-    }
+  if (!loginBtn) return;
+
+  const signedIn = !!localStorage.getItem("whop_token");
+
+  if (signedIn) {
+    loginBtn.textContent = isMember ? "Member · Logout" : "Logout";
+    loginBtn.href = "#";
+    loginBtn.onclick = (e) => { e.preventDefault(); logout(); };
+  } else {
+    loginBtn.textContent = "Login";
+    loginBtn.href = "login.html";
+    loginBtn.onclick = null;
   }
-
-  // Members get a premium "Members Area" pill in the nav (and the mobile
-  // drawer); non-members see the gold "Go Premium" CTA instead.
-  const goPremium  = document.getElementById("nav-go-premium");
-  const membersBtn = document.getElementById("nav-members-btn");
-  if (goPremium)  goPremium.style.display  = isMember ? "none" : "inline-block";
-  if (membersBtn) membersBtn.style.display = isMember ? "inline-flex" : "none";
-
-  const drawerGoPremium = document.getElementById("drawer-go-premium");
-  const drawerMembers   = document.getElementById("drawer-members-btn");
-  if (drawerGoPremium) drawerGoPremium.style.display = isMember ? "none" : "block";
-  if (drawerMembers)   drawerMembers.style.display   = isMember ? "block" : "none";
 }
 
 // ── GATE ARBITRARY ELEMENTS ────────────────────────────────
@@ -189,45 +144,23 @@ async function loadPicks() {
     const summaryEl = document.getElementById("slate-summary");
     if (summaryEl && data.sport_summary) summaryEl.textContent = data.sport_summary;
 
-    // Count picks. _premiumCount is read by getPremiumCount() so the
-    // lock-overlay copy ("Subscribe to unlock all N premium picks today")
-    // matches the actual slate instead of the hardcoded fallback.
+    // Count picks
     const freePicks    = data.picks.filter(p => !p.is_premium).length;
     const premiumPicks = data.picks.filter(p =>  p.is_premium).length;
-    _premiumCount = premiumPicks;
 
     const countEl = document.getElementById("pick-count");
     if (countEl) {
-      const total = freePicks + premiumPicks;
       if (isMember) {
-        countEl.textContent = `Full card unlocked · ${total} picks today`;
+        countEl.textContent = `Full card unlocked · ${freePicks + premiumPicks} picks today`;
       } else {
-        // Matches the 3-card limit + "more" tile rendered below.
-        countEl.textContent = `Free preview · ${freePicks} free pick + ${total - freePicks} premium behind the paywall`;
+        countEl.textContent = `${freePicks} free · ${premiumPicks} premium · subscribe to unlock`;
       }
     }
 
-    // Render pick cards.
-    //
-    // Members see the full slate. Non-members on the public landing
-    // (index.html) see exactly THREE cards on purpose: the free pick
-    // plus two locked premium teasers, then a tasteful "+N more"
-    // unlock tile. Spamming a non-member with 6 blurred cards reads
-    // as desperate; showing just enough to prove there's more behind
-    // the paywall converts better.
+    // Render pick cards
     const grid = document.getElementById("picks-grid");
     if (grid && data.picks && data.picks.length > 0) {
-      let visiblePicks = data.picks;
-      let hiddenCount  = 0;
-      if (!isMember) {
-        const FREE_PAGE_LIMIT = 3;
-        visiblePicks = data.picks.slice(0, FREE_PAGE_LIMIT);
-        hiddenCount  = Math.max(0, data.picks.length - FREE_PAGE_LIMIT);
-      }
-      grid.innerHTML = visiblePicks.map(pick => renderPickCard(pick)).join("");
-      if (!isMember && hiddenCount > 0) {
-        grid.insertAdjacentHTML("beforeend", renderMoreTile(hiddenCount));
-      }
+      grid.innerHTML = data.picks.map(pick => renderPickCard(pick)).join("");
       wireCardInteractivity(grid);
     }
 
@@ -236,35 +169,9 @@ async function loadPicks() {
 
   } catch (err) {
     console.warn("Picks loader:", err.message);
-    renderPicksError(err.message);
+    const grid = document.getElementById("picks-grid");
+    if (grid) grid.innerHTML = renderLoadingCard();
   }
-}
-
-// Render an honest error state instead of leaving the skeleton
-// shimmering forever when picks.json can't load. The most common
-// cause is the daily generator workflow not having run yet (or
-// having failed) — calling that out beats silent failure.
-function renderPicksError(detail) {
-  const grid = document.getElementById("picks-grid");
-  if (grid) {
-    grid.innerHTML = `
-      <div class="pick-card" style="grid-column:1/-1;text-align:center;padding:48px 32px;">
-        <div style="font-size:32px;margin-bottom:16px;">⚠️</div>
-        <div style="font-family:var(--display);font-size:24px;font-weight:400;letter-spacing:-.01em;margin-bottom:10px;">Today's slate isn't loading.</div>
-        <p style="color:var(--text-muted);font-size:14px;line-height:1.6;max-width:48ch;margin:0 auto 22px;">
-          We couldn't fetch picks.json. The morning generator may still be running, or the file may be temporarily unreachable. Try refreshing in a minute.
-        </p>
-        <button onclick="location.reload()" style="font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:13px 24px;background:var(--accent);color:#000;border:none;cursor:pointer;">Refresh →</button>
-      </div>
-    `;
-  }
-  const dateEl = document.getElementById("slate-date");
-  if (dateEl) dateEl.textContent = "Picks unavailable";
-  const countEl = document.getElementById("pick-count");
-  if (countEl) countEl.textContent = "Refresh in a moment";
-  // Surface the underlying message in console so a debugger can see it,
-  // but don't show the raw error to the user — it'd be noise.
-  if (detail) console.warn("picks.json detail:", detail);
 }
 
 // Map league string -> sport icon emoji. Falls back to a neutral dot.
@@ -458,36 +365,7 @@ function renderPickCard(pick) {
         <div class="lock-icon">🔒</div>
         <div class="lock-title">Members Only</div>
         <div class="lock-sub">Subscribe to unlock all ${getPremiumCount()} premium picks today</div>
-        <a href="login" class="lock-btn">Unlock for $29/mo →</a>
-      </div>
-    </div>
-  `;
-}
-
-// ── "MORE PICKS BEHIND THE PAYWALL" TILE ───────────────────
-// Slots into the .picks-grid like a normal card so the layout stays
-// even (3 cards in the row instead of 2 + an awkward strip below).
-// Tone is suggestive, not nag-y: "there are N more, here's how to
-// see them" — no flashing arrows, no countdown timers.
-function renderMoreTile(hiddenCount) {
-  const noun = hiddenCount === 1 ? "pick" : "picks";
-  return `
-    <div class="pick-card more-tile" style="background:linear-gradient(180deg, var(--bg-elevated), var(--bg)); border-left:3px solid var(--accent); padding:36px 32px; display:flex; flex-direction:column; justify-content:center; text-align:center; gap:18px;">
-      <div style="font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);">
-        + ${hiddenCount} more ${noun} on today's full card
-      </div>
-      <div style="font-family:var(--display);font-size:30px;font-weight:400;line-height:1.1;letter-spacing:-.01em;color:var(--text);">
-        The plays we like most<br>
-        <em style="font-style:italic;color:var(--accent);font-weight:300;">are behind the paywall.</em>
-      </div>
-      <p style="font-size:13px;color:var(--text-muted);line-height:1.55;max-width:32ch;margin:0 auto;">
-        Free tier sees today's free pick. Members see the full card — line moves, props, the best bet of the day, and the reasoning on each one.
-      </p>
-      <a href="login" style="display:inline-block;background:var(--accent);color:#000;padding:14px 22px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;margin-top:6px;transition:background .2s, transform .2s;">
-        Unlock all ${hiddenCount + 1} picks · $29/mo →
-      </a>
-      <div style="font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">
-        7-day money-back · cancel anytime
+        <a href="login.html" class="lock-btn">Start 7-day free trial →</a>
       </div>
     </div>
   `;
@@ -527,13 +405,9 @@ function showMemberBanner() {
 
 // ── HELPERS ────────────────────────────────────────────────
 let _cachedPicks = null;
-let _premiumCount = null;   // populated when picks.json loads
 
 function getPremiumCount() {
-  // Return the actual count once picks.json loads. While we're still
-  // fetching, fall back to a conservative "the rest" so the overlay
-  // never reads "0 premium picks" mid-render.
-  return _premiumCount != null ? _premiumCount : 6;
+  return 6; // fallback count shown in lock overlay
 }
 
 function renderLoadingCard() {
