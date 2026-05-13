@@ -472,6 +472,69 @@ def save_picks(data):
     print(f"   Premium picks: {len([p for p in data['picks'] if p['is_premium']])}")
 
 
+def save_slate(games):
+    """
+    Writes slate.json: a public list of EVERY game on today's slate
+    across all configured sports, with no odds and no flag indicating
+    which ones we picked. The site's top ticker reads from this file
+    instead of picks.json so passing visitors can't reverse-engineer
+    which games we're betting on (the previous ticker leaked exactly
+    that). Output is the same minimal shape ESPN/CNN tickers use:
+    league, kickoff time, away team, home team.
+    """
+    try:
+        from zoneinfo import ZoneInfo
+        et = ZoneInfo("America/New_York")
+    except Exception:
+        et = None
+
+    def to_et(iso_z: str) -> str:
+        # commence_time looks like "2026-05-13T23:30:00Z" — convert to ET.
+        if not iso_z or not et:
+            return ""
+        try:
+            dt = datetime.fromisoformat(iso_z.replace("Z", "+00:00")).astimezone(et)
+            return dt.strftime("%-I:%M %p ET")
+        except Exception:
+            return ""
+
+    def league_short(g: dict) -> str:
+        # Prefer the friendly title from the API, fallback to sport_key.
+        t = (g.get("sport_title") or "").strip()
+        if t:
+            return t
+        k = g.get("sport_key", "")
+        return {
+            "basketball_nba":      "NBA",
+            "baseball_mlb":        "MLB",
+            "icehockey_nhl":       "NHL",
+            "americanfootball_nfl":"NFL",
+        }.get(k, k.upper())
+
+    items = []
+    for g in games or []:
+        items.append({
+            "league":    league_short(g),
+            "time":      to_et(g.get("commence_time", "")),
+            "away_team": g.get("away_team") or "",
+            "home_team": g.get("home_team") or "",
+            # commence_time kept for client-side sorting + future "live now" badge
+            "commence_time": g.get("commence_time") or "",
+        })
+
+    # Sort by start time so the ticker reads chronologically.
+    items.sort(key=lambda x: x.get("commence_time") or "")
+
+    payload = {
+        "date":         datetime.now().strftime("%B %d, %Y"),
+        "generated_at": datetime.now().isoformat(),
+        "games":        items,
+    }
+    with open("slate.json", "w") as f:
+        json.dump(payload, f, indent=2, ensure_ascii=False)
+    print(f"✅ slate.json saved: {len(items)} games across the slate")
+
+
 # ============================================================
 # RESULTS SCORING — runs at the start of each daily run.
 # Reads yesterday's picks.json, fetches final scores from the
@@ -834,6 +897,10 @@ if __name__ == "__main__":
         print("   Saving the fallback template so the site shows 'updating'.")
         save_picks(get_manual_fallback())
         sys.exit(2)
+    # Public ticker data — full slate of games, no odds, no pick flags.
+    # Writing this BEFORE Claude runs means even if pick generation
+    # fails the ticker still gets refreshed.
+    save_slate(games)
     data  = generate_picks(games)
     save_picks(data)
 
