@@ -1025,24 +1025,31 @@
      ============================================================ -->
 <script>
 (function () {
-  // 1) LIVE TICKER: render today's slate from picks.json
-  fetch("picks.json?v=" + Date.now())
-    .then(r => r.ok ? r.json() : Promise.reject(new Error("no picks.json")))
+  // 1) LIVE TICKER: render today's full slate of games (ESPN-style).
+  // Reads slate.json (every game today across NBA/MLB/NHL/NFL) rather than
+  // picks.json (the games we're actually betting on). This way passing
+  // visitors can't tell which games our pick card is on just by reading
+  // the ticker — they see the whole slate, the same way ESPN/CNN's
+  // bottom-line shows every fixture regardless of betting context.
+  fetch("slate.json?v=" + Date.now())
+    .then(r => r.ok ? r.json() : Promise.reject(new Error("no slate.json")))
     .then(data => {
-      const items = (data.picks || []).map(p => `
+      const items = (data.games || []).map(g => `
         <div class="ticker-item">
           <span class="ticker-pulse"></span>
-          <span class="ticker-time">${esc(p.time || "")}</span>
-          <span>${esc(p.away_team || "")}</span>
+          <span class="ticker-time">${esc(g.time || "")}</span>
+          <span>${esc(g.away_team || "")}</span>
           <span class="ticker-vs">@</span>
-          <span>${esc(p.home_team || "")}</span>
-          <span class="ticker-league">${esc(p.league || "")}</span>
+          <span>${esc(g.home_team || "")}</span>
+          <span class="ticker-league">${esc(g.league || "")}</span>
         </div>
       `).join("");
       const track = document.getElementById("ticker-track");
       const wrap  = document.getElementById("ticker");
       if (!items) { if (wrap) wrap.style.display = "none"; return; }
-      if (track) track.innerHTML = items + items; // duplicate for seamless loop
+      // Duplicate the items so the marquee animation can loop seamlessly
+      // (translateX(-50%) lands exactly on the start of the duplicate).
+      if (track) track.innerHTML = items + items;
     })
     .catch(() => {
       const wrap = document.getElementById("ticker");
