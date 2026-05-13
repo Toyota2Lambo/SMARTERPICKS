@@ -18,6 +18,18 @@ import re
 import sys
 from datetime import datetime
 from statistics import median
+from zoneinfo import ZoneInfo
+
+# All date strings the site displays should be Eastern Time (the audience
+# is US, sportsbooks post lines in ET, and "today" should mean today in ET).
+# GitHub Actions runners default to UTC, which used to push "today's date"
+# forward by ~5 hours during EDT — late-evening ET runs were stamping
+# tomorrow's date on picks.json. Anywhere we format a date for display
+# (date, date_short, "Today is...") we go through ET. Internal timestamps
+# (generated_at ISO) stay in UTC.
+ET = ZoneInfo("America/New_York")
+def now_et() -> datetime:
+    return datetime.now(ET)
 
 # ── API KEYS ──────────────────────────────────────────────
 # These come from your GitHub Secrets (explained in README)
@@ -130,7 +142,7 @@ def fetch_espn_context(games: list) -> dict:
 
     # ── MLB starters ──
     if "baseball_mlb" in sport_keys:
-        today = datetime.now().strftime("%Y%m%d")
+        today = now_et().strftime("%Y%m%d")
         data = _espn_get(
             "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard",
             params={"dates": today},
@@ -301,7 +313,7 @@ def generate_picks(games):
     # You can edit the text inside the triple quotes to change
     # the style, tone, or focus of the picks.
     prompt = f"""You are a sharp sports betting analyst for {BRAND_NAME}.
-Today is {datetime.now().strftime("%A, %B %d, %Y")}.
+Today is {now_et().strftime("%A, %B %d, %Y")}.
 
 Here is today's live odds data from sportsbooks ({len(games_for_prompt)} games).
 Each game object includes a "_consensus" field we computed locally:
@@ -354,8 +366,8 @@ Output rules:
 Return ONLY a valid JSON object with this exact structure, no other text before or after:
 
 {{
-  "date": "{datetime.now().strftime("%B %d, %Y")}",
-  "date_short": "{datetime.now().strftime("%m-%d")}",
+  "date": "{now_et().strftime("%B %d, %Y")}",
+  "date_short": "{now_et().strftime("%m-%d")}",
   "sport_summary": "Brief 1-line summary of today's slate (e.g. 'NBA Playoffs Game 6 headlining a 12-game Friday slate')",
   "picks": [
     {{
@@ -430,8 +442,8 @@ def get_manual_fallback():
     Edit this if you ever want to manually set picks without running the script.
     """
     return {
-        "date": datetime.now().strftime("%B %d, %Y"),
-        "date_short": datetime.now().strftime("%m-%d"),
+        "date": now_et().strftime("%B %d, %Y"),
+        "date_short": now_et().strftime("%m-%d"),
         "sport_summary": "Today's picks are being updated — check back shortly.",
         "picks": [
             {
@@ -460,7 +472,7 @@ def save_picks(data):
     """
     # Add a timestamp so you can see when it was last updated
     data["generated_at"] = datetime.now().isoformat()
-    data["generated_at_readable"] = datetime.now().strftime("%B %d, %Y at %I:%M %p ET")
+    data["generated_at_readable"] = now_et().strftime("%B %d, %Y at %I:%M %p ET")
 
     with open("picks.json", "w") as f:
         json.dump(data, f, indent=2)
@@ -526,7 +538,7 @@ def save_slate(games):
     items.sort(key=lambda x: x.get("commence_time") or "")
 
     payload = {
-        "date":         datetime.now().strftime("%B %d, %Y"),
+        "date":         now_et().strftime("%B %d, %Y"),
         "generated_at": datetime.now().isoformat(),
         "games":        items,
     }
@@ -693,7 +705,7 @@ def update_history_for_yesterday(date_str, net_units, wins, losses, pushes):
         except (TypeError, ValueError):
             continue
     if not iso:
-        iso = datetime.now().strftime("%Y-%m-%d")
+        iso = now_et().strftime("%Y-%m-%d")
 
     daily = history.get("daily", [])
     if any(d.get("date") == iso for d in daily):
@@ -746,7 +758,7 @@ def append_to_archive(results):
         except (TypeError, ValueError):
             continue
     if not iso:
-        iso = datetime.now().strftime("%Y-%m-%d")
+        iso = now_et().strftime("%Y-%m-%d")
 
     days = archive.get("days", [])
     if any(d.get("iso_date") == iso for d in days):
