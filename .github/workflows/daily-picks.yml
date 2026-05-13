@@ -53,8 +53,10 @@ jobs:
       - name: Check if today's run already happened
         id: check
         run: |
-          TODAY_FULL=$(date -u +'%B %-d, %Y')
-          # macOS-style %-d isn't universal on Ubuntu, but Ubuntu's date supports it.
+          # All site dates are in Eastern Time (matches picks_generator.now_et
+          # and score_yesterday.ET). %d gives a zero-padded day to match
+          # Python's strftime("%d"), so the strings compare correctly.
+          TODAY_FULL=$(TZ='America/New_York' date +'%B %d, %Y')
           EXISTING=$(python3 -c "import json; print(json.load(open('picks.json')).get('date',''))" 2>/dev/null || echo "")
           if [ "$EXISTING" = "$TODAY_FULL" ]; then
             echo "Already generated for $TODAY_FULL — skipping."
