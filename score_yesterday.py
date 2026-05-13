@@ -24,11 +24,17 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 REPO_ROOT         = Path(__file__).resolve().parent
 ODDS_API_KEY      = os.environ.get("ODDS_API_KEY", "")
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 MODEL_ID          = "claude-sonnet-4-6"
+
+# Eastern Time (matches picks_generator.now_et). Date strings the site
+# displays go through ET; using UTC here was 4-5 hours ahead during EDT
+# and caused late-night runs to think it was already tomorrow.
+ET = ZoneInfo("America/New_York")
 
 
 # ── league string → Odds API sport key ─────────────────────────
@@ -136,7 +142,7 @@ def score_pick_with_claude(pick: dict, away_score: int, home_score: int):
 
 # ── main ────────────────────────────────────────────────────────
 def main():
-    today_full  = datetime.now(timezone.utc).strftime("%B %d, %Y")
+    today_full  = datetime.now(ET).strftime("%B %d, %Y")
     picks_path  = REPO_ROOT / "picks.json"
 
     if not picks_path.exists():
