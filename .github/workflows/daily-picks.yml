@@ -1,27 +1,31 @@
 name: Daily Picks
 
-# Runs every morning at 04:00 UTC (midnight ET in summer, 11pm ET in winter).
-# That's BEFORE most US users are awake, so the site shows today's date
-# when they visit in the morning.
+# Fires several times each morning so the run doesn't get skipped by
+# GitHub Actions' famously unreliable cron. The script is idempotent:
+# if picks.json is already today's date, the generator step is a no-op,
+# so the redundant firings are harmless. The first one that lands wins.
+#
+# Times below: 04:00, 06:00, 08:00, and 11:00 UTC.
+#   04:00 UTC  =  midnight ET (EDT) / 11pm ET (EST the night before)
+#   11:00 UTC  =   7:00 AM ET (EDT) /  6:00 AM ET (EST)
+# Effectively: "always done by US east coast morning, with three backup
+# attempts if GitHub drops one."
 #
 # The job does TWO things, in order:
-#   1. score_yesterday.py — reads the existing picks.json (= yesterday's
-#      slate since today's hasn't been generated yet), pulls final scores
-#      from The Odds API, has Claude grade each pick, writes results.json
-#      + appends to history.json. So "yesterday's results" + "track record"
-#      stay current automatically.
-#   2. picks_generator.py — generates today's new picks and overwrites
-#      picks.json.
+#   1. score_yesterday.py — grades existing picks.json (= yesterday's
+#      slate) via Odds API + Claude, writes results.json, appends to
+#      history.json.
+#   2. picks_generator.py — generates today's new picks, overwrites
+#      picks.json. Skipped automatically if today's already been written.
 #
-# Both steps run in sequence so the order is correct: yesterday's results
-# are captured BEFORE today's picks overwrite the data.
-#
-# Manual trigger is also supported (workflow_dispatch) for re-running
-# after fixing a bug or re-scoring picks.
+# Manual trigger via the Actions tab also works (workflow_dispatch).
 
 on:
   schedule:
     - cron: "0 4 * * *"
+    - cron: "0 6 * * *"
+    - cron: "0 8 * * *"
+    - cron: "0 11 * * *"
   workflow_dispatch:
 
 permissions:
@@ -42,19 +46,40 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
+      # Skip the rest of the job if today's picks are already on disk.
+      # Lets us schedule redundant cron firings (04/06/08/11 UTC) without
+      # regenerating picks 4 times a day — only the first run that lands
+      # actually does the work.
+      - name: Check if today's run already happened
+        id: check
+        run: |
+          TODAY_FULL=$(date -u +'%B %-d, %Y')
+          # macOS-style %-d isn't universal on Ubuntu, but Ubuntu's date supports it.
+          EXISTING=$(python3 -c "import json; print(json.load(open('picks.json')).get('date',''))" 2>/dev/null || echo "")
+          if [ "$EXISTING" = "$TODAY_FULL" ]; then
+            echo "Already generated for $TODAY_FULL — skipping."
+            echo "ALREADY_DONE=1" >> "$GITHUB_OUTPUT"
+          else
+            echo "Existing picks.json date is '$EXISTING', today is '$TODAY_FULL' — will run."
+            echo "ALREADY_DONE=0" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Score yesterday's picks
+        if: steps.check.outputs.ALREADY_DONE != '1'
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python score_yesterday.py
 
       - name: Generate today's picks
+        if: steps.check.outputs.ALREADY_DONE != '1'
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python picks_generator.py
 
       - name: Commit picks + results + history
+        if: steps.check.outputs.ALREADY_DONE != '1'
         run: |
           git config user.name  "smarterpicks-bot"
           git config user.email "smarterpicks-bot@users.noreply.github.com"
