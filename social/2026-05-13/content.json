@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-13T08:33:40.392296+00:00",
+  "generated_at": "2026-05-13T10:12:58.127537+00:00",
   "model": "claude-sonnet-4-6",
   "carousel_topic": "What 'units' actually mean (and why win % alone is a lie)",
   "source": {
@@ -181,34 +181,34 @@
   },
   "content": {
     "ig_pick_post": {
-      "caption": "Baltimore +153 at Bovada is one of the largest moneyline edges on today's board. Kyle Bradish at home, Max Fried on the other side. The number is mispriced.",
-      "slide1_text": "FREE PICK: Baltimore Orioles ML\nOne of the biggest edges on the board today.",
-      "slide2_text": "Orioles ML +153 (Bovada)\nMarket median: +142. That gap is 179.7 bps of edge.\nBradish gets a favorable home start. Fried is solid, but the price is wrong.",
-      "slide3_text": "Full card (7 picks today) at smarterpicks.io\nCode FREE30 gets your first month free.\n21+ only. Bet responsibly.",
+      "caption": "Baltimore +153 is mispriced. Bradish at home, Fried showing cracks. Full card at smarterpicks.io.",
+      "slide1_text": "FREE PICK: WEDNESDAY MLB\nBaltimore Orioles ML\nOne of the biggest edges on the board today.",
+      "slide2_text": "Orioles ML +153 (Bovada)\nMarket median: +142. That's a 179.7 bps edge.\nKyle Bradish gets a favorable home matchup. Fried has been slipping.",
+      "slide3_text": "Full card (7 plays) at smarterpicks.io\nCode FREE30 gets your first month on us.\n21+ only. Bet responsibly.",
       "hashtags": [
         "sportsbetting",
         "sportspicks",
         "mlbpicks",
-        "baseballbetting",
+        "mlbbetting",
+        "baseballbets",
         "freepick",
-        "baltimorepicks",
+        "baltimoreorioles",
+        "orioles",
         "bettinganalysis",
         "sharpbetting",
-        "mlbbetting",
-        "orioles",
-        "moneyline",
-        "valuebet",
-        "bettingedge",
+        "mlbodds",
+        "bettingtips",
         "sportsanalysis",
+        "valuebetting",
         "mlbtoday",
-        "bettingcommunity",
-        "handicapping",
-        "oddsvalue"
+        "sportsbettingcommunity",
+        "bettingadvice",
+        "mlbdfs"
       ]
     },
     "ig_results_post": {
-      "caption": "4-2 yesterday, +2.97u. Two picks didn't convert. We post both. YTD now 240-200, +38.3u across 40 days.",
-      "headline_text": "May 12: 4-2, +2.97u\nYTD: 240-200 (54.5%) | +38.3u",
+      "caption": "4-2 yesterday, net +2.97u. Two plays didn't hold up and we're posting them both. YTD: 240-200, +38.3u.",
+      "headline_text": "May 12: 4-2, +2.97u",
       "hashtags": [
         "sportsbetting",
         "sportspicks",
@@ -218,58 +218,58 @@
         "bettinganalysis",
         "sharpbetting",
         "publicrecord",
-        "bettingcommunity",
+        "sportsbettingcommunity",
+        "bettingtransparency",
+        "valuebetting",
         "sportsanalysis",
-        "handicapping",
+        "bettingadvice",
         "mlbbetting",
-        "transparentbetting",
-        "unitsprofit",
-        "bettingtracker",
+        "unitprofit",
+        "bettingtrack",
         "oddsvalue",
-        "sportsbettingtips",
-        "winrate"
+        "sportsbettingtips"
       ]
     },
     "ig_carousel_topic": {
       "topic": "What 'units' actually mean (and why win % alone is a lie)",
-      "slide1_text": "Your win rate can be 58% and you can still lose money.\nHere is why.",
-      "slide2_text": "Most bettors track wins and losses.\nThat number tells you almost nothing on its own.\nA 60% win rate at -200 odds loses money long-term.",
-      "slide3_text": "Units measure how much you actually profit relative to your stake.\nOne unit is typically 1% of your bankroll.\nA 54% win rate at the right odds beats a 62% win rate at bad ones.",
-      "slide4_text": "Example: 100 bets, 54 wins, 46 losses.\nAll bets at -110 odds.\nResult: 54 x 0.909u won, 46 x 1u lost. Net: +3.1u. Profitable.\nSame record at -150 odds: net -8.7u. Losing.",
-      "slide5_text": "Odds shape everything. Track units, not just wins.\nOur YTD: 240-200, 54.5% win rate, +38.3u, 9.3% ROI.\nThe last number is the one that matters.",
-      "caption": "Win rate without odds context is a useless number. This is what to track instead. 240-200, +38.3u, 9.3% ROI on 440 bets.",
+      "slide1_text": "Your friend went 60-40 last month.\nYou went 53-47.\nGuess who made more money.",
+      "slide2_text": "Most people track wins and losses.\nWin percentage feels clean. It's also incomplete.\nA 60% winner betting -300 favorites can lose money. A 53% winner at +150 can crush.",
+      "slide3_text": "What actually matters is expected value per bet.\nOdds shape your return. A win at +150 pays 1.5 units. A win at -200 pays 0.5.\nThe price you pay changes everything.",
+      "slide4_text": "Example: 100 bets at -110 (standard spread bet).\nBreak-even win rate: 52.4%.\nIf you hit 55%, you net roughly +5u over that stretch. That's what a sharp month looks like.",
+      "slide5_text": "Units measure profit in a way win % never can.\nOur YTD: 54.5% win rate, +38.3u, 9.3% ROI across 440 bets.\nThe number that matters is the last one.",
+      "caption": "Win rate tells you part of the story. Units tell you if you're actually profitable. Both numbers live on our public tracker.",
       "hashtags": [
         "sportsbetting",
         "bettingeducation",
-        "bettinganalysis",
-        "units",
-        "bankrollmanagement",
+        "bettingadvice",
         "expectedvalue",
-        "sharpbetting",
         "sportsbettingtips",
-        "handicapping",
+        "unitsprofit",
         "bettingmath",
-        "oddsvalue",
+        "sharpbetting",
+        "sportsanalysis",
         "bettingcommunity",
-        "mlbpicks",
+        "mlbbetting",
         "sportspicks",
-        "roibetting",
+        "valuebetting",
         "bettingstrategy",
-        "winrate",
-        "trackedrecord"
+        "bettingodds",
+        "sportsbettingcommunity",
+        "handicapping",
+        "bettingbasics"
       ]
     },
     "story_sequence": [
-      "Card drops in 30 min. Seven MLB and NHL picks today. Free pick leads with a 179-bps edge on Baltimore ML.",
-      "Poll: Do you track your bets in units or just wins and losses? Most people say wins. Most people are surprised by the answer.",
-      "Last call before first pitch. Baltimore +153 is the free pick. Full card at smarterpicks.io, code FREE30.",
-      "Live update: tracking the card as games go final. Baltimore game underway. Check back tonight.",
-      "Wednesday card wrapping up. Results post first thing tomorrow. YTD sits at +38.3u and we are not hiding the losses."
+      "Card drops in 30 minutes. 7 MLB plays today, one free pick going public. Baltimore +153 leads it off.",
+      "Poll: do you track your bets in units or just wins and losses? Drop your answer below.",
+      "Games start locking in 90 minutes. Full card is live at smarterpicks.io. Code FREE30 if you haven't tried it yet. 21+ only.",
+      "Checking in: Baltimore is live. Tracking 3 plays in action right now. Updates after final outs.",
+      "Wednesday card wraps up tonight. Full results post in the morning, wins and losses both. See you at 8am."
     ],
     "meme_post": {
-      "top_text": "Me checking my win rate: 57%. Nice.",
-      "bottom_text": "Me checking my units after betting every favorite at -200: -14u",
-      "image_concept": "Split-panel meme showing a confident guy looking at a scoreboard showing 57% wins, then a defeated version of the same guy staring at a spreadsheet showing a negative unit total."
+      "top_text": "Me explaining to my group chat why a 53% win rate is actually elite",
+      "bottom_text": "Group chat: 'bro just pick more winners'",
+      "image_concept": "A guy at a whiteboard covered in ROI formulas and unit profit calculations, looking confident, while three friends stare blankly at their phones."
     }
   }
 }
