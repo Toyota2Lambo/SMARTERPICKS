@@ -1,0 +1,275 @@
+{
+  "generated_at": "2026-05-14T06:51:55.296086+00:00",
+  "model": "claude-sonnet-4-6",
+  "carousel_topic": "Why your win rate matters less than your ROI",
+  "source": {
+    "picks_date": "May 14, 2026",
+    "results_date": "May 13, 2026",
+    "history_stats": {
+      "total_picks": 430,
+      "wins": 243,
+      "losses": 204,
+      "pushes": 22,
+      "win_pct": 54.4,
+      "net_units": 37.69,
+      "roi_pct": 9.3,
+      "best_month_units": 12.4,
+      "worst_month_units": -3.8,
+      "avg_daily_units": 0.85,
+      "days_recorded": 41
+    },
+    "today_free_pick": {
+      "league": "MLB",
+      "time": "2:11 PM ET",
+      "away_team": "Detroit Tigers",
+      "home_team": "New York Mets",
+      "game_detail": "Regular Season",
+      "pick": "Over 7.5",
+      "odds": "+110",
+      "book": "LowVig.ag",
+      "stake": "2u",
+      "reasoning": "This is the highest edge total on the board at 238 bps — LowVig is posting +110 on the Over while the median across 9 books sits at +100, a massive outlier. Both starters are concerning: Nolan McLean is a rookie with limited big-league track record and Keider Montero has struggled with run suppression. Citi Field's dimensions are no longer the suppressor they once were, and a +110 Over at a low-vig shop is a genuine gift line.",
+      "tags": [
+        "Best Price",
+        "Line Value",
+        "Confidence B+"
+      ],
+      "is_premium": false
+    },
+    "results_picks": [
+      {
+        "league": "MLB",
+        "time": "7:41 PM ET",
+        "away_team": "New York Yankees",
+        "home_team": "Baltimore Orioles",
+        "game_detail": "Regular Season",
+        "pick": "Baltimore Orioles ML",
+        "odds": "153",
+        "book": "Bovada",
+        "stake": "1.5u",
+        "reasoning": "Bovada is posting Baltimore at +153 against a market median of +142, a 179.7 bps edge — one of the largest moneyline edges on the board today. Kyle Bradish gets a favorable home matchup while Max Fried, despite his pedigree, is facing a lineup that has been competitive at Camden Yards. At plus-money with genuine line value, the Orioles represent strong expected value.",
+        "tags": [
+          "Line Value",
+          "Home Underdog",
+          "Confidence B+"
+        ],
+        "is_premium": false,
+        "result": "LOST",
+        "units": -1.5
+      },
+      {
+        "league": "MLB",
+        "time": "7:46 PM ET",
+        "away_team": "Philadelphia Phillies",
+        "home_team": "Boston Red Sox",
+        "game_detail": "Regular Season",
+        "pick": "Under 9.0",
+        "odds": "-110",
+        "book": "BetMGM",
+        "stake": "1.5u",
+        "reasoning": "The Under 9.0 at BetMGM posts 110.7 bps of edge over the median (-115), and the pitching matchup strongly supports a low-scoring game. Sonny Gray is one of the more reliable veteran starters in the AL, and Andrew Painter has been one of the Phillies' best arms in 2026. Both starters profile as strikeout-heavy ground-ball pitchers who limit hard contact, making a sub-9-run total very achievable.",
+        "tags": [
+          "Pitching Matchup",
+          "Line Value",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 1.36
+      },
+      {
+        "league": "MLB",
+        "time": "7:41 PM ET",
+        "away_team": "Washington Nationals",
+        "home_team": "Cincinnati Reds",
+        "game_detail": "Regular Season",
+        "pick": "Cincinnati Reds ML",
+        "odds": "-156",
+        "book": "BetOnline.ag",
+        "stake": "1u",
+        "reasoning": "BetOnline offers the Reds at -156 versus a market median of -164, generating 118.4 bps of edge. Nick Lodolo has been sharp for Cincinnati, and Jake Irvin and the Nationals rotation has been inconsistent. This is the one permitted sub-(-150) play on the card and qualifies with a genuine 118 bps edge rather than blind chalk.",
+        "tags": [
+          "Line Value",
+          "Pitching Edge",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "LOST",
+        "units": -1.0
+      },
+      {
+        "league": "MLB",
+        "time": "7:08 PM ET",
+        "away_team": "Tampa Bay Rays",
+        "home_team": "Toronto Blue Jays",
+        "game_detail": "Regular Season",
+        "pick": "Toronto Blue Jays -1.5",
+        "odds": "146",
+        "book": "LowVig.ag",
+        "stake": "1.5u",
+        "reasoning": "LowVig.ag prices Toronto -1.5 at +146 against a median of +135, producing 190.3 bps of edge — outstanding value on a run-line. Dylan Cease is one of the premier strikeout artists in baseball and has the profile to dominate a Rays lineup starting Griffin Jax, a reliever-turned-spot starter. Toronto winning by 2+ is a very plausible outcome with that pitching advantage.",
+        "tags": [
+          "Pitching Matchup",
+          "Run Line Value",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "LOST",
+        "units": -1.5
+      },
+      {
+        "league": "MLB",
+        "time": "7:41 PM ET",
+        "away_team": "Miami Marlins",
+        "home_team": "Minnesota Twins",
+        "game_detail": "Regular Season",
+        "pick": "Under 8.5",
+        "odds": "100",
+        "book": "FanDuel",
+        "stake": "1.5u",
+        "reasoning": "FanDuel is offering the Under 8.5 at even money (+100) while the market median sits at -110 — a massive 238.1 bps of edge, the largest total-side edge in today's data. Simeon Woods Richardson has posted solid numbers for Minnesota and Max Meyer is a quality arm for Miami, making both rotations capable of keeping run totals suppressed. Getting plus-money on an under in a game with two competent starters is a sharp opportunity.",
+        "tags": [
+          "Huge Line Value",
+          "Pitching Matchup",
+          "Confidence A"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 1.5
+      },
+      {
+        "league": "MLB",
+        "time": "10:11 PM ET",
+        "away_team": "San Francisco Giants",
+        "home_team": "Los Angeles Dodgers",
+        "game_detail": "Regular Season",
+        "pick": "San Francisco Giants +1.5",
+        "odds": "100",
+        "book": "BetMGM",
+        "stake": "1.5u",
+        "reasoning": "BetMGM posts the Giants +1.5 at +100 while the median across books sits at -108, generating 192.3 bps of edge. Even with Shohei Ohtani on the mound for LA, Robbie Ray is a veteran capable of keeping games close, and the +1.5 run line at plus-money is an extraordinarily generous number. Getting a full run-and-a-half cushion at even money against a -244 moneyline favorite is the kind of structural edge that defines a sharp line-shopping opportunity.",
+        "tags": [
+          "Huge Line Value",
+          "Run Line",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 1.5
+      },
+      {
+        "league": "NHL",
+        "time": "8:10 PM ET",
+        "away_team": "Minnesota Wild",
+        "home_team": "Colorado Avalanche",
+        "game_detail": "Regular Season",
+        "pick": "Over 6.5",
+        "odds": "100",
+        "book": "LowVig.ag",
+        "stake": "1u",
+        "reasoning": "LowVig.ag and BetOnline both post the Over 6.5 at +100 while the median is -104, giving 98 bps of edge right at our threshold. Colorado is one of the highest-scoring teams in the NHL and their home ice games tend to run up, while Minnesota's offense has been active late in the season. Even money on an over in a Avalanche home game against a Wild team that can score is defensible value.",
+        "tags": [
+          "Line Value",
+          "High-Scoring Matchup",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 1.0
+      }
+    ]
+  },
+  "content": {
+    "ig_pick_post": {
+      "caption": "Today's free pick is an MLB total with 238 bps of edge. LowVig is an outlier at +110 while the market median sits at +100. That gap is worth playing.",
+      "slide1_text": "Free Pick: MLB Over 7.5 (+110)\nThe biggest edge total on today's board.",
+      "slide2_text": "Over 7.5 (+110) vs. median of +100 across 9 books.\n238 bps of edge. Rookie starter Nolan McLean on the mound. Pitching matchup favors the bats.",
+      "slide3_text": "Full card (7 plays today) at smarterpicks.io\nCode FREE30 gets your first month at no cost. 21+ only. Bet responsibly.",
+      "hashtags": [
+        "sportsbetting",
+        "sportspicks",
+        "mlbpicks",
+        "mlbbetting",
+        "baseballbetting",
+        "freepick",
+        "todayspicks",
+        "bettinganalysis",
+        "oddsboost",
+        "sharpbetting",
+        "valuebet",
+        "mlb2026",
+        "baseballtoday",
+        "bettingtips",
+        "sportsanalysis",
+        "expectedvalue",
+        "handicapping",
+        "smarterpicks"
+      ]
+    },
+    "ig_results_post": {
+      "caption": "Yesterday: 4-3, +1.36u. Went 4 for 7. Three plays didn't land. We post every result, good and bad.",
+      "headline_text": "May 13: 4-3, +1.36u\nYTD: 243-204, +37.7u, 9.3% ROI",
+      "hashtags": [
+        "sportsbetting",
+        "bettingresults",
+        "sportspicks",
+        "mlbpicks",
+        "bettinganalysis",
+        "trackrecord",
+        "transparentbetting",
+        "sharpbetting",
+        "sportsanalysis",
+        "publicrecord",
+        "bettingROI",
+        "handicapping",
+        "mlb2026",
+        "sportsbettinglife",
+        "valuebet",
+        "bettingtips",
+        "oddsanalysis",
+        "smarterpicks"
+      ]
+    },
+    "ig_carousel_topic": {
+      "topic": "Why your win rate matters less than your ROI",
+      "slide1_text": "You can win 58% of your bets and still lose money.\nWin rate alone tells you almost nothing.",
+      "slide2_text": "Most bettors fixate on win rate.\nIf I hit 55%, I'm profitable, right?\nNot if you're laying -150 on every favorite.",
+      "slide3_text": "ROI accounts for the price you paid.\nA 52% win rate at +120 average odds beats a 57% win rate at -140 average odds.\nThe math is unforgiving on the juice side.",
+      "slide4_text": "Example: 100 bets at 1u each.\n57 wins at -140, 43 losses: net -4.2u\n52 wins at +120, 48 losses: net +14.4u\nSame volume. Very different outcomes.",
+      "slide5_text": "SmarterPicks sits at 54.4% and +9.3% ROI across 447 graded bets this year.\nWin rate is a headline. ROI is the report card.",
+      "caption": "Win rate is a headline. ROI is what actually matters. 54.4% and +9.3% ROI across 447 bets in 2026. The math behind the number is the part most services hide.",
+      "hashtags": [
+        "sportsbetting",
+        "bettingeducation",
+        "bettinganalysis",
+        "expectedvalue",
+        "ROI",
+        "sharpbetting",
+        "sportsbettingtips",
+        "handicapping",
+        "bettingstrategy",
+        "mlbbetting",
+        "sportspicks",
+        "valuebet",
+        "bettingmath",
+        "oddsanalysis",
+        "sportsanalysis",
+        "bankrollmanagement",
+        "bettingmindset",
+        "smarterpicks"
+      ]
+    },
+    "story_sequence": [
+      "Card drops in 30 minutes. 7 plays today, one free. MLB totals are doing work this slate.",
+      "Poll time: which sport do you find the most predictable to bet? MLB, NFL, or NHL? Drop your answer below.",
+      "Last call before first pitch. Free pick is live on the site. Over 7.5 (+110), 238 bps of edge at LowVig. smarterpicks.io",
+      "Live update: checking in mid-slate. Tracking 7 plays today. Results post goes up tomorrow morning as always.",
+      "That's a wrap on May 14. Full results tomorrow at 8am. YTD sits at +37.7u across 41 days. See you in the morning."
+    ],
+    "meme_post": {
+      "top_text": "Me carefully researching 6 stats before placing a bet",
+      "bottom_text": "The game: 1-0 final, both offenses vanish without warning",
+      "image_concept": "A person hunched over a laptop surrounded by spreadsheets and stat pages, looking very confident, paired with a scoreboard showing a 1-0 final score."
+    }
+  }
+}
