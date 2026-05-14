@@ -5,6 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SMARTERPICKS — AI-Powered Sports Betting Insights</title>
 
+<!-- Mobile-only auth shortcut: logged-in members get bounced straight to
+     the members area instead of the marketing landing. Desktop members
+     keep the landing page so they can browse the ticker, pricing, etc. -->
+<script>
+(function(){
+  try{
+    if (window.matchMedia && window.matchMedia("(max-width: 960px)").matches) {
+      var a = JSON.parse(localStorage.getItem("whop_access") || "null");
+      if (a && a.has_access) { location.replace("members"); }
+    }
+  }catch(_){}
+})();
+</script>
+
 <!-- SEO -->
 <meta name="description" content="AI-powered daily sports betting picks across NBA, MLB, NHL, and NFL. Full pick card published every morning before lock. Public track record, members' Discord, cancel anytime.">
 <meta name="theme-color" content="#0a0a0a">
