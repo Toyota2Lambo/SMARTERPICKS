@@ -423,8 +423,10 @@ function wireCheckoutButton() {
     try {
       const access = JSON.parse(accessRaw);
       if (access.has_access) {
+        // Already a paid member — skip the marketing landing entirely
+        // and go straight to the members area.
         showPanel("panel-success");
-        setTimeout(() => { window.location.href = "index.html"; }, 800);
+        setTimeout(() => { window.location.href = "members"; }, 600);
         return;
       }
       // Signed in but no membership — show subscribe CTA
