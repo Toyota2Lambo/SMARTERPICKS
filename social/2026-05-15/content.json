@@ -1,0 +1,275 @@
+{
+  "generated_at": "2026-05-15T07:31:14.421946+00:00",
+  "model": "claude-sonnet-4-6",
+  "carousel_topic": "Reading line movement — what it tells you the public can't see",
+  "source": {
+    "picks_date": "May 15, 2026",
+    "results_date": "May 14, 2026",
+    "history_stats": {
+      "total_picks": 430,
+      "wins": 246,
+      "losses": 206,
+      "pushes": 22,
+      "win_pct": 54.4,
+      "net_units": 38.69,
+      "roi_pct": 9.3,
+      "best_month_units": 12.4,
+      "worst_month_units": -3.8,
+      "avg_daily_units": 0.85,
+      "days_recorded": 42
+    },
+    "today_free_pick": {
+      "league": "MLB",
+      "time": "9:41 PM ET",
+      "away_team": "Los Angeles Dodgers",
+      "home_team": "Los Angeles Angels",
+      "game_detail": "Regular Season",
+      "pick": "Under 9.0",
+      "odds": "-114",
+      "book": "FanDuel",
+      "stake": "1.5u",
+      "reasoning": "Blake Snell takes the mound for the Dodgers against Jack Kochanowicz for the Angels — a strong pitching matchup anchoring the under. Six books are lined at 9.0 with the best price at -114 on FanDuel, while three books have already dropped to 8.5, signaling sharp under pressure. The edge_bps on the Under 9.0 is minimal at this point, but the 8.5 line at LowVig showing +107 for the Under confirms the market is leaning that way, and Snell's elite strikeout profile suppresses scoring.",
+      "tags": [
+        "Pitching Spot",
+        "Line Movement",
+        "Confidence B+"
+      ],
+      "is_premium": false
+    },
+    "results_picks": [
+      {
+        "league": "MLB",
+        "time": "2:11 PM ET",
+        "away_team": "Detroit Tigers",
+        "home_team": "New York Mets",
+        "game_detail": "Regular Season",
+        "pick": "Over 7.5",
+        "odds": "+110",
+        "book": "LowVig.ag",
+        "stake": "2u",
+        "reasoning": "This is the highest edge total on the board at 238 bps — LowVig is posting +110 on the Over while the median across 9 books sits at +100, a massive outlier. Both starters are concerning: Nolan McLean is a rookie with limited big-league track record and Keider Montero has struggled with run suppression. Citi Field's dimensions are no longer the suppressor they once were, and a +110 Over at a low-vig shop is a genuine gift line.",
+        "tags": [
+          "Best Price",
+          "Line Value",
+          "Confidence B+"
+        ],
+        "is_premium": false,
+        "result": "LOST",
+        "units": -2.0
+      },
+      {
+        "league": "MLB",
+        "time": "2:11 PM ET",
+        "away_team": "Seattle Mariners",
+        "home_team": "Houston Astros",
+        "game_detail": "Regular Season",
+        "pick": "Under 9.0",
+        "odds": "+107",
+        "book": "LowVig.ag",
+        "stake": "1.5u",
+        "reasoning": "The Under 9.0 at +107 carries 219 bps of edge versus the median of -102, the second-largest total edge on today's slate. Luis Castillo is one of the best run-prevention starters in the AL and Mike Burrows has posted solid ground-ball numbers, making 9 total runs a steep bar. Getting plus-money on an Under with two quality arms is a rare structural advantage worth pressing.",
+        "tags": [
+          "Best Price",
+          "Pitcher Spot",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 1.6
+      },
+      {
+        "league": "NFL",
+        "time": "Sep 14 · 8:20 PM ET",
+        "away_team": "Dallas Cowboys",
+        "home_team": "New York Giants",
+        "game_detail": "Week 2 · Regular Season",
+        "pick": "New York Giants +2.5",
+        "odds": "-102",
+        "book": "FanDuel",
+        "stake": "1.5u",
+        "reasoning": "The Giants +2.5 at -102 shows 96 bps of edge, but more importantly the moneyline consensus reveals severe book disagreement — DraftKings has Dallas at -130 while FanDuel is -154, a 315 bps gap on the moneyline that signals genuine market uncertainty. Taking the cheaper spread number at -102 on FanDuel rather than laying -115 elsewhere captures the best price in the market. The Giants at home getting points in a divisional spot is a strong structural spot regardless of the offseason uncertainty.",
+        "tags": [
+          "Best Price",
+          "Divisional Spot",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "PENDING",
+        "units": 0.0
+      },
+      {
+        "league": "MLB",
+        "time": "2:41 PM ET",
+        "away_team": "Miami Marlins",
+        "home_team": "Minnesota Twins",
+        "game_detail": "Regular Season",
+        "pick": "Over 8.5",
+        "odds": "-110",
+        "book": "FanDuel",
+        "stake": "1.5u",
+        "reasoning": "FanDuel's -110 on the Over 8.5 beats the median of -117 by 154 bps across 9 books — one of the cleaner total edges on today's MLB slate. Braxton Garrett has been hittable and Zebby Matthews is a young arm the Twins are still breaking in carefully. Minnesota's lineup has been productive at home and the Marlins' bullpen ranks among the worst in run prevention in late innings.",
+        "tags": [
+          "Best Price",
+          "Bullpen Fade",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 1.36
+      },
+      {
+        "league": "MLB",
+        "time": "2:06 PM ET",
+        "away_team": "St. Louis Cardinals",
+        "home_team": "Athletics",
+        "game_detail": "Regular Season",
+        "pick": "Over 9.5",
+        "odds": "-102",
+        "book": "BetMGM",
+        "stake": "1u",
+        "reasoning": "BetMGM's -102 on the Over 9.5 is 143 bps better than the median of -108 across 6 books. Jacob Lopez and Michael McGreevy are back-end starters prone to giving up runs in bunches, and the 9.5 total reflects a lower baseline than what these two matchups typically produce in offensive-friendly conditions. The tight vig at -102 makes this an efficient entry even at the speculative level.",
+        "tags": [
+          "Best Price",
+          "Starter Fade",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "LOST",
+        "units": -1.0
+      },
+      {
+        "league": "NHL",
+        "time": "7:10 PM ET",
+        "away_team": "Montréal Canadiens",
+        "home_team": "Buffalo Sabres",
+        "game_detail": "Regular Season",
+        "pick": "Over 6.0",
+        "odds": "+104",
+        "book": "BetOnline.ag",
+        "stake": "1u",
+        "reasoning": "The Over 6.0 at +104 carries 98 bps of edge versus the median of +100 across 6 books, and getting plus-money on an NHL Over with a 6.0 line is structurally attractive. Both teams rank in the bottom half of defensive efficiency this season, and the Sabres have been involved in high-scoring affairs at home. The Canadiens' transition game generates pace, which pushes totals up in matchups like this.",
+        "tags": [
+          "Best Price",
+          "Pace Spot",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 1.04
+      },
+      {
+        "league": "MLB",
+        "time": "7:16 PM ET",
+        "away_team": "Philadelphia Phillies",
+        "home_team": "Boston Red Sox",
+        "game_detail": "Regular Season",
+        "pick": "Philadelphia Phillies -1.5",
+        "odds": "+157",
+        "book": "LowVig.ag",
+        "stake": "1u",
+        "reasoning": "The Phillies -1.5 at +157 shows 109 bps of edge over the median of +150, and Ranger Suarez on the mound for Boston is a soft matchup — he's been allowing home runs at an elevated rate this season. Jesus Luzardo countering for Philadelphia is a significant quality gap in this pitching matchup. At +157, the implied probability is just 39%, making this a value play on a team that should win by multiple runs against this starter.",
+        "tags": [
+          "Best Price",
+          "Pitcher Advantage",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "LOST",
+        "units": -1.0
+      }
+    ]
+  },
+  "content": {
+    "ig_pick_post": {
+      "caption": "Blake Snell vs. Jack Kochanowicz. Six books at 9.0, best price -114 on FanDuel. The pitching matchup does the work here.",
+      "slide1_text": "FREE PICK: Friday MLB Under\nBlake Snell on the mound.\nThis one starts with the arms.",
+      "slide2_text": "Dodgers vs. Angels, Under 9.0 (-114)\nSnell vs. Kochanowicz is a genuine pitching duel.\nBest price: -114 at FanDuel. Six books lined at 9.0.",
+      "slide3_text": "Full card (7 picks total) at smarterpicks.io\nCode FREE30 gets your first month free.\n21+. Bet responsibly.",
+      "hashtags": [
+        "sportsbetting",
+        "sportspicks",
+        "mlbpicks",
+        "mlbbetting",
+        "freepick",
+        "dodgers",
+        "angels",
+        "underpick",
+        "baseballbetting",
+        "nbapicks",
+        "nhlpicks",
+        "bettinganalysis",
+        "sharpbetting",
+        "sportsanalysis",
+        "dailypicks",
+        "bettingadvice",
+        "fanduel",
+        "bettingodds"
+      ]
+    },
+    "ig_results_post": {
+      "caption": "3-3 yesterday. Net flat at +0.00u. Three won, three lost. We post both. YTD still 246-206, +38.7u across 42 days.",
+      "headline_text": "May 14: 3-3, +0.00u\nYTD: 246-206 (54.4%) | +38.7u",
+      "hashtags": [
+        "sportsbetting",
+        "sportspicks",
+        "bettingresults",
+        "mlbpicks",
+        "bettinganalysis",
+        "trackedrecord",
+        "sharpbetting",
+        "transparentbetting",
+        "sportsanalysis",
+        "dailypicks",
+        "bettingadvice",
+        "publicrecord",
+        "nbapicks",
+        "nhlpicks",
+        "bettingodds",
+        "oddsanalysis",
+        "sportsbettingtips",
+        "responsiblegambling"
+      ]
+    },
+    "ig_carousel_topic": {
+      "topic": "Reading line movement, what it tells you the public can't see",
+      "slide1_text": "The line moved. But which way matters more than you think.",
+      "slide2_text": "Most people see a line shift and assume the public moved it.\nSometimes that's true. Often it isn't.\nThose two scenarios point in opposite directions.",
+      "slide3_text": "Sharp money moves lines fast and early.\nPublic money moves lines slowly and late.\nA line that jumps 2 points in the first hour after open is almost never the public.",
+      "slide4_text": "Example: A team opens -3. By noon it's -4.5, but tickets are 65% on the other side.\nThat means sportsbooks moved toward the heavy public side. That's a sharp signal.\nThe books don't move into liability without a reason.",
+      "slide5_text": "You don't need to beat the books. You need to read what they're telling you.\nWhen the line and the public disagree, one of them is usually wrong.\nIt's rarely the line.",
+      "caption": "Line movement is a signal, not just a number. Learn to read the direction and the timing, and you're seeing what most bettors miss.",
+      "hashtags": [
+        "sportsbetting",
+        "bettinganalysis",
+        "linemovement",
+        "sharpbetting",
+        "sportsbettingtips",
+        "bettingodds",
+        "oddsanalysis",
+        "bettingstrategy",
+        "sportsanalysis",
+        "educationalbetting",
+        "bettingmath",
+        "sharpaction",
+        "publicbetting",
+        "mlbbetting",
+        "nbabetting",
+        "sportspicks",
+        "bettingadvice",
+        "handicapping"
+      ]
+    },
+    "story_sequence": [
+      "Friday card drops in 30 minutes. Seven picks, one free. Blake Snell leads it off.",
+      "Poll: Do you fade the public or follow the line movement? Tell us below.",
+      "Last call before first pitch. Free pick is live on the profile. Full card at smarterpicks.io.",
+      "Tracking live: check the grid on site. Early results posting as games lock.",
+      "Friday wraps up. Full results post in the morning. See you at 9am for the recap."
+    ],
+    "meme_post": {
+      "top_text": "Me at 7pm: 'I'll just check the lines real quick.'",
+      "bottom_text": "Me at 1am: spreadsheet open, five tabs of Statcast data, questioning everything.",
+      "image_concept": "Person sitting at a laptop in a dark room, surrounded by empty coffee cups, with a look of exhausted determination. Multiple browser tabs visible on screen."
+    }
+  }
+}
