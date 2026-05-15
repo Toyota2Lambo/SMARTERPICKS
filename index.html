@@ -568,7 +568,7 @@
   <div class="nav-inner">
     <a href="#" class="logo"><span class="logo-mark"></span>SMARTERPICKS</a>
     <ul class="nav-links">
-      <li><a href="#slate">Today's Picks</a></li>
+      <li><a href="picks">Today's Picks</a></li>
       <li><a href="#record">Archive</a></li>
       <li><a href="pricing">Pricing</a></li>
       <li><a href="discord.html">Discord</a></li>
@@ -589,7 +589,7 @@
 <aside class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
   <button class="close" id="mobile-close" aria-label="Close menu">Close ✕</button>
   <ul>
-    <li><a href="#slate">Today's Picks</a></li>
+    <li><a href="picks">Today's Picks</a></li>
     <li><a href="#how">How It Works</a></li>
     <li><a href="pricing">Pricing</a></li>
     <li><a href="#record">Archive</a></li>
@@ -610,7 +610,7 @@
     <p class="hero-sub">AI-powered daily insights on every major sport. Game previews, sharp line movement, prop edges, and the plays the public isn't making — delivered before tip-off.</p>
     <div class="hero-actions">
       <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="btn-primary">Start 7-day free trial →</a>
-      <a href="#slate" class="btn-secondary">See Today's Free Pick</a>
+      <a href="picks" class="btn-secondary">See Today's Free Pick</a>
     </div>
     <div class="hero-trust">
       <span>$100 bettors up $3,840 this year</span><span class="dot">·</span>
@@ -682,54 +682,9 @@
   </div>
 </section>
 
-<!-- ============================================================
-     TODAY'S PICKS SECTION
-     The picks-loader.js script at the bottom of this page
-     automatically fills in this section every day from picks.json.
-     You don't need to touch anything in here — it's all automatic.
-     ============================================================ -->
-<section class="slate" id="slate">
-  <div class="container">
-    <div class="section-header">
-      <div>
-        <div class="section-tag"><span class="live-dot"></span> <span id="slate-date">Loading today's slate...</span></div>
-        <h2 class="section-title">Today's <em>picks</em></h2>
-      </div>
-      <div class="section-meta" id="pick-count">Loading picks...</div>
-    </div>
+<!-- Today's picks now live on /picks (their own page).
+     The 3 nav links + the hero secondary CTA all point there. -->
 
-    <!-- picks-loader.js fills this div automatically from picks.json -->
-    <div class="picks-grid" id="picks-grid">
-
-      <!-- SKELETON LOADING STATE: shimmering placeholders while picks.json loads -->
-      <div class="pick-card">
-        <div class="skeleton-line" style="width:30%;"></div>
-        <div class="skeleton-line" style="width:65%;height:24px;margin-top:18px;"></div>
-        <div class="skeleton-line" style="width:90%;"></div>
-        <div class="skeleton-line" style="width:100%;height:60px;margin-top:18px;"></div>
-        <div class="skeleton-line" style="width:80%;height:12px;margin-top:18px;"></div>
-        <div class="skeleton-line" style="width:60%;height:12px;"></div>
-      </div>
-      <div class="pick-card">
-        <div class="skeleton-line" style="width:30%;"></div>
-        <div class="skeleton-line" style="width:65%;height:24px;margin-top:18px;"></div>
-        <div class="skeleton-line" style="width:90%;"></div>
-        <div class="skeleton-line" style="width:100%;height:60px;margin-top:18px;"></div>
-        <div class="skeleton-line" style="width:80%;height:12px;margin-top:18px;"></div>
-        <div class="skeleton-line" style="width:60%;height:12px;"></div>
-      </div>
-      <div class="pick-card">
-        <div class="skeleton-line" style="width:30%;"></div>
-        <div class="skeleton-line" style="width:65%;height:24px;margin-top:18px;"></div>
-        <div class="skeleton-line" style="width:90%;"></div>
-        <div class="skeleton-line" style="width:100%;height:60px;margin-top:18px;"></div>
-        <div class="skeleton-line" style="width:80%;height:12px;margin-top:18px;"></div>
-        <div class="skeleton-line" style="width:60%;height:12px;"></div>
-      </div>
-
-    </div>
-  </div>
-</section>
 
 <!-- SOCIAL PROOF BAR -->
 <div class="proof-bar">
