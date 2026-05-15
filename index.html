@@ -662,25 +662,8 @@
   </div>
 </section>
 
-<!-- ============================================================
-     YESTERDAY'S RESULTS — populated from results.json by the
-     polish-layer script. Hidden gracefully if results.json fails.
-     ============================================================ -->
-<section class="yday" id="yday-section" data-reveal style="display:none;">
-  <div class="container">
-    <div class="yday-card">
-      <div>
-        <div class="yday-tag">Yesterday's results · <span id="yday-date">—</span></div>
-        <div class="yday-title">Posted publicly. <em style="font-style:italic;color:var(--accent);">Receipts visible.</em></div>
-      </div>
-      <div class="yday-pills" id="yday-pills"></div>
-      <div class="yday-net" id="yday-net">
-        <span id="yday-net-num">+0u</span>
-        <small id="yday-net-record">0-0</small>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- Yesterday's results card moved into the Archive section (below) so it
+     reads as the lead receipt above the cumulative chart. -->
 
 <!-- Today's picks now live on /picks (their own page).
      The 3 nav links + the hero secondary CTA all point there. -->
@@ -740,6 +723,22 @@
       </div>
       <div class="section-meta">Every pick, every result · open to everyone</div>
     </div>
+
+    <!-- YESTERDAY'S RESULTS — leads off the archive. Populated from
+         results.json by the polish-layer script. Hidden gracefully if
+         results.json fails. -->
+    <div class="yday-card" id="yday-section" data-reveal style="display:none;margin-bottom:28px;">
+      <div>
+        <div class="yday-tag">Yesterday's results · <span id="yday-date">—</span></div>
+        <div class="yday-title">Posted publicly. <em style="font-style:italic;color:var(--accent);">Receipts visible.</em></div>
+      </div>
+      <div class="yday-pills" id="yday-pills"></div>
+      <div class="yday-net" id="yday-net">
+        <span id="yday-net-num">+0u</span>
+        <small id="yday-net-record">0-0</small>
+      </div>
+    </div>
+
     <!-- CUMULATIVE P/L CHART — populated by polish-layer from history.json -->
     <div class="chart-wrap" id="chart-wrap" data-reveal style="display:none;">
       <div class="chart-header">
