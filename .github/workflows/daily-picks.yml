@@ -85,7 +85,7 @@ jobs:
         run: |
           git config user.name  "smarterpicks-bot"
           git config user.email "smarterpicks-bot@users.noreply.github.com"
-          git add picks.json results.json history.json
+          git add picks.json results.json history.json archive.json slate.json
           if git diff --cached --quiet; then
             echo "No JSON changes to commit."
           else
