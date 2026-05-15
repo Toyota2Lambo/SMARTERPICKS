@@ -272,6 +272,60 @@ def main():
     history_path.write_text(json.dumps(history, indent=2, ensure_ascii=False))
     print(f"✅ Appended to history.json (cumulative = {new_cum}u)")
 
+    # ── append to archive.json ──
+    # archive.html consumes {stats, days: [{iso_date, date_display, wins,
+    # losses, pushes, net_units, summary_text, picks: [...] }]}. We append
+    # yesterday's scored slate as one new day entry and refresh the stats
+    # totals so the trust headlines on /archive stay current.
+    archive_path = REPO_ROOT / "archive.json"
+    archive = json.loads(archive_path.read_text()) if archive_path.exists() else {"stats": {}, "days": []}
+
+    # Trim each pick to just what /archive renders (drops large fields
+    # like reasoning if you want to keep file size down — leaving in for
+    # now since the existing archive includes reasoning).
+    day_entry = {
+        "iso_date":     date_iso,
+        "date_display": pick_date,
+        "wins":         wins,
+        "losses":       losses,
+        "pushes":       pushes,
+        "net_units":    net_units,
+        "summary_text": summary,
+        "picks":        scored,
+    }
+
+    days = archive.setdefault("days", [])
+    # Idempotent: replace existing entry for this date if rerun, else append.
+    replaced = False
+    for i, d in enumerate(days):
+        if d.get("iso_date") == date_iso:
+            days[i] = day_entry
+            replaced = True
+            break
+    if not replaced:
+        days.append(day_entry)
+    # Keep days sorted oldest -> newest so the front-end pagination behaves.
+    days.sort(key=lambda d: d.get("iso_date") or "")
+
+    # Recompute aggregate stats from scratch (one pass, can't drift).
+    agg = {"total_picks": 0, "wins": 0, "losses": 0, "pushes": 0, "net_units": 0.0}
+    for d in days:
+        agg["total_picks"] += len(d.get("picks") or [])
+        agg["wins"]        += int(d.get("wins") or 0)
+        agg["losses"]      += int(d.get("losses") or 0)
+        agg["pushes"]      += int(d.get("pushes") or 0)
+        agg["net_units"]   += float(d.get("net_units") or 0)
+    decided = agg["wins"] + agg["losses"]
+    agg["win_pct"]   = round(100 * agg["wins"] / decided, 1) if decided else 0
+    agg["roi_pct"]   = round(100 * agg["net_units"] / max(agg["total_picks"], 1), 1)
+    agg["net_units"] = round(agg["net_units"], 2)
+    agg["days_recorded"] = len(days)
+    # Preserve any pre-existing manually-curated stats (best month, etc.).
+    archive["stats"] = {**archive.get("stats", {}), **agg}
+
+    archive_path.write_text(json.dumps(archive, indent=2, ensure_ascii=False))
+    print(f"✅ Appended to archive.json ({len(days)} days · {agg['total_picks']} picks)")
+
     return 0
 
 
