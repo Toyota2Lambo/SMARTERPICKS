@@ -115,6 +115,29 @@ jobs:
           fi
           echo "ASSETS_READY=1" >> "$GITHUB_OUTPUT"
 
+      - name: Self-heal — trigger daily render if assets missing
+        # When we get here ASSETS_READY=0 (caught the race condition).
+        # Kick off social-daily.yml so the NEXT stagger slot has assets.
+        # Without this, every slot for the day would skip silently. With
+        # it, the slate self-heals usually within one cycle.
+        if: steps.assets.outputs.ASSETS_READY == '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            try {
+              await github.rest.actions.createWorkflowDispatch({
+                owner: context.repo.owner,
+                repo:  context.repo.repo,
+                workflow_id: 'social-daily.yml',
+                ref: 'main',
+              });
+              core.info("Triggered social-daily.yml — next stagger slot will pick up the fresh assets.");
+            } catch (e) {
+              // Failing to dispatch shouldn't fail THIS run (the whole point
+              // is reliability). Log and move on.
+              core.warning(`Couldn't dispatch social-daily.yml: ${e.message}`);
+            }
+
       - name: Publish this slot's piece(s)
         # Skip cleanly when the morning render hasn't committed yet.
         # The next stagger slot will retry once assets exist.
