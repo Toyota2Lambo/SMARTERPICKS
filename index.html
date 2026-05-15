@@ -5,16 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SMARTERPICKS — AI-Powered Sports Betting Insights</title>
 
-<!-- Mobile-only auth shortcut: logged-in members get bounced straight to
-     the members area instead of the marketing landing. Desktop members
-     keep the landing page so they can browse the ticker, pricing, etc. -->
+<!-- Auth shortcut: ANY logged-in member visiting the marketing landing
+     gets bounced straight to /members. Otherwise they'd see "Start free
+     trial" CTAs everywhere, which makes no sense for someone who's
+     already paying. Runs in <head> so the swap happens before render. -->
 <script>
 (function(){
   try{
-    if (window.matchMedia && window.matchMedia("(max-width: 960px)").matches) {
-      var a = JSON.parse(localStorage.getItem("whop_access") || "null");
-      if (a && a.has_access) { location.replace("members"); }
-    }
+    var a = JSON.parse(localStorage.getItem("whop_access") || "null");
+    if (a && a.has_access) { location.replace("members"); }
   }catch(_){}
 })();
 </script>
