@@ -103,15 +103,22 @@ jobs:
         # Defense in depth: if the morning render failed and never
         # committed assets, fail loudly here instead of erroring deep
         # inside the publisher.
+        id: assets
         run: |
           DAY_DIR="${{ steps.today.outputs.DAY_DIR }}"
           if [ ! -f "$DAY_DIR/content.json" ] || [ ! -f "$DAY_DIR/manifest.json" ]; then
-            echo "❌ Missing content.json or manifest.json in $DAY_DIR — morning render didn't produce assets."
-            echo "Re-run social-daily.yml to regenerate, then re-run this slot."
-            exit 1
+            echo "⚠ Assets not ready in $DAY_DIR — morning render hasn't committed yet."
+            echo "This slot will be skipped (next slot will retry). Soft-exit so the"
+            echo "workflow doesn't open a noisy issue every time scheduling races the daily render."
+            echo "ASSETS_READY=0" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
+          echo "ASSETS_READY=1" >> "$GITHUB_OUTPUT"
 
       - name: Publish this slot's piece(s)
+        # Skip cleanly when the morning render hasn't committed yet.
+        # The next stagger slot will retry once assets exist.
+        if: steps.assets.outputs.ASSETS_READY == '1'
         env:
           IG_ACCESS_TOKEN:        ${{ secrets.IG_ACCESS_TOKEN }}
           IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
