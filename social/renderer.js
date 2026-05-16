@@ -192,32 +192,21 @@ function buildManifest(payload) {
   if (c.ig_pick_post) {
     const livePick = (payload.source && payload.source.today_free_pick) || null;
 
-    const slideOne = {
-      template: "daily-pick-card.html",
-      output:   "pick-post-1.png",
-      group:    "ig_pick_post",
-      slide_index: 1,
-      size:     FEED_SIZE,
-      content:  {
-        size:           "feed",
-        slide_label:    "Today's Free Pick",
-        slide_text:     c.ig_pick_post.slide1_text,
-        slide_text_html: colorize(c.ig_pick_post.slide1_text),
-        slide_index:    1,
-        slide_total:    3,
-        numeral:        "01",
-      },
-    };
+    // 2-slide carousel only — the templated headline slide read as ad
+    // copy on the grid and was getting skipped at publish anyway. Files
+    // keep the pick-post-2 / pick-post-3 names so ig_publisher's filter
+    // doesn't have to change. Slide pager renumbered to 1/2 and 2/2 so
+    // the on-image counter matches what viewers actually see.
 
-    const slideTwo = livePick
+    const slideCard = livePick
       ? {
           template: "site-pick-card.html",
           output:   "pick-post-2.png",
           group:    "ig_pick_post",
-          slide_index: 2,
+          slide_index: 1,
           size:     FEED_SIZE,
           content:  Object.assign(
-            { size: "feed", slide_index: 2, slide_total: 3, numeral: "02" },
+            { size: "feed", slide_index: 1, slide_total: 2, numeral: "01" },
             livePickFields(livePick)
           ),
         }
@@ -225,37 +214,37 @@ function buildManifest(payload) {
           template: "daily-pick-card.html",
           output:   "pick-post-2.png",
           group:    "ig_pick_post",
-          slide_index: 2,
+          slide_index: 1,
           size:     FEED_SIZE,
           content:  {
             size:           "feed",
             slide_label:    "The Play",
             slide_text:     c.ig_pick_post.slide2_text,
             slide_text_html: colorize(c.ig_pick_post.slide2_text),
-            slide_index:    2,
-            slide_total:    3,
-            numeral:        "02",
+            slide_index:    1,
+            slide_total:    2,
+            numeral:        "01",
           },
         };
 
-    const slideThree = {
+    const slideCTA = {
       template: "daily-pick-card.html",
       output:   "pick-post-3.png",
       group:    "ig_pick_post",
-      slide_index: 3,
+      slide_index: 2,
       size:     FEED_SIZE,
       content:  {
         size:           "feed",
         slide_label:    "The Full Card",
         slide_text:     c.ig_pick_post.slide3_text,
         slide_text_html: colorize(c.ig_pick_post.slide3_text),
-        slide_index:    3,
-        slide_total:    3,
-        numeral:        "03",
+        slide_index:    2,
+        slide_total:    2,
+        numeral:        "02",
       },
     };
 
-    renders.push(slideOne, slideTwo, slideThree);
+    renders.push(slideCard, slideCTA);
   }
 
   // 2) Yesterday's results — 1 image (feed)
