@@ -82,7 +82,7 @@ class IGPickPost(BaseModel):
     caption: str          = Field(description="Instagram caption, 80 to 220 chars, no hashtags here.")
     slide1_text: str      = Field(description="Slide 1, the headline or hook for today's free pick. Short, punchy, fits a card.")
     slide2_text: str      = Field(description="Slide 2, the actual pick plus odds plus brief why. Tight, 2 to 3 lines.")
-    slide3_text: str      = Field(description="Slide 3, CTA line, e.g. 'Full card unlocked at smarterpicks.io. Code FREE30.'")
+    slide3_text: str      = Field(description="Slide 3, CTA line, e.g. 'Full card unlocked at smarterpicks.io. 7-day free trial.'")
     hashtags: List[str]   = Field(min_length=8, max_length=18, description="Mix of broad (#sportsbetting) and specific (#nbapicks). No leading #.")
 
 
@@ -282,7 +282,7 @@ SENTENCE STRUCTURE:
 WHAT WE STAND FOR:
 - Public track record. We post wins AND losses every morning.
 - Realistic win rates (53 to 58 percent is the honest target, anyone claiming 80 percent is selling something).
-- Subscription is $29.99 a month or $199 a year through Whop. New members can use code FREE30 for the first month free.
+- Subscription is $29.99 a month or $199 a year through Whop. New members get a 7-day free trial, then bill on day 8. Cancel anytime.
 - 21 plus only. Bet responsibly. We include a soft responsible-gambling note when we mention real money.
 
 CONTENT FORMAT RULES:
@@ -313,7 +313,7 @@ EDUCATIONAL CAROUSEL TOPIC FOR TODAY
 
 Generate the full Instagram content package for today. Five separate pieces:
 
-1. **ig_pick_post** — 3-slide carousel announcing TODAY'S FREE pick (the one tagged FREE in the list above). Slide 1 hooks, slide 2 reveals + odds + 1 line of why, slide 3 closes with the soft "full card at smarterpicks.io" CTA mentioning code FREE30.
+1. **ig_pick_post** — 3-slide carousel announcing TODAY'S FREE pick (the one tagged FREE in the list above). Slide 1 hooks, slide 2 reveals + odds + 1 line of why, slide 3 closes with the soft "full card at smarterpicks.io" CTA mentioning the 7-day free trial.
 
 2. **ig_results_post** — single-image post showing yesterday's record. Caption acknowledges what we won AND what we lost — never spin a losing day as a win.
 
