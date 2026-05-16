@@ -133,9 +133,15 @@
   }
 
   .reasoning {
-    font-size: 19px;
-    line-height: 1.6;
-    color: var(--text-muted);
+    /* Explicit font + heavier weight + brighter color so the reasoning
+       block stays readable when downscaled to thumbnail in the IG feed.
+       Previously inherited body which sometimes fell back to a thin serif. */
+    font-family: var(--body);
+    font-size: 21px;
+    font-weight: 500;
+    line-height: 1.55;
+    color: var(--text);
+    opacity: 0.88;
     /* Clamp very long reasoning text so it never overflows the canvas */
     display: -webkit-box;
     -webkit-line-clamp: 5;
@@ -217,8 +223,7 @@
 
     <div class="footer">
       smarterpicks.io <span class="dot">&middot;</span>
-      Code <span class="promo">FREE30</span> <span class="dot">&middot;</span>
-      1 month free
+      <span class="promo">7-day free trial</span>
     </div>
 
   </div>
