@@ -324,14 +324,20 @@ def main() -> int:
     if only:
         print(f"   (selective publish — --only={sorted(only)})")
 
-    # ── 1) Daily pick post (3-slide carousel) ──
+    # ── 1) Daily pick post — single image, only the live site pick card ──
+    # We render 3 slides into the dated dir, but only publish slide 2
+    # (the gold-bordered card that mirrors the site). The other two
+    # (templated headline + CTA) read as ad copy and look tacky on the grid.
     pick_files = files_for_group(manifest, "ig_pick_post")
     if should_run("ig_pick_post") and pick_files and content.get("ig_pick_post"):
+        # Pick the rendered slide 2 specifically. Fall back to whatever's
+        # available if it's missing (e.g. older render layouts).
+        card_file = next((f for f in pick_files if "pick-post-2" in f), pick_files[0])
         pp = content["ig_pick_post"]
         cap = build_caption(pp.get("caption"), pp.get("hashtags"))
-        run("ig_pick_post (carousel)",
-            lambda: publish_carousel(image_urls=[url_for(f) for f in pick_files],
-                                     caption=cap, token=token, account_id=account_id))
+        run("ig_pick_post (single — live card)",
+            lambda: publish_single_image(image_url=url_for(card_file),
+                                         caption=cap, token=token, account_id=account_id))
         time.sleep(DELAY_BETWEEN_POSTS_S)
 
     # ── 2) Yesterday's results (single image) ──
