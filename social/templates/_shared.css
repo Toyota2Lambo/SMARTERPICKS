@@ -63,14 +63,16 @@ body {
   position: relative;
 }
 
-/* Subtle film grain overlay — same as the site, gives the dark bg
-   some depth instead of looking flat-screen-empty. */
+/* Soft vignette only — replaces the previous SVG film-grain overlay.
+   Grain looks intentional on screen but Instagram's CDN re-encodes to
+   JPEG and turns the fine noise into visible compression artifacts in
+   dark areas (the "grainy/cheap" look). A clean radial vignette gives
+   the same dimensional feel without anything for JPEG to mangle. */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
-  opacity: .035;
+  background: radial-gradient(ellipse at 50% 38%, transparent 0%, transparent 55%, rgba(0,0,0,0.5) 100%);
   pointer-events: none;
   z-index: 100;
 }
