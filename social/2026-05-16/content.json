@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-16T06:28:54.039785+00:00",
+  "generated_at": "2026-05-16T07:49:45.881158+00:00",
   "model": "claude-sonnet-4-6",
   "carousel_topic": "CLV (closing line value) and why sharps obsess over it",
   "source": {
@@ -181,10 +181,10 @@
   },
   "content": {
     "ig_pick_post": {
-      "caption": "Free pick is live. MLB totals edge on the board today, and this one priced better than anywhere else we checked.",
-      "slide1_text": "FREE PICK: Saturday MLB\nHighest totals edge on the slate.\nOver 8.0 at -105.",
-      "slide2_text": "Pittsburgh vs. [opponent]\nOver 8.0 (-105)\nBest available vs. a median of -118 across books. Edge of 291 bps. Bubba Chandler on the mound and the total is priced soft.",
-      "slide3_text": "Full card (7 picks today) at smarterpicks.io\nCode FREE30 gets your first month on us.\n21+ only. Bet responsibly.",
+      "caption": "Free pick is live. MLB totals edge sitting at 291 bps today, and this is the one we're leading with. 21+ only, bet responsibly.",
+      "slide1_text": "Highest totals edge on the slate.\nFree pick. MLB. Today.",
+      "slide2_text": "Pittsburgh Over 8.0 (-105)\nBubba Chandler on the mound, best price -105 against a median of -118 across the books. That gap is the edge. 291 bps is the sharpest totals number we're seeing today.",
+      "slide3_text": "Full card at smarterpicks.io\nCode FREE30 gets your first month on us.",
       "hashtags": [
         "sportsbetting",
         "sportspicks",
@@ -192,84 +192,84 @@
         "mlbbetting",
         "baseballbetting",
         "freepick",
-        "sportsbettingtips",
+        "todayspicks",
         "bettinganalysis",
-        "mlb2026",
-        "totals",
-        "overpick",
         "sharpbetting",
-        "bettingvalue",
+        "mlbtoday",
+        "bettingedge",
         "sportsanalysis",
+        "baseballpicks",
+        "totals",
         "oddsboost",
-        "pickoftheday",
-        "smarterpicks",
-        "mlbtoday"
+        "bettingcommunity",
+        "pickstoday",
+        "mlb"
       ]
     },
     "ig_results_post": {
-      "caption": "3-2 on Friday. Two losses logged publicly, as always. Net +1.00u on the day. YTD sits at 248-208, +38.4u, 9.3% ROI across 43 days.",
-      "headline_text": "May 15: 3-2, +1.00u\nYTD: 248-208 (+38.4u)",
+      "caption": "3-2 yesterday, +1.00u. Two losses on the board, both public. Full breakdown in bio. 54.4% on the year, +38.4u across 43 days.",
+      "headline_text": "May 15: 3-2, +1.00u",
       "hashtags": [
         "sportsbetting",
+        "sportspicks",
         "bettingresults",
         "mlbpicks",
-        "sportspicks",
-        "bettingtracker",
-        "transparentbetting",
-        "bettingrecord",
+        "trackedrecord",
+        "bettinganalysis",
         "publicrecord",
         "sportsanalysis",
-        "sharpbetting",
         "bettingcommunity",
-        "mlbbetting",
+        "pickstoday",
+        "sharpbetting",
+        "bettingedge",
         "oddsvalue",
-        "bettingROI",
-        "smarterpicks",
-        "sportsbettingtips",
-        "dailypicks",
-        "trackrecord"
+        "mlbbetting",
+        "baseballbetting",
+        "winnersandlosers",
+        "accountability",
+        "sportsbettingresults"
       ]
     },
     "ig_carousel_topic": {
       "topic": "CLV (closing line value) and why sharps obsess over it",
-      "slide1_text": "Why sharps don't care if they won.\nThey care what the line did after they bet it.",
-      "slide2_text": "Most bettors check the scoreboard.\nSharps check the closing line.\nIf the line moved against your bet, you probably got the worst of it, even if you won.",
-      "slide3_text": "The closing line is the most efficient price the market produces. Books and sharp syndicates have had maximum time to correct it. Beating it consistently means you found real value, not just a result.",
-      "slide4_text": "You bet a team at +145. It closes at +118.\nThe market moved 27 cents toward your side.\nThat's positive CLV. Over hundreds of bets, positive CLV predicts long-term profit better than your current win rate does.",
-      "slide5_text": "A 54% win rate with negative CLV is fragile. A 51% win rate with consistent positive CLV is a process worth trusting. The score tells you what happened. The closing line tells you if you're doing it right.",
-      "caption": "CLV is the closest thing to a process check in sports betting. If you're not tracking it, you're missing half the picture.",
+      "slide1_text": "Why sharps don't care if they win tonight.\nThey care about this number instead.",
+      "slide2_text": "Most bettors judge themselves by wins and losses.\nThat's the wrong scoreboard.\nA sharp play can lose. A bad play can win. The result tells you almost nothing about the quality of the decision.",
+      "slide3_text": "Closing line value is the real signal.\nIf you bet a team at +145 and the line closes at -110, you beat the market. That gap is CLV. It means the books moved toward your position, which is as close to confirmation as betting gets.",
+      "slide4_text": "Concrete example:\nYou take Cleveland ML at +162 on Friday morning.\nBy tip-off, the line has moved to +140.\nYou closed with +22 cents of value. Over hundreds of bets, positive CLV is the strongest predictor of long-run profitability we have.",
+      "slide5_text": "A 54% win rate with negative CLV is fragile. A 51% win rate with consistent positive CLV is a process that holds up.\nTrack your closing lines. That number tells you if your edge is real.",
+      "caption": "CLV is the metric sharp bettors actually watch. If your number beats the close, you're doing something right. Save this framework, not the results.",
       "hashtags": [
         "sportsbetting",
         "bettingeducation",
         "closinglinevalue",
         "CLV",
         "sharpbetting",
-        "bettinganalysis",
-        "sportsbettingtips",
         "bettingstrategy",
-        "expectedvalue",
+        "bettinganalysis",
+        "sportsanalysis",
         "mlbbetting",
         "nbabetting",
-        "oddsvalue",
-        "linemovement",
-        "bettingmath",
-        "sportsanalysis",
-        "smarterpicks",
         "bettingcommunity",
-        "learnbetting"
+        "oddsvalue",
+        "bettingmath",
+        "expectedvalue",
+        "linemovement",
+        "bettingedge",
+        "sportspicks",
+        "bettingtips"
       ]
     },
     "story_sequence": [
-      "Saturday card drops in 30 minutes. Seven picks, one free. MLB totals are the main angle today.",
-      "Poll time: do you track closing line value on your own bets? Yes or not yet?",
-      "Last call before first pitch. Free pick is up on the site. Full card at smarterpicks.io, code FREE30.",
-      "Checking in mid-slate. Tracking all seven plays live. Updates in the feed tonight.",
-      "Wrapping up Saturday. Full results post goes up first thing Sunday morning, wins and losses both."
+      "Saturday card drops in 30 minutes. Seven plays across MLB, NBA playoffs, and NHL. Free pick leads the way.",
+      "Poll time: MLB totals or run lines, which do you trust more on a Saturday slate? Reply with your take.",
+      "Last call before first pitch. Full card is live at smarterpicks.io. Code FREE30 if you haven't signed up yet. 21+ only.",
+      "Tracking live: checking results as games lock in. Follow along and we'll post the running tally here tonight.",
+      "Day's done. Full results post goes up first thing tomorrow morning, wins and losses both. See you at 9am."
     ],
     "meme_post": {
-      "top_text": "Me at 2pm: 'I only bet the free pick, I'm being disciplined'",
-      "bottom_text": "Me at 4pm: 'the Brewers -1.5 at +146 is objectively irresponsible to fade'",
-      "image_concept": "A person sitting calmly at a desk in the first panel, then leaning intensely toward a laptop screen with six browser tabs open in the second panel, all showing different sportsbook odds pages."
+      "top_text": "Me after going 3-2 and somehow feeling like I need to explain the two losses in a 4,000 word thread",
+      "bottom_text": "Bro just post the record and go to bed",
+      "image_concept": "A person hunched over a laptop at midnight furiously typing, surrounded by empty coffee cups, with a simple scoreboard on the wall behind them showing 3-2."
     }
   }
 }
