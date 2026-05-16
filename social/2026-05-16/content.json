@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-16T11:54:24.300174+00:00",
+  "generated_at": "2026-05-16T19:46:57.664737+00:00",
   "model": "claude-sonnet-4-6",
   "carousel_topic": "CLV (closing line value) and why sharps obsess over it",
   "source": {
@@ -181,33 +181,31 @@
   },
   "content": {
     "ig_pick_post": {
-      "caption": "Free pick is live. MLB totals edge on the Pittsburgh game is the sharpest on today's slate. Details below.",
-      "slide1_text": "Today's Free Pick\nMLB Over 8.0\nPittsburgh, May 16",
-      "slide2_text": "Over 8.0 (-105)\nBest price: -105 vs. median -118 across books\nBubba Chandler on the mound. Our model shows 291 edge bps, highest totals edge on the slate.",
-      "slide3_text": "Full card (7 plays today) at smarterpicks.io\nCode FREE30 gets your first month free.\n21+. Bet responsibly.",
+      "caption": "Today's free pick: MLB Over 8.0 at -105. Highest totals edge on the slate. Full breakdown below.",
+      "slide1_text": "FREE PICK: Saturday MLB\nHighest totals edge on the board today.\nOver 8.0 at -105.",
+      "slide2_text": "Bubba Chandler starts for Pittsburgh.\nMarket median is -118. Best price -105.\nEdge signal: 291 bps above fair value.",
+      "slide3_text": "Full 7-pick card at smarterpicks.io.\n7-day free trial, then $29.99/mo. Cancel anytime.\n21+ only. Bet responsibly.",
       "hashtags": [
         "sportsbetting",
         "sportspicks",
         "mlbpicks",
-        "baseballbetting",
+        "mlbbetting",
+        "baseballbets",
         "freepick",
-        "mlbodds",
-        "bettinganalysis",
-        "totalbets",
-        "pittsburghpirates",
-        "bettingedge",
-        "sharpbetting",
-        "mlbtoday",
-        "oddsboost",
         "sportsbettingtips",
-        "valuebets",
+        "bettinganalysis",
         "mlb2026",
+        "totalbets",
+        "sharpbetting",
+        "oddsvalue",
+        "smarterpicks",
+        "baseballbetting",
         "bettingcommunity",
-        "analysisservices"
+        "sportsanalysis"
       ]
     },
     "ig_results_post": {
-      "caption": "May 15 final: 3-2, +1.00u. Two plays didn't hold up. Three did. We post both. YTD sits at 248-208, +38.4u.",
+      "caption": "Yesterday: 3-2, +1.00u. Two losses on the board, both logged. YTD sits at 248-208, +38.4u across 43 days.",
       "headline_text": "May 15: 3-2, +1.00u\nYTD: 248-208 (54.4%) | +38.4u",
       "hashtags": [
         "sportsbetting",
@@ -216,60 +214,57 @@
         "mlbpicks",
         "trackedrecord",
         "bettinganalysis",
-        "publicrecord",
-        "sharpbetting",
-        "bettingcommunity",
-        "oddsvalue",
-        "mlb2026",
+        "transparentbetting",
+        "publictrackrecord",
         "sportsbettingtips",
-        "accountability",
-        "bettingtracker",
-        "unitprofit",
-        "roi",
-        "valuebets",
-        "analysisservices"
+        "sharpbetting",
+        "oddsvalue",
+        "bettingcommunity",
+        "sportsanalysis",
+        "mlb2026",
+        "smarterpicks",
+        "honestpicks"
       ]
     },
     "ig_carousel_topic": {
       "topic": "CLV (closing line value) and why sharps obsess over it",
       "slide1_text": "Why do sharp bettors care more about the closing line than the result?",
-      "slide2_text": "Most bettors judge a bet by whether it won.\nThat's the wrong measure.\nA bet can win and still be a bad bet. It can lose and still be a correct one.",
-      "slide3_text": "Closing line value is the real signal.\nIf you bet a team at +150 and the line closes at +120, you got the better number.\nThe market moved against your position. That means the crowd and sharp money agreed with you after the fact.",
-      "slide4_text": "Concrete example:\nYou bet Cleveland +162 on Monday morning.\nBy tip-off, the line has moved to +140.\nYou beat the close by 22 cents. That's positive CLV.\nOver hundreds of bets, consistent positive CLV predicts long-term profit better than win rate alone.",
-      "slide5_text": "A 54% win rate with negative CLV is fragile. A 51% win rate with consistent positive CLV is sustainable.\nThe line is the market's best estimate. Beating it repeatedly is the actual edge.",
-      "caption": "Win rate gets the attention. Closing line value tells the real story. If you're not tracking CLV, you're missing half the picture.",
+      "slide2_text": "Most bettors judge a pick by whether it won or lost.\nThat feels logical. It is not how professionals measure edge.",
+      "slide3_text": "The closing line is the most efficient price a market reaches.\nIf you beat it consistently, you are finding real value before the market corrects. That is closing line value, CLV.\nWinning without CLV is often just variance. Positive CLV over hundreds of bets is evidence of an actual edge.",
+      "slide4_text": "You bet the Over at -105 early Tuesday morning.\nBy game time, the same Over is -118 across every book.\nYou beat the close by 13 cents. That is positive CLV, regardless of the final score.",
+      "slide5_text": "A 54% win rate with consistent positive CLV is a sustainable model.\nA 60% win rate with negative CLV usually means you got lucky in a small sample.\nTrack both numbers. The CLV tells you whether the process is working.",
+      "caption": "CLV is the metric sharp bettors actually track. Win rate alone won't tell you if your process is sound. This carousel explains why.",
       "hashtags": [
         "sportsbetting",
         "bettingeducation",
         "closinglinevalue",
         "CLV",
         "sharpbetting",
-        "bettinganalysis",
-        "sportsbettingtips",
-        "valuebet",
-        "bettingmath",
-        "oddsvalue",
         "bettingstrategy",
-        "mlbpicks",
-        "nbapicks",
-        "bettingcommunity",
+        "sportsbettingtips",
+        "bettinganalysis",
+        "oddsvalue",
         "expectedvalue",
-        "linemovement",
-        "sharpaction",
-        "analysisservices"
+        "mlbbetting",
+        "sportspicks",
+        "bettingcommunity",
+        "sportsanalysis",
+        "smarterpicks",
+        "processoverpicks",
+        "bettingmath"
       ]
     },
     "story_sequence": [
-      "Card drops in 30 minutes. Seven plays today including the sharpest totals edge we've seen this week on an MLB over. Check the link in bio.",
-      "Poll time: which sport do you trust more for totals betting, MLB or NHL? Drop your answer below.",
-      "Last call before first pitch. Free pick is the Pittsburgh Over 8.0 at -105. Full card is live at smarterpicks.io. Code FREE30.",
-      "Live update: tracking today's 7-play card as games go final. Check back here for the running tally tonight.",
-      "Day is done. Results post goes up first thing tomorrow morning with the full breakdown. We post every result, win or loss."
+      "Saturday card drops in 30 minutes. Seven picks, all MLB except one NBA playoff and one NHL. Free pick leads today.",
+      "Poll: Do you track your own CLV or just win/loss? (Yes, always / No, just results) Drop your answer below.",
+      "Last call before first pitch. Full card is live at smarterpicks.io. Free trial gets you in today, no charge until day 8.",
+      "Live update: tracking today's card as games lock in. Check the site for real-time pick status across all 7 plays.",
+      "That's a wrap on Saturday. Results post goes up first thing tomorrow morning, wins and losses both. See you at 8am."
     ],
     "meme_post": {
-      "top_text": "Me at 11am: 'I'll just tail the one free pick, very disciplined'",
-      "bottom_text": "Me at 1pm: somehow also on the Brewers -1.5, the Yankees -1.5, and a hockey over",
-      "image_concept": "A man confidently holding one betting slip in the morning, then sitting surrounded by a pile of printed betting slips by afternoon, looking slightly confused but not upset."
+      "top_text": "Me at 1pm: I am a disciplined, process-driven bettor who respects variance",
+      "bottom_text": "Me watching a 9th inning ground ball that determines my over/under",
+      "image_concept": "Two-panel distracted boyfriend meme where the boyfriend is labeled 'me', the girlfriend he's ignoring is labeled 'CLV and process', and the other woman he's staring at is labeled 'one meaningless ground ball in the 9th'."
     }
   }
 }
