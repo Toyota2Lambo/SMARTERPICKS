@@ -324,20 +324,23 @@ def main() -> int:
     if only:
         print(f"   (selective publish — --only={sorted(only)})")
 
-    # ── 1) Daily pick post — single image, only the live site pick card ──
-    # We render 3 slides into the dated dir, but only publish slide 2
-    # (the gold-bordered card that mirrors the site). The other two
-    # (templated headline + CTA) read as ad copy and look tacky on the grid.
+    # ── 1) Daily pick post — 2-slide carousel ──
+    # We render 3 slides but only publish slides 2 + 3 in order:
+    #   slide 2 (pick-post-2.png) — the gold-bordered live site card
+    #   slide 3 (pick-post-3.png) — the FREE30 / full-card CTA closer
+    # Slide 1 (templated headline) is skipped — reads as tacky ad copy.
     pick_files = files_for_group(manifest, "ig_pick_post")
     if should_run("ig_pick_post") and pick_files and content.get("ig_pick_post"):
-        # Pick the rendered slide 2 specifically. Fall back to whatever's
-        # available if it's missing (e.g. older render layouts).
-        card_file = next((f for f in pick_files if "pick-post-2" in f), pick_files[0])
-        pp = content["ig_pick_post"]
+        keep = [f for f in pick_files if "pick-post-2" in f or "pick-post-3" in f]
+        # Ensure ordering: card first, then CTA
+        keep.sort(key=lambda f: 0 if "pick-post-2" in f else 1)
+        if not keep:                       # extreme fallback if renderer layout changed
+            keep = pick_files[:2]
+        pp  = content["ig_pick_post"]
         cap = build_caption(pp.get("caption"), pp.get("hashtags"))
-        run("ig_pick_post (single — live card)",
-            lambda: publish_single_image(image_url=url_for(card_file),
-                                         caption=cap, token=token, account_id=account_id))
+        run(f"ig_pick_post (carousel — {len(keep)} slides)",
+            lambda: publish_carousel(image_urls=[url_for(f) for f in keep],
+                                     caption=cap, token=token, account_id=account_id))
         time.sleep(DELAY_BETWEEN_POSTS_S)
 
     # ── 2) Yesterday's results (single image) ──
