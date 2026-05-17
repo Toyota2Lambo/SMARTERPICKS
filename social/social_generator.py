@@ -288,22 +288,26 @@ def pick_carousel_topic() -> str:
 
 
 def picks_summary(picks_data: dict) -> str:
-    """Format today's picks into a readable block for the prompt.
-    We only send pick / odds / brief reasoning — not the full card data, because
-    Claude doesn't need it and shorter prompts == cheaper + lower latency."""
+    """Format today's picks into a readable block for the prompt. Includes
+    away/home teams alongside the pick text so Claude can fill matchup-card
+    and pick-card matchup labels with the real team names instead of
+    falling back to 'Opponent'."""
     picks = picks_data.get("picks") or []
     if not picks:
         return "(no picks loaded — picks.json was empty or missing)"
     lines = []
     for i, p in enumerate(picks, 1):
         league = p.get("league", "—")
+        away   = p.get("away_team", "")
+        home   = p.get("home_team", "")
+        matchup = f" {away} @ {home}" if (away and home) else ""
         pick   = p.get("pick", "—")
         odds   = p.get("odds", "—")
         reason = (p.get("reasoning") or "").strip()
         if len(reason) > 220:
             reason = reason[:217] + "…"
         free_tag = " (FREE)" if not p.get("is_premium", True) else ""
-        lines.append(f"{i}. [{league}]{free_tag} {pick} ({odds}) — {reason}")
+        lines.append(f"{i}. [{league}]{free_tag}{matchup} — {pick} ({odds}) — {reason}")
     return "\n".join(lines)
 
 
@@ -317,6 +321,28 @@ def results_summary(results_data: dict) -> str:
         f"{('-' + str(results_data['pushes'])) if results_data.get('pushes') else ''}"
         f", net {results_data.get('net_units',0):+.2f}u"
     )
+
+
+def results_picks_detail(results_data: dict) -> str:
+    """Each graded pick from yesterday — pick text, league/matchup, result,
+    units. recap-card.pick_rows[].play has to mirror the pick text from
+    here; without these lines in the prompt Claude was filling rows with
+    'Pick 1' / 'Pick 2' placeholders. Capped at 6 rows, which is more than
+    any single recap-card needs."""
+    picks = results_data.get("picks") or []
+    if not picks:
+        return "(no individual graded picks in results.json)"
+    lines = []
+    for i, p in enumerate(picks[:6], 1):
+        league = p.get("league", "")
+        away   = p.get("away_team", "")
+        home   = p.get("home_team", "")
+        matchup = f"{away} @ {home}" if (away and home) else (p.get("game_detail") or "")
+        pick   = p.get("pick", "—")
+        result = str(p.get("result", "?")).upper()
+        units  = p.get("units", 0)
+        lines.append(f"{i}. [{league}] {matchup} — {pick} — {result} ({units:+.2f}u)")
+    return "\n".join(lines)
 
 
 def history_headline(history_data: dict) -> str:
@@ -472,8 +498,11 @@ def build_user_prompt(picks_data, results_data, history_data, carousel_topic, sa
     treatment_block = build_treatment_registry_block(samples)
     return f"""Today is {today}.
 
-YESTERDAY'S RESULT
+YESTERDAY'S RESULT (headline)
 {results_summary(results_data)}
+
+YESTERDAY'S GRADED PICKS (verbatim — use these for recap-card pick_rows[].play and .matchup)
+{results_picks_detail(results_data)}
 
 YEAR-TO-DATE TRACK RECORD
 {history_headline(history_data)}
