@@ -404,6 +404,23 @@ Field rules for treatments:
 - Photo fields: if a template supports a photo_query, set it to a short concrete English query like "basketball arena empty" or "Boston Celtics court". Two or three words. The system resolves the photo before render.
 - Voice rules (no em dashes, no arrows, no smart quotes, no hype words, vary sentence length) apply to ALL treatment fields the same way they apply to the standard groups.
 
+LENGTH CAPS (text overflows the card and gets clipped if these are exceeded):
+- caption_html: at most 100 chars total including HTML tags.
+- title_html and pick_headline_html and headline_html and the_pick_html: at most 80 chars total.
+- deck_html and quote_text_html and body_html: at most 140 chars total.
+- note_html and quote_attrib: at most 60 chars total.
+- recap-card pick_rows: at most 5 rows. Each play string at most 28 chars.
+- index-card cells: exactly 6 cells. Each cell num at most 10 chars, label at most 12 chars, foot at most 22 chars.
+- chart-card bars: at most 6 bars. Each bar label at most 24 chars.
+
+DATA SOURCING (the most common failure mode — fix this before everything else):
+- ALWAYS pull real values from today's picks_data, yesterday's results_data, and the games_today slate. NEVER invent placeholder text like "Opponent", "Dog", "AWAY", "Win 1", "Loss 2", "Game 1", "Team A", or any generic stand-in. A placeholder on a published card looks like a broken bot.
+- recap-card pick_rows[].play must be the literal pick text from results_data.picks[].pick (e.g. "Celtics -4.5", "Yankees ML", "Under 218.5"). NEVER write "Win 1" or "MLB Game 1".
+- recap-card pick_rows[].matchup is "LEAGUE · AWAY @ HOME" pulled from the same row (e.g. "NBA · LAL @ BOS").
+- matchup-card REQUIRES both team names from a single picks_data entry. If only one team is known, do NOT use matchup-card — use pick-card or slip-card instead.
+- matchup-card.stat_a and .stat_b must be a comparable metric (offensive rating, run differential, expected goals, etc.) — NEVER a moneyline range or odds-shaped value.
+- If you can't fill a required field with real data, drop the treatment entirely. Fewer good treatments beats a card with "Opponent" on it.
+
 You will be given today's picks, yesterday's result, and the cumulative track record. Use those numbers and be specific, not vague."""
 
 
