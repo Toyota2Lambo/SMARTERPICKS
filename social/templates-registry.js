@@ -363,6 +363,32 @@ const TEMPLATES = {
     },
   },
 
+  // 12 — LIFESTYLE (aspirational, anchored by receipts)
+  // Goal: keep the "you could live like this" energy without breaking
+  // the editorial voice. Image is luxury (home / car / watch / villa);
+  // copy is always a numeric receipt + a time horizon. The math implies
+  // the lifestyle without the brand having to promise outcomes.
+  "lifestyle-card.html": {
+    role: "Aspirational lifestyle post. Luxury photo + receipt-style headline. The image carries the aspiration; the numbers carry the credibility.",
+    fields: {
+      tag:           { type: "string", note: "Top-right mono tag. e.g. 'COMPOUND', 'YEAR ONE', 'PATIENCE'." },
+      eyebrow:       { type: "string", note: "Mono category line. e.g. 'RECEIPTS · 44 DAYS LOGGED' or 'YTD · 2026'." },
+      headline_html: { type: "html",   note: "Italic-serif headline. ALWAYS a numeric receipt. Wrap the number in <em>...</em>. e.g. 'Compound at <em>0.85u</em> a day.', 'Forty-four days. <em>+41.9u</em>.'" },
+      sub_html:      { type: "html",   note: "Italic-serif sub-line. A time horizon or a math line. e.g. 'Two-fifty trading days a year. Five years.', 'Math, not magic.'" },
+      photo_query:   { type: "string", note: "Luxury imagery query. Rotate: 'luxury home interior modern night', 'vintage porsche 911 classic', 'swiss watch macro detail', 'tuscan villa pool sunset', 'manhattan penthouse view', 'private jet tarmac dusk', 'monaco yacht harbor', 'amalfi coast cliff villa', 'lamborghini huracan', 'rolex submariner closeup'." },
+      photo_url:     { type: "string", note: "Filled by photo_fetcher." },
+      photo_credit:  { type: "string", note: "Filled by photo_fetcher." },
+    },
+    sample: {
+      size: "feed",
+      tag: "COMPOUND",
+      eyebrow: "RECEIPTS · 44 DAYS LOGGED",
+      headline_html: "Compound at <em>0.85u</em> a day.",
+      sub_html: "Two-fifty trading days a year. <em>Five years.</em> Math, not magic.",
+      photo_query: "luxury home interior modern night",
+    },
+  },
+
   // 10 — DATA INDEX
   "index-card.html": {
     role: "Six-cell stat grid. Season receipts in atomic form.",

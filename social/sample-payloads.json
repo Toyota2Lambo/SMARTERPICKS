@@ -126,5 +126,14 @@
     "headline_html": "The <em>Celtics</em> reset the East.",
     "deck_html": "Sixteen straight at home. The market still has them at <em>−4.5</em>. We don't.",
     "photo_query": "basketball arena empty"
+  },
+
+  "lifestyle-card.html": {
+    "size": "feed",
+    "tag": "COMPOUND",
+    "eyebrow": "RECEIPTS · 44 DAYS LOGGED",
+    "headline_html": "Compound at <em>0.85u</em> a day.",
+    "sub_html": "Two-fifty trading days a year. <em>Five years.</em> Math, not magic.",
+    "photo_query": "luxury home interior modern night"
   }
 }

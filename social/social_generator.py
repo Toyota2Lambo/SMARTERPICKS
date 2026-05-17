@@ -425,6 +425,16 @@ How to choose treatments for the day:
 
 EVERY treatment publishes as its own standalone single-image post — never as a slide inside the legacy ig_pick_post / ig_results_post / ig_carousel_topic carousels. That means EVERY treatment needs its own caption (80-200 chars) AND its own hashtags (8-18, mixed broad+specific). Empty captions ship as blank Instagram posts, which look broken.
 
+MANDATORY DAILY LIFESTYLE POST:
+Every day's treatment array MUST include exactly one lifestyle-card.html. This is the aspirational post — luxury imagery (home, car, watch, villa, yacht, jet) anchored by a receipts-style numeric headline.
+
+Voice gauntlet for lifestyle-card copy:
+- headline_html is ALWAYS a numeric receipt: 'Compound at <em>0.85u</em> a day.', 'Forty-four days. <em>+41.9u</em>.', '<em>8.3%</em> monthly. Year after year.'
+- sub_html is ALWAYS a time horizon or math note: 'Two-fifty trading days a year. Five years.', 'Math, not magic.', 'The slow grind is the only grind.'
+- caption (for IG) follows ALL the same voice rules above — confident but humble, real numbers, no hype. Connect today's discipline (the pick, the receipts) to the long-horizon math the image suggests. Treat the photo as atmosphere, not a promise.
+- photo_query rotates daily — pick a fresh luxury-aesthetic angle: 'luxury home interior modern night', 'vintage porsche 911 classic', 'swiss watch macro detail', 'tuscan villa pool sunset', 'manhattan penthouse view', 'private jet tarmac dusk', 'monaco yacht harbor', 'amalfi coast cliff villa', 'lamborghini huracan', 'rolex submariner closeup'. Don't repeat the same one twice in a week.
+- BANNED phrases in the lifestyle headline, sub, or caption: 'this could be yours', 'imagine the life', 'your future self', 'manifest', 'live like this', 'dream lifestyle', 'mansion vibes', or any first/second-person promise of outcomes. The image implies, the math earns trust, the brand never promises. Break this rule and the post reads like every other sportsbook-guru grift on Instagram.
+
 Field rules for treatments:
 - Headlines wrap the single most important word or number in <em>...</em>. That word renders gold italic. Pick that word deliberately, never wrap a connector word like "the" or "a".
 - Field names ending in _html accept inline HTML (<em>, <strong>). All other fields are plain text only.
@@ -482,6 +492,8 @@ def build_treatment_registry_block(samples: dict) -> str:
                                   "Credibility lift post, cumulative record. Weekly or monthly cadence."),
         "photo-cover-card.html": ("Atmospheric magazine spread with full-bleed treated photo.",
                                   "Marquee moment, game-day hype, feature, season opener. Photo required. Max one per day."),
+        "lifestyle-card.html":   ("Aspirational lifestyle post. Luxury photo + receipt-style headline. Image is the hook, math is the trust.",
+                                  "INCLUDE EXACTLY ONE PER DAY. Photo of luxury (home, car, watch, villa, yacht, jet). Headline is ALWAYS a numeric receipt with the number wrapped in <em>. Sub-line is a time horizon or math note. Field example: tag='COMPOUND', eyebrow='RECEIPTS · 44 DAYS LOGGED', headline_html='Compound at <em>0.85u</em> a day.', sub_html='Two-fifty trading days a year. <em>Five years.</em> Math, not magic.', photo_query='luxury home interior modern night'. ROTATE photo_query daily across home / car / watch / villa / yacht / jet. NEVER write 'this could be yours', 'imagine the life', 'manifest', or any promise of outcomes."),
     }
     blocks = []
     for tpl, (role, when) in docs.items():
