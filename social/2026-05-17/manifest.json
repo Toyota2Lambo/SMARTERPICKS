@@ -1,5 +1,5 @@
 {
-  "rendered_at": "2026-05-17T16:14:13.116Z",
+  "rendered_at": "2026-05-17T16:25:10.990Z",
   "content_file": "content.json",
   "renders": [
     {
@@ -164,8 +164,8 @@
     },
     {
       "file": "treatment-03.png",
-      "template": "slip-card.html",
-      "group": "ig_pick_post",
+      "template": "index-card.html",
+      "group": "treatments",
       "slide_index": 3,
       "size": {
         "width": 1080,
@@ -174,7 +174,7 @@
     },
     {
       "file": "treatment-04.png",
-      "template": "index-card.html",
+      "template": "stat-card.html",
       "group": "treatments",
       "slide_index": 4,
       "size": {
@@ -184,7 +184,7 @@
     },
     {
       "file": "treatment-05.png",
-      "template": "stat-card.html",
+      "template": "matchup-card.html",
       "group": "treatments",
       "slide_index": 5,
       "size": {
