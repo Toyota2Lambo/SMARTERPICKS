@@ -45,7 +45,7 @@ from typing import Any, Dict, List, Optional
 # environments that haven't installed the SDK (e.g. sandboxes, CI image
 # warmups). pydantic stays top-level because the schemas below depend
 # on it at import time.
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, Field
 
 
 # ── CONFIG ────────────────────────────────────────────────
@@ -121,120 +121,35 @@ class MemePost(BaseModel):
     image_concept: str    = Field(description="One-sentence description of the visual concept (used in alt text and Discord notification).")
 
 
-class RecapPickRow(BaseModel):
-    """One row inside recap-card.pick_rows."""
-    matchup: str   = Field(description="Matchup label. e.g. 'NBA · LAL @ BOS'.")
-    play:    str   = Field(description="The pick itself, italic-serif. e.g. 'Celtics -4.5' or 'Under 218.5'.")
-    result:  str   = Field(description="Lowercase: 'win', 'loss', or 'push'.")
-    units:   float = Field(description="Net units. Positive for wins, negative for losses.")
-
-
-class ChartBar(BaseModel):
-    """One bar inside chart-card.bars."""
-    label:  str   = Field(description="Mono row label, e.g. 'Road Dogs +3 to +6'.")
-    value:  str   = Field(description="Numeric display, e.g. '7-3' or '+8.4%'.")
-    width:  float = Field(description="0 to 100. Bar fill width as percentage.")
-    hilite: bool  = Field(default=False, description="True for the one row that's the answer; renders gold. Others dim.")
-
-
-class IndexCell(BaseModel):
-    """One cell inside index-card.cells. Exactly 6 expected."""
-    label: str = Field(description="Mono cell header, e.g. 'OVERALL', 'ROI', 'NET UNITS'.")
-    num:   str = Field(description="Big italic numeric. e.g. '187-149' or '+8.4%' or '336'.")
-    foot:  str = Field(description="Mono footnote underneath. e.g. 'ATS · units fair' or 'season-to-date'.")
-    tone:  Optional[str] = Field(default=None, description="Optional accent. One of: 'accent' (gold), 'win' (green), 'loss' (red), or null for default.")
-
-
-class TreatmentFields(BaseModel):
-    """The full field bag for ALL eleven templates. Every field is Optional
-    so a treatment only populates the subset its chosen template needs.
-    extra='allow' tolerates future templates adding fields without breaking
-    the schema. Anthropic's structured output reads this schema to know
-    which keys are valid AND what each is for; the previous Dict[str, Any]
-    shape gave it nothing concrete to fill and it returned empty dicts."""
-    model_config = ConfigDict(extra="allow")
-
-    # ── shared fields used across multiple templates ──
-    size:        Optional[str] = Field(default=None, description="'feed' or 'story'. Mirrors Treatment.size — fine to leave None.")
-    tag:         Optional[str] = Field(default=None, description="Top-right mono tag. e.g. \"TODAY'S FREE PICK\", 'MATCHUP', 'RECEIPTS'.")
-    eyebrow:     Optional[str] = Field(default=None, description="Mono category line. e.g. 'NBA · EASTERN CONFERENCE', 'ATS RECORDS · LAST 10'.")
-    matchup:     Optional[str] = Field(default=None, description="Matchup label. pick-card uses 'Lakers @ Celtics'; slip-card uses 'LAL @ BOS · 7:30 PM ET'.")
-    game_time:   Optional[str] = Field(default=None, description="Tip-off / first pitch / kick. e.g. '7:30 PM ET'.")
-    line:        Optional[str] = Field(default=None, description="Mono numeric line. e.g. '-4.5', 'Under 218.5', '+135'.")
-    edge:        Optional[str] = Field(default=None, description="Our calculated edge. e.g. '+6.2%' or '+190 bps'.")
-    confidence:  Optional[str] = Field(default=None, description="Letter grade. e.g. 'A-', 'B+', 'A'.")
-    market:      Optional[str] = Field(default=None, description="Market type. e.g. 'Spread', 'Total · Under', 'Moneyline'.")
-    odds:        Optional[str] = Field(default=None, description="American odds. e.g. '-110', '+135'.")
-
-    # ── headline-class HTML fields (wrap key word/number in <em>...</em>) ──
-    quote_text_html:    Optional[str] = Field(default=None, description="quote-card pull quote. <em> for accent. Up to ~14 words.")
-    quote_attrib:       Optional[str] = Field(default=None, description="quote-card mono attribution. e.g. 'SMARTERPICKS · NBA'.")
-    pick_headline_html: Optional[str] = Field(default=None, description="pick-card play headline, italic serif. e.g. 'Celtics cover the <em>4.5</em>'.")
-    the_pick_html:      Optional[str] = Field(default=None, description="slip-card pick line. <em> for accent. e.g. 'Celtics -4.5 over <em>Lakers</em>'.")
-    headline_html:      Optional[str] = Field(default=None, description="Used by cover-card, carousel-card, photo-cover-card. <em> for accent.")
-    deck_html:          Optional[str] = Field(default=None, description="cover-card / photo-cover-card subhead beneath hairline. <em> for accent.")
-    caption_html:       Optional[str] = Field(default=None, description="stat-card and chart-card so-what line. <em> for accent.")
-    title_html:         Optional[str] = Field(default=None, description="chart-card or index-card section title. <em> for accent.")
-    note_html:          Optional[str] = Field(default=None, description="index-card footnote. <em> for accent.")
-    body_html:          Optional[str] = Field(default=None, description="carousel-card body copy. <em>=accent gold, <strong>=text color.")
-
-    # ── matchup-card ──
-    team_a:       Optional[str] = Field(default=None, description="Left team name.")
-    team_a_class: Optional[str] = Field(default=None, description="Empty string '' or 'favored'. Marks the favored side (gets the accent + photo inset).")
-    record_a:     Optional[str] = Field(default=None, description="Team A record. e.g. '24-18 ATS'.")
-    stat_a:       Optional[str] = Field(default=None, description="Team A numeric headline. e.g. '115.2'.")
-    team_b:       Optional[str] = Field(default=None, description="Right team name.")
-    team_b_class: Optional[str] = Field(default=None, description="Empty or 'favored'.")
-    record_b:     Optional[str] = Field(default=None, description="Team B record.")
-    stat_b:       Optional[str] = Field(default=None, description="Team B numeric headline.")
-    stat_label:   Optional[str] = Field(default=None, description="Shared label for both team stats. e.g. 'OFFENSIVE RATING', 'RUN DIFFERENTIAL'.")
-    the_play:     Optional[str] = Field(default=None, description="The pick. Italic-serif gold. e.g. 'Celtics -4.5'.")
-
-    # ── stat-card ──
-    stat_value: Optional[str] = Field(default=None, description="The big number, without unit suffix. e.g. '72' or '+14.6'.")
-    stat_unit:  Optional[str] = Field(default=None, description="Unit suffix. '%', 'u', or '' (empty string).")
-    source:     Optional[str] = Field(default=None, description="Mono receipt line. e.g. 'n=142 · since Jan 1'.")
-
-    # ── slip-card ──
-    slip_title: Optional[str] = Field(default=None, description="Bet slip header. e.g. 'BET SLIP · 05.17.26'.")
-    slip_ref:   Optional[str] = Field(default=None, description="Slip reference number. e.g. 'REF #SP-04217'.")
-
-    # ── recap-card ──
-    wins:      Optional[str] = Field(default=None, description="Win count as string. e.g. '3'.")
-    losses:    Optional[str] = Field(default=None, description="Loss count as string.")
-    units:     Optional[str] = Field(default=None, description="Net units string. e.g. '+3.7u'.")
-    pick_rows: Optional[List[RecapPickRow]] = Field(default=None, description="recap-card pick list. 3 to 5 rows. Required for recap-card.")
-
-    # ── carousel-card ──
-    step_num:   Optional[str] = Field(default=None, description="Numeral for the ghost watermark. e.g. '02'.")
-    step_label: Optional[str] = Field(default=None, description="Top-right step counter. e.g. 'STEP 02 / 04'.")
-
-    # ── chart-card ──
-    bars: Optional[List[ChartBar]] = Field(default=None, description="chart-card bar list. 4 to 6 bars. Required for chart-card.")
-
-    # ── cover-card ──
-    issue:      Optional[str] = Field(default=None, description="Issue label. e.g. 'ISSUE 042'.")
-    date_label: Optional[str] = Field(default=None, description="Cover date. e.g. 'MAY 17, 2026'.")
-    section:    Optional[str] = Field(default=None, description="Section line. e.g. 'NBA · FEATURE'.")
-
-    # ── index-card ──
-    cells: Optional[List[IndexCell]] = Field(default=None, description="index-card stat grid. Exactly 6 cells. Required for index-card.")
-
-    # ── photo support (photo-aware templates only) ──
-    photo_query: Optional[str] = Field(default=None, description="Stock photo search query for photo-aware templates (quote-card, matchup-card, cover-card, photo-cover-card). Concrete English 2-3 words. e.g. 'basketball arena empty', 'baseball stadium dusk', 'NHL ice closeup'. The system resolves the photo asynchronously.")
-
-
 class Treatment(BaseModel):
     """One render from the modern editorial template grid (social/templates/).
     Eleven templates total, documented in templates-registry.js. You pick 3 to
     5 of these per day to complement the five standard groups above. Each
     treatment is a single image render. The renderer pulls them from
-    content.treatments[] when it builds the manifest."""
+    content.treatments[] when it builds the manifest.
+
+    Why fields_json is a string and not a typed sub-model:
+    we tried `fields: TreatmentFields` with 47 typed fields + nested chunk
+    schemas (RecapPickRow / ChartBar / IndexCell), and Anthropic's strict
+    structured output compiled the combined grammar to something too large
+    to enforce ('The compiled grammar is too large' from messages.parse()).
+    Returning the field bag as a JSON-string keeps the schema tiny while
+    still letting Claude produce any field shape — we parse + validate it
+    in main() after the API call returns."""
     template:  str = Field(description="One of the 11 template filenames from the registry shown in the user prompt. Must end in .html.")
     rationale: str = Field(description="One short sentence on why this template fits today's narrative.")
     group:     str = Field(description="Publisher group routing. One of: ig_pick_post, ig_results_post, ig_carousel_topic, or treatments.")
     size:      str = Field(description="feed for 1080x1080 grid posts, story for 1080x1920 vertical stories.")
-    fields:    TreatmentFields = Field(description="The field bag for this treatment. Populate every field that maps to the chosen template's field_example (shown in the user prompt). Leave unused fields as null/None. This is the difference between a published card and a blank one — every relevant field must be filled.")
+    fields_json: str = Field(description=(
+        "VALID JSON-ENCODED OBJECT STRING with every field the chosen "
+        "template needs, matching the field_example for that template "
+        "shown in the user prompt EXACTLY (same keys, same types).\n\n"
+        "Examples:\n"
+        "pick-card.html: {\"tag\":\"TODAY'S FREE PICK\",\"matchup\":\"Lakers @ Celtics\",\"game_time\":\"7:30 PM ET\",\"pick_headline_html\":\"Celtics cover the <em>4.5</em>\",\"line\":\"-4.5\",\"edge\":\"+6.2%\",\"confidence\":\"A-\"}\n\n"
+        "stat-card.html: {\"eyebrow\":\"NBA ROAD FAVS · 2024-25\",\"stat_value\":\"72\",\"stat_unit\":\"%\",\"caption_html\":\"of road favorites of <em>-4 or more</em> failed to cover this season.\",\"source\":\"n=142 · since Jan 1\"}\n\n"
+        "recap-card.html: {\"tag\":\"YESTERDAY'S BOARD\",\"wins\":\"3\",\"losses\":\"1\",\"units\":\"+3.7u\",\"pick_rows\":[{\"matchup\":\"NBA · LAL @ BOS\",\"play\":\"Celtics -4.5\",\"result\":\"win\",\"units\":1.4}]}\n\n"
+        "Escape inner double quotes properly. Return the whole thing as ONE JSON STRING (which itself must parse via json.loads on the server). NEVER return an empty object — every field for the chosen template must be populated with today's actual content."
+    ))
     caption:   str       = Field(default="", description="IG caption for this treatment. Required only when group=treatments (publishes as standalone). For ig_pick_post / ig_results_post / ig_carousel_topic the treatment rides the group's own caption, leave this empty.")
     hashtags:  List[str] = Field(default_factory=list, description="Hashtags for standalone treatments (group=treatments). 8 to 18 mixed broad and specific, no leading #.")
 
@@ -721,6 +636,21 @@ def main() -> int:
         if not p.get("is_premium", True):
             today_free_pick = p
             break
+
+    # Parse Treatment.fields_json (string) into Treatment.fields (dict) for
+    # each treatment from the Claude path. Skip the conversion when the
+    # treatment already has a `fields` dict — that's the dry-run path,
+    # which constructs treatments directly from registry samples and never
+    # produces a fields_json string. Done BEFORE strip_ai_punct so the
+    # scrubber walks the parsed dict like any other content branch.
+    for t in (content_dict.get("treatments") or []):
+        if "fields_json" in t:
+            raw = t.pop("fields_json", "") or "{}"
+            try:
+                t["fields"] = json.loads(raw)
+            except json.JSONDecodeError as e:
+                print(f"   ⚠ {t.get('template','?')}: fields_json parse failed ({e}); using empty dict")
+                t["fields"] = {}
 
     # Scrub punctuation first, THEN resolve photos. Photo resolution
     # injects photo_url + photo_credit (URL strings, formatted credit
