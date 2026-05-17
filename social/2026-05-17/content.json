@@ -1,0 +1,336 @@
+{
+  "generated_at": "2026-05-17T05:45:19.746868+00:00",
+  "model": "claude-sonnet-4-6",
+  "carousel_topic": "Bankroll math for people who've never thought about bankroll",
+  "source": {
+    "picks_date": "May 16, 2026",
+    "results_date": "May 15, 2026",
+    "history_stats": {
+      "total_picks": 430,
+      "wins": 248,
+      "losses": 208,
+      "pushes": 22,
+      "win_pct": 54.4,
+      "net_units": 38.38,
+      "roi_pct": 9.3,
+      "best_month_units": 12.4,
+      "worst_month_units": -3.8,
+      "avg_daily_units": 0.85,
+      "days_recorded": 43
+    },
+    "today_free_pick": {
+      "league": "MLB",
+      "time": "4:06 PM ET",
+      "away_team": "Philadelphia Phillies",
+      "home_team": "Pittsburgh Pirates",
+      "game_detail": "Regular Season",
+      "pick": "Over 8.0",
+      "odds": "-105",
+      "book": "FanDuel",
+      "stake": "2u",
+      "reasoning": "The Over 8.0 consensus shows an edge_bps of 291 — the highest totals edge on the entire slate — with the best price at -105 against a median of -118. Bubba Chandler takes the mound for Pittsburgh while Cristopher Sanchez starts for Philly; neither projects as a dominant strikeout arm capable of suppressing a high-powered Phillies lineup. The market is significantly split on this line, with several books pricing it down at -120, making FanDuel's -105 a genuine outlier worth attacking.",
+      "tags": [
+        "Line Value",
+        "Best Price",
+        "Confidence B+"
+      ],
+      "is_premium": false
+    },
+    "results_picks": [
+      {
+        "league": "MLB",
+        "time": "9:41 PM ET",
+        "away_team": "Los Angeles Dodgers",
+        "home_team": "Los Angeles Angels",
+        "game_detail": "Regular Season",
+        "pick": "Under 9.0",
+        "odds": "-114",
+        "book": "FanDuel",
+        "stake": "1.5u",
+        "reasoning": "Blake Snell takes the mound for the Dodgers against Jack Kochanowicz for the Angels — a strong pitching matchup anchoring the under. Six books are lined at 9.0 with the best price at -114 on FanDuel, while three books have already dropped to 8.5, signaling sharp under pressure. The edge_bps on the Under 9.0 is minimal at this point, but the 8.5 line at LowVig showing +107 for the Under confirms the market is leaning that way, and Snell's elite strikeout profile suppresses scoring.",
+        "tags": [
+          "Pitching Spot",
+          "Line Movement",
+          "Confidence B+"
+        ],
+        "is_premium": false,
+        "result": "WON",
+        "units": 1.32
+      },
+      {
+        "league": "MLB",
+        "time": "7:41 PM ET",
+        "away_team": "Colorado Rockies",
+        "home_team": "Arizona Diamondbacks",
+        "game_detail": "Regular Season",
+        "pick": "Under 12.0",
+        "odds": "101",
+        "book": "LowVig.ag",
+        "stake": "2u",
+        "reasoning": "The Under 12.0 at LowVig is priced at +101 against a median of -110 — a massive 263 edge_bps gap, the largest on the entire board today. Coors Field games routinely inflate totals, but getting plus-money on the under at a 12-run number with Merrill Kelly (a reliable ground-ball arm) going for Arizona is exceptional line value. This is a direct pricing inefficiency at LowVig versus the rest of the market, and the +101 represents real edge that should be captured immediately.",
+        "tags": [
+          "Best Price",
+          "Market Inefficiency",
+          "Confidence A"
+        ],
+        "is_premium": true,
+        "result": "PENDING",
+        "units": 0.0
+      },
+      {
+        "league": "MLB",
+        "time": "7:11 PM ET",
+        "away_team": "Cincinnati Reds",
+        "home_team": "Cleveland Guardians",
+        "game_detail": "Regular Season",
+        "pick": "Cleveland Guardians -1.5",
+        "odds": "170",
+        "book": "BetRivers",
+        "stake": "1.5u",
+        "reasoning": "BetRivers is posting Guardians -1.5 at +170 while the median across all nine books is +157 — a 187 edge_bps gap that stands out as one of the cleaner spread inefficiencies on the slate. Tanner Bibee starts for Cleveland against Andrew Abbott; Bibee has been one of the more reliable starters in the AL Central, and the Guardians at home against a Cincinnati team with a leaky offense makes the run-line live. The +170 at BetRivers is a full 13 cents better than median, making this a high-value play.",
+        "tags": [
+          "Best Price",
+          "Home Favorite",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "LOST",
+        "units": -1.5
+      },
+      {
+        "league": "MLB",
+        "time": "7:16 PM ET",
+        "away_team": "Chicago Cubs",
+        "home_team": "Chicago White Sox",
+        "game_detail": "Regular Season",
+        "pick": "Chicago Cubs -1.5",
+        "odds": "122",
+        "book": "LowVig.ag",
+        "stake": "1.5u",
+        "reasoning": "LowVig is posting Cubs -1.5 at +122 versus a median of +114 — a 168 edge_bps advantage. Edward Cabrera starts for the Cubs against Sean Burke for the White Sox; the White Sox continue to be one of the worst offensive clubs in baseball, and the Cubs are significantly the better team here. Getting +122 on a Cubs run-line against Chicago's hapless offense with a quality arm going is excellent value, and the price discrepancy confirms this is mispriced at LowVig.",
+        "tags": [
+          "Best Price",
+          "Fade Weak Offense",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 1.83
+      },
+      {
+        "league": "MLB",
+        "time": "7:46 PM ET",
+        "away_team": "Baltimore Orioles",
+        "home_team": "Washington Nationals",
+        "game_detail": "Regular Season",
+        "pick": "Under 9.0",
+        "odds": "-118",
+        "book": "BetMGM",
+        "stake": "1u",
+        "reasoning": "The Under 9.0 at BetMGM sits at -118 against a median of -125 across six books — a 143 edge_bps gap. Shane Baz takes the hill for Baltimore against Zack Littell for Washington; both pitchers have shown the ability to keep games close, and a total of 9.0 for a Nationals home game feels inflated. The best price on the market at -118 (7 cents better than median) makes BetMGM the clear play here.",
+        "tags": [
+          "Best Price",
+          "Pitching Matchup",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 0.85
+      },
+      {
+        "league": "NBA",
+        "time": "9:40 PM ET",
+        "away_team": "San Antonio Spurs",
+        "home_team": "Minnesota Timberwolves",
+        "game_detail": "Regular Season",
+        "pick": "Minnesota Timberwolves +5.0",
+        "odds": "-103",
+        "book": "LowVig.ag",
+        "stake": "1.5u",
+        "reasoning": "LowVig.ag has the Timberwolves +5.0 at -103 versus a median of -108 across six books — a 118 edge_bps edge. The Spurs are listed as heavy favorites on the moneyline (-188 to -210 range), but getting Minnesota plus five at nearly even money is valuable considering the Wolves are competitive at home and the line movement from 4.5 to 5.5 across books shows disagreement in the market. The -103 price at LowVig is the sharpest available on the dominant line.",
+        "tags": [
+          "Best Price",
+          "Home Dog",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "LOST",
+        "units": -1.5
+      },
+      {
+        "league": "NHL",
+        "time": "8:00 PM ET",
+        "away_team": "Buffalo Sabres",
+        "home_team": "Montréal Canadiens",
+        "game_detail": "Regular Season",
+        "pick": "Over 6.5",
+        "odds": "108",
+        "book": "BetRivers",
+        "stake": "1u",
+        "reasoning": "BetRivers is posting Over 6.5 at +108 against a median of +101 — a 167 edge_bps gap and the only plus-money over on this line. The Canadiens are moderate home favorites (-155 to -167), and Montreal-Buffalo matchups in hockey tend to be up-tempo affairs. Getting plus-money on the over in a game where both teams have offensive incentive (Montreal at home, Buffalo fighting for positioning) represents genuine market value at BetRivers.",
+        "tags": [
+          "Best Price",
+          "Market Inefficiency",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "PENDING",
+        "units": 0.0
+      }
+    ]
+  },
+  "content": {
+    "ig_pick_post": {
+      "caption": "Highest totals edge on today's full slate. Bubba Chandler on the mound, price is -105 against a median of -118. Full analysis at smarterpicks.io.",
+      "slide1_text": "Best edge on the board today\nMLB Over 8.0\nFree pick, no strings.",
+      "slide2_text": "Pittsburgh vs. opponent, Over 8.0 (-105)\nBest price: -105. Median across books: -118.\nEdge index: 291 bps, highest totals edge on the slate.\nBubba Chandler starts for Pittsburgh. Matchup sets up for runs.",
+      "slide3_text": "Full card (7 picks today) is live at smarterpicks.io.\n7-day free trial, then $29.99/month. Cancel anytime.\n21+ only. Bet responsibly.",
+      "hashtags": [
+        "sportsbetting",
+        "sportspicks",
+        "mlbpicks",
+        "mlbbetting",
+        "freepick",
+        "baseballbetting",
+        "bettinganalysis",
+        "todayspicks",
+        "sharpbetting",
+        "bettingodds",
+        "mlb2026",
+        "totals",
+        "overpick",
+        "bettingedge",
+        "sportsanalysis"
+      ]
+    },
+    "ig_results_post": {
+      "caption": "Saturday: 3-2, net +1.00u. Two went the wrong way. Three held. We post all of it. Track record stays public.",
+      "headline_text": "Saturday: 3-2, +1.00u",
+      "hashtags": [
+        "sportsbetting",
+        "sportspicks",
+        "bettingresults",
+        "mlbpicks",
+        "bettingrecord",
+        "trackedpicks",
+        "transparentbetting",
+        "sharpbetting",
+        "bettinganalysis",
+        "publicrecord",
+        "sportsanalysis",
+        "mlb2026",
+        "bettingcommunity"
+      ]
+    },
+    "ig_carousel_topic": {
+      "topic": "Bankroll math for people who've never thought about bankroll",
+      "slide1_text": "You don't need a system.\nYou need a number.\nBankroll math, from scratch.",
+      "slide2_text": "Most bettors skip this part.\nThey pick a bet size by feel, $50 here, $200 there, and wonder why a bad week wipes them out.\nThe problem isn't the picks. It's the sizing.",
+      "slide3_text": "Flat-unit betting is the fix.\nPick a unit size: 1% to 2% of your total bankroll.\nBet that amount on every play, regardless of how confident you feel.\nA $500 bankroll means $5 to $10 per bet. That's it.",
+      "slide4_text": "Say your bankroll is $1,000. Your unit is $10 (1%).\nYou go 5-5 over 10 bets at -110 juice.\n5 wins: +$45.45. 5 losses: -$50. Net: -$4.55.\nYou're still in the game. A $100 flat bet? Same record wipes $45.50 from a $1,000 roll.",
+      "slide5_text": "A 54% win rate at 1-unit flat betting compounds quietly over hundreds of bets.\nThe math only works if you're still in action on bet 300.\nSize small. Stay in.",
+      "caption": "Bankroll sizing is the part most bettors skip. One bad week shouldn't end the run. The math is simple once you see it.",
+      "hashtags": [
+        "sportsbetting",
+        "bettingtips",
+        "bankrollmanagement",
+        "bettingstrategy",
+        "bettingeducation",
+        "sportsbettingtips",
+        "unitbetting",
+        "sharpbetting",
+        "bettingmath",
+        "responsiblegambling",
+        "sportsanalysis",
+        "bettingcommunity",
+        "mlbbetting",
+        "nbabetting",
+        "flatbetting",
+        "learnbetting"
+      ]
+    },
+    "story_sequence": [
+      "Card drops in 30 min. Seven MLB and playoff picks on the board today. Free pick leads with the highest totals edge on the slate.",
+      "Quick poll: do you track your bets in a spreadsheet, an app, or not at all? Reply and let us know.",
+      "Last call before first pitch. Free pick (MLB Over 8.0, -105) is up at the link. Full card behind the 7-day trial.",
+      "Running update: tracking today's 7-pick card live. Check the link for line movement and early results as games settle.",
+      "Day wrapped. Full results post goes up tomorrow morning with every grade. See you then."
+    ],
+    "meme_post": {
+      "top_text": "Me building a 5-leg parlay on a Sunday",
+      "bottom_text": "Me at 11:58 PM watching the last leg lose by half a run",
+      "image_concept": "A person confidently pressing a big red button labeled 'SUBMIT PARLAY' while surrounded by caution tape and warning signs."
+    },
+    "treatments": [
+      {
+        "template": "pick-card.html",
+        "rationale": "The free pick is the lead story today and this is the workhorse template for exactly that purpose.",
+        "group": "ig_pick_post",
+        "size": "feed",
+        "fields": {},
+        "caption": "",
+        "hashtags": []
+      },
+      {
+        "template": "recap-card.html",
+        "rationale": "Yesterday's 3-2 result deserves a clean ledger post with W/L chips and the net unit total visible at a glance.",
+        "group": "ig_results_post",
+        "size": "feed",
+        "fields": {},
+        "caption": "",
+        "hashtags": []
+      },
+      {
+        "template": "slip-card.html",
+        "rationale": "Showing the free pick as a concrete bet slip reinforces the transparency brand and gives the number context at a glance.",
+        "group": "treatments",
+        "size": "feed",
+        "fields": {},
+        "caption": "Over 8.0 at -105. Highest totals edge on today's board. Full card at smarterpicks.io, 7-day free trial.",
+        "hashtags": [
+          "sportsbetting",
+          "mlbpicks",
+          "freepick",
+          "bettingslip",
+          "totals",
+          "sharpbetting",
+          "bettinganalysis",
+          "mlb2026",
+          "todayspicks",
+          "bettingedge"
+        ]
+      },
+      {
+        "template": "index-card.html",
+        "rationale": "Sunday is a natural credibility moment. 43 days of logged data at 54.4% and +38.4u earns a receipts post.",
+        "group": "treatments",
+        "size": "feed",
+        "fields": {},
+        "caption": "248-208 across 43 logged days. 54.4% win rate, +38.4u net, 9.3% ROI. Public record, every result posted.",
+        "hashtags": [
+          "sportsbetting",
+          "bettingrecord",
+          "trackedpicks",
+          "sharpbetting",
+          "bettingresults",
+          "publicrecord",
+          "bettinganalysis",
+          "sportspicks",
+          "transparentbetting",
+          "mlb2026",
+          "bettingcommunity",
+          "unitbetting"
+        ]
+      },
+      {
+        "template": "carousel-card.html",
+        "rationale": "The bankroll education carousel maps cleanly to a stepped numbered slide format for the educational thread.",
+        "group": "ig_carousel_topic",
+        "size": "feed",
+        "fields": {},
+        "caption": "",
+        "hashtags": []
+      }
+    ]
+  }
+}
