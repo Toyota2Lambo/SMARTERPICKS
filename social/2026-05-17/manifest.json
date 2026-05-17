@@ -1,5 +1,5 @@
 {
-  "rendered_at": "2026-05-17T08:10:22.189Z",
+  "rendered_at": "2026-05-17T09:28:17.801Z",
   "content_file": "content.json",
   "renders": [
     {
@@ -184,8 +184,8 @@
     },
     {
       "file": "treatment-05.png",
-      "template": "matchup-card.html",
-      "group": "treatments",
+      "template": "carousel-card.html",
+      "group": "ig_carousel_topic",
       "slide_index": 5,
       "size": {
         "width": 1080,
