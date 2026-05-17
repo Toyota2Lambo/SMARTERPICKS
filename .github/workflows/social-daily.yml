@@ -112,7 +112,13 @@ jobs:
           DISCORD_WEBHOOK_URL:    ${{ secrets.DISCORD_WEBHOOK_URL }}
           # Override only if the deployed origin isn't smarterpicks.io
           IG_PUBLIC_BASE_URL:     ${{ secrets.IG_PUBLIC_BASE_URL }}
-        run: python social/ig_publisher.py "${{ steps.today.outputs.DAY_DIR }}" --only=ig_pick_post,story:1
+        # ig_pick_post     — daily pick carousel (legacy 2-slide site card + CTA)
+        # story:1          — morning teaser story
+        # treatments       — every modern-template entry as its own standalone
+        #                    single-image post. Mode is "post everything, curate
+        #                    on Instagram" — the alternative (manual selection)
+        #                    was friction we don't want for a daily cadence.
+        run: python social/ig_publisher.py "${{ steps.today.outputs.DAY_DIR }}" --only=ig_pick_post,story:1,treatments
 
       - name: Open issue on failure
         if: failure()

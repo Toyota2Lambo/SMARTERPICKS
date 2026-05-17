@@ -423,6 +423,8 @@ How to choose treatments for the day:
 - quote-card: a single sharp editorial pull-quote. Atmospheric, optional.
 - Never repeat the same template twice in the same drop.
 
+EVERY treatment publishes as its own standalone single-image post — never as a slide inside the legacy ig_pick_post / ig_results_post / ig_carousel_topic carousels. That means EVERY treatment needs its own caption (80-200 chars) AND its own hashtags (8-18, mixed broad+specific). Empty captions ship as blank Instagram posts, which look broken.
+
 Field rules for treatments:
 - Headlines wrap the single most important word or number in <em>...</em>. That word renders gold italic. Pick that word deliberately, never wrap a connector word like "the" or "a".
 - Field names ending in _html accept inline HTML (<em>, <strong>). All other fields are plain text only.
@@ -689,6 +691,15 @@ def main() -> int:
     # which constructs treatments directly from registry samples and never
     # produces a fields_json string. Done BEFORE strip_ai_punct so the
     # scrubber walks the parsed dict like any other content branch.
+    #
+    # ALSO: force every treatment's group to "treatments" so each one
+    # publishes as a standalone single-image post via ig_publisher's
+    # treatments-group handler. The legacy ig_pick_post / ig_results_post
+    # / ig_carousel_topic carousels stay on their original templates
+    # (daily-pick-card, results-recap, educational-carousel); treatments
+    # never ride along inside those carousels. This is the "post every
+    # treatment, curate on IG" mode — the alternative was filtering at
+    # publish time, which kept losing files to mismatched-group filters.
     for t in (content_dict.get("treatments") or []):
         if "fields_json" in t:
             raw = t.pop("fields_json", "") or "{}"
@@ -697,6 +708,7 @@ def main() -> int:
             except json.JSONDecodeError as e:
                 print(f"   ⚠ {t.get('template','?')}: fields_json parse failed ({e}); using empty dict")
                 t["fields"] = {}
+        t["group"] = "treatments"
 
     # Scrub punctuation first, THEN resolve photos. Photo resolution
     # injects photo_url + photo_credit (URL strings, formatted credit
