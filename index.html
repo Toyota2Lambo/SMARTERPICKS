@@ -315,8 +315,12 @@
      reuses og-image.png so the placeholder is still on-brand. */
   .explainer{padding:80px 0;border-bottom:1px solid var(--border);background:var(--bg-elevated);}
   .explainer-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:64px;align-items:center;}
-  .video-shell{position:relative;background:#000;border:1px solid var(--border);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 0 1px rgba(212,168,67,.18);aspect-ratio:9/16;max-height:560px;margin:0 auto;overflow:hidden;}
-  .video-shell video{width:100%;height:100%;display:block;object-fit:cover;background:#000;}
+  /* aspect-ratio:16/9 = the Synthesia explainer's native landscape frame
+     (1920x1080). Drop the old max-height — that was a portrait-9/16
+     guardrail and no longer applies. The grid column governs width;
+     height follows from aspect-ratio. */
+  .video-shell{position:relative;background:#000;border:1px solid var(--border);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 0 1px rgba(212,168,67,.18);aspect-ratio:16/9;margin:0 auto;overflow:hidden;}
+  .video-shell video,.video-shell iframe{width:100%;height:100%;display:block;border:0;background:#000;}
   .video-corner{position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(10,10,10,.78);backdrop-filter:blur(6px);border:1px solid rgba(212,168,67,.35);font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);}
   .video-corner .dot{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;}
   .explainer-copy .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;display:inline-flex;align-items:center;gap:14px;}
@@ -329,7 +333,8 @@
   @media(max-width:960px){
     .explainer{padding:56px 0;}
     .explainer-grid{grid-template-columns:1fr;gap:36px;}
-    .video-shell{aspect-ratio:9/16;max-height:680px;width:min(100%,360px);}
+    /* Mobile: full-width landscape, height derives from aspect-ratio. */
+    .video-shell{aspect-ratio:16/9;width:100%;}
   }
 
   /* ==========================================================
@@ -642,11 +647,18 @@
     <div class="explainer-grid">
 
       <div class="video-shell">
-        <span class="video-corner"><span class="dot"></span>Watch · 90 sec</span>
-        <video controls preload="metadata" playsinline poster="og-image.png">
-          <source src="explainer.mp4" type="video/mp4">
-          Your browser doesn't support the video tag. <a href="/archive">Read the track record →</a>
-        </video>
+        <span class="video-corner"><span class="dot"></span>Watch · Explainer</span>
+        <!-- Synthesia-hosted explainer ("Beat the Sportsbook With SmarterPicks").
+             Replaces the local explainer.mp4 stub. allow=fullscreen so users
+             can pop it out; encrypted-media lets the Synthesia player handle
+             its DRM-wrapped streams. loading=lazy so the iframe doesn't block
+             first paint of the landing page. -->
+        <iframe
+          src="https://share.synthesia.io/embeds/videos/2733e2ec-1441-4a9b-8a19-a0c7784d90a4"
+          title="Beat the Sportsbook With SmarterPicks"
+          loading="lazy"
+          allowfullscreen
+          allow="encrypted-media; fullscreen; microphone; screen-wake-lock;"></iframe>
       </div>
 
       <div class="explainer-copy">
