@@ -1,5 +1,5 @@
 {
-  "rendered_at": "2026-05-17T12:02:09.614Z",
+  "rendered_at": "2026-05-17T16:14:13.116Z",
   "content_file": "content.json",
   "renders": [
     {
@@ -165,7 +165,7 @@
     {
       "file": "treatment-03.png",
       "template": "slip-card.html",
-      "group": "treatments",
+      "group": "ig_pick_post",
       "slide_index": 3,
       "size": {
         "width": 1080,
@@ -184,8 +184,8 @@
     },
     {
       "file": "treatment-05.png",
-      "template": "carousel-card.html",
-      "group": "ig_carousel_topic",
+      "template": "stat-card.html",
+      "group": "treatments",
       "slide_index": 5,
       "size": {
         "width": 1080,
