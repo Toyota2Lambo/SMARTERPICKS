@@ -53,7 +53,14 @@ jobs:
 
       - name: Generate content (Claude → content.json)
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_API_KEY:   ${{ secrets.ANTHROPIC_API_KEY }}
+          # Used by social/photo_fetcher.py for topic-relevant photo search
+          # on photo-aware treatments (quote-card, matchup-card, cover-card,
+          # photo-cover-card). Falls back to Picsum if unset.
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+          # photo_fetcher caches downloads here; workflow-scoped so different
+          # days don't cross-pollinate. Not committed (workspace path).
+          PHOTO_CACHE_DIR:     ${{ github.workspace }}/.photo_cache
         run: python social/social_generator.py
 
       - name: Render images (templates → PNGs)
