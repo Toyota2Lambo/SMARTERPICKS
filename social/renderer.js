@@ -34,6 +34,7 @@
 const fs   = require("fs/promises");
 const path = require("path");
 const os   = require("os");
+const REGISTRY = require("./templates-registry");
 
 const TEMPLATE_DIR = path.join(__dirname, "templates");
 const FEED_SIZE  = { width: 1080, height: 1080 };
@@ -352,6 +353,36 @@ function buildManifest(payload) {
         bottom_text:   c.meme_post.bottom_text,
         image_concept: c.meme_post.image_concept || "",
       },
+    });
+  }
+
+  // 6) Generic "treatments" — flexible array using any of the 10 modern
+  // visual templates registered in templates-registry.js. Each entry:
+  //   { template, output, group, slide_index, size, fields }
+  // The registry's expand() turns logical fields (e.g. recap-card's
+  // `pick_rows` array, chart-card's `bars`, index-card's `cells`) into
+  // the *_html chunk placeholders the templates substitute against.
+  // Unknown templates are warned + skipped — never silently rendered as
+  // a literal "{{name}}" surfacing on the IG feed.
+  if (Array.isArray(c.treatments)) {
+    c.treatments.forEach((t, i) => {
+      const spec = REGISTRY.specFor(t.template);
+      if (!spec) {
+        console.warn(`  ⚠ treatments[${i}]: unknown template '${t.template}' — skipping`);
+        return;
+      }
+      const sizeKey  = t.size === "story" ? "story" : "feed";
+      const sizeDim  = sizeKey === "story" ? STORY_SIZE : FEED_SIZE;
+      const logical  = Object.assign({}, t.fields || {}, { size: sizeKey });
+      const expanded = REGISTRY.expandFields(t.template, logical);
+      renders.push({
+        template:    t.template,
+        output:      t.output || `treatment-${String(i + 1).padStart(2, "0")}.png`,
+        group:       t.group  || "treatments",
+        slide_index: t.slide_index || (i + 1),
+        size:        sizeDim,
+        content:     expanded,
+      });
     });
   }
 

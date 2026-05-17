@@ -288,3 +288,80 @@ body[data-size="story"] .num-watermark {
   background: var(--accent);
   z-index: 0;
 }
+
+/* ============================================================
+   PHOTO-ATMOS — subtle atmospheric photo backdrop.
+   Opt-in: any template drops <div class="photo-atmos"><img
+   src="{{photo_url}}" alt=""></div> as the first child of its
+   .stage. The photo is desaturated, blurred, dimmed to a faint
+   texture, then a soft radial darken pushes the edges further
+   back. Present but never competing — typography stays the
+   protagonist. Templates using this must lift their other
+   .stage children with z-index: 1 (and position: relative on
+   static elements) so they paint above the backdrop.
+   ============================================================ */
+.photo-atmos {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.photo-atmos img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Strip color, blur to texture, dim hard. The photo is now a
+     mood layer, not a subject. */
+  filter: grayscale(100%) blur(5px) brightness(0.45) contrast(1.05);
+  opacity: 0.32;
+}
+.photo-atmos::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    rgba(10,10,10,0.3) 60%,
+    rgba(10,10,10,0.65) 100%
+  );
+}
+/* No photo for this post? Hide the broken-image placeholder so
+   nothing renders and the layout collapses gracefully. */
+.photo-atmos img[src=""],
+.photo-atmos img:not([src]) {
+  display: none;
+}
+
+/* ============================================================
+   INSET-PHOTO — small treated thumbnail used inside matchup-card.
+   Only the favored team's side renders it; the non-favored side's
+   element collapses entirely (display:none → zero footprint), which
+   weights the favored side visually without breaking the symmetric
+   vs grid. The photo itself is grayscale + dimmed so it reads as
+   editorial texture, not an action shot.
+   ============================================================ */
+.inset-photo {
+  /* visibility (not display) so the non-favored side reserves the same
+     140px footprint, keeping the team names + data rows horizontally
+     aligned across the vs grid. The photo itself only PAINTS on the
+     favored side; the empty side just holds the space. */
+  visibility: hidden;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 28px;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+}
+.team.favored .inset-photo { visibility: visible; }
+.inset-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) brightness(0.78) contrast(1.05);
+}
+body[data-size="story"] .inset-photo {
+  width: 180px;
+  height: 180px;
+}

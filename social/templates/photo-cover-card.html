@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SmarterPicks — Photo Cover Card</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  /* PHOTO COVER CARD — atmospheric magazine spread.
+     A full-bleed photograph anchors the post, then gets treated so
+     it doesn't fight the brand: desaturated to grayscale, contrast
+     bumped, dimmed, and a deep vertical gradient drops the bottom
+     half into near-black so the headline reads. Reserved for moments
+     that benefit from atmosphere — game-day announcements, marquee
+     matchups, season-opening features. Photographer credit sits in
+     the bottom-right per Unsplash's attribution requirements (tiny,
+     mono, dim — present but not screaming). */
+
+  /* Reset stage padding — content sits ON the photo, not inside a padded box. */
+  .stage { padding: 0; }
+
+  .photo-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .photo-layer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Drain color, hold structure, dim to make headline land cleanly. */
+    filter: grayscale(100%) contrast(1.05) brightness(0.78);
+  }
+  /* Vertical gradient: photo visible at top, near-black at bottom where
+     the headline + deck live. This is the trick that makes stock-photo-
+     plus-typography read as editorial instead of as collage. */
+  .photo-layer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(10,10,10,0.35) 0%,
+      rgba(10,10,10,0.45) 40%,
+      rgba(10,10,10,0.85) 75%,
+      rgba(10,10,10,0.98) 100%
+    );
+  }
+
+  .photo-stage {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 96px;
+  }
+
+  .photo-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .photo-body {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-top: 80px;
+  }
+
+  .photo-eyebrow {
+    font-family: var(--mono);
+    font-size: 16px;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+  .photo-eyebrow::before {
+    content: "";
+    width: 48px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .photo-headline {
+    font-family: var(--display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 132px;
+    line-height: .9;
+    letter-spacing: -.04em;
+    color: var(--text);
+    max-width: 820px;
+    margin-bottom: 36px;
+  }
+  .photo-headline em {
+    color: var(--accent);
+    font-weight: 300;
+  }
+  body[data-size="story"] .photo-headline { font-size: 168px; }
+
+  .photo-deck {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.32;
+    color: var(--text-muted);
+    max-width: 620px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(212, 168, 67, 0.45);
+  }
+  .photo-deck em { color: var(--accent); }
+  body[data-size="story"] .photo-deck { font-size: 34px; max-width: 720px; }
+
+  /* Footer override — sits above the gradient, no top border (photo
+     already provides visual separation) */
+  .photo-stage .footer {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .photo-credit {
+    position: absolute;
+    bottom: 22px;
+    right: 28px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    opacity: .7;
+    z-index: 2;
+  }
+</style>
+</head>
+<body data-size="{{size}}">
+  <div class="stage">
+
+    <div class="photo-layer">
+      <img src="{{photo_url}}" alt="">
+    </div>
+
+    <div class="photo-stage">
+
+      <div class="photo-top">
+        <div class="brand">
+          <img class="brand-mark" src="logo.png" alt="" style="width:auto;height:18px;">
+          <span class="brand-name">SMARTERPICKS</span>
+        </div>
+        <div class="tag">{{tag}}</div>
+      </div>
+
+      <div class="photo-body">
+        <div class="photo-eyebrow">{{eyebrow}}</div>
+        <div class="photo-headline">{{headline_html}}</div>
+        <div class="photo-deck">{{deck_html}}</div>
+      </div>
+
+      <div class="footer">
+        smarterpicks.io <span class="dot">·</span>
+        <span class="promo">7-day free trial</span>
+      </div>
+
+    </div>
+
+    <div class="photo-credit">{{photo_credit}}</div>
+
+  </div>
+</body>
+</html>

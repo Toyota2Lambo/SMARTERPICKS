@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SmarterPicks — Carousel Card</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  /* CAROUSEL CARD — a numbered slide for multi-card threads.
+     A massive ghosted italic numeral floats in the upper-right
+     (01, 02, 03...). The brand sits top-left with a mono "STEP
+     0X" tag opposite. The body — eyebrow rule, headline, copy —
+     anchors to the lower-left with generous white space. Across
+     a four- or five-card carousel, the ghosted numerals advance
+     visibly while every other element stays planted; it reads
+     like the chapter folios of a printed long-form piece. */
+
+  .stage { padding: 96px; justify-content: flex-start; }
+  .brand { margin-bottom: 0; }
+
+  .num-mark {
+    position: absolute;
+    top: 80px;
+    right: 96px;
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 320px;
+    line-height: .85;
+    letter-spacing: -.06em;
+    color: var(--accent);
+    opacity: .14;
+    z-index: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+  body[data-size="story"] .num-mark { font-size: 420px; top: 120px; }
+
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .step-mono {
+    font-family: var(--mono);
+    font-size: 15px;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .step-mono::before {
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .body-area {
+    margin: auto 0 40px;
+    /* px not ch — wrapper inherits body's 16px font; ch was forcing
+       word-per-line wrap. Constrains both headline and body. */
+    max-width: 680px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 16px;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 36px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 60px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .slide-headline {
+    font-family: var(--display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 108px;
+    line-height: .94;
+    letter-spacing: -.032em;
+    color: var(--text);
+    margin-bottom: 40px;
+  }
+  .slide-headline em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 300;
+  }
+  body[data-size="story"] .slide-headline { font-size: 132px; }
+
+  .slide-body {
+    font-family: var(--body);
+    font-size: 27px;
+    line-height: 1.5;
+    color: var(--text-muted);
+    max-width: 22ch;
+  }
+  .slide-body strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+  .slide-body em {
+    color: var(--accent);
+    font-style: normal;
+    font-weight: 500;
+  }
+  body[data-size="story"] .slide-body { font-size: 31px; }
+</style>
+</head>
+<body data-size="{{size}}">
+  <div class="stage">
+
+    <div class="num-mark">{{step_num}}</div>
+
+    <div class="header-row">
+      <div class="brand">
+        <img class="brand-mark" src="logo.png" alt="" style="width:auto;height:18px;">
+        <span class="brand-name">SMARTERPICKS</span>
+      </div>
+      <div class="step-mono">{{step_label}}</div>
+    </div>
+
+    <div class="body-area">
+      <div class="eyebrow">{{eyebrow}}</div>
+      <div class="slide-headline">{{headline_html}}</div>
+      <div class="slide-body">{{body_html}}</div>
+    </div>
+
+    <div class="footer">
+      smarterpicks.io <span class="dot">·</span>
+      <span class="promo">7-day free trial</span>
+    </div>
+
+  </div>
+</body>
+</html>

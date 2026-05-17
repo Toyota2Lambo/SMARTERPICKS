@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SmarterPicks — Cover Card</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  /* COVER CARD — magazine-cover treatment.
+     A masthead strip up top (brand left, issue number right),
+     a thin rule, a mono meta line (date | section), then a
+     single, page-dominating italic-serif headline anchored to
+     the lower half. A short italic deck under the headline,
+     ruled away by a hairline, contextualizes without competing.
+     This is the cinematic, low-information slide — used when
+     a story is announcing itself, not explaining itself.
+     Designed to be the "issue cover" inside a carousel or the
+     hero post of a content drop. */
+
+  .stage { padding: 96px; justify-content: flex-start; }
+  .brand { margin-bottom: 0; }
+
+  .cover-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .issue {
+    font-family: var(--mono);
+    font-size: 15px;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .cover-meta {
+    margin-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .cover-meta .section { color: var(--text-dim); }
+
+  .cover-headline {
+    font-family: var(--display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 228px;
+    line-height: .86;
+    letter-spacing: -.05em;
+    color: var(--text);
+    margin: auto 0 0;
+    max-width: 12ch;
+  }
+  .cover-headline em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 300;
+  }
+  body[data-size="story"] .cover-headline { font-size: 296px; max-width: 11ch; }
+
+  .cover-sub {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 38px;
+    line-height: 1.28;
+    color: var(--text-muted);
+    margin-top: 44px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    max-width: 32ch;
+    margin-bottom: 36px;
+  }
+  .cover-sub em { color: var(--accent); }
+  body[data-size="story"] .cover-sub { font-size: 42px; }
+
+  /* Lift content above the optional photo-atmos backdrop. position:
+     relative on static elements turns them into positioned boxes so
+     z-index actually applies; auto margins (flex centering, footer
+     push-to-bottom) keep working unchanged. */
+  .cover-top, .cover-meta, .cover-headline, .cover-sub, .footer {
+    position: relative;
+    z-index: 1;
+  }
+</style>
+</head>
+<body data-size="{{size}}">
+  <div class="stage">
+
+    <div class="photo-atmos"><img src="{{photo_url}}" alt=""></div>
+
+    <div class="cover-top">
+      <div class="brand">
+        <img class="brand-mark" src="logo.png" alt="" style="width:auto;height:18px;">
+        <span class="brand-name">SMARTERPICKS</span>
+      </div>
+      <div class="issue">{{issue}}</div>
+    </div>
+
+    <div class="cover-meta">
+      <span class="date">{{date_label}}</span>
+      <span class="section">{{section}}</span>
+    </div>
+
+    <div class="cover-headline">{{headline_html}}</div>
+
+    <div class="cover-sub">{{deck_html}}</div>
+
+    <div class="footer">
+      smarterpicks.io <span class="dot">·</span>
+      <span class="promo">7-day free trial</span>
+    </div>
+
+  </div>
+</body>
+</html>

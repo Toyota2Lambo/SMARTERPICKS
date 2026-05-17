@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SmarterPicks — Recap Card</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  /* RECAP CARD — yesterday's ledger.
+     A massive italic-serif W–L record up top (with the W and L
+     digits color-coded), the net units to its right. Below it,
+     a vertical list of pick rows: a small colored dot indicates
+     the result, mono label gives the matchup, italic-serif body
+     names the pick, and a mono +/- units value closes the row.
+     Reads like a quiet accountant's end-of-day, not a hype reel —
+     the color does the talking. */
+
+  .stage { padding: 96px; justify-content: flex-start; }
+  .brand { margin-bottom: 0; }
+
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .record-band {
+    margin-top: 72px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 32px;
+  }
+  .record-value {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 176px;
+    line-height: .88;
+    letter-spacing: -.04em;
+    color: var(--text);
+  }
+  .record-value .win { color: var(--win); }
+  .record-value .loss { color: var(--loss); }
+  .record-value .sep { color: var(--text-dim); font-weight: 300; margin: 0 4px; }
+  body[data-size="story"] .record-value { font-size: 208px; }
+
+  .record-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: right;
+  }
+  .record-meta .label {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .record-meta .value {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 56px;
+    color: var(--accent);
+    letter-spacing: -.025em;
+    line-height: 1;
+  }
+
+  .pick-list {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 36px;
+  }
+  .pick-row {
+    display: grid;
+    grid-template-columns: 18px 1fr auto;
+    align-items: center;
+    gap: 28px;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .pick-row:last-child { border-bottom: 0; }
+
+  .pick-result {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+  }
+  .pick-result.win  { background: var(--win); }
+  .pick-result.loss { background: var(--loss); }
+  .pick-result.push { background: var(--push); }
+
+  .pick-desc {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .pick-desc .matchup {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .pick-desc .play {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 38px;
+    line-height: 1.1;
+    color: var(--text);
+    letter-spacing: -.015em;
+  }
+  body[data-size="story"] .pick-desc .play { font-size: 44px; }
+
+  .pick-units {
+    font-family: var(--mono);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -.01em;
+  }
+  .pick-units.win  { color: var(--win); }
+  .pick-units.loss { color: var(--loss); }
+  .pick-units.push { color: var(--push); }
+</style>
+</head>
+<body data-size="{{size}}">
+  <div class="stage">
+
+    <div class="header-row">
+      <div class="brand">
+        <img class="brand-mark" src="logo.png" alt="" style="width:auto;height:18px;">
+        <span class="brand-name">SMARTERPICKS</span>
+      </div>
+      <div class="tag">{{tag}}</div>
+    </div>
+
+    <div class="record-band">
+      <div class="record-value">
+        <span class="win">{{wins}}</span><span class="sep">–</span><span class="loss">{{losses}}</span>
+      </div>
+      <div class="record-meta">
+        <div class="label">Net Units</div>
+        <div class="value">{{units}}</div>
+      </div>
+    </div>
+
+    <div class="pick-list">
+      {{pick_rows_html}}
+    </div>
+
+    <div class="footer">
+      smarterpicks.io <span class="dot">·</span>
+      <span class="promo">7-day free trial</span>
+    </div>
+
+  </div>
+</body>
+</html>

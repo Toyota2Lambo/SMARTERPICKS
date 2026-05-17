@@ -232,6 +232,10 @@ def files_for_group(manifest: dict, group: str) -> List[str]:
 VALID_ONLY_TOKENS = {
     "ig_pick_post", "ig_results_post", "ig_carousel_topic", "meme_post",
     "story:1", "story:2", "story:3", "story:4", "story:5", "stories",
+    # Modern treatments group — standalone single-image posts produced
+    # by social_generator.py's treatments[] block. Each entry in the
+    # group is published independently with its own caption + hashtags.
+    "treatments",
 }
 
 
@@ -374,7 +378,41 @@ def main() -> int:
                                          caption=cap, token=token, account_id=account_id))
         time.sleep(DELAY_BETWEEN_POSTS_S)
 
-    # ── 5) Stories (5 vertical posts) ──
+    # ── 5b) Modern treatments group — standalone single-image posts ──
+    # Each entry in the `treatments` group is its own post with its own
+    # caption + hashtags (per-treatment, set by social_generator.py via
+    # the Treatment Pydantic model). Treatments assigned to other groups
+    # (ig_pick_post, etc.) ride those groups' carousels and aren't
+    # published here.
+    #
+    # We zip manifest entries (in slide_index order — files_for_group
+    # already sorts) with content.treatments[] by index. The renderer
+    # produces them in lockstep, so positional zip is safe.
+    if should_run("treatments"):
+        treatment_files = files_for_group(manifest, "treatments")
+        treatment_data  = content.get("treatments") or []
+        # If the generator emitted treatment captions but they're under
+        # the umbrella content.treatments[] (modern path), the file
+        # order in the manifest matches the content order. Sanity-check
+        # the lengths and warn loudly if they drift.
+        if treatment_files and len(treatment_files) != len([t for t in treatment_data if (t.get("group") or "treatments") == "treatments"]):
+            print(f"   ⚠ manifest has {len(treatment_files)} 'treatments' renders, "
+                  f"content.json has {len(treatment_data)} entries — captions may misalign.")
+        # Filter content.treatments[] down to entries actually in the
+        # `treatments` group (since the array also includes entries
+        # routed to other groups like ig_pick_post).
+        standalone = [t for t in treatment_data if (t.get("group") or "treatments") == "treatments"]
+        for i, fname in enumerate(treatment_files):
+            t   = standalone[i] if i < len(standalone) else {}
+            cap = build_caption(t.get("caption", ""), t.get("hashtags") or [])
+            label = f"treatment {i+1}/{len(treatment_files)} ({t.get('template', '?')})"
+            run(label,
+                lambda f=fname, c=cap: publish_single_image(image_url=url_for(f),
+                                                            caption=c, token=token,
+                                                            account_id=account_id))
+            time.sleep(DELAY_BETWEEN_POSTS_S)
+
+    # ── 6) Stories (5 vertical posts) ──
     # --only=stories selects all five; --only=story:N selects exactly one.
     if skip_stories:
         summary.append("(stories skipped via IG_SKIP_STORIES=1)")

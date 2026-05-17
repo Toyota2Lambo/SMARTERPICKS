@@ -33,14 +33,18 @@ Notes
 
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import List
+from typing import Any, Dict, List
 
-import anthropic
+# anthropic is imported lazily inside main() so --dry-run works in
+# environments that haven't installed the SDK (e.g. sandboxes, CI image
+# warmups). pydantic stays top-level because the schemas below depend
+# on it at import time.
 from pydantic import BaseModel, Field
 
 
@@ -50,10 +54,15 @@ MAX_TOKENS  = 4000
 TEMPERATURE = 0.7      # voice has personality; we want some variance
 
 REPO_ROOT   = Path(__file__).resolve().parent.parent
+HERE        = Path(__file__).resolve().parent
 PICKS_FILE  = REPO_ROOT / "picks.json"
 RESULTS_FILE = REPO_ROOT / "results.json"
 HISTORY_FILE = REPO_ROOT / "history.json"
 SOCIAL_ROOT = REPO_ROOT / "social"
+SAMPLES_FILE = HERE / "sample-payloads.json"
+
+# Allow `from photo_fetcher import fetch_photo` when run from social/.
+sys.path.insert(0, str(HERE))
 
 # Educational carousel topics — rotated by day-of-month so a month of
 # daily posts cycles every angle without us repeating ourselves.
@@ -112,6 +121,21 @@ class MemePost(BaseModel):
     image_concept: str    = Field(description="One-sentence description of the visual concept (used in alt text and Discord notification).")
 
 
+class Treatment(BaseModel):
+    """One render from the modern editorial template grid (social/templates/).
+    Eleven templates total, documented in templates-registry.js. You pick 3 to
+    5 of these per day to complement the five standard groups above. Each
+    treatment is a single image render. The renderer pulls them from
+    content.treatments[] when it builds the manifest."""
+    template: str            = Field(description="One of the 11 template filenames from the registry shown in the user prompt. Must end in .html.")
+    rationale: str           = Field(description="One short sentence on why this template fits today's narrative.")
+    group: str               = Field(description="Publisher group routing. One of: ig_pick_post, ig_results_post, ig_carousel_topic, or treatments.")
+    size: str                = Field(description="feed for 1080x1080 grid posts, story for 1080x1920 vertical stories.")
+    fields: Dict[str, Any]   = Field(description="The field bag matching this template's spec. Match the field_example for the chosen template exactly, including _html suffixes and any photo_query.")
+    caption: str             = Field(default="", description="IG caption for this treatment. Required only when group=treatments (publishes as standalone). For ig_pick_post / ig_results_post / ig_carousel_topic the treatment rides the group's own caption, leave this empty.")
+    hashtags: List[str]      = Field(default_factory=list, description="Hashtags for standalone treatments (group=treatments). Same rules as caption. 8 to 18 mixed broad and specific, no leading #.")
+
+
 class DailyContent(BaseModel):
     """Top-level container for everything a day's IG run needs."""
     ig_pick_post: IGPickPost
@@ -119,6 +143,57 @@ class DailyContent(BaseModel):
     ig_carousel_topic: IGCarouselTopic
     story_sequence: List[str] = Field(min_length=5, max_length=5, description="Five short story texts: morning teaser, midday poll, pre-lock reminder, live tracker, night recap.")
     meme_post: MemePost
+    treatments: List[Treatment] = Field(default_factory=list, min_length=0, max_length=8, description="3 to 5 selected modern treatments for today, layered on top of the standard 5 groups. Pick whichever templates fit today's narrative best. Skip the field if today is genuinely a no-action day with nothing extra to say.")
+
+
+# ── POST-PROCESSING SCRUB ─────────────────────────────────
+# Hard backstop: walks the generated content and strips characters Claude
+# was told not to use. The prompt is the primary defense; this catches
+# anything that slipped through regardless. Touches every string in
+# the nested dict (captions, slides, hashtags) and leaves non-strings alone.
+_PUNCT_REPLACEMENTS = [
+    # Em dashes → comma (most natural in our voice)
+    (" — ", ", "),
+    (" —", ","),
+    ("— ", ", "),
+    ("—", "-"),
+    # En dashes outside of numeric contexts
+    (" – ", ", "),
+    ("–", "-"),
+    # Arrows
+    (" → ", " to "),
+    (" ← ", " from "),
+    ("→", " to "),
+    ("←", " from "),
+    ("↑", "up"),
+    ("↓", "down"),
+    ("⇒", " to "),
+    ("⟶", " to "),
+    # Smart quotes
+    ("‘", "'"),
+    ("’", "'"),
+    ("“", '"'),
+    ("”", '"'),
+    # Ellipsis character
+    ("…", "..."),
+]
+
+def strip_ai_punct(obj):
+    """Recursively scrub banned punctuation from every string in a structure."""
+    if isinstance(obj, str):
+        s = obj
+        for old, new in _PUNCT_REPLACEMENTS:
+            s = s.replace(old, new)
+        # Collapse any accidental double spaces / double commas the replacements may have created
+        while "  " in s:
+            s = s.replace("  ", " ")
+        s = s.replace(", ,", ",").replace(",,", ",")
+        return s.strip()
+    if isinstance(obj, dict):
+        return {k: strip_ai_punct(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [strip_ai_punct(v) for v in obj]
+    return obj
 
 
 # ── POST-PROCESSING SCRUB ─────────────────────────────────
@@ -292,11 +367,74 @@ CONTENT FORMAT RULES:
 - Story texts are even tighter, 1 to 2 lines each, conversational.
 - For meme posts: set up, then punchline. Self-deprecating bettor humor only, never punching down at users.
 
+MODERN TREATMENTS LAYER (additive on top of the 5 standard groups):
+Beyond the standard 5 groups, you also select 3 to 5 from a grid of 11 editorial templates. Each one is a single image render. The user prompt lists every template with its role, a "when to use" hint, and a complete field example you must mirror exactly.
+
+How to choose treatments for the day:
+- If yesterday had real action: pick a recap-card OR an index-card (not both).
+- If there is a free pick today: pick a pick-card or matchup-card or slip-card.
+- For a marquee game tonight: matchup-card carries it best (the favored side gets a photo accent automatically).
+- Educational thread: carousel-card across 3 to 5 numbered slides only if you commit to the whole thread.
+- cover-card or photo-cover-card: at most one per day, and only when today is a genuine event (hot streak, season opener, marquee night). Skip both on quiet days.
+- quote-card: a single sharp editorial pull-quote. Atmospheric, optional.
+- Never repeat the same template twice in the same drop.
+
+Field rules for treatments:
+- Headlines wrap the single most important word or number in <em>...</em>. That word renders gold italic. Pick that word deliberately, never wrap a connector word like "the" or "a".
+- Field names ending in _html accept inline HTML (<em>, <strong>). All other fields are plain text only.
+- Plain numeric fields (line, edge, confidence) are mono-rendered. Use the conventional sportsbook formatting: "-4.5", "+135", "+6.2%", "A-".
+- Photo fields: if a template supports a photo_query, set it to a short concrete English query like "basketball arena empty" or "Boston Celtics court". Two or three words. The system resolves the photo before render.
+- Voice rules (no em dashes, no arrows, no smart quotes, no hype words, vary sentence length) apply to ALL treatment fields the same way they apply to the standard groups.
+
 You will be given today's picks, yesterday's result, and the cumulative track record. Use those numbers and be specific, not vague."""
 
 
-def build_user_prompt(picks_data, results_data, history_data, carousel_topic) -> str:
+def build_treatment_registry_block(samples: dict) -> str:
+    """Compact, Claude-friendly catalog of every modern treatment. Pulls the
+    `role` + `when` hint per template plus the full field example, so Claude
+    can pattern-match field names + values without having to invent them."""
+    # Kept in Python (rather than parsing the JS registry) so this script has
+    # no Node round-trip. The dict below mirrors templates-registry.js's role
+    # + selection guidance. When a template is added there, add it here too.
+    docs = {
+        "quote-card.html":       ("Editorial pull-quote, one thesis-line that breathes.",
+                                  "Sharp observation about the market or a sport. Optional photo backdrop."),
+        "pick-card.html":        ("Daily pick brief, matchup label plus giant italic play plus 3-cell data row.",
+                                  "When there is a free pick to announce. The workhorse."),
+        "stat-card.html":        ("Hero statistic, one massive number anchoring the post.",
+                                  "A single statistic IS the story (e.g. 72 percent of road favs failed to cover)."),
+        "matchup-card.html":     ("Head-to-head, symmetric vs grid plus 140px inset photo on favored side.",
+                                  "Marquee game tonight worth comparing directly."),
+        "slip-card.html":        ("Bet slip receipt aesthetic, perforated edge plus dashed rules.",
+                                  "Showing the play as a concrete ticket. Mono-heavy."),
+        "recap-card.html":       ("Results ledger, color chip W and L list plus giant hero record.",
+                                  "After a results day. The receipts post. Never on a no-action day."),
+        "carousel-card.html":    ("Numbered slide for multi-card educational threads.",
+                                  "Walking through a concept across 3 to 5 stepped slides. Commit to the whole thread or skip."),
+        "chart-card.html":       ("Bar chart visualization with one row highlighted.",
+                                  "ATS records by side, ROI by market, win rate by sport."),
+        "cover-card.html":       ("Magazine cover masthead, issue number plus date plus huge italic headline.",
+                                  "Announcing a feature, hot streak, season opener. Editorial event posts. Optional photo."),
+        "index-card.html":       ("Six-cell stat grid, season receipts in atomic form.",
+                                  "Credibility lift post, cumulative record. Weekly or monthly cadence."),
+        "photo-cover-card.html": ("Atmospheric magazine spread with full-bleed treated photo.",
+                                  "Marquee moment, game-day hype, feature, season opener. Photo required. Max one per day."),
+    }
+    blocks = []
+    for tpl, (role, when) in docs.items():
+        example = samples.get(tpl, {})
+        blocks.append(
+            f"--- {tpl} ---\n"
+            f"role: {role}\n"
+            f"when: {when}\n"
+            f"field_example:\n{json.dumps(example, indent=2, ensure_ascii=False)}"
+        )
+    return "\n\n".join(blocks)
+
+
+def build_user_prompt(picks_data, results_data, history_data, carousel_topic, samples) -> str:
     today = datetime.now().strftime("%A, %B %d, %Y")
+    treatment_block = build_treatment_registry_block(samples)
     return f"""Today is {today}.
 
 YESTERDAY'S RESULT
@@ -328,47 +466,142 @@ Generate the full Instagram content package for today. Five separate pieces:
 
 5. **meme_post** — one bettor-humor meme (top + bottom text + visual concept). Self-deprecating > punching down.
 
-Be specific. Use the actual numbers. Don't say "we had a good run" — say "5-2 with +3.7u". Don't say "good odds" — say "+135"."""
+6. **treatments** — 3 to 5 entries from the modern grid below. Each entry has template, rationale, group, size, fields. Mirror the field_example for the chosen template exactly. Skip entirely on a true no-action day.
+
+MODERN TREATMENT REGISTRY (pick 3 to 5):
+
+{treatment_block}
+
+Be specific. Use the actual numbers. Don't say "we had a good run", say "5-2 with +3.7u". Don't say "good odds", say "+135"."""
+
+
+# ── PHOTO RESOLUTION ──────────────────────────────────────
+def resolve_treatment_photos(treatments_list: list) -> list:
+    """For each treatment whose fields carry a photo_query, fetch a topic-
+    relevant photo and inject photo_url + photo_credit. Mutates in place +
+    returns for chaining. Soft-fails when photo_fetcher isn't on the path
+    so the generator still works in environments without it (e.g. CI
+    runners that haven't pulled the social/ directory yet)."""
+    try:
+        from photo_fetcher import fetch_photo
+    except ImportError:
+        print("   ⚠ photo_fetcher not importable — skipping photo resolution.")
+        return treatments_list
+
+    for t in treatments_list:
+        f = t.get("fields") or {}
+        q = f.get("photo_query")
+        if not q:
+            continue
+        orientation = "portrait" if t.get("size") == "story" else "squarish"
+        try:
+            photo = fetch_photo(q, orientation=orientation)
+            f["photo_url"]    = f"file://{photo['local_path']}"
+            f["photo_credit"] = photo["credit"]
+            t["fields"] = f
+            print(f"     · photo '{q}' ({photo.get('source','?')}) -> {Path(photo['local_path']).name}")
+        except Exception as e:
+            print(f"     ✗ photo resolve failed for '{q}': {e}")
+    return treatments_list
+
+
+def dry_run_treatments(samples: dict) -> list:
+    """Build a 4-treatment drop straight from the registry samples. No
+    Claude call. Useful for testing the renderer + publisher pipeline
+    end to end before paying for tokens."""
+    chosen = [
+        ("matchup-card.html",     "ig_pick_post",     "feed"),
+        ("slip-card.html",        "ig_pick_post",     "feed"),
+        ("recap-card.html",       "ig_results_post",  "feed"),
+        ("photo-cover-card.html", "treatments",       "story"),
+    ]
+    out = []
+    for tpl, group, size in chosen:
+        sample = samples.get(tpl)
+        if not sample:
+            continue
+        out.append({
+            "template":  tpl,
+            "rationale": f"[dry-run] registry sample for {tpl}",
+            "group":     group,
+            "size":      size,
+            "fields":    dict(sample, size=size),
+        })
+    return out
 
 
 # ── MAIN ──────────────────────────────────────────────────
 def main() -> int:
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key:
-        print("❌ ANTHROPIC_API_KEY not set — refusing to run.", file=sys.stderr)
-        return 1
+    parser = argparse.ArgumentParser(description="Generate today's SmarterPicks social content")
+    parser.add_argument("--dry-run", action="store_true",
+                        help="Skip Claude. Emit a sample content.json (registry samples + photo resolution only).")
+    args = parser.parse_args()
 
     print("📡 Loading picks/results/history…")
     picks_data   = safe_load_json(PICKS_FILE,   {})
     results_data = safe_load_json(RESULTS_FILE, {})
     history_data = safe_load_json(HISTORY_FILE, {})
+    samples      = safe_load_json(SAMPLES_FILE, {})
+
+    if not samples:
+        print(f"   ⚠ No registry samples at {SAMPLES_FILE.name} — treatments will be skipped.", file=sys.stderr)
 
     carousel_topic = pick_carousel_topic()
     print(f"   Carousel topic of the day: {carousel_topic}")
 
-    user_prompt = build_user_prompt(picks_data, results_data, history_data, carousel_topic)
+    if args.dry_run:
+        print("\n🧪 Dry-run: skipping Claude, using registry samples for treatments.")
+        # Stub out the standard 5 groups with minimal placeholders so the
+        # downstream renderer + publisher still see a valid content.json.
+        content_dict = {
+            "ig_pick_post":      {"caption": "[dry-run] caption", "slide1_text": "[dry-run]", "slide2_text": "[dry-run]", "slide3_text": "[dry-run]", "hashtags": ["dryrun"]},
+            "ig_results_post":   {"caption": "[dry-run]", "headline_text": "[dry-run]", "hashtags": ["dryrun"]},
+            "ig_carousel_topic": {"topic": carousel_topic, "slide1_text": "[dry-run]", "slide2_text": "[dry-run]", "slide3_text": "[dry-run]", "slide4_text": "[dry-run]", "slide5_text": "[dry-run]", "caption": "[dry-run]", "hashtags": ["dryrun"]},
+            "story_sequence":    ["[dry-run-1]", "[dry-run-2]", "[dry-run-3]", "[dry-run-4]", "[dry-run-5]"],
+            "meme_post":         {"top_text": "[dry-run]", "bottom_text": "[dry-run]", "image_concept": "[dry-run]"},
+            "treatments":        dry_run_treatments(samples),
+        }
+        usage_in, usage_out = 0, 0
+    else:
+        api_key = os.environ.get("ANTHROPIC_API_KEY")
+        if not api_key:
+            print("❌ ANTHROPIC_API_KEY not set — refusing to run.", file=sys.stderr)
+            return 1
 
-    print(f"\n🤖 Asking Claude ({MODEL_ID}) for today's content package…")
-    client = anthropic.Anthropic(api_key=api_key)
+        try:
+            import anthropic
+        except ImportError:
+            print("❌ pip install anthropic pydantic", file=sys.stderr)
+            return 1
 
-    try:
-        response = client.messages.parse(
-            model=MODEL_ID,
-            max_tokens=MAX_TOKENS,
-            temperature=TEMPERATURE,
-            system=SYSTEM_PROMPT,
-            messages=[{"role": "user", "content": user_prompt}],
-            output_format=DailyContent,
-        )
-    except anthropic.APIStatusError as e:
-        print(f"❌ Anthropic API error ({e.status_code}): {e.message}", file=sys.stderr)
-        return 2
-    except Exception as e:
-        print(f"❌ Unexpected error calling Claude: {e}", file=sys.stderr)
-        return 2
+        user_prompt = build_user_prompt(picks_data, results_data, history_data, carousel_topic, samples)
 
-    content: DailyContent = response.parsed_output
-    print(f"   ✓ Got valid content (in: {response.usage.input_tokens} tok, out: {response.usage.output_tokens} tok)")
+        print(f"\n🤖 Asking Claude ({MODEL_ID}) for today's content package…")
+        client = anthropic.Anthropic(api_key=api_key)
+
+        try:
+            response = client.messages.parse(
+                model=MODEL_ID,
+                max_tokens=MAX_TOKENS,
+                temperature=TEMPERATURE,
+                system=SYSTEM_PROMPT,
+                messages=[{"role": "user", "content": user_prompt}],
+                output_format=DailyContent,
+            )
+        except anthropic.APIStatusError as e:
+            print(f"❌ Anthropic API error ({e.status_code}): {e.message}", file=sys.stderr)
+            return 2
+        except Exception as e:
+            print(f"❌ Unexpected error calling Claude: {e}", file=sys.stderr)
+            return 2
+
+        content: DailyContent = response.parsed_output
+        content_dict = content.model_dump()
+        usage_in, usage_out = response.usage.input_tokens, response.usage.output_tokens
+        print(f"   ✓ Got valid content (in: {usage_in} tok, out: {usage_out} tok)")
+        print(f"   ✓ Treatments selected: {len(content_dict.get('treatments', []))}")
+        for t in content_dict.get("treatments", []):
+            print(f"     · {t.get('template',''):24s} -> group={t.get('group','?'):20s} size={t.get('size','feed')}")
 
     # Write to social/YYYY-MM-DD/content.json (UTC date so the workflow and
     # the publisher always agree on which day is "today").
@@ -386,9 +619,16 @@ def main() -> int:
             today_free_pick = p
             break
 
+    # Scrub punctuation first, THEN resolve photos. Photo resolution
+    # injects photo_url + photo_credit (URL strings, formatted credit
+    # text) that we don't want the scrubber touching.
+    cleaned_content = strip_ai_punct(content_dict)
+    if cleaned_content.get("treatments"):
+        cleaned_content["treatments"] = resolve_treatment_photos(cleaned_content["treatments"])
+
     payload = {
         "generated_at":      datetime.now(timezone.utc).isoformat(),
-        "model":             MODEL_ID,
+        "model":             "dry-run" if args.dry_run else MODEL_ID,
         "carousel_topic":    carousel_topic,
         "source": {
             "picks_date":      picks_data.get("date"),
@@ -397,9 +637,7 @@ def main() -> int:
             "today_free_pick": today_free_pick,
             "results_picks":   results_data.get("picks") or [],
         },
-        # Scrub em dashes, arrows, smart quotes etc. one last time before
-        # this content gets baked into image renders or IG captions.
-        "content": strip_ai_punct(content.model_dump()),
+        "content": cleaned_content,
     }
     with open(out_path, "w") as f:
         json.dump(payload, f, indent=2, ensure_ascii=False)

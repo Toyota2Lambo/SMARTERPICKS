@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SmarterPicks — Quote Card</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  /* QUOTE CARD — editorial/magazine treatment.
+     Visually distinct from the structured pick card: pure typography,
+     centered composition, oversized decorative quotation mark, big serif
+     italic body. No card-within-card, no border, no info-density. Reads
+     like a literary pull-quote on the IG grid. */
+  .stage { justify-content: center; align-items: center; text-align: center; padding: 130px 110px; }
+  .brand { margin-bottom: 0; position: absolute; top: 80px; left: 110px; z-index: 2; }
+  .footer { position: absolute; bottom: 80px; left: 110px; right: 110px; margin-top: 0; z-index: 2; }
+
+  .quote-wrap {
+    position: relative;
+    /* px not ch — the wrapper inherits the body's 16px font so ch was
+       computing against the wrong glyph size and forcing word-per-line wrap. */
+    max-width: 720px;
+    margin: 0 auto;
+    z-index: 1;
+  }
+  .quote-open {
+    font-family: var(--display);
+    font-size: 280px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--accent);
+    line-height: 0.5;
+    margin-bottom: 24px;
+    display: block;
+    opacity: .85;
+  }
+  body[data-size="story"] .quote-open { font-size: 360px; }
+
+  .quote-text {
+    font-family: var(--display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 76px;
+    line-height: 1.12;
+    letter-spacing: -.02em;
+    color: var(--text);
+  }
+  .quote-text em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 300;
+  }
+  body[data-size="story"] .quote-text { font-size: 88px; }
+
+  .quote-attrib {
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 56px;
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .quote-attrib::before {
+    content: "";
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+</style>
+</head>
+<body data-size="{{size}}">
+  <div class="stage">
+
+    <div class="photo-atmos"><img src="{{photo_url}}" alt=""></div>
+
+    <div class="brand">
+      <img class="brand-mark" src="logo.png" alt="" style="width:auto;height:18px;">
+      <span class="brand-name">SMARTERPICKS</span>
+    </div>
+
+    <div class="quote-wrap">
+      <span class="quote-open">&ldquo;</span>
+      <div class="quote-text">{{quote_text_html}}</div>
+      <div class="quote-attrib">{{quote_attrib}}</div>
+    </div>
+
+    <div class="footer">
+      smarterpicks.io <span class="dot">·</span>
+      <span class="promo">7-day free trial</span>
+    </div>
+
+  </div>
+</body>
+</html>

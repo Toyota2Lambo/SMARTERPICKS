@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SmarterPicks — Chart Card</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  /* CHART CARD — editorial data visualization.
+     Mono eyebrow → italic-serif title → a clean horizontal bar
+     chart, top-and-bottom ruled → italic-serif caption with the
+     so-what. Each bar is a label / a track with an accent-color
+     fill (width driven by --w inline var) / a mono numeric.
+     One row is the "highlight" — full accent — while the rest
+     wear the dim-gold variant, so the reader's eye lands on the
+     answer immediately. This is the only treatment that uses a
+     visual that isn't pure typography — it's the change-of-pace
+     slide in a content plan. */
+
+  .stage { padding: 96px; justify-content: flex-start; }
+  .brand { margin-bottom: 0; }
+
+  .chart-eyebrow {
+    font-family: var(--mono);
+    font-size: 17px;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 72px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .chart-eyebrow::before {
+    content: "";
+    width: 52px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .chart-title {
+    font-family: var(--display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 92px;
+    line-height: .98;
+    letter-spacing: -.028em;
+    color: var(--text);
+    margin: 32px 0 64px;
+    max-width: 18ch;
+  }
+  .chart-title em {
+    color: var(--accent);
+    font-weight: 300;
+  }
+  body[data-size="story"] .chart-title { font-size: 108px; }
+
+  .chart {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: 36px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bar-row {
+    display: grid;
+    grid-template-columns: 220px 1fr 120px;
+    align-items: center;
+    gap: 28px;
+  }
+  .bar-label {
+    font-family: var(--mono);
+    font-size: 16px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .bar-row.hilite .bar-label { color: var(--text); }
+
+  .bar-track {
+    height: 38px;
+    background: var(--bg-elevated);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .bar-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    background: var(--accent-dim);
+    width: var(--w, 50%);
+    opacity: .65;
+  }
+  .bar-row.hilite .bar-fill {
+    background: var(--accent);
+    opacity: 1;
+  }
+
+  .bar-value {
+    font-family: var(--mono);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-align: right;
+    letter-spacing: -.01em;
+  }
+  .bar-row.hilite .bar-value { color: var(--accent); }
+
+  .chart-caption {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 1.32;
+    color: var(--text-muted);
+    margin: 44px 0 36px;
+    max-width: 28ch;
+  }
+  .chart-caption em { color: var(--accent); }
+</style>
+</head>
+<body data-size="{{size}}">
+  <div class="stage">
+
+    <div class="brand">
+      <img class="brand-mark" src="logo.png" alt="" style="width:auto;height:18px;">
+      <span class="brand-name">SMARTERPICKS</span>
+    </div>
+
+    <div class="chart-eyebrow">{{eyebrow}}</div>
+    <div class="chart-title">{{title_html}}</div>
+
+    <div class="chart">
+      {{bar_rows_html}}
+    </div>
+
+    <div class="chart-caption">{{caption_html}}</div>
+
+    <div class="footer">
+      smarterpicks.io <span class="dot">·</span>
+      <span class="promo">7-day free trial</span>
+    </div>
+
+  </div>
+</body>
+</html>

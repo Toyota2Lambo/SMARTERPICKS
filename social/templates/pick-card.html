@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SmarterPicks — Pick Card</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  /* PICK CARD — the workhorse daily play.
+     Editorial top-down: brand strip → matchup label (mono) →
+     a giant italic-serif declaration of the play → a three-cell
+     data row (line / edge / confidence) ruled top and bottom.
+     Reads like a sportsbook decided to publish a literary
+     magazine: numbers matter, but the typography carries the
+     weight. The dramatic scale of the headline is the IG-feed
+     thumbstop; the data grid rewards anyone who actually opens
+     the post. */
+
+  .stage { padding: 96px; justify-content: flex-start; }
+  .brand { margin-bottom: 0; }
+
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .matchup-strip {
+    font-family: var(--mono);
+    font-size: 17px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 88px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+  .matchup-strip::before {
+    content: "";
+    width: 44px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .matchup-strip .when { color: var(--accent); }
+
+  .pick-headline {
+    font-family: var(--display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 156px;
+    line-height: .9;
+    letter-spacing: -.035em;
+    color: var(--text);
+    margin: 40px 0 0;
+    max-width: 13ch;
+  }
+  .pick-headline em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 300;
+  }
+  body[data-size="story"] .pick-headline { font-size: 188px; }
+
+  .pick-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: auto;
+    border-top: 1px solid var(--border);
+    margin-bottom: 36px;
+  }
+  .pick-cell {
+    padding: 32px 28px 32px 0;
+    border-right: 1px solid var(--border);
+  }
+  .pick-cell + .pick-cell { padding-left: 28px; }
+  .pick-cell:last-child { border-right: 0; }
+
+  .cell-label {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+  .cell-value {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 54px;
+    line-height: 1;
+    color: var(--text);
+    letter-spacing: -.02em;
+  }
+  .cell-value.accent { color: var(--accent); }
+  body[data-size="story"] .cell-value { font-size: 62px; }
+</style>
+</head>
+<body data-size="{{size}}">
+  <div class="stage">
+
+    <div class="header-row">
+      <div class="brand">
+        <img class="brand-mark" src="logo.png" alt="" style="width:auto;height:18px;">
+        <span class="brand-name">SMARTERPICKS</span>
+      </div>
+      <div class="tag">{{tag}}</div>
+    </div>
+
+    <div class="matchup-strip">
+      <span>{{matchup}}</span>
+      <span class="when">{{game_time}}</span>
+    </div>
+
+    <div class="pick-headline">{{pick_headline_html}}</div>
+
+    <div class="pick-grid">
+      <div class="pick-cell">
+        <div class="cell-label">The Line</div>
+        <div class="cell-value">{{line}}</div>
+      </div>
+      <div class="pick-cell">
+        <div class="cell-label">Our Edge</div>
+        <div class="cell-value accent">{{edge}}</div>
+      </div>
+      <div class="pick-cell">
+        <div class="cell-label">Confidence</div>
+        <div class="cell-value">{{confidence}}</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      smarterpicks.io <span class="dot">·</span>
+      <span class="promo">7-day free trial</span>
+    </div>
+
+  </div>
+</body>
+</html>

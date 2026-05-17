@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SmarterPicks — Slip Card</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  /* SLIP CARD — the bet-slip object.
+     A card-within-card on the elevated background, with a
+     perforated top edge (CSS repeating gradient) that nods to
+     a physical ticket without going kitsch. Inside: a play
+     callout block, then dashed rule-divided rows of mono data
+     (matchup, market, line, odds), then a hairline-separated
+     edge value at the bottom. The receipt aesthetic differentiates
+     it from every other dark editorial slide on the grid — same
+     palette, totally different object on the page. */
+
+  .stage { padding: 96px; justify-content: flex-start; }
+  .brand { margin-bottom: 0; }
+
+  .slip {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-strong);
+    padding: 64px 60px;
+    margin: 64px 0 auto;
+    position: relative;
+  }
+  /* Perforated edge top */
+  .slip::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        var(--bg) 0,
+        var(--bg) 8px,
+        var(--bg-elevated) 8px,
+        var(--bg-elevated) 22px
+      );
+    border-bottom: 1px dashed var(--border-strong);
+  }
+
+  .slip-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 24px;
+    border-bottom: 1px dashed var(--border-strong);
+    margin-bottom: 8px;
+  }
+  .slip-title {
+    font-family: var(--mono);
+    font-size: 16px;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .slip-ref {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: .16em;
+    color: var(--text-dim);
+  }
+
+  .slip-play {
+    padding: 32px 0 36px;
+    border-bottom: 1px dashed var(--border-strong);
+    margin-bottom: 8px;
+  }
+  .slip-play .label {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .slip-play .value {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 72px;
+    line-height: .95;
+    color: var(--text);
+    letter-spacing: -.025em;
+  }
+  .slip-play .value em {
+    color: var(--accent);
+    font-weight: 300;
+  }
+  body[data-size="story"] .slip-play .value { font-size: 84px; }
+
+  .slip-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 20px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .slip-row:last-of-type { border-bottom: 0; }
+
+  .slip-row .label {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .slip-row .value {
+    font-family: var(--mono);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -.01em;
+    text-align: right;
+  }
+  .slip-row .value.accent { color: var(--accent); }
+
+  .slip-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-top: 28px;
+    margin-top: 16px;
+    border-top: 1px solid var(--border-strong);
+  }
+  .slip-total .label {
+    font-family: var(--mono);
+    font-size: 17px;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .slip-total .value {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 72px;
+    line-height: .95;
+    color: var(--accent);
+    letter-spacing: -.025em;
+  }
+</style>
+</head>
+<body data-size="{{size}}">
+  <div class="stage">
+
+    <div class="brand">
+      <img class="brand-mark" src="logo.png" alt="" style="width:auto;height:18px;">
+      <span class="brand-name">SMARTERPICKS</span>
+    </div>
+
+    <div class="slip">
+      <div class="slip-head">
+        <div class="slip-title">{{slip_title}}</div>
+        <div class="slip-ref">{{slip_ref}}</div>
+      </div>
+
+      <div class="slip-play">
+        <div class="label">The Pick</div>
+        <div class="value">{{the_pick_html}}</div>
+      </div>
+
+      <div class="slip-row">
+        <div class="label">Matchup</div>
+        <div class="value">{{matchup}}</div>
+      </div>
+      <div class="slip-row">
+        <div class="label">Market</div>
+        <div class="value">{{market}}</div>
+      </div>
+      <div class="slip-row">
+        <div class="label">Line</div>
+        <div class="value accent">{{line}}</div>
+      </div>
+      <div class="slip-row">
+        <div class="label">Odds</div>
+        <div class="value">{{odds}}</div>
+      </div>
+
+      <div class="slip-total">
+        <div class="label">Edge</div>
+        <div class="value">{{edge}}</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      smarterpicks.io <span class="dot">·</span>
+      <span class="promo">7-day free trial</span>
+    </div>
+
+  </div>
+</body>
+</html>
