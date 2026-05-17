@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-17T17:16:25.232323+00:00",
+  "generated_at": "2026-05-17T17:21:19.803053+00:00",
   "model": "claude-sonnet-4-6",
   "carousel_topic": "Bankroll math for people who've never thought about bankroll",
   "source": {
@@ -181,103 +181,93 @@
   },
   "content": {
     "ig_pick_post": {
-      "caption": "George Kirby on the mound, a 190 edge_bps spread price, and a starter on the other side who has been shaky all month. Full reasoning at smarterpicks.io.",
-      "slide1_text": "FREE PICK: Sunday MLB\nMariners -1.5\nPosted at +146",
-      "slide2_text": "George Kirby is one of the best ground-ball pitchers in the AL. Lucas Giolito has been inconsistent and is a significant step down in command. The spread edge here clocks at 190 bps above median, one of the strongest on today's board.",
-      "slide3_text": "Full card (7 picks today) at smarterpicks.io. 7-day free trial, then $29.99/mo. 21+ only. Bet responsibly.",
+      "caption": "George Kirby vs. Lucas Giolito. The run line is mispriced. Full reasoning on the card.",
+      "slide1_text": "FREE PICK: Sunday MLB\nMariners -1.5 at home\nKirby on the mound.",
+      "slide2_text": "Seattle Mariners -1.5 (+146)\nGeorge Kirby is a ground-ball ace with elite command. Giolito has been inconsistent. Our model shows a 190 edge_bps on this line, one of the strongest spread edges on today's board.",
+      "slide3_text": "Full 7-pick card at smarterpicks.io\n7-day free trial, then $29.99/mo.\n21+ only. Bet responsibly.",
       "hashtags": [
         "sportsbetting",
         "sportspicks",
         "mlbpicks",
-        "baseballbetting",
-        "mlbtoday",
+        "mlbbetting",
+        "baseballbets",
         "seattlemariners",
-        "freepick",
-        "bettinganalysis",
         "runline",
+        "freepick",
+        "sportsanalysis",
+        "bettingadvice",
+        "mlb2026",
         "sundaybaseball",
         "sharpbetting",
-        "mlbodds",
-        "pickoftheday",
-        "bettingedge"
+        "valuebets",
+        "bettingcommunity",
+        "handicapping"
       ]
     },
     "ig_results_post": {
-      "caption": "May 16: 3-2-1, +1.97u. Three cashed, two missed, one push. The losses go on the board same as the wins.",
+      "caption": "May 16: 3-2-1, +1.97u. Two wins in MLB, two losses, one push. Posting the full card every morning.",
       "headline_text": "May 16: 3-2-1, +1.97u",
       "hashtags": [
         "sportsbetting",
-        "sportspicks",
-        "bettingresults",
         "mlbpicks",
-        "nbapicks",
-        "bettingrecord",
-        "trackedpicks",
-        "bettingtransparency",
-        "sharpbetting",
+        "bettingresults",
+        "trackedrecord",
+        "sportspicks",
+        "baseballbets",
+        "mlbbetting",
+        "transparency",
+        "handicapping",
+        "bettingcommunity",
         "publicrecord",
-        "sportsbettinganalysis",
-        "bettingcommunity"
+        "sportsanalysis",
+        "mlb2026",
+        "sharpbetting",
+        "unitsgained"
       ]
     },
     "ig_carousel_topic": {
       "topic": "Bankroll math for people who've never thought about bankroll",
-      "slide1_text": "Most bettors lose money before they ever place a bad pick.\nThe reason is bankroll math.",
-      "slide2_text": "The common assumption: bet whatever feels right on games you like. $50 here, $200 there, $20 on a parlay.\nThat's not a strategy. That's noise.",
-      "slide3_text": "Flat betting a fixed unit, typically 1 to 2% of your total bankroll per play, is the single most effective way to survive variance.\nAt 54% accuracy, wild bet sizing will still blow you up.",
-      "slide4_text": "Example: $1,000 bankroll. Your unit is $15 (1.5%).\nA 10-game losing streak costs you $150. You're still in the game.\nSame streak betting $100 per game? You're down 15% and tilting.",
-      "slide5_text": "The edge compounds slowly. Protecting the bankroll is what lets it compound at all.\nSmaller units, longer runway, better decisions under pressure.",
-      "caption": "Bankroll math isn't glamorous. It's what separates bettors who last from ones who reload and disappear. The unit size matters more than the pick.",
+      "slide1_text": "Most bettors lose money before they ever make a bad pick.\nThe math is the problem, not the picks.",
+      "slide2_text": "The common approach: bet whatever feels right per game.\nSome nights $50, some nights $200 when you're confident.\nThat variance alone will wipe you out during a normal cold streak.",
+      "slide3_text": "Flat betting a fixed unit size is the baseline that actually works.\nOne unit equals 1 to 2 percent of your total bankroll.\nThat cap keeps a 5-game losing streak from ending your season.",
+      "slide4_text": "Example: $1,000 bankroll. One unit = $15 (1.5%).\nA 5-game losing streak costs $75. You're still in the game.\nBet $100 a game? Same streak costs $500. Now you're chasing.",
+      "slide5_text": "A 54% win rate at flat 1.5% units produces real, compounding returns over a full season.\nThe edge is meaningless if a bad week zeros the account first.",
+      "caption": "Bankroll math is where most bettors quietly lose before a single bad pick. One unit. 1 to 2 percent. It compounds.",
       "hashtags": [
         "sportsbetting",
-        "bettingeducation",
         "bankrollmanagement",
+        "bettingtips",
         "bettingstrategy",
-        "sportsbettingtips",
+        "sportspicks",
         "flatbetting",
         "bettingmath",
         "responsiblegambling",
-        "sharpbetting",
-        "bettingadvice",
-        "unitsystem",
-        "sportspicks",
-        "bettingcommunity",
-        "oddsanalysis"
+        "handicapping",
+        "sportsanalysis",
+        "expectedvalue",
+        "unitsize",
+        "mlbbetting",
+        "nbabetting",
+        "bettingeducation",
+        "sharpbetting"
       ]
     },
     "story_sequence": [
-      "Sunday card drops in 30 min. Seven picks across MLB, NBA playoffs, and NHL. Free pick leads: Mariners -1.5 at +146.",
-      "Poll: Which sport do you trust most on Sundays? MLB / NBA / NHL, drop it in the replies.",
-      "Last call before first pitch locks. Mariners -1.5 is the free pick. Full card at smarterpicks.io, 7-day trial.",
-      "Running 1-0 so far today. Mariners pick still live. Checking back after the afternoon slate settles.",
-      "Sunday wraps up soon. Full results post in the morning. Tomorrow's card builds on a 54.6% season, see you at open."
+      "Card drops in 30 minutes. Free pick is on the board today. Kirby vs. Giolito.",
+      "Poll: Do you bet MLB run lines or stick to moneylines? Tell us below.",
+      "Last call. Picks lock in about an hour. Full card at smarterpicks.io.",
+      "Running 1-0 so far today. Mariners result pending. More games tonight.",
+      "Wrap on Sunday. Full grades posted in the morning. 44 days logged, +41.9u on the year."
     ],
     "meme_post": {
-      "top_text": "Me before the game: 'I'll just watch, no bet today.'",
-      "bottom_text": "Me 4 minutes before first pitch: 'Mariners -1.5 is actually a great number though.'",
-      "image_concept": "Person at laptop late at night squinting at a sportsbook screen with one finger hovering over the confirm bet button."
+      "top_text": "Me after researching a 'can't miss' over for 3 hours",
+      "bottom_text": "Final score: 1-0",
+      "image_concept": "A person staring blankly at a scoreboard showing a 1-0 final in a near-empty baseball stadium"
     },
     "treatments": [
       {
-        "template": "pick-card.html",
-        "rationale": "The free pick is the lead content today and pick-card is the workhorse for exactly this moment.",
-        "group": "ig_pick_post",
-        "size": "feed",
-        "caption": "",
-        "hashtags": [],
-        "fields": {
-          "tag": "TODAY'S FREE PICK",
-          "matchup": "Mariners @ Opponent",
-          "game_time": "TBD · Sunday MLB",
-          "pick_headline_html": "Mariners cover the <em>-1.5</em>",
-          "line": "-1.5",
-          "edge": "+19.0%",
-          "confidence": "A"
-        }
-      },
-      {
         "template": "recap-card.html",
-        "rationale": "Yesterday went 3-2-1 with real picks to show. The receipts post belongs on a results day.",
+        "rationale": "Yesterday's 3-2-1 result has real graded picks to display honestly, wins and losses both.",
         "group": "ig_results_post",
         "size": "feed",
         "caption": "",
@@ -289,145 +279,167 @@
           "units": "+1.97u",
           "pick_rows": [
             {
-              "matchup": "MLB · Game 1",
-              "play": "Pick 1",
+              "matchup": "MLB · PHI @ PIT",
+              "play": "Over 8.0",
               "result": "win",
-              "units": 1.0
+              "units": 1.9
             },
             {
-              "matchup": "MLB · Game 2",
-              "play": "Pick 2",
+              "matchup": "MLB · NYY @ NYM",
+              "play": "Yankees -1.5",
               "result": "win",
-              "units": 1.0
+              "units": 1.98
             },
             {
-              "matchup": "MLB · Game 3",
-              "play": "Pick 3",
-              "result": "win",
-              "units": 1.0
-            },
-            {
-              "matchup": "MLB · Game 4",
-              "play": "Pick 4",
+              "matchup": "MLB · MIL @ MIN",
+              "play": "Brewers -1.5",
               "result": "loss",
-              "units": -1.0
+              "units": -1.5
             },
             {
-              "matchup": "MLB · Game 5",
-              "play": "Pick 5",
+              "matchup": "MLB · MIA @ TB",
+              "play": "Under 7.5",
               "result": "loss",
-              "units": -1.0
+              "units": -1.5
+            },
+            {
+              "matchup": "MLB · KC @ STL",
+              "play": "Over 9.0",
+              "result": "push",
+              "units": 0
             }
           ]
         }
       },
       {
+        "template": "pick-card.html",
+        "rationale": "The free pick has a clean matchup and strong edge_bps, a natural fit for the workhorse pick-card.",
+        "group": "ig_pick_post",
+        "size": "feed",
+        "caption": "",
+        "hashtags": [],
+        "fields": {
+          "tag": "TODAY'S FREE PICK",
+          "matchup": "Padres @ Mariners",
+          "game_time": "Today · MLB",
+          "pick_headline_html": "Mariners cover the <em>-1.5</em>",
+          "line": "+146",
+          "edge": "+1.90%",
+          "confidence": "A"
+        }
+      },
+      {
         "template": "index-card.html",
-        "rationale": "44 days of logged results is a credibility post waiting to happen. The index-card carries the full season ledger cleanly.",
+        "rationale": "44 days of logged picks and a 54.6% win rate is a credibility moment worth showing as a stat grid.",
         "group": "treatments",
         "size": "feed",
-        "caption": "251-209 on the season. 54.6% win rate, +41.9u, 9.3% ROI across 44 logged days. The record is public. Full card daily at smarterpicks.io.",
+        "caption": "251-209 on the year, +41.9u, 9.3% ROI. 44 days of public picks. The ledger is open.",
         "hashtags": [
           "sportsbetting",
-          "bettingrecord",
-          "trackedpicks",
-          "bettingtransparency",
+          "trackedrecord",
+          "bettingresults",
+          "publicrecord",
           "sportspicks",
           "sharpbetting",
-          "bettinganalysis",
-          "publicrecord",
-          "mlbpicks",
-          "nbapicks",
-          "bettingresults",
-          "seasonrecord",
-          "bettingedge",
-          "oddsanalysis"
+          "handicapping",
+          "sportsanalysis",
+          "transparency",
+          "mlbbetting",
+          "nbabetting",
+          "bettingcommunity",
+          "unitsgained",
+          "expectedvalue",
+          "bettingstrategy"
         ],
         "fields": {
           "tag": "RECEIPTS",
           "eyebrow": "SEASON SCOREBOARD · 2026",
           "title_html": "The <em>verified</em> ledger.",
-          "note_html": "All picks logged at posted line. 44 days.",
+          "note_html": "All picks posted and graded publicly.",
           "cells": [
             {
               "label": "Overall",
               "num": "251-209",
-              "foot": "ATS · all sports",
+              "foot": "win rate 54.6%",
               "tone": "win"
             },
             {
-              "label": "Win Rate",
-              "num": "54.6%",
+              "label": "ROI",
+              "num": "+9.3%",
               "foot": "season-to-date",
               "tone": "accent"
             },
             {
               "label": "Net Units",
               "num": "+41.9u",
-              "foot": "since Jan 1",
+              "foot": "since opening day",
               "tone": "accent"
-            },
-            {
-              "label": "ROI",
-              "num": "9.3%",
-              "foot": "460 graded picks"
             },
             {
               "label": "Days Logged",
               "num": "44",
-              "foot": "public record",
-              "tone": "win"
+              "foot": "public record"
             },
             {
               "label": "Yesterday",
               "num": "3-2-1",
               "foot": "+1.97u · May 16",
               "tone": "win"
+            },
+            {
+              "label": "Sample",
+              "num": "460",
+              "foot": "graded picks"
             }
           ]
         }
       },
       {
         "template": "stat-card.html",
-        "rationale": "The 190 edge_bps on the Mariners spread is a concrete single number that tells the whole story for the free pick.",
+        "rationale": "The 190 edge_bps on the Mariners run line is a concrete number that stands alone as a hero stat.",
         "group": "treatments",
         "size": "feed",
-        "caption": "190 basis points above the median spread price. That's not a gut call. That's a pricing gap worth noting on a Sunday slate.",
+        "caption": "190 edge basis points on Seattle -1.5 today. That's not noise. George Kirby on the mound helps.",
         "hashtags": [
           "mlbpicks",
           "sportsbetting",
-          "bettingedge",
-          "sharpbetting",
-          "seattlemariners",
           "runline",
-          "bettinganalysis",
-          "mlbodds",
+          "seattlemariners",
+          "sharpbetting",
+          "valuebets",
           "sportspicks",
-          "oddscomparison",
-          "linemovement",
-          "bettingstrategy"
+          "mlbbetting",
+          "baseballbets",
+          "bettingadvice",
+          "sportsanalysis",
+          "edgefinding",
+          "mlb2026",
+          "handicapping"
         ],
         "fields": {
-          "eyebrow": "MLB SPREAD EDGE · MAY 17",
+          "eyebrow": "MLB RUN LINE · MAY 17",
           "stat_value": "190",
           "stat_unit": "bps",
-          "caption_html": "edge on Mariners <em>-1.5</em> vs. the median book price today.",
-          "source": "n=7 books · LowVig reference"
+          "caption_html": "edge on <em>Mariners -1.5</em> vs. the book median. One of the strongest spread edges today.",
+          "source": "7 books sampled · posted line +146"
         }
       },
       {
-        "template": "quote-card.html",
-        "rationale": "The bankroll carousel has a sharp thesis line that works as a standalone atmospheric pull-quote.",
-        "group": "treatments",
+        "template": "slip-card.html",
+        "rationale": "The Mariners free pick converts naturally to a bet slip format, making the play concrete and visual.",
+        "group": "ig_pick_post",
         "size": "feed",
         "caption": "",
         "hashtags": [],
         "fields": {
-          "quote_text_html": "The edge compounds slowly. Protecting the bankroll is what lets it <em>compound at all</em>.",
-          "quote_attrib": "SMARTERPICKS · BANKROLL SERIES",
-          "photo_query": "calculator notebook desk close",
-          "photo_url": "file:///tmp/spx_photos/calculator_20notebook_20desk_20close_99c59eb240d1.jpg",
-          "photo_credit": "Photo: Picsum (fallback — set UNSPLASH_ACCESS_KEY for relevant)"
+          "slip_title": "BET SLIP · 05.17.26",
+          "slip_ref": "REF #SP-05171",
+          "the_pick_html": "Mariners -1.5 over <em>Padres</em>",
+          "matchup": "SD @ SEA · MLB",
+          "market": "Run Line",
+          "line": "-1.5",
+          "odds": "+146",
+          "edge": "+1.90%"
         }
       }
     ]

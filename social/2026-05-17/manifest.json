@@ -1,5 +1,5 @@
 {
-  "rendered_at": "2026-05-17T17:16:46.285Z",
+  "rendered_at": "2026-05-17T17:21:41.398Z",
   "content_file": "content.json",
   "renders": [
     {
@@ -144,8 +144,8 @@
     },
     {
       "file": "treatment-01.png",
-      "template": "pick-card.html",
-      "group": "ig_pick_post",
+      "template": "recap-card.html",
+      "group": "ig_results_post",
       "slide_index": 1,
       "size": {
         "width": 1080,
@@ -154,8 +154,8 @@
     },
     {
       "file": "treatment-02.png",
-      "template": "recap-card.html",
-      "group": "ig_results_post",
+      "template": "pick-card.html",
+      "group": "ig_pick_post",
       "slide_index": 2,
       "size": {
         "width": 1080,
@@ -184,8 +184,8 @@
     },
     {
       "file": "treatment-05.png",
-      "template": "quote-card.html",
-      "group": "treatments",
+      "template": "slip-card.html",
+      "group": "ig_pick_post",
       "slide_index": 5,
       "size": {
         "width": 1080,
