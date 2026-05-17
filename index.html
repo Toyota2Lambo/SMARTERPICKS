@@ -314,27 +314,32 @@
      even if the video file hasn't been uploaded yet — the poster image
      reuses og-image.png so the placeholder is still on-brand. */
   .explainer{padding:80px 0;border-bottom:1px solid var(--border);background:var(--bg-elevated);}
-  .explainer-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:64px;align-items:center;}
+  /* Single-column stack: header → big video → copy + CTA below.
+     The previous two-column grid capped the video at ~660px wide on a
+     1280px container, which read as a thumbnail next to the giant h2.
+     Now the video gets the full container width (up to 1100px) and
+     copy lands underneath, narrower for readability. */
+  .explainer-grid{display:flex;flex-direction:column;align-items:center;gap:48px;}
+  .explainer-header{max-width:760px;text-align:center;}
+  .explainer-body{max-width:680px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:24px;}
   /* aspect-ratio:16/9 = the Synthesia explainer's native landscape frame
-     (1920x1080). Drop the old max-height — that was a portrait-9/16
-     guardrail and no longer applies. The grid column governs width;
-     height follows from aspect-ratio. */
-  .video-shell{position:relative;background:#000;border:1px solid var(--border);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 0 1px rgba(212,168,67,.18);aspect-ratio:16/9;margin:0 auto;overflow:hidden;}
+     (1920x1080). Full container width up to a 1100px cap so it doesn't
+     sprawl on ultra-wide monitors. */
+  .video-shell{position:relative;background:#000;border:1px solid var(--border);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 0 1px rgba(212,168,67,.18);aspect-ratio:16/9;width:100%;max-width:1100px;margin:0 auto;overflow:hidden;}
   .video-shell video,.video-shell iframe{width:100%;height:100%;display:block;border:0;background:#000;}
-  .video-corner{position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(10,10,10,.78);backdrop-filter:blur(6px);border:1px solid rgba(212,168,67,.35);font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);}
+  .video-corner{position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(10,10,10,.78);backdrop-filter:blur(6px);border:1px solid rgba(212,168,67,.35);font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);z-index:2;}
   .video-corner .dot{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;}
-  .explainer-copy .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;display:inline-flex;align-items:center;gap:14px;}
-  .explainer-copy .kicker::before{content:"";width:24px;height:1px;background:var(--accent);}
-  .explainer-copy h2{font-family:var(--display);font-size:clamp(34px,4vw,52px);font-weight:400;line-height:1.04;letter-spacing:-.02em;margin-bottom:20px;}
-  .explainer-copy h2 em{font-style:italic;color:var(--accent);font-weight:300;}
-  .explainer-copy p{color:var(--text-muted);font-size:16px;line-height:1.65;margin-bottom:28px;max-width:48ch;}
-  .explainer-runtime{display:flex;gap:24px;margin:0 0 28px;padding:18px 22px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);}
+  .explainer-header .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;display:inline-flex;align-items:center;gap:14px;}
+  .explainer-header .kicker::before{content:"";width:24px;height:1px;background:var(--accent);}
+  .explainer-header h2{font-family:var(--display);font-size:clamp(34px,4vw,52px);font-weight:400;line-height:1.04;letter-spacing:-.02em;margin:0;}
+  .explainer-header h2 em{font-style:italic;color:var(--accent);font-weight:300;}
+  .explainer-body p{color:var(--text-muted);font-size:16px;line-height:1.65;margin:0;max-width:54ch;}
+  .explainer-runtime{display:inline-flex;gap:24px;padding:18px 22px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);}
   .explainer-runtime strong{color:var(--text);font-weight:700;}
   @media(max-width:960px){
     .explainer{padding:56px 0;}
-    .explainer-grid{grid-template-columns:1fr;gap:36px;}
-    /* Mobile: full-width landscape, height derives from aspect-ratio. */
-    .video-shell{aspect-ratio:16/9;width:100%;}
+    .explainer-grid{gap:32px;}
+    .explainer-runtime{flex-wrap:wrap;justify-content:center;gap:16px 24px;}
   }
 
   /* ==========================================================
@@ -647,13 +652,22 @@
   <div class="container">
     <div class="explainer-grid">
 
+      <!-- Header above the video. Kicker + headline only — the supporting
+           paragraph sits below the video so it reads as context after the
+           visual hook rather than ahead of it. -->
+      <div class="explainer-header">
+        <div class="kicker">How it works</div>
+        <h2>One card. Five plays. <em>90 seconds a morning.</em></h2>
+      </div>
+
+      <!-- Big video — full container width up to 1100px (capped in CSS so
+           it doesn't get absurd on ultra-wide monitors). -->
       <div class="video-shell">
         <span class="video-corner"><span class="dot"></span>Watch · Explainer</span>
         <!-- Synthesia-hosted explainer ("Beat the Sportsbook With SmarterPicks").
-             Replaces the local explainer.mp4 stub. allow=fullscreen so users
-             can pop it out; encrypted-media lets the Synthesia player handle
-             its DRM-wrapped streams. loading=lazy so the iframe doesn't block
-             first paint of the landing page. -->
+             allow=fullscreen so users can pop it out; encrypted-media lets
+             the Synthesia player handle its DRM-wrapped streams. loading=lazy
+             so the iframe doesn't block first paint of the landing page. -->
         <iframe
           src="https://share.synthesia.io/embeds/videos/2733e2ec-1441-4a9b-8a19-a0c7784d90a4"
           title="Beat the Sportsbook With SmarterPicks"
@@ -662,9 +676,8 @@
           allow="encrypted-media; fullscreen; microphone; screen-wake-lock;"></iframe>
       </div>
 
-      <div class="explainer-copy">
-        <div class="kicker">How it works</div>
-        <h2>One card. Five plays. <em>90 seconds a morning.</em></h2>
+      <!-- Supporting copy + receipts strip + CTA below the video. -->
+      <div class="explainer-body">
         <p>SmarterPicks pulls live odds from every major sportsbook at 4 a.m. ET, finds the plays with real edge against the market median, and posts the full card before lock. Members copy the bet, the book, and the stake into their sportsbook of choice and they're done.</p>
         <div class="explainer-runtime">
           <span><strong>5–8</strong> plays/day</span>
