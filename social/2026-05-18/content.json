@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-18T11:37:21.377200+00:00",
+  "generated_at": "2026-05-18T14:33:06.384047+00:00",
   "model": "claude-sonnet-4-6",
   "carousel_topic": "Public money vs. sharp money — how to tell which is moving the line",
   "source": {
@@ -181,15 +181,14 @@
   },
   "content": {
     "ig_pick_post": {
-      "caption": "Free pick is live. TOR @ NYY Under 8.5 at +112, best total edge on today's slate.",
-      "slide1_text": "TODAY'S FREE PICK\nToronto @ New York\nUnder 8.5 (+112)",
-      "slide2_text": "Ryan Weathers vs. Patrick Corbin. Two back-end starters, one of the best pricing gaps on the board. Edge: 233.5 bps over the market median.",
-      "slide3_text": "Full card (7 plays today) at smarterpicks.io. 7-day free trial, cancel anytime. 21+ only. Bet responsibly.",
+      "caption": "Free pick is live. Blue Jays @ Yankees, Under 8.5 at +112. Two back-end starters and a number that has value.",
+      "slide1_text": "FREE PICK · MONDAY MAY 18\nBlue Jays @ Yankees\nThe Under has value tonight.",
+      "slide2_text": "Under 8.5 (+112)\nRyan Weathers vs. Patrick Corbin. Two back-end arms, a total sitting too high. Edge: 233.5 bps over the market median.",
+      "slide3_text": "Full card has 6 more plays today.\nsmarterpicks.io, 7-day free trial, then $29.99/mo. Cancel anytime. 21+ only. Bet responsibly.",
       "hashtags": [
         "sportsbetting",
         "sportspicks",
         "mlbpicks",
-        "mlbbetting",
         "freepick",
         "baseballbetting",
         "yankees",
@@ -197,15 +196,17 @@
         "underbetting",
         "sharpbetting",
         "bettinganalysis",
-        "sportsbettingtips",
-        "nybetting",
-        "bettingcommunity",
-        "valuebets"
+        "mlbbets",
+        "todayspick",
+        "bettingedge",
+        "valuebets",
+        "sportshandicapping",
+        "mlbodds"
       ]
     },
     "ig_results_post": {
-      "caption": "Sunday: 1-5, -4.90u. The Dodgers over cashed. The other four lost. We post the full card every morning.",
-      "headline_text": "May 17: 1-5, -4.90u",
+      "caption": "Sunday: 1-5, -4.90u. The Dodgers Over cashed. Everything else missed. Full card is logged and public.",
+      "headline_text": "Sunday: 1-5, -4.90u",
       "hashtags": [
         "sportsbetting",
         "sportspicks",
@@ -213,79 +214,67 @@
         "nbapicks",
         "nhlpicks",
         "bettingresults",
-        "trackedrecord",
-        "publictrackrec",
-        "bettinganalysis",
+        "trackrecord",
+        "transparenthandicapping",
+        "publicrecord",
         "sharpbetting",
-        "sportsbettingtips",
-        "bettingcommunity",
-        "mlbbetting",
-        "nhlbetting",
-        "nbabetting"
+        "bettinganalysis",
+        "sportshandicapping",
+        "mlbbets",
+        "nbabets",
+        "nhlbets",
+        "lossesbothered"
       ]
     },
     "ig_carousel_topic": {
-      "topic": "Public money vs. sharp money: how to tell which is moving the line",
-      "slide1_text": "Is the line moving because the public is on it, or because the sharps are?",
-      "slide2_text": "Most bettors assume a line moves because everyone is piling on. That's often wrong. A line can move on 15% of the ticket count if that 15% is big money from professional accounts.",
-      "slide3_text": "The tell is ticket count vs. money percentage. If 70% of tickets are on the favorite but the line moves toward the underdog, sharp money is on the dog. The books are pricing out the professionals, not the crowd.",
-      "slide4_text": "Example: Team A opens -3. By tip, 68% of public tickets are on Team A. Line moves to -2.5. That reverse movement means sportsbooks took enough sharp action on the +3 side to shade the number back. The public didn't move it.",
-      "slide5_text": "Ticket count tells you what the crowd thinks. Line movement tells you what the books fear. Those two things disagree more often than you'd expect.",
-      "caption": "Public money fills the ticket count. Sharp money moves the number. The difference is where the real signal lives. 54.2% YTD, 465 graded.",
+      "topic": "Public money vs. sharp money, how to tell which is moving the line",
+      "slide1_text": "Public money moves lines.\nSo does sharp money.\nThey don't move them the same way.",
+      "slide2_text": "Most bettors assume a line moves because 'the public' hammered one side. That's true sometimes. But it misses the more important move.",
+      "slide3_text": "Sharp money is a small number of bets placed by high-volume, high-accuracy accounts. Sportsbooks track those accounts. When they bet, the book moves immediately, sometimes before ticket count even tilts.",
+      "slide4_text": "Example: 80% of tickets are on the favorite. The line moves toward the underdog anyway. That's the book reacting to sharp liability, not public volume. The dog is getting smarter money despite fewer bets.",
+      "slide5_text": "Reverse line movement is the tell. Line goes against ticket flow, sharps are likely on the other side. It's not a guarantee. It's a signal worth tracking.",
+      "caption": "Line moving the wrong direction? That's usually not an accident. Public ticket % vs. line direction is one of the cleaner signals in the market.",
       "hashtags": [
         "sportsbetting",
         "bettingeducation",
         "sharpbetting",
         "linemovement",
-        "sportsbettingtips",
-        "bettinganalysis",
         "publicmoney",
         "sharpmoney",
-        "sportspicks",
-        "bettingcommunity",
-        "handicapping",
-        "mlbbetting",
-        "nbabetting",
         "bettingstrategy",
+        "sportshandicapping",
+        "bettinganalysis",
+        "sportspicks",
+        "bettingtips",
+        "reverseline",
+        "oddsmovement",
+        "bettingmarket",
         "valuebets",
-        "oddsmovement"
+        "mlbbets",
+        "nbabets",
+        "smarterbetting"
       ]
     },
     "story_sequence": [
-      "Card drops in 30 min. Seven plays today, free pick is TOR @ NYY Under 8.5 at +112.",
-      "Poll: do you bet totals more or sides more this time of year? Drop it in the replies.",
-      "Last call before first pitch. Full card is live at smarterpicks.io. Free trial still open.",
-      "Early results: tracking the afternoon MLB slate now. Check back at 6 PM ET for the live update.",
-      "Rough Sunday in the books. 1-5 hurts. YTD still holds at 54.2%, +38.5u over 45 days. Back at it tomorrow."
+      "Card drops in 30 min. Free pick is Blue Jays @ Yankees Under 8.5 at +112. Best edge on today's slate.",
+      "Poll: Do you tail Unders more or Overs? Drop it in the replies.",
+      "Last call before first pitch. 7 plays on the card today. Full breakdown at smarterpicks.io.",
+      "Early results: tracking live. Dodgers card in play tonight. Check back after 10 PM ET.",
+      "Monday wraps up. Full grades posted in the morning. Tuesday card builds overnight."
     ],
     "meme_post": {
-      "top_text": "Me after the model says 233 basis points of edge",
-      "bottom_text": "*loses by a walk-off single in the 9th*",
-      "image_concept": "Confident man in a suit staring at a laptop screen, then a second panel of him staring at the ceiling in the dark"
+      "top_text": "Me after going 1-5 on Sunday:",
+      "bottom_text": "'The sample size is still 252-213 and I'm fine'",
+      "image_concept": "A man in a business suit sitting completely composed at a desk while the office behind him is on fire."
     },
     "treatments": [
       {
         "template": "recap-card.html",
-        "rationale": "Yesterday was a 1-5 day and the receipts need to be posted publicly, wins and losses both.",
+        "rationale": "Yesterday was a rough 1-5 slate and the receipts need to be posted publicly with every result visible.",
         "group": "treatments",
         "size": "feed",
-        "caption": "Sunday's board: 1-5, -4.90u. The Dodgers over hit. The rest didn't. Full card posted every morning.",
-        "hashtags": [
-          "sportsbetting",
-          "bettingresults",
-          "mlbpicks",
-          "nbapicks",
-          "trackedrecord",
-          "sharpbetting",
-          "bettinganalysis",
-          "sportspicks",
-          "publictrackrec",
-          "bettingcommunity",
-          "mlbbetting",
-          "nbabetting",
-          "sportsbettingtips",
-          "receipts"
-        ],
+        "caption": "",
+        "hashtags": [],
         "fields": {
           "tag": "YESTERDAY'S BOARD",
           "wins": "1",
@@ -327,63 +316,84 @@
       },
       {
         "template": "pick-card.html",
-        "rationale": "The free pick is the public-facing workhorse today and deserves a clean visual treatment.",
+        "rationale": "The free pick for today deserves a clean standalone card with the exact line and edge data.",
         "group": "treatments",
         "size": "feed",
-        "caption": "TOR @ NYY Under 8.5 at +112. Best total edge on today's slate. Weathers vs. Corbin, two back-end arms.",
-        "hashtags": [
-          "sportsbetting",
-          "mlbpicks",
-          "freepick",
-          "baseballbetting",
-          "yankees",
-          "bluejays",
-          "mlbbetting",
-          "sportspicks",
-          "bettinganalysis",
-          "sharpbetting",
-          "underbetting",
-          "valuebets",
-          "sportsbettingtips",
-          "bettingcommunity"
-        ],
+        "caption": "",
+        "hashtags": [],
         "fields": {
           "tag": "TODAY'S FREE PICK",
           "matchup": "Blue Jays @ Yankees",
-          "game_time": "7:05 PM ET",
-          "pick_headline_html": "Under <em>8.5</em> total runs",
-          "line": "+112",
-          "edge": "+23.35%",
+          "game_time": "TBD ET",
+          "pick_headline_html": "Under <em>8.5</em> at plus money",
+          "line": "8.5",
+          "edge": "+2.33%",
           "confidence": "A"
         }
       },
       {
-        "template": "index-card.html",
-        "rationale": "Monday is a good cadence reset to show the cumulative verified ledger after a rough Sunday.",
+        "template": "stat-card.html",
+        "rationale": "The 233.5 edge bps on the Blue Jays/Yankees Under is the standout number on today's slate and deserves its own hero stat card.",
         "group": "treatments",
         "size": "feed",
-        "caption": "45 days logged. 252-213, +38.5u, 9.3% ROI. Yesterday was 1-5. Both numbers are on the board.",
+        "caption": "233.5 bps over median. That's the Under 8.5 in tonight's Blue Jays/Yankees game. Numbers like that don't show up every day.",
         "hashtags": [
           "sportsbetting",
-          "trackedrecord",
-          "bettingresults",
+          "mlbpicks",
+          "bettingedge",
+          "valuebets",
+          "underbetting",
           "sharpbetting",
-          "sportspicks",
           "bettinganalysis",
+          "yankees",
+          "bluejays",
+          "mlbbets",
+          "todayspick",
+          "sportspicks",
+          "bettingstrategy",
+          "oddsvalue",
+          "mlbodds",
+          "freepick"
+        ],
+        "fields": {
+          "eyebrow": "MLB TOTALS · MAY 18, 2026",
+          "stat_value": "233",
+          "stat_unit": "bps",
+          "caption_html": "edge on <em>Under 8.5</em> vs. the market median. Best total edge on today's slate.",
+          "source": "BLU @ NYY · LowVig.ag · +112"
+        }
+      },
+      {
+        "template": "index-card.html",
+        "rationale": "Monday is a good cadence point to post the season ledger and remind followers the track record is real and public.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "45 days in. 252-213, +38.5u, 9.3% ROI. Every pick logged at the posted line. The ledger is public.",
+        "hashtags": [
+          "sportsbetting",
+          "trackrecord",
+          "sportspicks",
+          "bettingreceipts",
+          "sharpbetting",
+          "bettinganalysis",
+          "sportshandicapping",
           "publicrecord",
-          "sportsbettingtips",
-          "receipts",
-          "bettingcommunity",
+          "transparenthandicapping",
+          "bettingedge",
+          "seasonrecord",
+          "proofofwork",
           "mlbpicks",
           "nbapicks",
+          "nhlpicks",
+          "bettingstrategy",
           "valuebets",
-          "handicapping"
+          "smarterbetting"
         ],
         "fields": {
           "tag": "RECEIPTS",
           "eyebrow": "SEASON SCOREBOARD · 2025-26",
           "title_html": "The <em>verified</em> ledger.",
-          "note_html": "All picks logged at posted line. 45 days.",
+          "note_html": "All picks logged at posted line. Public record.",
           "cells": [
             {
               "label": "Overall",
@@ -400,7 +410,7 @@
             {
               "label": "Net Units",
               "num": "+38.5u",
-              "foot": "since day one",
+              "foot": "45 days logged",
               "tone": "accent"
             },
             {
@@ -411,78 +421,50 @@
             {
               "label": "Days Logged",
               "num": "45",
-              "foot": "public record",
-              "tone": "win"
+              "foot": "since opening day"
             },
             {
-              "label": "Yesterday",
-              "num": "1-5",
-              "foot": "-4.90u · May 17",
-              "tone": "loss"
+              "label": "Target Rate",
+              "num": "53-58%",
+              "foot": "honest win range"
             }
           ]
         }
       },
       {
-        "template": "stat-card.html",
-        "rationale": "The 233.5 edge_bps on today's free pick is a standout number worth its own hero card.",
-        "group": "treatments",
-        "size": "feed",
-        "caption": "233.5 basis points of edge on the Under. That's the number the model flagged. TOR @ NYY, tonight.",
-        "hashtags": [
-          "sportsbetting",
-          "mlbpicks",
-          "bettinganalysis",
-          "valuebets",
-          "sharpbetting",
-          "sportspicks",
-          "baseballbetting",
-          "mlbbetting",
-          "edgebetting",
-          "sportsbettingtips",
-          "bettingcommunity",
-          "freepick",
-          "yankees",
-          "bluejays"
-        ],
-        "fields": {
-          "eyebrow": "MLB TOTALS · MAY 18, 2026",
-          "stat_value": "233",
-          "stat_unit": "bps",
-          "caption_html": "edge on TOR @ NYY Under 8.5 at <em>+112</em> vs. market median.",
-          "source": "best total edge on today's slate"
-        }
-      },
-      {
         "template": "lifestyle-card.html",
-        "rationale": "Mandatory daily lifestyle post. Anchored to the 45-day compound math, not a specific day's result.",
+        "rationale": "Daily mandatory lifestyle post. Rotating to a vintage Porsche visual to keep photo_query fresh.",
         "group": "treatments",
         "size": "feed",
-        "caption": "45 days. +38.5u. 9.3% ROI. The math compounds quietly. One play at a time.",
+        "caption": "45 days. +38.5u. No hot streak narrative, no miracle run. Just a 54.2% win rate and a public ledger. The math does the work.",
         "hashtags": [
           "sportsbetting",
-          "bettinganalysis",
           "compoundgrowth",
+          "bettingmath",
           "sharpbetting",
           "sportspicks",
-          "trackedrecord",
-          "bettingcommunity",
-          "receipts",
-          "valuebets",
-          "sportsbettingtips",
-          "mlbpicks",
-          "publicrecord",
+          "bettinganalysis",
+          "trackrecord",
           "bettingstrategy",
-          "discipline"
+          "unitbetting",
+          "bettingedge",
+          "receipts",
+          "sportshandicapping",
+          "mlbpicks",
+          "valuebets",
+          "longtermbetting",
+          "publicrecord",
+          "smarterbetting",
+          "bettinglifestyle"
         ],
         "fields": {
           "tag": "COMPOUND",
           "eyebrow": "RECEIPTS · 45 DAYS LOGGED",
-          "headline_html": "<em>+38.5u</em> in 45 days.",
-          "sub_html": "9.3% ROI. Two-fifty trading days a year.",
-          "photo_query": "swiss watch macro detail",
-          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/swiss_20watch_20macro_20detail_5bfe5fcb2d12.jpg",
-          "photo_credit": "Photo: Олександр К / Unsplash"
+          "headline_html": "+<em>38.5u</em> in 45 days.",
+          "sub_html": "Slow, consistent, documented. Math, not magic.",
+          "photo_query": "vintage porsche 911 classic",
+          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/vintage_20porsche_20911_20classic_98581ba11070.jpg",
+          "photo_credit": "Photo: YRKA PICTURED / Unsplash"
         }
       }
     ]
