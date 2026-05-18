@@ -67,6 +67,11 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Pre-resolve the two third-party origins picks-loader.js + the lazy
+     Synthesia iframe will eventually hit, so we don't pay full DNS +
+     TLS handshake at request time. -->
+<link rel="preconnect" href="https://api.whop.com" crossorigin>
+<link rel="preconnect" href="https://share.synthesia.io" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -82,7 +87,12 @@
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
   body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:400;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
-  body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");opacity:.035;pointer-events:none;z-index:100;}
+  /* Soft vignette only — was a fractalNoise SVG filter on full-viewport
+     fixed position, repainting every frame. Even at opacity .035 the
+     SVG filter pipeline was CPU-heavy on lower-end devices and added
+     noticeable jank to scrolls. Same fix applied to social templates
+     in commit b75baf2; bringing it here. */
+  body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 50% 38%, transparent 0%, transparent 55%, rgba(0,0,0,0.4) 100%);pointer-events:none;z-index:100;}
   .container{max-width:1280px;margin:0 auto;padding:0 32px;}
   .announce-bar{background:var(--accent);color:#000;text-align:center;padding:10px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
   .announce-bar a{color:#000;text-decoration:underline;}
@@ -960,7 +970,13 @@
      This script automatically loads today's picks from picks.json
      and fills in the picks section above.
      ============================================================ -->
-<script src="picks-loader.js"></script>
+<!-- defer: picks-loader has a DOMContentLoaded handler that calls Whop
+     for membership state and then fetches picks.json. Without defer the
+     parser pauses to fetch+exec this script at this point in the body
+     even though it doesn't need to run until DOM is built. defer lets
+     the browser stream the rest of the page, then runs picks-loader
+     once the document is parsed. Faster time-to-first-paint. -->
+<script src="picks-loader.js" defer></script>
 
 <!-- ============================================================
      POLISH LAYER — ticker, scroll fade-in, animated counters
