@@ -42,6 +42,24 @@
     background: var(--accent);
   }
   .matchup-strip .when { color: var(--accent); }
+  /* Tiny away+home logos in the matchup label. ~28px so they sit
+     alongside the mono text without dominating. Resolved by
+     team_logos.py at generation time; onerror hides if unavailable. */
+  .matchup-logos {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .matchup-logos img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+  }
+  .matchup-logos img[src=""],
+  .matchup-logos img:not([src]) {
+    display: none;
+  }
 
   .pick-headline {
     font-family: var(--display);
@@ -108,6 +126,14 @@
     </div>
 
     <div class="matchup-strip">
+      <!-- Two mini logos (away + home) before the matchup text.
+           URLs are resolved by social_generator.py → team_logos.py
+           after Claude returns. onerror hides if ESPN doesn't have
+           the team in their CDN. -->
+      <span class="matchup-logos">
+        <img src="{{away_logo}}" alt="" onerror="this.style.display='none'">
+        <img src="{{home_logo}}" alt="" onerror="this.style.display='none'">
+      </span>
       <span>{{matchup}}</span>
       <span class="when">{{game_time}}</span>
     </div>

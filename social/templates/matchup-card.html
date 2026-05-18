@@ -37,6 +37,34 @@
     text-align: center;
     padding: 32px 16px;
   }
+  /* Team logo above the name. Both teams get one. The favored side
+     still differentiates via gold name color + accent stat. Logo PNG
+     comes from ESPN's CDN (resolved by team_logos.py). If the URL
+     fails to load, onerror hides the img and the slot collapses to
+     the surrounding padding. */
+  .team-logo {
+    width: 132px;
+    height: 132px;
+    margin: 0 auto 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .team-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Slight drop-shadow so the logo lifts off the dark canvas */
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+  }
+  .team-logo img[src=""],
+  .team-logo img:not([src]) {
+    display: none;
+  }
+  body[data-size="story"] .team-logo {
+    width: 168px;
+    height: 168px;
+  }
   .team-name {
     font-family: var(--display);
     font-weight: 400;
@@ -139,7 +167,9 @@
 
     <div class="vs-wrap">
       <div class="team {{team_a_class}}">
-        <div class="inset-photo"><img src="{{photo_url}}" alt=""></div>
+        <!-- Team logo (resolved by social_generator → team_logos.py).
+             Falls back to the inset-photo box if logo URL is empty. -->
+        <div class="team-logo"><img src="{{team_a_logo}}" alt="" onerror="this.style.display='none'"></div>
         <div class="team-name">{{team_a}}</div>
         <div class="team-record">{{record_a}}</div>
         <div class="team-stat">{{stat_a}}</div>
@@ -149,7 +179,7 @@
       <div class="vs-pivot">vs</div>
 
       <div class="team {{team_b_class}}">
-        <div class="inset-photo"><img src="{{photo_url}}" alt=""></div>
+        <div class="team-logo"><img src="{{team_b_logo}}" alt="" onerror="this.style.display='none'"></div>
         <div class="team-name">{{team_b}}</div>
         <div class="team-record">{{record_b}}</div>
         <div class="team-stat">{{stat_b}}</div>

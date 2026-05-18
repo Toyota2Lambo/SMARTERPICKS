@@ -565,6 +565,82 @@ MODERN TREATMENT REGISTRY (pick 3 to 5):
 Be specific. Use the actual numbers. Don't say "we had a good run", say "5-2 with +3.7u". Don't say "good odds", say "+135"."""
 
 
+# ── TEAM LOGO INJECTION ───────────────────────────────────
+def _inject_team_logos(treatment: dict, picks_data: dict, results_data: dict, resolver) -> None:
+    """For matchup-card + pick-card treatments, resolve team names to ESPN
+    CDN logo URLs and stuff them into the fields dict. Mutates in place.
+
+    matchup-card uses team_a + team_b (Claude writes the team names);
+    pick-card uses away_logo + home_logo (derived from today's free pick
+    in picks.json — Claude doesn't write these, we know them from source).
+
+    Soft-fails if team_logos isn't importable or the team isn't in the
+    league dict; the template hides the logo slot in either case via the
+    img[src=""] CSS rule plus the onerror handler."""
+    if resolver is None:
+        return
+    tpl    = treatment.get("template", "")
+    fields = treatment.get("fields") or {}
+
+    if tpl == "matchup-card.html":
+        # Try to find the league from the picks_data — match either team
+        # name against today's picks to figure out which sport.
+        league = _league_for_team(fields.get("team_a"), fields.get("team_b"), picks_data)
+        if fields.get("team_a") and "team_a_logo" not in fields:
+            url = resolver(fields["team_a"], league)
+            if url:
+                fields["team_a_logo"] = url
+        if fields.get("team_b") and "team_b_logo" not in fields:
+            url = resolver(fields["team_b"], league)
+            if url:
+                fields["team_b_logo"] = url
+        treatment["fields"] = fields
+
+    elif tpl == "pick-card.html":
+        # For pick-card, pull away/home from picks_data directly — Claude
+        # didn't write the team names structured (just a matchup string).
+        pick = _today_free_pick(picks_data)
+        if pick:
+            away = pick.get("away_team")
+            home = pick.get("home_team")
+            league = pick.get("league", "")
+            if away and "away_logo" not in fields:
+                url = resolver(away, league)
+                if url:
+                    fields["away_logo"] = url
+            if home and "home_logo" not in fields:
+                url = resolver(home, league)
+                if url:
+                    fields["home_logo"] = url
+        treatment["fields"] = fields
+
+
+def _today_free_pick(picks_data: dict) -> dict | None:
+    """Return the first free (is_premium=False) pick from picks.json,
+    or None if none. Mirrors the inline lookup at the bottom of main()."""
+    for p in (picks_data.get("picks") or []):
+        if not p.get("is_premium", True):
+            return p
+    return None
+
+
+def _league_for_team(team_a: str, team_b: str, picks_data: dict) -> str:
+    """Infer the league for a matchup-card by finding either team in
+    today's picks. Returns the empty string if neither team is on the
+    slate — the resolver still works without a league hint, it just
+    falls through to its own all-leagues search."""
+    if not (team_a or team_b):
+        return ""
+    a_l = (team_a or "").lower()
+    b_l = (team_b or "").lower()
+    for p in (picks_data.get("picks") or []):
+        for k in ("away_team", "home_team"):
+            t = (p.get(k) or "").lower()
+            if t and (t == a_l or t == b_l or a_l in t or b_l in t):
+                return p.get("league", "")
+    return ""
+
+
 # ── PHOTO RESOLUTION ──────────────────────────────────────
 def resolve_treatment_photos(treatments_list: list) -> list:
     """For each treatment whose fields carry a photo_query, fetch a topic-
@@ -724,6 +800,16 @@ def main() -> int:
     # never ride along inside those carousels. This is the "post every
     # treatment, curate on IG" mode — the alternative was filtering at
     # publish time, which kept losing files to mismatched-group filters.
+    #
+    # AND: inject ESPN team logo URLs for matchup-card + pick-card.
+    # Claude writes team_a/team_b/matchup as plain text; team_logos.py
+    # maps those strings to ESPN's CDN URLs. Done here (post-Claude,
+    # pre-render) so Claude never has to know about logo URLs.
+    try:
+        from team_logos import team_logo_url
+    except ImportError:
+        team_logo_url = None
+
     for t in (content_dict.get("treatments") or []):
         if "fields_json" in t:
             raw = t.pop("fields_json", "") or "{}"
@@ -733,6 +819,7 @@ def main() -> int:
                 print(f"   ⚠ {t.get('template','?')}: fields_json parse failed ({e}); using empty dict")
                 t["fields"] = {}
         t["group"] = "treatments"
+        _inject_team_logos(t, picks_data, results_data, team_logo_url)
 
     # Scrub punctuation first, THEN resolve photos. Photo resolution
     # injects photo_url + photo_credit (URL strings, formatted credit
