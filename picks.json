@@ -1,94 +1,94 @@
 {
-  "date": "May 17, 2026",
-  "date_short": "05-17",
-  "sport_summary": "Heavy 15-game MLB Sunday slate leads the card alongside NBA Playoffs and NHL action",
+  "date": "May 18, 2026",
+  "date_short": "05-18",
+  "sport_summary": "Heavy MLB Monday slate with 14 games headlining, plus NBA Playoffs and NHL action rounding out a 20-game card",
   "picks": [
     {
       "league": "MLB",
-      "time": "7:21 PM ET",
-      "away_team": "San Diego Padres",
-      "home_team": "Seattle Mariners",
+      "time": "7:06 PM ET",
+      "away_team": "Toronto Blue Jays",
+      "home_team": "New York Yankees",
       "game_detail": "Regular Season",
-      "pick": "Seattle Mariners -1.5",
-      "odds": "146",
+      "pick": "Under 8.5",
+      "odds": "+112",
       "book": "LowVig.ag",
-      "stake": "1.5u",
-      "reasoning": "The Mariners -1.5 line shows a 190 edge_bps, one of the strongest spread edges on the board today. George Kirby is a proven ground-ball ace with elite command, while Lucas Giolito has been inconsistent and is a significant step down on the mound. The best price of +146 at LowVig beats a median of +135, offering real line value on Seattle to win by multiple runs at home.",
+      "stake": "2u",
+      "reasoning": "The Under 8.5 at LowVig.ag posts a massive 233.5 edge_bps, the best total edge on today's entire slate. Yankees starter Ryan Weathers and Blue Jays starter Patrick Corbin are both back-end rotation arms with elevated ERAs, yet the market consensus sits around -124 on this side everywhere else \u2014 getting +112 here is a genuine pricing gap. Low-scoring profile fits two pitchers who tend to give up contact but also operate in a Yankees park where the over has been suppressed of late.",
       "tags": [
-        "Line Value",
-        "Pitching Matchup",
-        "Confidence B+"
+        "Best Line",
+        "Pitcher Spot",
+        "Confidence A"
       ],
       "is_premium": false
     },
     {
       "league": "MLB",
-      "time": "2:11 PM ET",
-      "away_team": "Texas Rangers",
-      "home_team": "Houston Astros",
+      "time": "6:41 PM ET",
+      "away_team": "Atlanta Braves",
+      "home_team": "Miami Marlins",
+      "game_detail": "Regular Season",
+      "pick": "Atlanta Braves ML",
+      "odds": "+100",
+      "book": "BetOnline.ag",
+      "stake": "1.5u",
+      "reasoning": "Getting the Braves at even money (+100) against a Miami club starting JR Ritchie represents a 122 edge_bps over the median of -105 \u2014 strong value on a roster mismatch. Max Meyer has shown flashes for Miami but Atlanta's lineup is one of the NL's most dangerous, and Ritchie's command profile makes this matchup favorable for Atlanta run-scoring. The market median implies a near-pick'em game; grabbing the Braves at even money is a clear pricing inefficiency.",
+      "tags": [
+        "Line Value",
+        "Starter Mismatch",
+        "Confidence B+"
+      ],
+      "is_premium": true
+    },
+    {
+      "league": "MLB",
+      "time": "6:41 PM ET",
+      "away_team": "Cleveland Guardians",
+      "home_team": "Detroit Tigers",
       "game_detail": "Regular Season",
       "pick": "Over 8.5",
-      "odds": "102",
+      "odds": "+100",
       "book": "FanDuel",
       "stake": "1.5u",
-      "reasoning": "This over at +102 carries a massive 171 edge_bps versus a median of -105 \u2014 essentially getting a plus-money price on a coin-flip total. Both Peter Lambert (Astros) and Nathan Eovaldi (Rangers) are middle-of-the-rotation arms without strong strikeout profiles, and Minute Maid Park plays as a hitter-friendly environment. Getting plus money on a game total that most books juice to -105 is genuine value.",
+      "reasoning": "Over 8.5 at +100 on FanDuel carries a 145.6 edge_bps versus a median of -106, an exceptional gap for a totals play. Framber Valdez is the Tigers' probable starter \u2014 notably an Astros transplant known for heavy groundball tendencies but also susceptible to crooked innings \u2014 while Cleveland sends Slade Cecconi, a younger arm with command questions. The line disparity (BetUS/Bovada at -110, FanDuel at +100 same number) signals a stale FanDuel price worth attacking immediately.",
       "tags": [
-        "Line Value",
-        "Pitching Matchup",
+        "Stale Line",
+        "Best Price",
         "Confidence B+"
       ],
       "is_premium": true
     },
     {
       "league": "MLB",
-      "time": "4:08 PM ET",
-      "away_team": "Los Angeles Dodgers",
-      "home_team": "Los Angeles Angels",
-      "game_detail": "Regular Season",
-      "pick": "Over 9.5",
-      "odds": "107",
-      "book": "LowVig.ag",
-      "stake": "1.5u",
-      "reasoning": "A 169 edge_bps on the over here with LowVig posting +107 against a median of even money is a legitimate pricing discrepancy across 7 books. Grayson Rodriguez takes the hill for the Angels \u2014 he has a history of allowing hard contact \u2014 while Roki Sasaki, though talented, is still adapting to MLB hitters. The Angels lineup at home and the Dodgers' potent offense set up a high-scoring environment.",
-      "tags": [
-        "Line Value",
-        "Pitching Matchup",
-        "Confidence B+"
-      ],
-      "is_premium": true
-    },
-    {
-      "league": "MLB",
-      "time": "3:41 PM ET",
+      "time": "6:41 PM ET",
       "away_team": "Cincinnati Reds",
-      "home_team": "Cleveland Guardians",
+      "home_team": "Philadelphia Phillies",
       "game_detail": "Regular Season",
-      "pick": "Cincinnati Reds ML",
-      "odds": "149",
-      "book": "BetOnline.ag",
+      "pick": "Philadelphia Phillies 1.5",
+      "odds": "-185",
+      "book": "DraftKings",
       "stake": "1u",
-      "reasoning": "The Reds ML at +149 carries a 150 edge_bps over the median of +140, flagging meaningful book disagreement on this price. Brady Singer has been one of the more consistent starters in the NL, while Gavin Williams has faced durability and command questions this season. Getting nearly +150 on Singer against a team the market essentially prices as a 62% favorite feels like a solid underdog spot.",
+      "reasoning": "Phillies -1.5 at -185 on DraftKings shows a 230 edge_bps vs. a median of -205 \u2014 the largest spread-side edge on the MLB card outside of single-book anomalies. Andrew Painter on the mound for Philadelphia is one of the NL's most electric young arms, and Nick Lodolo for Cincinnati has struggled with run prevention on the road. Grabbing -185 versus a market that's pricing this closer to -205 to -210 is a notable two-win differential play.",
       "tags": [
-        "Line Value",
-        "Underdog",
-        "Confidence B"
+        "Best Line",
+        "Ace Starter",
+        "Confidence B+"
       ],
       "is_premium": true
     },
     {
-      "league": "NBA \u00b7 Playoffs",
-      "time": "8:10 PM ET",
-      "away_team": "Cleveland Cavaliers",
-      "home_team": "Detroit Pistons",
-      "game_detail": "Playoffs",
-      "pick": "Detroit Pistons -4.5",
-      "odds": "-103",
-      "book": "LowVig.ag",
+      "league": "MLB",
+      "time": "7:41 PM ET",
+      "away_team": "Milwaukee Brewers",
+      "home_team": "Chicago Cubs",
+      "game_detail": "Regular Season",
+      "pick": "Over 10.5",
+      "odds": "-105",
+      "book": "MyBookie.ag",
       "stake": "1.5u",
-      "reasoning": "The Pistons -4.5 at -103 is the single best spread edge in the entire NBA dataset at 164 edge_bps, with most books pricing this at -110. Detroit is the heavy home favorite at roughly -185 to -195 on the moneyline, meaning the market overwhelmingly expects a decisive Pistons win \u2014 yet the spread price at LowVig is nearly a pick'em on juice. Laying the points at -103 when the implied win probability is so lopsided represents clear value.",
+      "reasoning": "Over 10.5 at -105 clocks in at 161 edge_bps over the median of -112, with most books offering -112 to -115 on this number. Shota Imanaga is excellent but Milwaukee counters with Brandon Sproat, a younger arm who has been hit hard this season, and Wrigley Field plays as a hitter-friendly environment when wind conditions are favorable. The Cubs offense ranks among the NL's most active run producers and the combination of a soft opposing starter and a plus-offense home team supports a high-scoring game.",
       "tags": [
         "Line Value",
-        "Home Favorite",
+        "Park Factor",
         "Confidence B+"
       ],
       "is_premium": true
@@ -99,37 +99,37 @@
       "away_team": "Montr\u00e9al Canadiens",
       "home_team": "Buffalo Sabres",
       "game_detail": "Regular Season",
-      "pick": "Over 5.5",
-      "odds": "110",
+      "pick": "Under 5.5",
+      "odds": "-112",
       "book": "Bovada",
-      "stake": "1u",
-      "reasoning": "Bovada's +110 on the over 5.5 clears a 213 edge_bps gap versus the median of +101 \u2014 the strongest total edge in the entire NHL dataset. Both the Sabres and Canadiens are offensively active teams and neither enters this matchup with elite goaltending depth, creating a favorable setup for goals. Getting plus-money on a 5.5-goal total in a game where both teams can score is genuine value.",
+      "stake": "1.5u",
+      "reasoning": "Under 5.5 at -112 via Bovada is the best available price on this side with 171.5 edge_bps against a median of -120, a substantial gap across 9 books. Both teams are bottom-half offensive clubs and this total is already set at a low 5.5, suggesting sharp money has pushed it down; paying -112 versus -120 standard price is meaningful ROI over volume. NHL low-total games with compressed pricing like this tend to hit the Under at a higher rate when both teams have neutral-to-weak power plays.",
       "tags": [
-        "Line Value",
-        "Total",
-        "Confidence B"
+        "Best Price",
+        "Sharp Side",
+        "Confidence B+"
       ],
       "is_premium": true
     },
     {
       "league": "MLB",
-      "time": "4:06 PM ET",
-      "away_team": "San Francisco Giants",
-      "home_team": "Athletics",
+      "time": "9:41 PM ET",
+      "away_team": "Los Angeles Dodgers",
+      "home_team": "San Diego Padres",
       "game_detail": "Regular Season",
-      "pick": "Athletics -1.5",
-      "odds": "143",
-      "book": "BetRivers",
-      "stake": "1u",
-      "reasoning": "The Athletics -1.5 at +143 at BetRivers shows a 140 edge_bps over the median of +135, the most mispriced run-line spread on the afternoon slate. Jeffrey Springs is a well-regarded left-hander for Oakland while Adrian Houser has been one of the Giants' weaker rotation options. Getting plus-money on Oakland to win by 2+ against a subpar starter on a neutral-value day is a solid situational play.",
+      "pick": "Los Angeles Dodgers ML",
+      "odds": "-145",
+      "book": "BetOnline.ag",
+      "stake": "1.5u",
+      "reasoning": "Dodgers ML at -145 on BetOnline.ag carries 160 edge_bps vs. a median of -155 \u2014 significant pricing gap with Yoshinobu Yamamoto taking the mound, one of the premier starters in baseball. Michael King is capable for San Diego but the talent and rotation edge firmly sits with LA, and getting the Dodgers at -145 versus -155 to -160 at the majority of books is a clean buy-low opportunity on an elite arm in a neutral-to-hitter park.",
       "tags": [
         "Line Value",
-        "Run Line",
+        "Elite Starter",
         "Confidence B"
       ],
       "is_premium": true
     }
   ],
-  "generated_at": "2026-05-17T06:49:48.217922",
-  "generated_at_readable": "May 17, 2026 at 02:49 AM ET"
+  "generated_at": "2026-05-18T08:10:49.377740",
+  "generated_at_readable": "May 18, 2026 at 04:10 AM ET"
 }
