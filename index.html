@@ -348,8 +348,9 @@
   .video-thumb:hover .video-play{transform:scale(1.06);}
   .video-thumb::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(212,168,67,.08) 0%,transparent 70%);pointer-events:none;}
   .video-play{width:96px;height:96px;flex-shrink:0;transition:transform .25s cubic-bezier(.2,.7,.2,1);filter:drop-shadow(0 8px 24px rgba(0,0,0,.6));}
-  .video-thumb-title{font-size:32px;font-style:italic;font-weight:400;letter-spacing:-.02em;margin-top:28px;text-align:center;max-width:600px;padding:0 24px;line-height:1.15;text-shadow:0 2px 12px rgba(0,0,0,.5);}
-  .video-thumb-runtime{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-muted);margin-top:14px;}
+  .video-thumb-title{display:block;font-size:32px;font-style:italic;font-weight:400;letter-spacing:-.02em;margin-top:28px;text-align:center;max-width:600px;padding:0 24px;line-height:1.15;text-shadow:0 2px 12px rgba(0,0,0,.5);}
+  .video-thumb-title em{font-style:italic;color:var(--accent);font-weight:300;}
+  .video-thumb-runtime{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-muted);margin-top:14px;}
   @media(max-width:720px){
     .video-play{width:72px;height:72px;}
     .video-thumb-title{font-size:22px;margin-top:20px;}
@@ -696,13 +697,15 @@
         <span class="video-corner"><span class="dot"></span>Watch · Explainer</span>
         <button class="video-thumb" type="button" aria-label="Play explainer video: Beat the Sportsbook With SmarterPicks">
           <!-- Inline SVG play button so we don't pay an extra HTTP request
-               or a font-icon library load. Gold fill matches --accent. -->
+               or a font-icon library load. Gold fill matches --accent.
+               <span>s (not <div>s) inside <button> so we stay within HTML5's
+               phrasing-content rule and the parser doesn't get clever. -->
           <svg class="video-play" viewBox="0 0 100 100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
             <circle cx="50" cy="50" r="48" fill="rgba(212,168,67,0.95)"/>
             <polygon points="42,32 42,68 70,50" fill="#0a0a0a"/>
           </svg>
-          <div class="video-thumb-title">Beat the Sportsbook With <em>SmarterPicks</em>.</div>
-          <div class="video-thumb-runtime">Press play · 90 seconds</div>
+          <span class="video-thumb-title">Beat the Sportsbook With <em>SmarterPicks</em>.</span>
+          <span class="video-thumb-runtime">Press play to watch</span>
         </button>
       </div>
 
@@ -1002,10 +1005,12 @@
      LITE-EMBED HANDLER — swap poster button for Synthesia iframe
      ============================================================
      Until the user clicks Play, we render the poster button (zero
-     Synthesia bytes). On click, we drop in the real iframe with
-     ?autoplay=1 so playback starts immediately without a second
-     click on Synthesia's own play button. autoplay is permitted
-     because the swap happens inside a user gesture (click). -->
+     Synthesia bytes). On click, we drop in the real iframe — exactly
+     as Synthesia originally generated it (no ?autoplay= query param,
+     because Synthesia rejects unknown params and the iframe ends up
+     showing nothing). User clicks our poster, Synthesia loads, they
+     hit Synthesia's own play button. Two clicks instead of one, but
+     reliable across players. -->
 <script>
 (function(){
   var shell = document.querySelector('.video-shell[data-video-src]');
@@ -1013,15 +1018,11 @@
   var btn = shell.querySelector('.video-thumb');
   if (!btn) return;
   btn.addEventListener('click', function(){
-    var src = shell.getAttribute('data-video-src') + '?autoplay=1';
     var iframe = document.createElement('iframe');
-    iframe.src = src;
+    iframe.src = shell.getAttribute('data-video-src');
     iframe.title = 'Beat the Sportsbook With SmarterPicks';
     iframe.setAttribute('allowfullscreen', '');
-    // 'autoplay' added to allow list so the browser honors the
-    // ?autoplay=1 query param (some browsers gate autoplay on
-    // permissions, not just user gesture).
-    iframe.setAttribute('allow', 'encrypted-media; fullscreen; microphone; screen-wake-lock; autoplay;');
+    iframe.setAttribute('allow', 'encrypted-media; fullscreen; microphone; screen-wake-lock;');
     // Replace the button with the iframe in-place. The .video-corner
     // badge stays — it's an editorial element, not the play UI.
     btn.replaceWith(iframe);
