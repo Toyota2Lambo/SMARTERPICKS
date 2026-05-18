@@ -337,6 +337,23 @@
      sprawl on ultra-wide monitors. */
   .video-shell{position:relative;background:#000;border:1px solid var(--border);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 0 1px rgba(212,168,67,.18);aspect-ratio:16/9;width:100%;max-width:1100px;margin:0 auto;overflow:hidden;}
   .video-shell video,.video-shell iframe{width:100%;height:100%;display:block;border:0;background:#000;}
+  /* Lite-embed click-to-load poster. Renders instantly with zero
+     Synthesia bytes; on click, the inline script at the bottom of the
+     page swaps in a real iframe with ?autoplay=1 so playback starts
+     immediately. Before: every page view was paying ~600KB+ of
+     Synthesia player JS + DRM streams whether or not the user ever
+     scrolled to the video. After: zero until intent is clear. */
+  .video-thumb{position:absolute;inset:0;width:100%;height:100%;background:linear-gradient(135deg,#0a0a0a 0%,#15110a 65%,#1c1612 100%);border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0;color:var(--text);transition:opacity .2s,transform .2s;font-family:var(--display);}
+  .video-thumb:hover{opacity:.96;}
+  .video-thumb:hover .video-play{transform:scale(1.06);}
+  .video-thumb::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(212,168,67,.08) 0%,transparent 70%);pointer-events:none;}
+  .video-play{width:96px;height:96px;flex-shrink:0;transition:transform .25s cubic-bezier(.2,.7,.2,1);filter:drop-shadow(0 8px 24px rgba(0,0,0,.6));}
+  .video-thumb-title{font-size:32px;font-style:italic;font-weight:400;letter-spacing:-.02em;margin-top:28px;text-align:center;max-width:600px;padding:0 24px;line-height:1.15;text-shadow:0 2px 12px rgba(0,0,0,.5);}
+  .video-thumb-runtime{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-muted);margin-top:14px;}
+  @media(max-width:720px){
+    .video-play{width:72px;height:72px;}
+    .video-thumb-title{font-size:22px;margin-top:20px;}
+  }
   .video-corner{position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(10,10,10,.78);backdrop-filter:blur(6px);border:1px solid rgba(212,168,67,.35);font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);z-index:2;}
   .video-corner .dot{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;}
   .explainer-header .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;display:inline-flex;align-items:center;gap:14px;}
@@ -671,19 +688,22 @@
       </div>
 
       <!-- Big video — full container width up to 1100px (capped in CSS so
-           it doesn't get absurd on ultra-wide monitors). -->
-      <div class="video-shell">
+           it doesn't get absurd on ultra-wide monitors).
+           Lite-embed: renders as a static button until clicked. Inline JS
+           below the section swaps in the real Synthesia iframe with
+           ?autoplay=1 on click. Saves ~600KB+ of player JS on first paint. -->
+      <div class="video-shell" data-video-src="https://share.synthesia.io/embeds/videos/2733e2ec-1441-4a9b-8a19-a0c7784d90a4">
         <span class="video-corner"><span class="dot"></span>Watch · Explainer</span>
-        <!-- Synthesia-hosted explainer ("Beat the Sportsbook With SmarterPicks").
-             allow=fullscreen so users can pop it out; encrypted-media lets
-             the Synthesia player handle its DRM-wrapped streams. loading=lazy
-             so the iframe doesn't block first paint of the landing page. -->
-        <iframe
-          src="https://share.synthesia.io/embeds/videos/2733e2ec-1441-4a9b-8a19-a0c7784d90a4"
-          title="Beat the Sportsbook With SmarterPicks"
-          loading="lazy"
-          allowfullscreen
-          allow="encrypted-media; fullscreen; microphone; screen-wake-lock;"></iframe>
+        <button class="video-thumb" type="button" aria-label="Play explainer video: Beat the Sportsbook With SmarterPicks">
+          <!-- Inline SVG play button so we don't pay an extra HTTP request
+               or a font-icon library load. Gold fill matches --accent. -->
+          <svg class="video-play" viewBox="0 0 100 100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="48" fill="rgba(212,168,67,0.95)"/>
+            <polygon points="42,32 42,68 70,50" fill="#0a0a0a"/>
+          </svg>
+          <div class="video-thumb-title">Beat the Sportsbook With <em>SmarterPicks</em>.</div>
+          <div class="video-thumb-runtime">Press play · 90 seconds</div>
+        </button>
       </div>
 
       <!-- Supporting copy + receipts strip + CTA below the video. -->
@@ -977,6 +997,37 @@
      the browser stream the rest of the page, then runs picks-loader
      once the document is parsed. Faster time-to-first-paint. -->
 <script src="picks-loader.js" defer></script>
+
+<!-- ============================================================
+     LITE-EMBED HANDLER — swap poster button for Synthesia iframe
+     ============================================================
+     Until the user clicks Play, we render the poster button (zero
+     Synthesia bytes). On click, we drop in the real iframe with
+     ?autoplay=1 so playback starts immediately without a second
+     click on Synthesia's own play button. autoplay is permitted
+     because the swap happens inside a user gesture (click). -->
+<script>
+(function(){
+  var shell = document.querySelector('.video-shell[data-video-src]');
+  if (!shell) return;
+  var btn = shell.querySelector('.video-thumb');
+  if (!btn) return;
+  btn.addEventListener('click', function(){
+    var src = shell.getAttribute('data-video-src') + '?autoplay=1';
+    var iframe = document.createElement('iframe');
+    iframe.src = src;
+    iframe.title = 'Beat the Sportsbook With SmarterPicks';
+    iframe.setAttribute('allowfullscreen', '');
+    // 'autoplay' added to allow list so the browser honors the
+    // ?autoplay=1 query param (some browsers gate autoplay on
+    // permissions, not just user gesture).
+    iframe.setAttribute('allow', 'encrypted-media; fullscreen; microphone; screen-wake-lock; autoplay;');
+    // Replace the button with the iframe in-place. The .video-corner
+    // badge stays — it's an editorial element, not the play UI.
+    btn.replaceWith(iframe);
+  }, { once: true });
+})();
+</script>
 
 <!-- ============================================================
      POLISH LAYER — ticker, scroll fade-in, animated counters
