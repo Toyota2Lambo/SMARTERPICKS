@@ -5,8 +5,19 @@ name: Social — Daily IG Run
 # time the social generator reads them. No fixed schedule — we chain off
 # the upstream workflow run so we never beat it to the punch.
 #
-# Manual trigger is also supported (workflow_dispatch) for re-running
-# a day's social posts after editing content.json by hand.
+# Idempotency: daily-picks.yml fires 4 times per morning (04/06/08/11
+# UTC) for cron redundancy. Even when its inner work is a no-op (today's
+# picks already exist), the workflow still "completes successfully" and
+# this workflow gets triggered. To stop the same treatment from posting
+# 3-4 times a day, we drop a sentinel file `.morning-published` into the
+# day's directory after the first successful publish. Subsequent runs
+# see the sentinel and skip the publish step. Generation + render still
+# run on every trigger (re-renders are idempotent and inexpensive),
+# only the IG-side publish is gated.
+#
+# Manual trigger is also supported (workflow_dispatch). Pass
+# force_publish=true to bypass the sentinel — useful for re-running
+# after editing content.json by hand or for one-off republishes.
 
 on:
   workflow_run:
@@ -14,6 +25,11 @@ on:
     types: [completed]
     branches: [main]
   workflow_dispatch:
+    inputs:
+      force_publish:
+        description: "Bypass the sentinel — re-publish even if today's morning batch already shipped."
+        required: false
+        default: "false"
 
 permissions:
   contents: write
@@ -47,9 +63,33 @@ jobs:
         # CI doesn't need a pre-installed browser.
         run: npm install puppeteer
 
-      - name: Resolve today's directory
+      - name: Resolve today's directory + check publish state
         id: today
-        run: echo "DAY_DIR=social/$(date -u +'%Y-%m-%d')" >> "$GITHUB_OUTPUT"
+        # The sentinel is `social/YYYY-MM-DD/.morning-published`. If it
+        # already exists, today's morning batch was already shipped and
+        # we should not double-post (unless the manual trigger overrides
+        # via force_publish=true). Generation + render still run either
+        # way — they're idempotent and useful for keeping content.json
+        # fresh in case picks shifted intra-day.
+        run: |
+          DAY=$(date -u +'%Y-%m-%d')
+          DAY_DIR="social/$DAY"
+          SENTINEL="$DAY_DIR/.morning-published"
+          FORCE='${{ github.event.inputs.force_publish }}'
+          echo "DAY=$DAY"           >> "$GITHUB_OUTPUT"
+          echo "DAY_DIR=$DAY_DIR"   >> "$GITHUB_OUTPUT"
+          echo "SENTINEL=$SENTINEL" >> "$GITHUB_OUTPUT"
+          if [ -f "$SENTINEL" ] && [ "$FORCE" != "true" ]; then
+            echo "🔒 Sentinel present at $SENTINEL — morning batch already shipped today."
+            echo "ALREADY_PUBLISHED=1" >> "$GITHUB_OUTPUT"
+          else
+            if [ "$FORCE" = "true" ]; then
+              echo "🔓 force_publish=true — bypassing sentinel."
+            else
+              echo "✅ No sentinel yet — first social-daily run today."
+            fi
+            echo "ALREADY_PUBLISHED=0" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Generate content (Claude → content.json)
         env:
@@ -101,7 +141,11 @@ jobs:
           echo "❌ Could not push assets after 5 attempts — main is moving faster than this workflow can rebase. Re-run manually."
           exit 1
 
-      - name: Publish morning posts (pick carousel + Story 1)
+      - name: Publish morning posts (pick carousel + Story 1 + treatments)
+        # Idempotency gate: only runs once per day. Subsequent firings
+        # (daily-picks repeats at 04/06/08/11 UTC) re-render content.json
+        # but skip this step because the sentinel file already exists.
+        if: steps.today.outputs.ALREADY_PUBLISHED != '1'
         # The morning run only ships the headline pieces. The four
         # remaining grid/story slots get published throughout the day
         # by .github/workflows/social-stagger.yml on its own cron
@@ -119,6 +163,43 @@ jobs:
         #                    on Instagram" — the alternative (manual selection)
         #                    was friction we don't want for a daily cadence.
         run: python social/ig_publisher.py "${{ steps.today.outputs.DAY_DIR }}" --only=ig_pick_post,story:1,treatments
+
+      - name: Mark morning batch as published
+        # Drops the sentinel file + commits it so the next time this
+        # workflow fires (e.g. when the 06/08/11 UTC daily-picks repeat
+        # completes), the publish step short-circuits via the SKIP gate.
+        # Only runs on the day the publish actually happened — gated by
+        # the same ALREADY_PUBLISHED check, plus an implicit success()
+        # gate via step ordering (failure() short-circuits subsequent
+        # non-always steps).
+        if: steps.today.outputs.ALREADY_PUBLISHED != '1'
+        run: |
+          set -euo pipefail
+          SENTINEL="${{ steps.today.outputs.SENTINEL }}"
+          touch "$SENTINEL"
+          git config user.name  "smarterpicks-bot"
+          git config user.email "smarterpicks-bot@users.noreply.github.com"
+          git add "$SENTINEL"
+          if git diff --cached --quiet; then
+            echo "Sentinel already committed — nothing to do."
+            exit 0
+          fi
+          git commit -m "Social: morning batch published — ${{ steps.today.outputs.DAY }}"
+          # Same retry-with-rebase pattern as the assets commit. The
+          # sentinel is tiny so collisions are rare, but main can still
+          # move under us if a daily-pick re-fire commits during publish.
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              echo "✓ sentinel pushed on attempt $attempt"
+              exit 0
+            fi
+            echo "Sentinel push rejected on attempt $attempt — rebasing…"
+            git fetch origin main
+            git rebase origin/main
+            sleep $((attempt * 3))
+          done
+          echo "⚠ Could not push sentinel after 5 attempts. The morning batch DID publish, but the sentinel didn't land — next workflow fire may double-publish. Investigate manually."
+          exit 1
 
       - name: Open issue on failure
         if: failure()
