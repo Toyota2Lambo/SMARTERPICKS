@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T07:55:28.364896+00:00",
+  "generated_at": "2026-05-19T08:58:14.078285+00:00",
   "model": "claude-sonnet-4-6",
   "carousel_topic": "The math of parlays (and why bookmakers love them)",
   "source": {
@@ -181,102 +181,120 @@
   },
   "content": {
     "ig_pick_post": {
-      "caption": "Today's free pick: Braves -1.5 at +130. That line is a 303 edge_bps outlier vs. the market. Full card at smarterpicks.io, 7-day free trial.",
-      "slide1_text": "TODAY'S FREE PICK\nAtlanta Braves -1.5\n+130 on BetRivers",
-      "slide2_text": "Braves -1.5 at +130. Consensus median is only +115. That 303 edge_bps gap is the biggest spread edge on today's entire slate. Martin Perez takes the mound for Atlanta.",
-      "slide3_text": "Full card (7 picks today) unlocked at smarterpicks.io. 7-day free trial, cancel anytime. 21+ only. Bet responsibly.",
+      "caption": "Today's free pick: Braves -1.5 at +130. The line median is +115 and this price is sitting 303 edge_bps above consensus. That gap is real. Full card at smarterpicks.io, 7-day free trial.",
+      "slide1_text": "FREE PICK: TUESDAY NIGHT MLB\nAtlanta Braves @ Miami Marlins\nThis line is priced wrong.",
+      "slide2_text": "Braves -1.5 at +130 on BetRivers\nConsensus median: +115\n303 edge_bps above the market. Highest spread edge on today's slate.",
+      "slide3_text": "Full card has 6 more picks tonight.\nsmarterpicks.io\n7-day free trial. Cancel anytime.",
       "hashtags": [
         "sportsbetting",
-        "sportspicks",
         "mlbpicks",
-        "baseballbetting",
+        "mlbbetting",
         "bravespicks",
         "freepick",
+        "sportspicks",
+        "bettingpicks",
+        "mlb2026",
         "bettingadvice",
+        "runline",
+        "valuebet",
         "sharpbetting",
-        "mlbbetting",
+        "dailypicks",
         "braves",
+        "miamimarlins",
         "bettingcommunity",
-        "sportsbettingtips"
+        "smartpicks",
+        "winnerbets"
       ]
     },
     "ig_results_post": {
-      "caption": "May 18: 3-3, -0.73u. Two MLB losses hurt (Braves ML, TOR/NYY Under). Three wins kept it close. We post every result, good and bad.",
+      "caption": "May 18: 3-3, net -0.73u. The over on Brewers-Cubs hit. Guardians-Tigers over hit. Canadiens-Sabres under hit. The Braves ML and Blue Jays under missed. Honest board, posted every morning.",
       "headline_text": "May 18: 3-3, -0.73u",
       "hashtags": [
         "sportsbetting",
-        "sportspicks",
         "mlbpicks",
-        "bettingresults",
-        "trackedpicks",
-        "bettingtransparency",
-        "baseballbetting",
-        "sportsbettingtips",
-        "sharpbetting",
-        "bettingcommunity",
         "nhlpicks",
-        "mlbbetting"
+        "bettingresults",
+        "sportspicks",
+        "trackrecord",
+        "bettingcommunity",
+        "dailypicks",
+        "mlb2026",
+        "nhlplayoffs",
+        "transparentbetting",
+        "bettingadvice",
+        "sharpbetting",
+        "winnerbets",
+        "loserslearn",
+        "sportsbettinglife",
+        "picksandparlays",
+        "bettingrecap"
       ]
     },
     "ig_carousel_topic": {
       "topic": "The math of parlays (and why bookmakers love them)",
-      "slide1_text": "Why does your parlay almost never hit?",
-      "slide2_text": "Most bettors think a 3-leg parlay pays out because three good picks combined. The book sees it differently. Each leg multiplies the house edge, not just the odds.",
-      "slide3_text": "A fair 2-leg parlay at -110 each should pay +260. Most books pay +260 anyway, right? No. They pay around +240 to +250. That gap is pure margin, baked in before you pick a team.",
-      "slide4_text": "Say each leg wins 52% of the time (already a sharp rate). A 3-leg parlay hits 52% x 52% x 52% = 14.1%. The book prices it as if each leg wins 50%. Over 100 bets, that difference costs you roughly 4 units.",
-      "slide5_text": "Parlays are not unplayable. But the edge has to come from the individual legs, not the parlay structure itself. One strong single beats three weak legs combined every time.",
-      "caption": "Parlays look like big paydays. The math inside them tells a different story. Swipe to see what the book actually charges you.",
+      "slide1_text": "Why does the house always seem to win on parlays?\nThe math is not in your favor. Here is why.",
+      "slide2_text": "Most bettors think parlays are just \"stacking wins.\"\nThey're not. Each leg multiplies your risk, not just your reward.\nThe book's margin compounds with every added leg.",
+      "slide3_text": "Each leg at -110 odds carries a 52.4% implied probability.\nTwo legs: 52.4% x 52.4% = 27.5% true chance.\nThe book pays you as if it's 26.4%. That gap is their profit.",
+      "slide4_text": "A 4-leg parlay at -110 per leg:\nTrue win probability: 8.1%\nBook pays at: 6.25% implied odds\nYou need to hit roughly 1 in 12 just to break even.\nMost bettors hit far less.",
+      "slide5_text": "Parlays are not unplayable. But if you are betting them blind, you are paying a premium every single time.\nSingle-game edges compound better than legs on a slip.",
+      "caption": "Parlay math explained. The gap between what the book pays and your real odds is where your money goes. Tap through and see the numbers.",
       "hashtags": [
         "sportsbetting",
-        "bettingeducation",
         "parlays",
+        "bettingeducation",
         "bettingmath",
         "sportsbettingtips",
+        "parlaymath",
         "sharpbetting",
-        "bettingstrategy",
-        "mlbbetting",
-        "nbabetting",
         "bettingadvice",
         "sportspicks",
+        "mlbbetting",
+        "nbabetting",
         "bettingcommunity",
-        "gamblingeducation",
-        "valuebetting"
+        "oddsexplained",
+        "valuebetting",
+        "bettingstrategy",
+        "picksandparlays",
+        "bettinglife",
+        "smartbetting"
       ]
     },
     "story_sequence": [
-      "Card drops in 30 min. Free pick today: Braves -1.5 at +130. Biggest spread edge on the slate.",
-      "Poll: Do you bet run lines or stick to moneylines on MLB? Drop your answer below.",
-      "Last call. Picks lock at first pitch. Full 7-pick card at smarterpicks.io, free trial still open.",
-      "2-1 so far today. Brewers/Cubs Over and NHL Under both graded. Waiting on the evening slate.",
-      "Wrapping up Tuesday. Full results post in the morning. Wednesday card builds overnight, check the bio."
+      "Card drops in 30 min. Braves -1.5 at +130 is the free pick today. 303 edge_bps above consensus. That is the highest spread edge on the slate.",
+      "Poll: Do you bet parlays or singles? Drop your answer below. We have thoughts on this one.",
+      "Last call before first pitch. Free pick is live at smarterpicks.io. Full 7-game card is up. Locks start rolling at 6 PM ET.",
+      "Running 2-0 so far tonight. Guardians game cashed earlier. Braves result still pending. Watching the rest of the slate.",
+      "Board settles overnight. Results post drops at 9 AM ET tomorrow. Good luck to everyone still live on tonight's card."
     ],
     "meme_post": {
-      "top_text": "Me building a 6-leg parlay because I 'like all these games'",
-      "bottom_text": "The book: yes please, thank you, have a great night",
-      "image_concept": "A person confidently tapping a phone screen adding parlay legs while a cartoon sportsbook mascot rubs its hands together in the background"
+      "top_text": "Me at 6 PM: I'm only betting the free pick tonight, keeping it simple",
+      "bottom_text": "Me at 9 PM with a 7-leg parlay open on three different apps",
+      "image_concept": "Drake meme format with a bettor looking calm then frantic, phone screens glowing in a dark room"
     },
     "treatments": [
       {
         "template": "pick-card.html",
-        "rationale": "Announces today's free pick with the exact line and edge data from picks_data.",
+        "rationale": "The free pick today has the highest spread edge on the slate and deserves a standalone visual card.",
         "group": "treatments",
         "size": "feed",
-        "caption": "Braves -1.5 at +130 is the biggest spread edge on today's board. Full card at smarterpicks.io, 7-day free trial. 21+ only.",
+        "caption": "Braves -1.5 at +130 is the sharpest spread edge on today's MLB slate. Free pick, no signup needed. Full card at smarterpicks.io.",
         "hashtags": [
-          "sportsbetting",
           "mlbpicks",
+          "sportsbetting",
           "freepick",
-          "bravespicks",
-          "baseballbetting",
-          "sharpbetting",
+          "braves",
+          "runline",
+          "bettingadvice",
           "sportspicks",
-          "bettingadvice"
+          "mlb2026",
+          "sharpbetting",
+          "valuebet"
         ],
         "fields": {
           "tag": "TODAY'S FREE PICK",
-          "matchup": "Atlanta Braves @ Miami Marlins",
-          "game_time": "Game Time Tonight",
-          "pick_headline_html": "Braves -1.5 at <em>+130</em>",
+          "matchup": "Braves @ Marlins",
+          "game_time": "6:40 PM ET",
+          "pick_headline_html": "Braves cover the <em>-1.5</em>",
           "line": "+130",
           "edge": "+3.03%",
           "confidence": "A",
@@ -286,19 +304,19 @@
       },
       {
         "template": "recap-card.html",
-        "rationale": "Posts yesterday's 3-3 results ledger with real pick data from results_data.",
+        "rationale": "Yesterday went 3-3 and the receipts need to be posted honestly, wins and losses both visible.",
         "group": "treatments",
         "size": "feed",
-        "caption": "May 18 final: 3-3, -0.73u. Two losses, three wins. We post every result. Track record is in the bio.",
+        "caption": "May 18 board: 3-3, -0.73u. Three cashed, two missed. Posted every morning, wins and losses both. YTD still +36.8u.",
         "hashtags": [
           "sportsbetting",
           "bettingresults",
           "mlbpicks",
           "nhlpicks",
-          "trackedpicks",
-          "bettingtransparency",
+          "trackrecord",
           "sportspicks",
-          "sharpbetting"
+          "dailypicks",
+          "transparentbetting"
         ],
         "fields": {
           "tag": "YESTERDAY'S BOARD",
@@ -306,18 +324,6 @@
           "losses": "2",
           "units": "-0.73u",
           "pick_rows": [
-            {
-              "matchup": "MLB · TOR @ NYY",
-              "play": "Under 8.5",
-              "result": "loss",
-              "units": -2.0
-            },
-            {
-              "matchup": "MLB · ATL @ MIA",
-              "play": "Braves ML",
-              "result": "loss",
-              "units": -1.5
-            },
             {
               "matchup": "MLB · CLE @ DET",
               "play": "Over 8.5",
@@ -335,33 +341,45 @@
               "play": "Under 5.5",
               "result": "win",
               "units": 1.34
+            },
+            {
+              "matchup": "MLB · TOR @ NYY",
+              "play": "Under 8.5",
+              "result": "loss",
+              "units": -2.0
+            },
+            {
+              "matchup": "MLB · ATL @ MIA",
+              "play": "Braves ML",
+              "result": "loss",
+              "units": -1.5
             }
           ]
         }
       },
       {
         "template": "index-card.html",
-        "rationale": "Season receipts credibility post using the verified YTD track record numbers.",
+        "rationale": "Season credibility lift on a 3-3 day. The YTD numbers are strong enough to anchor trust.",
         "group": "treatments",
         "size": "feed",
-        "caption": "253-215, +36.8u, 9.3% ROI across 46 days. Every pick posted before tip-off. Full card at smarterpicks.io.",
+        "caption": "46 days in. 253-215, +36.8u, 9.3% ROI. The full record is public. Start your 7-day free trial at smarterpicks.io.",
         "hashtags": [
           "sportsbetting",
-          "bettingresults",
-          "trackedpicks",
-          "sharpbetting",
+          "trackrecord",
+          "bettingreceipts",
           "sportspicks",
+          "sharpbetting",
           "bettingadvice",
           "mlbpicks",
-          "bettingtransparency",
-          "sportsbettingtips",
-          "bettingcommunity"
+          "dailypicks",
+          "bettingcommunity",
+          "valuebetting"
         ],
         "fields": {
           "tag": "RECEIPTS",
           "eyebrow": "SEASON SCOREBOARD · 2026",
           "title_html": "The <em>verified</em> ledger.",
-          "note_html": "All picks logged at posted line. 46 days.",
+          "note_html": "All picks posted at time of release.",
           "cells": [
             {
               "label": "Overall",
@@ -382,75 +400,74 @@
               "tone": "accent"
             },
             {
+              "label": "Sample",
+              "num": "468",
+              "foot": "graded picks"
+            },
+            {
               "label": "Days Logged",
               "num": "46",
-              "foot": "public track record"
-            },
-            {
-              "label": "Win Rate",
-              "num": "54.1%",
-              "foot": "468 graded picks",
+              "foot": "public record",
               "tone": "win"
             },
             {
-              "label": "Avg Per Day",
-              "num": "+0.80u",
-              "foot": "net units / 46 days",
-              "tone": "win"
+              "label": "Yesterday",
+              "num": "3-3",
+              "foot": "-0.73u · May 18"
             }
           ]
         }
       },
       {
         "template": "stat-card.html",
-        "rationale": "Highlights the 303 edge_bps outlier on today's Braves line as a standalone stat post.",
+        "rationale": "The parlay math carousel pairs well with a standalone stat card showing the true break-even rate on a 4-leg parlay.",
         "group": "treatments",
         "size": "feed",
-        "caption": "303 edge basis points on today's Braves line. That's not noise, that's a real market gap. Free pick details in the bio.",
+        "caption": "A 4-leg parlay at -110 each. Your real shot: 8.1%. What the book pays at: 6.25%. That gap is their margin. Bet smarter.",
         "hashtags": [
           "sportsbetting",
-          "mlbpicks",
-          "lineshoppingpays",
+          "parlaymath",
+          "bettingeducation",
           "sharpbetting",
-          "bravespicks",
-          "baseballbetting",
-          "sportspicks",
           "bettingadvice",
+          "sportspicks",
           "valuebetting",
-          "bettingmath"
+          "bettingstrategy"
         ],
         "fields": {
-          "eyebrow": "MLB LINE SHOPPING · MAY 19",
-          "stat_value": "303",
-          "stat_unit": "bps",
-          "caption_html": "edge on Braves -1.5 at <em>+130</em> vs. the consensus median of +115. Biggest spread edge on today's slate.",
-          "source": "BetRivers vs. consensus · 4 books"
+          "eyebrow": "PARLAY MATH · -110 PER LEG",
+          "stat_value": "8.1",
+          "stat_unit": "%",
+          "caption_html": "True win probability on a <em>4-leg parlay</em>. The book pays you like it's 6.25%.",
+          "source": "52.4% per leg compounded"
         }
       },
       {
         "template": "lifestyle-card.html",
-        "rationale": "Daily mandatory lifestyle post with aspirational copy and a fresh photo angle.",
+        "rationale": "Mandatory daily lifestyle post. Aspirational hook on a Tuesday night with a live free pick.",
         "group": "treatments",
         "size": "feed",
-        "caption": "46 days in, +36.8u. Today's free pick is live. Start your 7-day free trial at smarterpicks.io, cancel anytime. 21+ only.",
+        "caption": "46 days. +36.8u. 253 wins on the board. Tonight's free pick is live. Tap the bio and start your 7-day free trial.",
         "hashtags": [
           "sportsbetting",
           "sportspicks",
           "freepick",
           "bettingadvice",
           "mlbpicks",
+          "dailypicks",
           "sharpbetting",
           "bettingcommunity",
-          "sportsbettingtips"
+          "winnerbets",
+          "smartbetting"
         ],
         "fields": {
-          "tag": "FREE PICK TODAY",
+          "tag": "FREE PICK · TONIGHT",
           "eyebrow": "46 DAYS LOGGED",
-          "headline_html": "You could win more <em>this week</em>.",
-          "sub_html": "<em>+36.8u</em> this season. Free pick live now. Tap the bio.",
-          "photo_query": "vintage porsche 911 classic",
-          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/vintage_20porsche_20911_20classic_98581ba11070.jpg",
-          "photo_credit": "Photo: YRKA PICTURED / Unsplash"
+          "headline_html": "You could be up <em>+36.8u</em> right now.",
+          "sub_html": "Members have been. Start your 7-day free trial. <em>Cancel anytime.</em>",
+          "photo_query": "monaco yacht harbor",
+          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/monaco_20yacht_20harbor_7ff5d69c2ccc.jpg",
+          "photo_credit": "Photo: Picsum (fallback — set UNSPLASH_ACCESS_KEY for relevant)"
         }
       }
     ]
