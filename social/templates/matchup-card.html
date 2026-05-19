@@ -43,9 +43,13 @@
      fails to load, onerror hides the img and the slot collapses to
      the surrounding padding. */
   .team-logo {
-    width: 132px;
-    height: 132px;
-    margin: 0 auto 28px;
+    /* Bumped from 132px → 200px. Original size made the logos secondary
+       to the team-name italic; at 200px they're the primary identifier
+       (which is correct — logos communicate faster than text on a feed
+       scroll). 240px on story for the taller canvas. */
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 32px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -54,16 +58,17 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    /* Slight drop-shadow so the logo lifts off the dark canvas */
-    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+    /* Stronger drop-shadow at the larger size so the logos lift cleanly
+       off the dark canvas and feel intentional. */
+    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5));
   }
   .team-logo img[src=""],
   .team-logo img:not([src]) {
     display: none;
   }
   body[data-size="story"] .team-logo {
-    width: 168px;
-    height: 168px;
+    width: 240px;
+    height: 240px;
   }
   .team-name {
     font-family: var(--display);
