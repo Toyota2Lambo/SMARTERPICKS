@@ -336,6 +336,12 @@
      (1920x1080). Full container width up to a 1100px cap so it doesn't
      sprawl on ultra-wide monitors. */
   .video-shell{position:relative;background:#000;border:1px solid var(--border);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 0 1px rgba(212,168,67,.18);aspect-ratio:16/9;width:100%;max-width:1100px;margin:0 auto;overflow:hidden;}
+  /* Hero-specific override: the video now sits inside the hero (was a
+     standalone section). Cap at 820px so it doesn't compete with the
+     headline + CTA stack, add vertical spacing top/bottom, and on mobile
+     give it edge-to-edge inside the hero's container padding. */
+  .hero .video-shell{max-width:820px;margin:24px auto 32px;}
+  @media(max-width:720px){.hero .video-shell{margin:20px auto 24px;}}
   .video-shell video,.video-shell iframe{width:100%;height:100%;display:block;border:0;background:#000;}
   /* Lite-embed click-to-load poster. Renders instantly with zero
      Synthesia bytes; on click, the inline script at the bottom of the
@@ -645,12 +651,31 @@
   <div class="container">
     <div class="hero-meta"><span class="live-dot"></span><span>Today's slate is live</span></div>
     <h1>Stop guessing. Start <em>winning.</em></h1>
+
+    <!-- VIDEO — moved up from a dedicated explainer section below.
+         Mobile complaint was that the explainer was invisible above
+         the fold; putting the lite-embed poster here makes it the
+         second thing visitors see, right under the headline.
+         Lite-embed: zero Synthesia bytes until clicked. -->
+    <div class="video-shell" data-video-src="https://share.synthesia.io/embeds/videos/2733e2ec-1441-4a9b-8a19-a0c7784d90a4">
+      <span class="video-corner"><span class="dot"></span>Watch · Explainer</span>
+      <button class="video-thumb" type="button" aria-label="Play explainer video: Beat the Sportsbook With SmarterPicks">
+        <svg class="video-play" viewBox="0 0 100 100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="48" fill="rgba(212,168,67,0.95)"/>
+          <polygon points="42,32 42,68 70,50" fill="#0a0a0a"/>
+        </svg>
+        <span class="video-thumb-title">Beat the Sportsbook With <em>SmarterPicks</em>.</span>
+        <span class="video-thumb-runtime">Press play to watch</span>
+      </button>
+    </div>
+
     <p class="hero-sub">AI-powered daily insights on every major sport. Game previews, sharp line movement, prop edges, and the plays the public isn't making — delivered before tip-off.</p>
-    <!-- No checkout CTA in the hero — both buttons push visitors down
-         the page to build the case (explainer video + archive receipts)
-         before the final-cta section finally asks for the trial. -->
+
+    <!-- Primary CTA now goes straight to checkout (the video already
+         did the convincing work). Secondary remains the archive link
+         for the receipts-curious. -->
     <div class="hero-actions">
-      <a href="#explainer" class="btn-primary">Watch the 90-second walkthrough →</a>
+      <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="btn-primary">Start 7-day free trial →</a>
       <a href="#record" class="btn-secondary">See the receipts</a>
     </div>
     <div class="hero-trust">
@@ -668,61 +693,12 @@
   </div>
 </section>
 
-<!-- ============================================================
-     EXPLAINER VIDEO — sits right after the hero, before today's
-     results bar. Logged-in members never see this (they're redirected
-     to /members by the head-script). Source is a Synthesia-hosted
-     embed (16:9 landscape) — to swap the video, edit the iframe src
-     below. To preview a different cut, change the embed UUID. No file
-     upload to the repo needed.
-     ============================================================ -->
-<section class="explainer" id="explainer">
-  <div class="container">
-    <div class="explainer-grid">
-
-      <!-- Header above the video. Kicker + headline only — the supporting
-           paragraph sits below the video so it reads as context after the
-           visual hook rather than ahead of it. -->
-      <div class="explainer-header">
-        <div class="kicker">How it works</div>
-        <h2>One card. Five plays. <em>90 seconds a morning.</em></h2>
-      </div>
-
-      <!-- Big video — full container width up to 1100px (capped in CSS so
-           it doesn't get absurd on ultra-wide monitors).
-           Lite-embed: renders as a static button until clicked. Inline JS
-           below the section swaps in the real Synthesia iframe with
-           ?autoplay=1 on click. Saves ~600KB+ of player JS on first paint. -->
-      <div class="video-shell" data-video-src="https://share.synthesia.io/embeds/videos/2733e2ec-1441-4a9b-8a19-a0c7784d90a4">
-        <span class="video-corner"><span class="dot"></span>Watch · Explainer</span>
-        <button class="video-thumb" type="button" aria-label="Play explainer video: Beat the Sportsbook With SmarterPicks">
-          <!-- Inline SVG play button so we don't pay an extra HTTP request
-               or a font-icon library load. Gold fill matches --accent.
-               <span>s (not <div>s) inside <button> so we stay within HTML5's
-               phrasing-content rule and the parser doesn't get clever. -->
-          <svg class="video-play" viewBox="0 0 100 100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="48" fill="rgba(212,168,67,0.95)"/>
-            <polygon points="42,32 42,68 70,50" fill="#0a0a0a"/>
-          </svg>
-          <span class="video-thumb-title">Beat the Sportsbook With <em>SmarterPicks</em>.</span>
-          <span class="video-thumb-runtime">Press play to watch</span>
-        </button>
-      </div>
-
-      <!-- Supporting copy + receipts strip + CTA below the video. -->
-      <div class="explainer-body">
-        <p>SmarterPicks pulls live odds from every major sportsbook at 4 a.m. ET, finds the plays with real edge against the market median, and posts the full card before lock. Members copy the bet, the book, and the stake into their sportsbook of choice and they're done.</p>
-        <div class="explainer-runtime">
-          <span><strong>5–8</strong> plays/day</span>
-          <span><strong>1.07u</strong> avg daily P/L</span>
-          <span><strong>7 days</strong> free</span>
-        </div>
-        <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="btn-primary">Start 7-day free trial →</a>
-      </div>
-
-    </div>
-  </div>
-</section>
+<!-- The dedicated explainer section was removed — its video, headline,
+     and CTA all live in the hero above now (mobile users were missing
+     the video because they never scrolled past the fold). The CSS for
+     .explainer / .explainer-grid / .explainer-header / .explainer-body
+     is left in the stylesheet above as dead-code; cheap to keep, easy
+     to revive if we ever want a deeper "how it works" section back. -->
 
 <!-- Yesterday's results card moved into the Archive section (below) so it
      reads as the lead receipt above the cumulative chart. -->
