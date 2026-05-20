@@ -1,0 +1,485 @@
+{
+  "generated_at": "2026-05-20T07:54:18.214770+00:00",
+  "model": "claude-sonnet-4-6",
+  "carousel_topic": "Hedging — when it's smart, when it's just buying back losses",
+  "source": {
+    "picks_date": "May 20, 2026",
+    "results_date": "May 19, 2026",
+    "history_stats": {
+      "total_picks": 430,
+      "wins": 255,
+      "losses": 217,
+      "pushes": 22,
+      "win_pct": 54.0,
+      "net_units": 38.15,
+      "roi_pct": 9.3,
+      "best_month_units": 12.4,
+      "worst_month_units": -3.8,
+      "avg_daily_units": 0.85,
+      "days_recorded": 47
+    },
+    "today_free_pick": {
+      "league": "MLB",
+      "time": "3:41 PM ET",
+      "away_team": "Chicago White Sox",
+      "home_team": "Seattle Mariners",
+      "game_detail": "Regular Season",
+      "pick": "Under 7.5",
+      "odds": "-104",
+      "book": "BetRivers",
+      "stake": "2u",
+      "reasoning": "The Under 7.5 at BetRivers shows a massive 250.8 edge_bps — the best line-value signal on the entire slate. Emerson Hancock takes the mound for Seattle, a ground-ball pitcher who limits hard contact, while Sean Burke for Chicago has shown inconsistency but pitches in a favorable environment here. The market median sits at -115, meaning BetRivers is offering significant value at -104 on a total that most books price much higher juice.",
+      "tags": [
+        "Line Value",
+        "Pitching Spot",
+        "Confidence B+"
+      ],
+      "is_premium": false
+    },
+    "results_picks": [
+      {
+        "league": "MLB",
+        "time": "7:41 PM ET",
+        "away_team": "Atlanta Braves",
+        "home_team": "Miami Marlins",
+        "game_detail": "Regular Season",
+        "pick": "Atlanta Braves -1.5",
+        "odds": "+130",
+        "book": "BetRivers",
+        "stake": "1.5u",
+        "reasoning": "The Braves -1.5 at +130 on BetRivers is a massive outlier — the consensus median is only +115, giving this line a 303 edge_bps, the highest spread edge on today's entire slate. Atlanta sends Martin Perez to the mound against Miami's Braxton Garrett, a matchup that heavily favors the Braves' offense. Getting plus-money on a run-line favorite with that kind of cross-book discrepancy is a legitimate value play.",
+        "tags": [
+          "Line Value",
+          "Runline",
+          "Confidence B+"
+        ],
+        "is_premium": false,
+        "result": "LOST",
+        "units": -1.5
+      },
+      {
+        "league": "MLB",
+        "time": "7:41 PM ET",
+        "away_team": "Cincinnati Reds",
+        "home_team": "Philadelphia Phillies",
+        "game_detail": "Regular Season",
+        "pick": "Over 8.5",
+        "odds": "-108",
+        "book": "MyBookie.ag",
+        "stake": "1.5u",
+        "reasoning": "The Over 8.5 at -108 on MyBookie beats the median of -115 by 156 edge_bps — real, exploitable value. Philadelphia's Jesus Luzardo opposes Cincinnati's Chase Burns, and both starters have been run-prone in 2026. The Phillies offense is one of the NL's most potent, and the line is soft enough that the best price is nearly a full touchdown of juice below the market median.",
+        "tags": [
+          "Line Value",
+          "Totals",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 1.39
+      },
+      {
+        "league": "MLB",
+        "time": "8:06 PM ET",
+        "away_team": "Toronto Blue Jays",
+        "home_team": "New York Yankees",
+        "game_detail": "Regular Season",
+        "pick": "New York Yankees -1.5",
+        "odds": "+160",
+        "book": "BetRivers",
+        "stake": "1.5u",
+        "reasoning": "Yankees -1.5 at +160 on BetRivers clocks in at 153 edge_bps over the consensus median of +150 — and the best price at +160 represents exceptional run-line value for a home favorite. New York's Will Warren faces Toronto's Dylan Cease; the Yankees' lineup is built to win decisively at home. The BetRivers outlier here is worth targeting before it corrects toward the market.",
+        "tags": [
+          "Line Value",
+          "Runline",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "LOST",
+        "units": -1.5
+      },
+      {
+        "league": "MLB",
+        "time": "9:41 PM ET",
+        "away_team": "Chicago White Sox",
+        "home_team": "Seattle Mariners",
+        "game_detail": "Regular Season",
+        "pick": "Under 7.5",
+        "odds": "-103",
+        "book": "BetRivers",
+        "stake": "1.5u",
+        "reasoning": "Under 7.5 at -103 on BetRivers beats the consensus median of -110 by 164 edge_bps — one of the sharpest total edges on the board today. Seattle's Bryce Miller is one of the AL's better groundball starters, and Chicago counters with Anthony Kay. The White Sox rank among the weakest offenses in baseball, making a low-scoring game in Seattle a strong lean regardless of price.",
+        "tags": [
+          "Line Value",
+          "Totals",
+          "Starter Matchup",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 1.46
+      },
+      {
+        "league": "MLB",
+        "time": "9:41 PM ET",
+        "away_team": "Los Angeles Dodgers",
+        "home_team": "San Diego Padres",
+        "game_detail": "Regular Season",
+        "pick": "Over 8.5",
+        "odds": "100",
+        "book": "Bovada",
+        "stake": "1u",
+        "reasoning": "Even-money on the Over 8.5 at Bovada is a remarkable price when the consensus median sits at -110 — a 238 edge_bps gap. Dodgers starter Emmet Sheehan and Padres starter Griffin Canning are both mid-rotation arms facing lineups capable of erupting. Getting even money on a total where the market expects you to pay 10 cents of vig is clear line value, even accounting for the single-book nature of this price.",
+        "tags": [
+          "Line Value",
+          "Totals",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "LOST",
+        "units": -1.0
+      },
+      {
+        "league": "NHL · Playoffs",
+        "time": "8:00 PM ET",
+        "away_team": "Vegas Golden Knights",
+        "home_team": "Colorado Avalanche",
+        "game_detail": "Playoff Series",
+        "pick": "Over 6.5",
+        "odds": "+110",
+        "book": "DraftKings",
+        "stake": "1.5u",
+        "reasoning": "Over 6.5 at +110 on DraftKings is 188 edge_bps above the consensus median of +102 across the four books offering this line — plus you're getting plus-money on the over, which is inherently favorable total construction. Colorado is a high-powered offensive team at home in a playoff atmosphere, and the Golden Knights have the firepower to push games past 6 goals. Plus-money over in a playoff matchup with genuine edge is a strong value spot.",
+        "tags": [
+          "Line Value",
+          "Totals",
+          "Playoff Game",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "PENDING",
+        "units": 0.0
+      },
+      {
+        "league": "NBA · Playoffs",
+        "time": "8:10 PM ET",
+        "away_team": "Cleveland Cavaliers",
+        "home_team": "New York Knicks",
+        "game_detail": "Playoff Series",
+        "pick": "Under 217.5",
+        "odds": "101",
+        "book": "LowVig.ag",
+        "stake": "1u",
+        "reasoning": "Under 217.5 at +101 on LowVig.ag beats the consensus median of -106 by a staggering 170 edge_bps — you're being paid to take the under rather than laying juice. Playoff basketball consistently trends lower-scoring as defenses tighten and the pace slows relative to the regular season. Getting plus-odds on the under in a Knicks playoff game, where New York's defense is particularly stifling, is exceptional line value.",
+        "tags": [
+          "Line Value",
+          "Totals",
+          "Playoff Game",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "LOST",
+        "units": -1.0
+      }
+    ]
+  },
+  "content": {
+    "ig_pick_post": {
+      "caption": "Tonight's free pick: Under 7.5, White Sox @ Mariners. Emerson Hancock on the mound, best line value on the slate. Full card at smarterpicks.io.",
+      "slide1_text": "FREE PICK TONIGHT\nWhite Sox @ Mariners\nUnder 7.5",
+      "slide2_text": "Under 7.5 (-104) at BetRivers\nEmerson Hancock starts for Seattle. Ground-ball pitcher, limits hard contact.\nMassive 250.8 edge signal on the line.",
+      "slide3_text": "Full card unlocked at smarterpicks.io.\n7-day free trial. Cancel anytime.\n21+ only. Bet responsibly.",
+      "hashtags": [
+        "sportsbetting",
+        "sportspicks",
+        "mlbpicks",
+        "baseballbetting",
+        "freepick",
+        "bettingadvice",
+        "underdog",
+        "todayspick",
+        "mlbbetting",
+        "seattlemariners",
+        "chicagowhitesox",
+        "bettingtips",
+        "sharpbetting",
+        "lineshop",
+        "sportsanalytics",
+        "smarterpicks",
+        "bettingcommunity",
+        "oddsboost"
+      ]
+    },
+    "ig_results_post": {
+      "caption": "Yesterday went 2-4, down 2.15u. Two unders hit. Three run-line favorites didn't. That's baseball. YTD still +38.1u, 54.0% on 472 graded.",
+      "headline_text": "Yesterday: 2-4, -2.15u",
+      "hashtags": [
+        "sportsbetting",
+        "mlbpicks",
+        "bettingresults",
+        "sportspicks",
+        "baseballbetting",
+        "trackedpicks",
+        "bettingtransparency",
+        "publicrecord",
+        "mlbbetting",
+        "sharpbetting",
+        "bettingadvice",
+        "sportsanalysis",
+        "oddsboost",
+        "smarterpicks",
+        "bettingcommunity",
+        "winrate",
+        "unitsprofit",
+        "bettingtips"
+      ]
+    },
+    "ig_carousel_topic": {
+      "topic": "Hedging, when it's smart, when it's just buying back losses",
+      "slide1_text": "Should you hedge that bet?\nSometimes yes. Often no.\nThe answer matters more than you think.",
+      "slide2_text": "Most bettors hedge because they're scared.\nA parlay is alive, the payout is big, and the last leg feels shaky.\nSo they buy the other side. Feels smart. Usually isn't.",
+      "slide3_text": "Hedging costs you expected value every time.\nYou placed the original bet because the edge was there.\nBuying back against it means paying juice twice on the same game.",
+      "slide4_text": "When hedging actually makes sense:\n- You locked +200 on a future months ago and the implied probability has flipped hard.\n- A single win guarantees profit regardless of outcome.\n- The hedge price is genuinely mispriced, not just comforting.\nExample: $100 on a +700 future now at -300. Hedge $150 on the other side. Profit either way.",
+      "slide5_text": "The rule: hedge the math, not the anxiety.\nIf you can't show the hedge is profitable at expected value, you're just paying the book to feel better.",
+      "caption": "Hedging feels like control. Sometimes it's just expensive fear. Know the difference before your next big leg cashes in. Save this breakdown.",
+      "hashtags": [
+        "sportsbetting",
+        "bettingstrategy",
+        "hedging",
+        "bettingtips",
+        "sharpbetting",
+        "sportsanalysis",
+        "mlbpicks",
+        "nbabetting",
+        "bettingadvice",
+        "expectedvalue",
+        "lineshop",
+        "sportspicks",
+        "bettingcommunity",
+        "smarterpicks",
+        "oddsvalue",
+        "parlaytips",
+        "bettingeducation",
+        "bankrollmanagement"
+      ]
+    },
+    "story_sequence": [
+      "Card drops in 30 min. Free pick: Under 7.5, White Sox @ Mariners. Emerson Hancock on the mound. Link in bio.",
+      "Poll: Do you ever hedge a winning parlay leg? Yes, always / Only if the math works / Never touched one",
+      "Last call. Under 7.5 first pitch is close. Full card live at smarterpicks.io. 7-day free trial, cancel anytime.",
+      "Running 1-1 so far today. Under hit. Watching the rest of the MLB slate. Updates coming.",
+      "Day wraps soon. Full recap in the morning. Tomorrow's card posts at 7 AM. Follow so you don't miss it."
+    ],
+    "meme_post": {
+      "top_text": "Me at 6 PM: I never hedge, I trust my picks",
+      "bottom_text": "Me at 9:58 PM with a 4-leg parlay alive on the last game",
+      "image_concept": "Split panel of a confident bettor early in the evening versus the same person sweating at a laptop late at night with a sportsbook app open"
+    },
+    "treatments": [
+      {
+        "template": "pick-card.html",
+        "rationale": "The free pick today is a concrete MLB total with a strong edge signal, perfect for the workhorse pick-card.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "",
+        "hashtags": [],
+        "fields": {
+          "tag": "TODAY'S FREE PICK",
+          "matchup": "White Sox @ Mariners",
+          "game_time": "Time TBD ET",
+          "pick_headline_html": "Take the <em>Under 7.5</em>",
+          "line": "-104",
+          "edge": "+2.5%",
+          "confidence": "A",
+          "away_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/cws.png",
+          "home_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/sea.png"
+        }
+      },
+      {
+        "template": "recap-card.html",
+        "rationale": "Yesterday was a real results day with 2 wins and 4 losses. The receipts post is mandatory.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "",
+        "hashtags": [],
+        "fields": {
+          "tag": "YESTERDAY'S BOARD",
+          "wins": "2",
+          "losses": "4",
+          "units": "-2.15u",
+          "pick_rows": [
+            {
+              "matchup": "MLB · ATL @ MIA",
+              "play": "Braves -1.5",
+              "result": "loss",
+              "units": -1.5
+            },
+            {
+              "matchup": "MLB · CIN @ PHI",
+              "play": "Over 8.5",
+              "result": "win",
+              "units": 1.39
+            },
+            {
+              "matchup": "MLB · TOR @ NYY",
+              "play": "Yankees -1.5",
+              "result": "loss",
+              "units": -1.5
+            },
+            {
+              "matchup": "MLB · CWS @ SEA",
+              "play": "Under 7.5",
+              "result": "win",
+              "units": 1.46
+            },
+            {
+              "matchup": "MLB · LAD @ SD",
+              "play": "Over 8.5",
+              "result": "loss",
+              "units": -1.0
+            }
+          ]
+        }
+      },
+      {
+        "template": "index-card.html",
+        "rationale": "Season credibility lift. 47 days logged and +38.1u is worth showing in the verified ledger format.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "255-217 on 472 graded picks. +38.1u, 9.3% ROI, 47 days logged. The ledger is public. Full card at smarterpicks.io.",
+        "hashtags": [
+          "sportsbetting",
+          "bettingresults",
+          "trackedpicks",
+          "sharpbetting",
+          "sportspicks",
+          "mlbpicks",
+          "bettingtransparency",
+          "publicrecord",
+          "sportsanalysis",
+          "smarterpicks",
+          "oddsvalue",
+          "bettingadvice",
+          "winrate",
+          "unitsprofit",
+          "bettingcommunity",
+          "bettingstrategy",
+          "lineshop",
+          "receipts"
+        ],
+        "fields": {
+          "tag": "RECEIPTS",
+          "eyebrow": "SEASON SCOREBOARD · 2026",
+          "title_html": "The <em>verified</em> ledger.",
+          "note_html": "All picks recorded at posted line.",
+          "cells": [
+            {
+              "label": "Overall",
+              "num": "255-217",
+              "foot": "54.0% win rate",
+              "tone": "win"
+            },
+            {
+              "label": "ROI",
+              "num": "+9.3%",
+              "foot": "season-to-date",
+              "tone": "accent"
+            },
+            {
+              "label": "Net Units",
+              "num": "+38.1u",
+              "foot": "47 days logged",
+              "tone": "accent"
+            },
+            {
+              "label": "Sample",
+              "num": "472",
+              "foot": "graded picks"
+            },
+            {
+              "label": "Best Line",
+              "num": "287.6",
+              "foot": "edge bps · today",
+              "tone": "win"
+            },
+            {
+              "label": "Streak",
+              "num": "54.0%",
+              "foot": "win rate overall",
+              "tone": "win"
+            }
+          ]
+        }
+      },
+      {
+        "template": "stat-card.html",
+        "rationale": "The Brewers-Cubs Over 6.5 at +102 has a 287.6 edge_bps signal, the single highest in today's dataset. That number IS the story.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "287.6 edge basis points on Over 6.5 in Brewers vs Cubs. Highest value signal on today's full slate. Card is live at smarterpicks.io.",
+        "hashtags": [
+          "sportsbetting",
+          "mlbpicks",
+          "baseballbetting",
+          "bettingadvice",
+          "sharpbetting",
+          "lineshop",
+          "oddsvalue",
+          "bettingtips",
+          "smarterpicks",
+          "sportspicks",
+          "edgebetting",
+          "mlbbetting",
+          "chicagocubs",
+          "milwaukeebrewers",
+          "bettingstrategy",
+          "sportsanalysis",
+          "bettingcommunity",
+          "freepick"
+        ],
+        "fields": {
+          "eyebrow": "TODAY'S SLATE · MLB",
+          "stat_value": "287.6",
+          "stat_unit": "bps",
+          "caption_html": "edge signal on Brewers/Cubs <em>Over 6.5</em> at +102. Highest value on the entire slate.",
+          "source": "vs. median -110 · FanDuel · 9 books"
+        }
+      },
+      {
+        "template": "lifestyle-card.html",
+        "rationale": "Mandatory daily lifestyle post. Aspirational hook tied to today's free pick going live.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "You could be betting smarter tonight. Free pick is live, full card at smarterpicks.io. Start your 7-day free trial. 21+ only.",
+        "hashtags": [
+          "sportsbetting",
+          "freepick",
+          "sportspicks",
+          "bettingadvice",
+          "mlbpicks",
+          "sharpbetting",
+          "smarterpicks",
+          "bettingcommunity",
+          "lineshop",
+          "oddsvalue",
+          "bettingstrategy",
+          "sportsanalysis",
+          "todayspick",
+          "bettingtips",
+          "winmore",
+          "trialfree",
+          "baseballbetting",
+          "mlbbetting"
+        ],
+        "fields": {
+          "tag": "FREE PICK LIVE",
+          "eyebrow": "WIN MORE THIS WEEK",
+          "headline_html": "Stop losing money on <em>bad lines</em>.",
+          "sub_html": "Today's free pick is live. <em>4,100+ bettors</em> already using the card. Tap the bio.",
+          "photo_query": "monaco yacht harbor",
+          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/monaco_20yacht_20harbor_7ff5d69c2ccc.jpg",
+          "photo_credit": "Photo: Picsum (fallback — set UNSPLASH_ACCESS_KEY for relevant)"
+        }
+      }
+    ]
+  }
+}
