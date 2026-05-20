@@ -1,16 +1,16 @@
 {
   "stats": {
-    "total_picks": 63,
-    "wins": 22,
-    "losses": 24,
+    "total_picks": 70,
+    "wins": 24,
+    "losses": 26,
     "pushes": 0,
-    "win_pct": 47.8,
-    "net_units": -3.19,
-    "roi_pct": -5.1,
+    "win_pct": 48.0,
+    "net_units": -1.83,
+    "roi_pct": -2.6,
     "best_month_units": 12.4,
     "worst_month_units": -3.8,
     "avg_daily_units": 0.85,
-    "days_recorded": 9
+    "days_recorded": 10
   },
   "days": [
     {
@@ -1133,6 +1133,166 @@
           "result": "LOST",
           "units": -1.5,
           "final_score": "0-1"
+        }
+      ]
+    },
+    {
+      "iso_date": "2026-05-19",
+      "date_display": "May 19, 2026",
+      "wins": 2,
+      "losses": 2,
+      "pushes": 0,
+      "net_units": 1.36,
+      "summary_text": "2-2 · +1.36u",
+      "picks": [
+        {
+          "league": "MLB",
+          "time": "7:41 PM ET",
+          "away_team": "Atlanta Braves",
+          "home_team": "Miami Marlins",
+          "game_detail": "Regular Season",
+          "pick": "Atlanta Braves -1.5",
+          "odds": "+130",
+          "book": "BetRivers",
+          "stake": "1.5u",
+          "reasoning": "The Braves -1.5 at +130 on BetRivers is a massive outlier — the consensus median is only +115, giving this line a 303 edge_bps, the highest spread edge on today's entire slate. Atlanta sends Martin Perez to the mound against Miami's Braxton Garrett, a matchup that heavily favors the Braves' offense. Getting plus-money on a run-line favorite with that kind of cross-book discrepancy is a legitimate value play.",
+          "tags": [
+            "Line Value",
+            "Runline",
+            "Confidence B+"
+          ],
+          "is_premium": false,
+          "result": "LOST",
+          "units": -1.5,
+          "final_score": "0-12"
+        },
+        {
+          "league": "MLB",
+          "time": "7:41 PM ET",
+          "away_team": "Cincinnati Reds",
+          "home_team": "Philadelphia Phillies",
+          "game_detail": "Regular Season",
+          "pick": "Over 8.5",
+          "odds": "-108",
+          "book": "MyBookie.ag",
+          "stake": "1.5u",
+          "reasoning": "The Over 8.5 at -108 on MyBookie beats the median of -115 by 156 edge_bps — real, exploitable value. Philadelphia's Jesus Luzardo opposes Cincinnati's Chase Burns, and both starters have been run-prone in 2026. The Phillies offense is one of the NL's most potent, and the line is soft enough that the best price is nearly a full touchdown of juice below the market median.",
+          "tags": [
+            "Line Value",
+            "Totals",
+            "Confidence B+"
+          ],
+          "is_premium": true,
+          "result": "PENDING",
+          "units": 0.0,
+          "final_score": "4-5"
+        },
+        {
+          "league": "MLB",
+          "time": "8:06 PM ET",
+          "away_team": "Toronto Blue Jays",
+          "home_team": "New York Yankees",
+          "game_detail": "Regular Season",
+          "pick": "New York Yankees -1.5",
+          "odds": "+160",
+          "book": "BetRivers",
+          "stake": "1.5u",
+          "reasoning": "Yankees -1.5 at +160 on BetRivers clocks in at 153 edge_bps over the consensus median of +150 — and the best price at +160 represents exceptional run-line value for a home favorite. New York's Will Warren faces Toronto's Dylan Cease; the Yankees' lineup is built to win decisively at home. The BetRivers outlier here is worth targeting before it corrects toward the market.",
+          "tags": [
+            "Line Value",
+            "Runline",
+            "Confidence B"
+          ],
+          "is_premium": true,
+          "result": "WON",
+          "units": 2.4,
+          "final_score": "6-7"
+        },
+        {
+          "league": "MLB",
+          "time": "9:41 PM ET",
+          "away_team": "Chicago White Sox",
+          "home_team": "Seattle Mariners",
+          "game_detail": "Regular Season",
+          "pick": "Under 7.5",
+          "odds": "-103",
+          "book": "BetRivers",
+          "stake": "1.5u",
+          "reasoning": "Under 7.5 at -103 on BetRivers beats the consensus median of -110 by 164 edge_bps — one of the sharpest total edges on the board today. Seattle's Bryce Miller is one of the AL's better groundball starters, and Chicago counters with Anthony Kay. The White Sox rank among the weakest offenses in baseball, making a low-scoring game in Seattle a strong lean regardless of price.",
+          "tags": [
+            "Line Value",
+            "Totals",
+            "Starter Matchup",
+            "Confidence B+"
+          ],
+          "is_premium": true,
+          "result": "WON",
+          "units": 1.46,
+          "final_score": "1-6"
+        },
+        {
+          "league": "MLB",
+          "time": "9:41 PM ET",
+          "away_team": "Los Angeles Dodgers",
+          "home_team": "San Diego Padres",
+          "game_detail": "Regular Season",
+          "pick": "Over 8.5",
+          "odds": "100",
+          "book": "Bovada",
+          "stake": "1u",
+          "reasoning": "Even-money on the Over 8.5 at Bovada is a remarkable price when the consensus median sits at -110 — a 238 edge_bps gap. Dodgers starter Emmet Sheehan and Padres starter Griffin Canning are both mid-rotation arms facing lineups capable of erupting. Getting even money on a total where the market expects you to pay 10 cents of vig is clear line value, even accounting for the single-book nature of this price.",
+          "tags": [
+            "Line Value",
+            "Totals",
+            "Confidence B"
+          ],
+          "is_premium": true,
+          "result": "LOST",
+          "units": -1.0,
+          "final_score": "0-1"
+        },
+        {
+          "league": "NHL · Playoffs",
+          "time": "8:00 PM ET",
+          "away_team": "Vegas Golden Knights",
+          "home_team": "Colorado Avalanche",
+          "game_detail": "Playoff Series",
+          "pick": "Over 6.5",
+          "odds": "+110",
+          "book": "DraftKings",
+          "stake": "1.5u",
+          "reasoning": "Over 6.5 at +110 on DraftKings is 188 edge_bps above the consensus median of +102 across the four books offering this line — plus you're getting plus-money on the over, which is inherently favorable total construction. Colorado is a high-powered offensive team at home in a playoff atmosphere, and the Golden Knights have the firepower to push games past 6 goals. Plus-money over in a playoff matchup with genuine edge is a strong value spot.",
+          "tags": [
+            "Line Value",
+            "Totals",
+            "Playoff Game",
+            "Confidence B+"
+          ],
+          "is_premium": true,
+          "result": "PENDING",
+          "units": 0.0
+        },
+        {
+          "league": "NBA · Playoffs",
+          "time": "8:10 PM ET",
+          "away_team": "Cleveland Cavaliers",
+          "home_team": "New York Knicks",
+          "game_detail": "Playoff Series",
+          "pick": "Under 217.5",
+          "odds": "101",
+          "book": "LowVig.ag",
+          "stake": "1u",
+          "reasoning": "Under 217.5 at +101 on LowVig.ag beats the consensus median of -106 by a staggering 170 edge_bps — you're being paid to take the under rather than laying juice. Playoff basketball consistently trends lower-scoring as defenses tighten and the pace slows relative to the regular season. Getting plus-odds on the under in a Knicks playoff game, where New York's defense is particularly stifling, is exceptional line value.",
+          "tags": [
+            "Line Value",
+            "Totals",
+            "Playoff Game",
+            "Confidence B"
+          ],
+          "is_premium": true,
+          "result": "PENDING",
+          "units": 0.0,
+          "final_score": "104-115"
         }
       ]
     }
