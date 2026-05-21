@@ -418,11 +418,12 @@ Beyond the standard 5 groups, you also select 3 to 5 from a grid of 11 editorial
 How to choose treatments for the day:
 - If yesterday had real action: pick a recap-card OR an index-card (not both).
 - If there is a free pick today: pick a pick-card or matchup-card or slip-card.
-- For a marquee game tonight: matchup-card carries it best (the favored side gets a photo accent automatically).
+- MATCHUP-CARDS CAN REPEAT: include 2-3 matchup-cards per day when the slate has multiple notable games. One per game — different teams in each. Logos drive recognition; more matchup-cards = more team-recognition surface on the IG grid. Pull team_a/team_b from different entries in picks.json (free OR premium picks both count).
+- NEWS-CARDS: include 1-2 per day surfacing sports-media-style observations from picks.json reasoning (team trends, player news, line moves, recent performance). Each news-card focuses on a different team or storyline.
 - Educational thread: carousel-card across 3 to 5 numbered slides only if you commit to the whole thread.
 - cover-card or photo-cover-card: at most one per day, and only when today is a genuine event (hot streak, season opener, marquee night). Skip both on quiet days.
 - quote-card: a single sharp editorial pull-quote. Atmospheric, optional.
-- Never repeat the same template twice in the same drop.
+- Don't repeat templates EXCEPT matchup-card (2-3 ok) and news-card (1-2 ok). All others appear at most once per day.
 
 EVERY treatment publishes as its own standalone single-image post — never as a slide inside the legacy ig_pick_post / ig_results_post / ig_carousel_topic carousels. That means EVERY treatment needs its own caption (80-200 chars) AND its own hashtags (8-18, mixed broad+specific). Empty captions ship as blank Instagram posts, which look broken.
 
@@ -506,6 +507,8 @@ def build_treatment_registry_block(samples: dict) -> str:
                                   "Marquee moment, game-day hype, feature, season opener. Photo required. Max one per day."),
         "lifestyle-card.html":   ("Aspirational lifestyle post. Luxury photo + receipt-style headline. Image is the hook, math is the trust.",
                                   "INCLUDE EXACTLY ONE PER DAY. Photo of luxury (home, car, watch, villa, yacht, jet). Headline is ALWAYS a numeric receipt with the number wrapped in <em>. Sub-line is a time horizon or math note. Field example: tag='COMPOUND', eyebrow='RECEIPTS · 44 DAYS LOGGED', headline_html='Compound at <em>0.85u</em> a day.', sub_html='Two-fifty trading days a year. <em>Five years.</em> Math, not magic.', photo_query='luxury home interior modern night'. ROTATE photo_query daily across home / car / watch / villa / yacht / jet. NEVER write 'this could be yours', 'imagine the life', 'manifest', or any promise of outcomes."),
+        "news-card.html":        ("Team or sport news brief. Single team logo + italic-serif headline + body brief. Reads like an ESPN/sports-media beat post.",
+                                  "INCLUDE 1-2 PER DAY when picks.json reasoning surfaces a sharp observation: team trend ('Pistons enter tonight 7-0 ATS at home'), player news ('Yankees still without Judge'), line movement ('Mariners total moved down 1 run since open'), recent performance ('Lakers 3-7 ATS over last 10'). team_name + league fields drive the logo (generator resolves via team_logos.py). Body should be 1-2 short sentences pulled from picks.json reasoning."),
     }
     blocks = []
     for tpl, (role, when) in docs.items():
@@ -612,6 +615,17 @@ def _inject_team_logos(treatment: dict, picks_data: dict, results_data: dict, re
                 url = resolver(home, league)
                 if url:
                     fields["home_logo"] = url
+        treatment["fields"] = fields
+
+    elif tpl == "news-card.html":
+        # news-card has an optional single team focus. Claude writes
+        # team_name + league strings; we resolve to team_logo URL.
+        team = fields.get("team_name")
+        league = fields.get("league", "")
+        if team and "team_logo" not in fields:
+            url = resolver(team, league)
+            if url:
+                fields["team_logo"] = url
         treatment["fields"] = fields
 
 

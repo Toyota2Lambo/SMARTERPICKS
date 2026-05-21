@@ -135,5 +135,15 @@
     "headline_html": "Tonight could change your <em>week</em>.",
     "sub_html": "Today's free pick is live. <em>4,100+ bettors</em> already using it. Tap the bio, start your 7-day free trial.",
     "photo_query": "luxury home interior modern night"
+  },
+
+  "news-card.html": {
+    "size": "feed",
+    "tag": "RECENT TREND",
+    "team_name": "Detroit Pistons",
+    "league": "NBA",
+    "eyebrow": "NBA PLAYOFFS · TONIGHT",
+    "headline_html": "Pistons enter tonight <em>7-0 ATS</em> at home.",
+    "body_html": "Detroit has covered every home game since the playoffs began. Sharps moved the line a full point toward them since open."
   }
 }

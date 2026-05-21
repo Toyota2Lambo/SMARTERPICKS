@@ -363,6 +363,33 @@ const TEMPLATES = {
     },
   },
 
+  // 13 — NEWS (team/sport trend brief)
+  // Use cases: team trends, player news, line movement context,
+  // recent performance. Source material is picks.json reasoning +
+  // results.json history; not a news-scrape. Reads like a sports-
+  // media beat post. Includes optional single-team logo focus.
+  "news-card.html": {
+    role: "Team/sport news brief. Logo + eyebrow + headline + body. Reads like a sports-media beat post; pulls observations from picks.json reasoning + history context.",
+    fields: {
+      tag:           { type: "string", note: "Top-right mono tag. e.g. 'RECENT TREND', 'INJURY UPDATE', 'LINE MOVE'." },
+      team_name:     { type: "string", note: "Optional. Team this post is about — generator resolves to ESPN logo URL via team_logos.py. Leave empty for general league news." },
+      league:        { type: "string", note: "Optional but recommended. Helps disambiguate teams with same nickname across leagues." },
+      eyebrow:       { type: "string", note: "Mono category line. e.g. 'NBA PLAYOFFS · TONIGHT', 'MLB · LAST 7 DAYS'." },
+      headline_html: { type: "html",   note: "Italic-serif beat headline. <em> for the punchy number/name. e.g. 'Pistons enter tonight <em>7-0 ATS</em> at home.'" },
+      body_html:     { type: "html",   note: "1-2 sentence context. <em> for accent. Pull specifics from picks.json reasoning where you can." },
+      team_logo:     { type: "string", note: "Filled by photo_fetcher / team_logos.py based on team_name. Don't set this yourself." },
+    },
+    sample: {
+      size: "feed",
+      tag: "RECENT TREND",
+      team_name: "Detroit Pistons",
+      league: "NBA",
+      eyebrow: "NBA PLAYOFFS · TONIGHT",
+      headline_html: "Pistons enter tonight <em>7-0 ATS</em> at home.",
+      body_html: "Detroit has covered every home game since the playoffs began. Sharps moved the line a full point toward them since open.",
+    },
+  },
+
   // 12 — LIFESTYLE (aspirational, anchored by receipts)
   // Goal: keep the "you could live like this" energy without breaking
   // the editorial voice. Image is luxury (home / car / watch / villa);

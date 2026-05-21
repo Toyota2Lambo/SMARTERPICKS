@@ -33,23 +33,26 @@
   .matchup-logos-row {
     display: flex;
     align-items: center;
-    gap: 32px;
-    margin-top: 72px;
-    margin-bottom: 28px;
+    gap: 40px;
+    margin-top: 64px;
+    margin-bottom: 32px;
   }
   .matchup-logos-row img {
-    width: 120px;
-    height: 120px;
+    /* Bumped 120 → 160 (desktop) / 140 → 200 (story). Now reads
+       unmistakably as the matchup's team identifiers — a casual
+       scroller catches the teams before the headline. */
+    width: 160px;
+    height: 160px;
     object-fit: contain;
-    filter: drop-shadow(0 6px 18px rgba(0,0,0,0.5));
+    filter: drop-shadow(0 10px 28px rgba(0,0,0,0.55));
   }
   .matchup-logos-row img[src=""],
   .matchup-logos-row img:not([src]) {
     display: none;
   }
   body[data-size="story"] .matchup-logos-row img {
-    width: 140px;
-    height: 140px;
+    width: 200px;
+    height: 200px;
   }
 
   .matchup-strip {

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SmarterPicks — News Card</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  /* NEWS CARD — team/sport news brief.
+     Visual rhythm: brand header → big single team logo (optional, hides
+     if absent) → mono category eyebrow → italic-serif headline (the
+     observation or news beat) → italic-serif body brief (1-2 sentences
+     of context).
+
+     Use cases:
+       - Team trend ("Pistons enter tonight 7-0 ATS at home")
+       - Player news ("Yankees still without Judge")
+       - Line / sharp money observations ("Mariners total moved down 1 run since open")
+       - Recent performance recap ("Lakers 3-7 ATS over last 10")
+
+     Source material: picks.json reasoning fields + results.json history.
+     This isn't a news-scraping post — it's narrative observations Claude
+     draws from the same context the picks were built on. Adds variety
+     to the daily grid; reads like sports-media beats so the page feels
+     like coverage, not just promo. */
+
+  .stage { padding: 96px; justify-content: flex-start; }
+  .brand { margin-bottom: 0; }
+
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Optional team-focus logo. Single team this post is about. Hidden
+     entirely if no team_logo URL provided (general league news). */
+  .news-team-logo {
+    width: 160px;
+    height: 160px;
+    margin: 56px 0 0;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5));
+  }
+  .news-team-logo[src=""], .news-team-logo:not([src]) { display: none; }
+  body[data-size="story"] .news-team-logo {
+    width: 200px;
+    height: 200px;
+  }
+
+  .news-eyebrow {
+    font-family: var(--mono);
+    font-size: 17px;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 36px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .news-eyebrow::before {
+    content: "";
+    width: 52px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .news-headline {
+    font-family: var(--display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 96px;
+    line-height: .96;
+    letter-spacing: -.028em;
+    color: var(--text);
+    margin: 28px 0 36px;
+    max-width: 16ch;
+  }
+  .news-headline em {
+    color: var(--accent);
+    font-weight: 300;
+  }
+  body[data-size="story"] .news-headline {
+    font-size: 116px;
+  }
+
+  .news-body {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1.3;
+    color: var(--text-muted);
+    max-width: 30ch;
+    margin: auto 0 36px;
+  }
+  .news-body em { color: var(--accent); }
+  body[data-size="story"] .news-body {
+    font-size: 36px;
+  }
+</style>
+</head>
+<body data-size="{{size}}">
+  <div class="stage">
+
+    <div class="header-row">
+      <div class="brand">
+        <span class="brand-mark"></span>
+        <span class="brand-name">SMARTERPICKS</span>
+      </div>
+      <div class="tag">{{tag}}</div>
+    </div>
+
+    <!-- Optional team focus. Resolved by social_generator.py from the
+         {{team_name}} + {{league}} fields Claude writes (similar to
+         matchup-card). onerror + img:not([src]) collapse the slot. -->
+    <img class="news-team-logo" src="{{team_logo}}" alt="" onerror="this.style.display='none'">
+
+    <div class="news-eyebrow">{{eyebrow}}</div>
+    <div class="news-headline">{{headline_html}}</div>
+    <div class="news-body">{{body_html}}</div>
+
+    <div class="footer">
+      smarterpicks.io <span class="dot">·</span>
+      <span class="promo">7-day free trial</span>
+    </div>
+
+  </div>
+</body>
+</html>
