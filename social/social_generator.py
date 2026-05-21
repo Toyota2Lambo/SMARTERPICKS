@@ -325,10 +325,11 @@ def results_summary(results_data: dict) -> str:
 
 def results_picks_detail(results_data: dict) -> str:
     """Each graded pick from yesterday — pick text, league/matchup, result,
-    units. recap-card.pick_rows[].play has to mirror the pick text from
-    here; without these lines in the prompt Claude was filling rows with
-    'Pick 1' / 'Pick 2' placeholders. Capped at 6 rows, which is more than
-    any single recap-card needs."""
+    units, and (new) final score from The Odds API. recap-card pick_rows[]
+    and hit-card score fields source from this block; without it Claude
+    filled rows with 'Pick 1' / 'Pick 2' placeholders and guessed scores
+    from training context. Capped at 6 rows, more than any single template
+    needs."""
     picks = results_data.get("picks") or []
     if not picks:
         return "(no individual graded picks in results.json)"
@@ -341,7 +342,14 @@ def results_picks_detail(results_data: dict) -> str:
         pick   = p.get("pick", "—")
         result = str(p.get("result", "?")).upper()
         units  = p.get("units", 0)
-        lines.append(f"{i}. [{league}] {matchup} — {pick} — {result} ({units:+.2f}u)")
+        # Final score block — only present if score_yesterday persisted
+        # the per-team scores (added 2026-05-20). Older results.json
+        # entries won't have these; the block is omitted gracefully.
+        score_str = ""
+        if p.get("away_score") is not None and p.get("home_score") is not None:
+            winner = (p.get("winner_side") or "").upper()
+            score_str = f"  [FINAL {away} {p['away_score']}-{p['home_score']} {home}, winner={winner}]"
+        lines.append(f"{i}. [{league}] {matchup} — {pick} — {result} ({units:+.2f}u){score_str}")
     return "\n".join(lines)
 
 
@@ -511,7 +519,7 @@ def build_treatment_registry_block(samples: dict) -> str:
         "news-card.html":        ("Team or sport news brief WITH RELEVANT STOCK PHOTO BACKDROP. Single team logo overlay + italic-serif headline + body brief, all on a treated sport/stadium photo. Reads like an ESPN/sports-media beat post with cinematic context.",
                                   "INCLUDE 1-2 PER DAY when picks.json reasoning surfaces a sharp observation. Each card MUST set photo_query to a sport/stadium-relevant query like 'basketball arena empty night', 'baseball stadium dusk', 'hockey ice closeup', 'football field empty', 'mlb dugout', 'nba court'. team_name + league fields drive the logo overlay. Body 1-2 sentences from picks.json reasoning. Different team/storyline per card — no two news-cards about the same team in one day."),
         "hit-card.html":         ("Single-win spotlight. Banner headline ('Yesterday's strongest hit') + boxed team-logo callout + final score row + 'we saw' reasoning. The hero shot for one specific winning pick.",
-                                  "INCLUDE 1 PER DAY MAX, only when results.json has a clear standout winning pick worth spotlighting (highest units won, biggest edge that hit, etc.). Source the pick + reasoning from results.json. Skip on losing days. Different visual from recap-card — this is one play big, not the full ledger."),
+                                  "INCLUDE 1 PER DAY MAX, only when results.json has a clear standout winning pick worth spotlighting (highest units won, biggest edge that hit, etc.). Pull away_team, home_team, away_score, home_score, and winner_side DIRECTLY from the [FINAL ... winner=...] block in YESTERDAY'S GRADED PICKS — those are real scores from The Odds API, not estimates. Skip on losing days. Different visual from recap-card — this is one play big, not the full ledger."),
     }
     blocks = []
     for tpl, (role, when) in docs.items():

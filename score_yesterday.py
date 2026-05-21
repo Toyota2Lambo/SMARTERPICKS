@@ -207,7 +207,22 @@ def main():
         result, units = score_pick_with_claude(p, away_s, home_s)
         sp["result"]      = result
         sp["units"]       = round(units, 2)
+        # final_score kept for backward compat ("10-3" string format).
+        # away_score / home_score / winner_side are the new structured
+        # fields — consumed by social_generator.py for hit-card.html's
+        # final-score strip (away/home logos + scores + gold-highlight
+        # on the winning side). The hit-card was previously asking
+        # Claude to guess scores from training-data context; now it
+        # gets them straight from The Odds API via results.json.
         sp["final_score"] = f"{away_s}-{home_s}"
+        sp["away_score"]  = away_s
+        sp["home_score"]  = home_s
+        if away_s > home_s:
+            sp["winner_side"] = "away"
+        elif home_s > away_s:
+            sp["winner_side"] = "home"
+        else:
+            sp["winner_side"] = "tie"
         scored.append(sp)
 
         if   result == "WON":     wins   += 1; net_units += units
