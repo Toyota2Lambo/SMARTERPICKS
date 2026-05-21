@@ -5,62 +5,116 @@
 <title>SmarterPicks — News Card</title>
 <link rel="stylesheet" href="_shared.css">
 <style>
-  /* NEWS CARD — team/sport news brief.
-     Visual rhythm: brand header → big single team logo (optional, hides
-     if absent) → mono category eyebrow → italic-serif headline (the
-     observation or news beat) → italic-serif body brief (1-2 sentences
-     of context).
+  /* NEWS CARD — team/sport news brief with relevant stock photo.
+     Visual rhythm matches lifestyle-card: full-bleed photo backdrop
+     (sport/stadium imagery, not luxury) → dark gradient → team logo
+     overlay (large) → mono eyebrow → italic-serif headline → body
+     brief.
+
+     Difference from lifestyle-card: the photo is SPORT-relevant
+     (basketball court at night, baseball stadium dusk, hockey ice
+     closeup, football field empty). Plus an optional team logo
+     prominent overlay so the post reads team-specific.
 
      Use cases:
        - Team trend ("Pistons enter tonight 7-0 ATS at home")
        - Player news ("Yankees still without Judge")
-       - Line / sharp money observations ("Mariners total moved down 1 run since open")
-       - Recent performance recap ("Lakers 3-7 ATS over last 10")
+       - Line / sharp money observations ("Mariners total moved down")
+       - Recent performance ("Lakers 3-7 ATS over last 10")
 
-     Source material: picks.json reasoning fields + results.json history.
-     This isn't a news-scraping post — it's narrative observations Claude
-     draws from the same context the picks were built on. Adds variety
-     to the daily grid; reads like sports-media beats so the page feels
-     like coverage, not just promo. */
+     Source material: picks.json reasoning + results.json history.
+     Reads like a sports-media beat post — adds variety to the daily
+     grid so the page feels like coverage, not just promo. */
 
-  .stage { padding: 96px; justify-content: flex-start; }
-  .brand { margin-bottom: 0; }
+  .stage { padding: 0; }
 
-  .header-row {
+  .news-photo {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .news-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Slightly more darkening than lifestyle-card because the text
+       density is higher here (eyebrow + headline + body all over
+       the photo). Grayscale to keep brand-aligned. */
+    filter: grayscale(100%) contrast(1.08) brightness(0.62);
+  }
+  /* Vertical gradient — dark top (for brand), photo middle (atmosphere),
+     dark bottom (for type legibility). */
+  .news-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(10,10,10,0.55) 0%,
+      rgba(10,10,10,0.20) 22%,
+      rgba(10,10,10,0.30) 55%,
+      rgba(10,10,10,0.92) 88%,
+      rgba(10,10,10,0.98) 100%
+    );
+  }
+
+  .news-stage {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 80px 96px;
+  }
+
+  .news-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  .news-top .tag {
+    color: var(--accent);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
   }
 
   /* Optional team-focus logo. Single team this post is about. Hidden
      entirely if no team_logo URL provided (general league news). */
   .news-team-logo {
-    width: 160px;
-    height: 160px;
+    display: block;
+    width: 220px;
+    height: 220px;
     margin: 56px 0 0;
     object-fit: contain;
-    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5));
+    filter: drop-shadow(0 12px 28px rgba(0,0,0,0.6));
   }
   .news-team-logo[src=""], .news-team-logo:not([src]) { display: none; }
   body[data-size="story"] .news-team-logo {
-    width: 200px;
-    height: 200px;
+    width: 280px;
+    height: 280px;
+  }
+
+  .news-body-wrap {
+    margin-top: auto;
+    max-width: 820px;
   }
 
   .news-eyebrow {
     font-family: var(--mono);
-    font-size: 17px;
+    font-size: 16px;
     letter-spacing: .24em;
     text-transform: uppercase;
     color: var(--accent);
-    margin-top: 36px;
+    margin-bottom: 22px;
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 18px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
   }
   .news-eyebrow::before {
     content: "";
-    width: 52px;
+    width: 48px;
     height: 1px;
     background: var(--accent);
   }
@@ -69,61 +123,95 @@
     font-family: var(--display);
     font-weight: 400;
     font-style: italic;
-    font-size: 96px;
-    line-height: .96;
-    letter-spacing: -.028em;
+    font-size: 104px;
+    line-height: .92;
+    letter-spacing: -.03em;
     color: var(--text);
-    margin: 28px 0 36px;
-    max-width: 16ch;
+    margin: 0 0 28px;
+    max-width: 800px;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.65);
   }
   .news-headline em {
     color: var(--accent);
     font-weight: 300;
   }
   body[data-size="story"] .news-headline {
-    font-size: 116px;
+    font-size: 124px;
   }
 
-  .news-body {
+  .news-body-text {
     font-family: var(--display);
     font-style: italic;
     font-weight: 400;
-    font-size: 32px;
+    font-size: 30px;
     line-height: 1.3;
-    color: var(--text-muted);
-    max-width: 30ch;
-    margin: auto 0 36px;
+    color: var(--text);
+    max-width: 640px;
+    opacity: .92;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.55);
   }
-  .news-body em { color: var(--accent); }
-  body[data-size="story"] .news-body {
-    font-size: 36px;
+  .news-body-text em { color: var(--accent); }
+  body[data-size="story"] .news-body-text {
+    font-size: 34px;
+  }
+
+  /* Footer override — sits above the gradient cleanly */
+  .news-stage .footer {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .news-credit {
+    position: absolute;
+    bottom: 22px;
+    right: 28px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--text);
+    opacity: .6;
+    z-index: 2;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.7);
   }
 </style>
 </head>
 <body data-size="{{size}}">
   <div class="stage">
 
-    <div class="header-row">
-      <div class="brand">
-        <span class="brand-mark"></span>
-        <span class="brand-name">SMARTERPICKS</span>
+    <div class="news-photo">
+      <img src="{{photo_url}}" alt="">
+    </div>
+
+    <div class="news-stage">
+
+      <div class="news-top">
+        <div class="brand">
+          <span class="brand-mark"></span>
+          <span class="brand-name">SMARTERPICKS</span>
+        </div>
+        <div class="tag">{{tag}}</div>
       </div>
-      <div class="tag">{{tag}}</div>
+
+      <!-- Optional team logo. Resolved by social_generator.py from
+           {{team_name}} + {{league}} fields. onerror + img:not([src])
+           collapse the slot. -->
+      <img class="news-team-logo" src="{{team_logo}}" alt="" onerror="this.style.display='none'">
+
+      <div class="news-body-wrap">
+        <div class="news-eyebrow">{{eyebrow}}</div>
+        <div class="news-headline">{{headline_html}}</div>
+        <div class="news-body-text">{{body_html}}</div>
+      </div>
+
+      <div class="footer">
+        smarterpicks.io <span class="dot">·</span>
+        <span class="promo">7-day free trial</span>
+      </div>
+
     </div>
 
-    <!-- Optional team focus. Resolved by social_generator.py from the
-         {{team_name}} + {{league}} fields Claude writes (similar to
-         matchup-card). onerror + img:not([src]) collapse the slot. -->
-    <img class="news-team-logo" src="{{team_logo}}" alt="" onerror="this.style.display='none'">
-
-    <div class="news-eyebrow">{{eyebrow}}</div>
-    <div class="news-headline">{{headline_html}}</div>
-    <div class="news-body">{{body_html}}</div>
-
-    <div class="footer">
-      smarterpicks.io <span class="dot">·</span>
-      <span class="promo">7-day free trial</span>
-    </div>
+    <div class="news-credit">{{photo_credit}}</div>
 
   </div>
 </body>

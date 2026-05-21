@@ -418,8 +418,9 @@ Beyond the standard 5 groups, you also select 3 to 5 from a grid of 11 editorial
 How to choose treatments for the day:
 - If yesterday had real action: pick a recap-card OR an index-card (not both).
 - If there is a free pick today: pick a pick-card or matchup-card or slip-card.
-- MATCHUP-CARDS CAN REPEAT: include 2-3 matchup-cards per day when the slate has multiple notable games. One per game — different teams in each. Logos drive recognition; more matchup-cards = more team-recognition surface on the IG grid. Pull team_a/team_b from different entries in picks.json (free OR premium picks both count).
-- NEWS-CARDS: include 1-2 per day surfacing sports-media-style observations from picks.json reasoning (team trends, player news, line moves, recent performance). Each news-card focuses on a different team or storyline.
+- MATCHUP-CARDS CAN REPEAT (2-3 per day) BUT EVERY MATCHUP-CARD MUST BE A UNIQUE GAME. Never two matchup-cards about the same team_a/team_b pairing. One per game on the slate, pulled from different entries in picks.json (free OR premium picks both count). Same matchup duplicated = bot-spam look on the grid; don't.
+- NEWS-CARDS: include 1-2 per day surfacing sports-media-style observations from picks.json reasoning (team trends, player news, line moves, recent performance). Each news-card focuses on a DIFFERENT team or storyline — no two news-cards about the same team in one day. ALWAYS set photo_query to a sport/stadium-relevant query (e.g. 'basketball arena empty night', 'baseball stadium dusk', 'hockey ice closeup', 'football field empty') so the post lands with a real-world backdrop like the lifestyle-card pattern.
+- HIT-CARDS: include 1 per day MAX, only when results.json has a notable winning pick from yesterday worth spotlighting. Visual hero for one specific big win — team logo callout + final-style score + "we saw" reasoning. Skip on losing days or days with no standout hit.
 - Educational thread: carousel-card across 3 to 5 numbered slides only if you commit to the whole thread.
 - cover-card or photo-cover-card: at most one per day, and only when today is a genuine event (hot streak, season opener, marquee night). Skip both on quiet days.
 - quote-card: a single sharp editorial pull-quote. Atmospheric, optional.
@@ -507,8 +508,10 @@ def build_treatment_registry_block(samples: dict) -> str:
                                   "Marquee moment, game-day hype, feature, season opener. Photo required. Max one per day."),
         "lifestyle-card.html":   ("Aspirational lifestyle post. Luxury photo + receipt-style headline. Image is the hook, math is the trust.",
                                   "INCLUDE EXACTLY ONE PER DAY. Photo of luxury (home, car, watch, villa, yacht, jet). Headline is ALWAYS a numeric receipt with the number wrapped in <em>. Sub-line is a time horizon or math note. Field example: tag='COMPOUND', eyebrow='RECEIPTS · 44 DAYS LOGGED', headline_html='Compound at <em>0.85u</em> a day.', sub_html='Two-fifty trading days a year. <em>Five years.</em> Math, not magic.', photo_query='luxury home interior modern night'. ROTATE photo_query daily across home / car / watch / villa / yacht / jet. NEVER write 'this could be yours', 'imagine the life', 'manifest', or any promise of outcomes."),
-        "news-card.html":        ("Team or sport news brief. Single team logo + italic-serif headline + body brief. Reads like an ESPN/sports-media beat post.",
-                                  "INCLUDE 1-2 PER DAY when picks.json reasoning surfaces a sharp observation: team trend ('Pistons enter tonight 7-0 ATS at home'), player news ('Yankees still without Judge'), line movement ('Mariners total moved down 1 run since open'), recent performance ('Lakers 3-7 ATS over last 10'). team_name + league fields drive the logo (generator resolves via team_logos.py). Body should be 1-2 short sentences pulled from picks.json reasoning."),
+        "news-card.html":        ("Team or sport news brief WITH RELEVANT STOCK PHOTO BACKDROP. Single team logo overlay + italic-serif headline + body brief, all on a treated sport/stadium photo. Reads like an ESPN/sports-media beat post with cinematic context.",
+                                  "INCLUDE 1-2 PER DAY when picks.json reasoning surfaces a sharp observation. Each card MUST set photo_query to a sport/stadium-relevant query like 'basketball arena empty night', 'baseball stadium dusk', 'hockey ice closeup', 'football field empty', 'mlb dugout', 'nba court'. team_name + league fields drive the logo overlay. Body 1-2 sentences from picks.json reasoning. Different team/storyline per card — no two news-cards about the same team in one day."),
+        "hit-card.html":         ("Single-win spotlight. Banner headline ('Yesterday's strongest hit') + boxed team-logo callout + final score row + 'we saw' reasoning. The hero shot for one specific winning pick.",
+                                  "INCLUDE 1 PER DAY MAX, only when results.json has a clear standout winning pick worth spotlighting (highest units won, biggest edge that hit, etc.). Source the pick + reasoning from results.json. Skip on losing days. Different visual from recap-card — this is one play big, not the full ledger."),
     }
     blocks = []
     for tpl, (role, when) in docs.items():
@@ -626,6 +629,54 @@ def _inject_team_logos(treatment: dict, picks_data: dict, results_data: dict, re
             url = resolver(team, league)
             if url:
                 fields["team_logo"] = url
+        treatment["fields"] = fields
+
+    elif tpl == "slip-card.html":
+        # slip-card uses today's free pick for the away+home logos at
+        # the top of the ticket. Same source as pick-card.
+        pick = _today_free_pick(picks_data)
+        if pick:
+            away = pick.get("away_team")
+            home = pick.get("home_team")
+            league = pick.get("league", "")
+            if away and "away_logo" not in fields:
+                url = resolver(away, league)
+                if url:
+                    fields["away_logo"] = url
+            if home and "home_logo" not in fields:
+                url = resolver(home, league)
+                if url:
+                    fields["home_logo"] = url
+        treatment["fields"] = fields
+
+    elif tpl == "hit-card.html":
+        # hit-card spotlights one yesterday win. Three logo slots:
+        # pick_team_logo (the winning team in the callout) + away_logo
+        # + home_logo (final score row). Plus winner-side highlight
+        # class so the score color goes gold on the winning side.
+        league = fields.get("league", "")
+        for name_field, logo_field in (
+            ("pick_team_name", "pick_team_logo"),
+            ("away_team_name", "away_logo"),
+            ("home_team_name", "home_logo"),
+        ):
+            team = fields.get(name_field)
+            if team and logo_field not in fields:
+                url = resolver(team, league)
+                if url:
+                    fields[logo_field] = url
+        # winner_side: 'away' | 'home' → drives the gold-color class
+        # on the final score strip.
+        side = (fields.get("winner_side") or "").lower()
+        if side == "away":
+            fields.setdefault("away_winner_class", "winner")
+            fields.setdefault("home_winner_class", "")
+        elif side == "home":
+            fields.setdefault("away_winner_class", "")
+            fields.setdefault("home_winner_class", "winner")
+        else:
+            fields.setdefault("away_winner_class", "")
+            fields.setdefault("home_winner_class", "")
         treatment["fields"] = fields
 
 

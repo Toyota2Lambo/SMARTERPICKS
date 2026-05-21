@@ -44,6 +44,37 @@
     border-bottom: 1px dashed var(--border-strong);
   }
 
+  /* Team logos ticket header — sit above the dashed slip-head row.
+     Reads like the sport-section of a physical betting slip. Hides
+     gracefully if no logos resolved (img[src=""] + onerror). */
+  .slip-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding-bottom: 28px;
+    margin-bottom: 8px;
+    border-bottom: 1px dashed var(--border-strong);
+  }
+  .slip-logos img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+  }
+  .slip-logos img[src=""], .slip-logos img:not([src]) { display: none; }
+  .slip-logos-at {
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  body[data-size="story"] .slip-logos img {
+    width: 100px;
+    height: 100px;
+  }
+
   .slip-head {
     display: flex;
     justify-content: space-between;
@@ -155,6 +186,16 @@
     </div>
 
     <div class="slip">
+      <!-- Team logos at the top of the slip — ticket-header style.
+           Both away + home, ~80px each. Resolved by social_generator.py
+           → team_logos.py based on today's free pick. Hides via
+           onerror if not in the league dict. -->
+      <div class="slip-logos">
+        <img src="{{away_logo}}" alt="" onerror="this.style.display='none'">
+        <span class="slip-logos-at">at</span>
+        <img src="{{home_logo}}" alt="" onerror="this.style.display='none'">
+      </div>
+
       <div class="slip-head">
         <div class="slip-title">{{slip_title}}</div>
         <div class="slip-ref">{{slip_ref}}</div>

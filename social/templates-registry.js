@@ -363,6 +363,48 @@ const TEMPLATES = {
     },
   },
 
+  // 14 — HIT (single-win spotlight, inspired by PredictIQ's "strongest hit" format)
+  // Banner + boxed pick callout + final score + "we saw" reasoning.
+  // Hero shot for one specific winning pick from results.json.
+  "hit-card.html": {
+    role: "Single-win spotlight. Banner headline + boxed pick callout + final score strip + 'we saw' reasoning. Hero shot for ONE specific winning pick from yesterday.",
+    fields: {
+      tag:              { type: "string", note: "Top-right mono tag. e.g. 'YESTERDAY · HIT', 'STRONGEST EDGE'." },
+      eyebrow:          { type: "string", note: "Banner eyebrow. e.g. 'STRONGEST MLB EDGE'." },
+      headline_html:    { type: "html",   note: "Big italic banner headline. <em> for accent. e.g. \"Yesterday's strongest <em>MLB edge</em> hit.\"" },
+      pick_team_name:   { type: "string", note: "Winning team's full name (resolved to logo). e.g. 'Baltimore Orioles'." },
+      league:           { type: "string", note: "League for logo lookup. e.g. 'MLB', 'NBA'." },
+      pick_team:        { type: "string", note: "Display name in callout. e.g. 'Baltimore Orioles'." },
+      pick_line:        { type: "string", note: "Pick line + odds. e.g. '+155 ML', '-1.5 (+105)'." },
+      away_team_name:   { type: "string", note: "Away team full name (logo lookup)." },
+      away_team:        { type: "string", note: "Away team display short name. e.g. 'Orioles'." },
+      away_score:       { type: "string", note: "Away final score." },
+      home_team_name:   { type: "string", note: "Home team full name (logo lookup)." },
+      home_team:        { type: "string", note: "Home team display short name. e.g. 'Astros'." },
+      home_score:       { type: "string", note: "Home final score." },
+      winner_side:      { type: "string", note: "'away' | 'home' — drives gold-color highlight on the winning score." },
+      reasoning_html:   { type: "html",   note: "Single italic-serif sentence: why we called it. <em> for accent." },
+    },
+    sample: {
+      size: "feed",
+      tag: "YESTERDAY · HIT",
+      eyebrow: "STRONGEST MLB EDGE",
+      headline_html: "Yesterday's strongest <em>MLB edge</em> hit.",
+      pick_team_name: "Baltimore Orioles",
+      league: "MLB",
+      pick_team: "Baltimore Orioles",
+      pick_line: "+155 ML",
+      away_team_name: "Baltimore Orioles",
+      away_team: "Orioles",
+      away_score: "10",
+      home_team_name: "Houston Astros",
+      home_team: "Astros",
+      home_score: "3",
+      winner_side: "away",
+      reasoning_html: "Bullpen matchup leaned <em>Baltimore</em>. Sharps moved the line two runs toward the favorite at open.",
+    },
+  },
+
   // 13 — NEWS (team/sport trend brief)
   // Use cases: team trends, player news, line movement context,
   // recent performance. Source material is picks.json reasoning +

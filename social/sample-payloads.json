@@ -144,6 +144,26 @@
     "league": "NBA",
     "eyebrow": "NBA PLAYOFFS · TONIGHT",
     "headline_html": "Pistons enter tonight <em>7-0 ATS</em> at home.",
-    "body_html": "Detroit has covered every home game since the playoffs began. Sharps moved the line a full point toward them since open."
+    "body_html": "Detroit has covered every home game since the playoffs began. Sharps moved the line a full point toward them since open.",
+    "photo_query": "basketball arena empty night"
+  },
+
+  "hit-card.html": {
+    "size": "feed",
+    "tag": "YESTERDAY · HIT",
+    "eyebrow": "STRONGEST MLB EDGE",
+    "headline_html": "Yesterday's strongest <em>MLB edge</em> hit.",
+    "pick_team_name": "Baltimore Orioles",
+    "league": "MLB",
+    "pick_team": "Baltimore Orioles",
+    "pick_line": "+155 ML",
+    "away_team_name": "Baltimore Orioles",
+    "away_team": "Orioles",
+    "away_score": "10",
+    "home_team_name": "Houston Astros",
+    "home_team": "Astros",
+    "home_score": "3",
+    "winner_side": "away",
+    "reasoning_html": "Bullpen matchup leaned <em>Baltimore</em>. Sharps moved the line two runs toward the favorite at open."
   }
 }
