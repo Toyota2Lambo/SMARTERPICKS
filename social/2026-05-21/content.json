@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T10:58:54.397154+00:00",
+  "generated_at": "2026-05-21T14:17:02.210029+00:00",
   "model": "claude-sonnet-4-6",
   "carousel_topic": "Player props vs. game lines — different math, different edges",
   "source": {
@@ -180,128 +180,110 @@
   },
   "content": {
     "ig_pick_post": {
-      "caption": "Tonight's free pick is live. Knicks -6.5 at -101 on LowVig.ag, full 5 points better than the standard price. Tap the bio for the complete card.",
-      "slide1_text": "FREE PICK · TONIGHT\nNBA Playoffs\nCleveland @ New York",
-      "slide2_text": "Knicks -6.5 (-101)\nLowVig.ag has this 5 points cheaper than the median.\n120.8 edge bps of real line value on a -240 consensus favorite.",
-      "slide3_text": "Full card at smarterpicks.io.\n7-day free trial. Cancel anytime.\n21+ | Bet responsibly.",
+      "caption": "Tonight's free pick is live. Knicks -6.5 at -101 on LowVig.ag. Full card at smarterpicks.io, 7-day free trial.",
+      "slide1_text": "Tonight's Free Pick\nNBA Playoffs\nKnicks -6.5",
+      "slide2_text": "Knicks -6.5 at -101 (LowVig.ag)\nMedian is -106. That's a 5-point price improvement on the same bet.\nKnicks are -240 ML consensus. This spread has real value.",
+      "slide3_text": "Full card unlocked at smarterpicks.io.\n7-day free trial. Cancel anytime.",
       "hashtags": [
         "sportsbetting",
         "nbapicks",
         "nbaplayoffs",
-        "sportspicks",
-        "freepick",
         "knicksnation",
-        "cavaliers",
-        "bettingedge",
+        "clevelandcavaliers",
+        "newyorkknicks",
+        "freepick",
+        "sportspicks",
+        "bettingtips",
         "nba2026",
+        "playoffbetting",
         "spreads",
         "lineshop",
-        "nbabetting",
         "smarterpicks",
-        "playbookbets",
         "basketballbetting",
-        "todayspick"
+        "nbabetting"
       ]
     },
     "ig_results_post": {
-      "caption": "May 20 final: 4-3, +2.08u. Three MLB unders and a Golden Knights cover hit. The Rangers/Rockies over and Spurs +6.5 didn't. Full ledger posted.",
+      "caption": "4-3 yesterday, +2.08u. Three MLB unders and run lines hit. The Rangers/Rockies over and Spurs +6.5 didn't. Full card back today.",
       "headline_text": "Yesterday: 4-3, +2.08u",
       "hashtags": [
         "sportsbetting",
         "sportspicks",
         "bettingresults",
         "mlbpicks",
-        "nhlpicks",
         "nbapicks",
-        "trackedrecord",
-        "bettingreceipts",
-        "transparenthandicapper",
-        "smarterpicks",
+        "nhlpicks",
         "nbaplayoffs",
-        "nhlplayoffs",
         "mlbbetting",
-        "unitstracking",
-        "proofofwork",
-        "accountability"
+        "trackedrecord",
+        "bettingcommunity",
+        "pickoftheday",
+        "spreads",
+        "unders",
+        "sportsbettingtips",
+        "transparency",
+        "smarterpicks"
       ]
     },
     "ig_carousel_topic": {
-      "topic": "Player props vs. game lines, different math, different edges",
-      "slide1_text": "Props and game lines look the same on the slip.\nThey are not the same bet.",
-      "slide2_text": "Most bettors treat them identically.\nSame bankroll, same research, same gut feel.\nThat's the mistake.",
-      "slide3_text": "Game lines are set by massive two-sided markets.\nProps are set by a single trader, often with thinner data.\nThinner data means more pricing errors you can find.",
-      "slide4_text": "Example: a book posts a pitcher's strikeout prop at 6.5 before the lineup drops.\nOpposing team scratches two contact hitters. Line doesn't move.\nThat's a real edge. A spread bet rarely gives you that window.",
-      "slide5_text": "Props reward narrow research. Game lines reward volume and discipline.\nKnow which game you're playing before you place a dollar.",
-      "caption": "Props and spreads are not the same math. Knowing the difference is where the edge starts. 54.2% win rate, +41.7u on the season.",
+      "topic": "Player props vs. game lines: different math, different edges",
+      "slide1_text": "Props vs. Game Lines\nSame sport. Different math.\nMost bettors treat them the same. That's the mistake.",
+      "slide2_text": "The common assumption:\n'A good team bet means their props are good too.'\nNot how it works. Props and game lines price two completely different things.",
+      "slide3_text": "Game lines price the outcome of 9 innings or 48 minutes. Props price one player's stat in one slice of that game.\nDifferent sample. Different variance. Different edge sources.",
+      "slide4_text": "Real example: a pitcher's strikeout prop might be set at 6.5. The book prices it off recent K-rate and opponent strikeout percentage. The game line on the same team could be -180. Those two numbers have almost no relationship to each other.\nYou can bet the under on that prop and the team ML. Both can win. Both can lose. Independently.",
+      "slide5_text": "The edge in props comes from stat-model mismatches, not from picking winners. The edge in game lines comes from pricing inefficiencies across books.\nLearn which game you're playing before you place the bet.",
+      "caption": "Props and game lines are priced on different inputs. Knowing which edge applies where is what separates sharp bettors from guessers.",
       "hashtags": [
         "sportsbetting",
-        "bettingeducation",
         "playerprops",
+        "bettingeducation",
         "sportspicks",
         "propbets",
-        "bettingstrategy",
-        "handicapping",
-        "nbaprops",
-        "mlbprops",
+        "gamelines",
         "sharpbetting",
-        "bettingmath",
-        "sportsanalysis",
-        "smarterpicks",
-        "bettingtips",
-        "oddsmaking",
-        "propsvsspreads",
+        "nbabetting",
+        "mlbbetting",
+        "bettingstrategy",
         "lineshop",
-        "edgebetting"
+        "sportsanalysis",
+        "bettingtips",
+        "edgebetting",
+        "smarterpicks",
+        "nbaplayoffs",
+        "propbetting"
       ]
     },
     "story_sequence": [
-      "Card drops in 30 min. Knicks -6.5 tonight, free for everyone. Link in bio.",
-      "Poll: do you bet more game lines or player props? Drop your answer below.",
-      "Last call. Knicks -6.5 at -101 on LowVig.ag locks at tip-off. Full card in the bio.",
-      "Checking in: 2 MLB games in progress. Braves -1.5 and Mets -1.5 both on the board. Following live.",
-      "Wrapping up Thursday. Full recap posts at 8 AM. OKC/SA and the MLB slate settle overnight. See you in the morning."
+      "Card drops in 30 min. Knicks -6.5 tonight at -101. That price won't last. Check bio.",
+      "Poll: Do you usually bet game lines, props, or both? Drop your answer below.",
+      "Last call before tip-off. Knicks -6.5 is the free pick tonight. Full card at smarterpicks.io.",
+      "Checking in: Knicks game is live. -6.5 on the board. Follow along.",
+      "Night recap coming in the morning. Seven picks on the card today. Results post at 8 AM."
     ],
     "meme_post": {
-      "top_text": "Me doing 3 hours of pitcher research for a $20 prop bet",
-      "bottom_text": "Also me: bets the parlay on vibes at 11:58 PM",
-      "image_concept": "Split image: left side shows a person surrounded by spreadsheets and stat tabs at a desk, right side shows the same person frantically tapping a phone in bed with the lights off."
+      "top_text": "Me after hitting the Under: 'I've cracked the code.'",
+      "bottom_text": "Me after the Over hits by 12 in the next game: 'Variance is real.'",
+      "image_concept": "A bettor confidently pointing at a whiteboard covered in stats, immediately followed by a panel of them staring blankly at a final score that blew the total."
     },
     "treatments": [
       {
-        "template": "lifestyle-card.html",
-        "rationale": "Daily mandatory lifestyle post with outcome-forward sales copy and a fresh luxury photo angle.",
+        "template": "recap-card.html",
+        "rationale": "Yesterday's 4-3 slate with +2.08u deserves a full ledger post showing wins and losses transparently.",
         "group": "treatments",
         "size": "feed",
-        "caption": "Your free pick is live right now. Knicks -6.5 at -101, best price on the board. Tap the bio and start a 7-day free trial. 21+ | Bet responsibly.",
+        "caption": "4-3 yesterday. +2.08u. Three MLB wins, one NHL win, two losses. Posted every morning, wins and all.",
         "hashtags": [
           "sportsbetting",
-          "freepick",
-          "nbapicks",
+          "bettingresults",
+          "mlbpicks",
+          "nhlpicks",
           "nbaplayoffs",
+          "trackedrecord",
+          "transparency",
           "sportspicks",
-          "bettingedge",
           "smarterpicks",
-          "todayspick",
-          "winmore",
-          "lineshop"
+          "bettingcommunity"
         ],
-        "fields": {
-          "tag": "FREE PICK · TONIGHT",
-          "eyebrow": "WIN MORE THIS WEEK",
-          "headline_html": "Tonight could change your <em>Sunday</em>.",
-          "sub_html": "Free pick is live. <em>4,100+ bettors</em> already on the card. Tap the bio, start your 7-day free trial.",
-          "photo_query": "vintage porsche 911 classic",
-          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/vintage_20porsche_20911_20classic_98581ba11070.jpg",
-          "photo_credit": "Photo: Quilia / Unsplash"
-        }
-      },
-      {
-        "template": "recap-card.html",
-        "rationale": "Yesterday went 4-3 with real winners and two losses worth showing. Posting the full ledger builds trust.",
-        "group": "treatments",
-        "size": "feed",
-        "caption": "",
-        "hashtags": [],
         "fields": {
           "tag": "YESTERDAY'S BOARD",
           "wins": "4",
@@ -349,15 +331,26 @@
       },
       {
         "template": "pick-card.html",
-        "rationale": "Free pick workhorse card for the Knicks -6.5 tonight. Best price on the board at -101.",
+        "rationale": "The free pick gets its own workhorse card: Knicks -6.5 at -101 tonight in the NBA Playoffs.",
         "group": "treatments",
         "size": "feed",
-        "caption": "",
-        "hashtags": [],
+        "caption": "Knicks -6.5 at -101 tonight. LowVig.ag is 5 cents better than the median. Free pick, full card at smarterpicks.io.",
+        "hashtags": [
+          "nbapicks",
+          "nbaplayoffs",
+          "knicksnation",
+          "sportsbetting",
+          "freepick",
+          "sportspicks",
+          "spreads",
+          "bettingtips",
+          "smarterpicks",
+          "basketballbetting"
+        ],
         "fields": {
           "tag": "TODAY'S FREE PICK",
           "matchup": "Cavaliers @ Knicks",
-          "game_time": "NBA Playoffs · Tonight",
+          "game_time": "Tonight · NBA Playoffs",
           "pick_headline_html": "Knicks cover the <em>6.5</em>",
           "line": "-6.5",
           "edge": "+1.21%",
@@ -367,11 +360,41 @@
         }
       },
       {
-        "template": "news-card.html",
-        "rationale": "Spencer Strider returning for Atlanta is the sharpest storyline in today's MLB slate, worth a standalone news beat post.",
+        "template": "lifestyle-card.html",
+        "rationale": "Daily mandatory lifestyle post. Luxury photo pairs with a direct sales CTA tied to tonight's free pick.",
         "group": "treatments",
         "size": "feed",
-        "caption": "Spencer Strider starts tonight for Atlanta. The run-line price is the widest value on today's MLB board. Full card at smarterpicks.io.",
+        "caption": "You could be betting the same game at a worse price. Tonight's free pick is at -101 on LowVig.ag. Start your 7-day free trial, link in bio.",
+        "hashtags": [
+          "sportsbetting",
+          "sportspicks",
+          "freepick",
+          "nbapicks",
+          "nbaplayoffs",
+          "lineshop",
+          "bettingvalue",
+          "smarterpicks",
+          "7daytrial",
+          "bettingcommunity",
+          "winnerbets",
+          "nba2026"
+        ],
+        "fields": {
+          "tag": "FREE PICK · TONIGHT",
+          "eyebrow": "54.2% WIN RATE · 48 DAYS LOGGED",
+          "headline_html": "Stop losing money on <em>bad lines</em>.",
+          "sub_html": "Tonight's free pick is live at -101. <em>4,100+ bettors</em> already on it. Tap the bio.",
+          "photo_query": "monaco yacht harbor",
+          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/monaco_20yacht_20harbor_7ff5d69c2ccc.jpg",
+          "photo_credit": "Photo: Picsum (fallback — set UNSPLASH_ACCESS_KEY for relevant)"
+        }
+      },
+      {
+        "template": "news-card.html",
+        "rationale": "Spencer Strider returning for Atlanta is a sharp observation from today's picks reasoning worth surfacing as a news-card.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "Strider vs. a bottom-5 offense. The run line value on Atlanta tonight is the widest on the board. Full card at smarterpicks.io.",
         "hashtags": [
           "mlbpicks",
           "atlantabraves",
@@ -379,18 +402,18 @@
           "mlbbetting",
           "runline",
           "sportspicks",
-          "bravesnation",
+          "bettingtips",
           "smarterpicks",
           "baseballbetting",
-          "bettingedge"
+          "bravesbaseball"
         ],
         "fields": {
-          "tag": "PITCHING REPORT",
+          "tag": "STARTING PITCHER",
           "team_name": "Atlanta Braves",
           "league": "MLB",
-          "eyebrow": "MLB · THURSDAY SLATE",
-          "headline_html": "Strider on the hill. Atlanta <em>priced to move</em>.",
-          "body_html": "Bovada's +130 on the Braves -1.5 run line sits 197.6 edge bps above the median. Strider vs. Alcantara and a weak Marlins offense.",
+          "eyebrow": "MLB · TONIGHT",
+          "headline_html": "Strider on the mound. Marlins <em>offense ranked bottom-5</em>.",
+          "body_html": "Spencer Strider starts for Atlanta against Sandy Alcantara and a Marlins lineup that struggles to generate runs. Bovada's +130 on Braves -1.5 sits 197.6 edge_bps above the median.",
           "photo_query": "baseball stadium dusk",
           "team_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/atl.png",
           "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/baseball_20stadium_20dusk_4fddb5fcdb83.jpg",
@@ -399,99 +422,33 @@
       },
       {
         "template": "news-card.html",
-        "rationale": "The Cardinals home underdog angle against a weak Pittsburgh arm is a sharp market observation worth surfacing as a standalone news card.",
+        "rationale": "OKC Thunder's massive moneyline edge versus the Spurs in Game 2 is a sharp market observation from today's picks reasoning.",
         "group": "treatments",
         "size": "feed",
-        "caption": "Home dogs with a real pricing gap. Cardinals +112 ML tonight, and the book hasn't moved. Full card in the bio.",
+        "caption": "OKC at +117 ML is the biggest moneyline edge on the board today. The market is pricing this closer to a coin flip than it looks. Full card at smarterpicks.io.",
         "hashtags": [
-          "mlbpicks",
-          "cardinals",
-          "sportsbetting",
-          "mlbbetting",
-          "homedog",
-          "sportspicks",
-          "bettingedge",
-          "smarterpicks",
-          "baseballbetting",
-          "stlouis"
-        ],
-        "fields": {
-          "tag": "MARKET SIGNAL",
-          "team_name": "St. Louis Cardinals",
-          "league": "MLB",
-          "eyebrow": "MLB · HOME DOG ALERT",
-          "headline_html": "Cardinals at home. Books still have them <em>+112</em>.",
-          "body_html": "LowVig.ag posts St. Louis ML at +112, 113.9 edge bps above median. Dustin May starts vs. Braxton Ashcraft for Pittsburgh.",
-          "photo_query": "mlb dugout",
-          "team_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/stl.png",
-          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/mlb_20dugout_b6647bd23a9e.jpg",
-          "photo_credit": "Photo: Rick Rodriguez / Unsplash"
-        }
-      },
-      {
-        "template": "index-card.html",
-        "rationale": "Season credibility lift. 48 days logged, 54.2% win rate, +41.7u. Posting the receipts builds trust before the weekend slate.",
-        "group": "treatments",
-        "size": "feed",
-        "caption": "258-218 on the season. 54.2% win rate. +41.7u net. 48 days of public receipts. Full card at smarterpicks.io, 7-day free trial.",
-        "hashtags": [
-          "sportsbetting",
-          "bettingreceipts",
-          "trackedrecord",
-          "sportspicks",
-          "handicapper",
-          "bettingresults",
-          "smarterpicks",
-          "proofofwork",
-          "unitstracking",
-          "transparency",
           "nbapicks",
-          "mlbpicks",
-          "nhlpicks",
-          "accountability"
+          "nbaplayoffs",
+          "oklahomacitythunder",
+          "sportsbetting",
+          "moneyline",
+          "bettingvalue",
+          "sportspicks",
+          "smarterpicks",
+          "nba2026",
+          "playoffbetting"
         ],
         "fields": {
-          "tag": "RECEIPTS",
-          "eyebrow": "SEASON SCOREBOARD · 2026",
-          "title_html": "The <em>verified</em> ledger.",
-          "note_html": "48 days logged. All picks graded at posted line.",
-          "cells": [
-            {
-              "label": "Overall",
-              "num": "258-218",
-              "foot": "54.2% win rate",
-              "tone": "win"
-            },
-            {
-              "label": "ROI",
-              "num": "+9.3%",
-              "foot": "season-to-date",
-              "tone": "accent"
-            },
-            {
-              "label": "Net Units",
-              "num": "+41.7u",
-              "foot": "since day one",
-              "tone": "accent"
-            },
-            {
-              "label": "Days Logged",
-              "num": "48",
-              "foot": "public record"
-            },
-            {
-              "label": "Yesterday",
-              "num": "4-3",
-              "foot": "+2.08u · May 20",
-              "tone": "win"
-            },
-            {
-              "label": "Best Day",
-              "num": "+2.08u",
-              "foot": "May 20 · 4-3",
-              "tone": "win"
-            }
-          ]
+          "tag": "LINE VALUE",
+          "team_name": "Oklahoma City Thunder",
+          "league": "NBA",
+          "eyebrow": "NBA PLAYOFFS · TONIGHT",
+          "headline_html": "OKC at +117. Books are <em>pricing this wrong</em>.",
+          "body_html": "LowVig.ag posts OKC ML at +117, a 246.1 edge_bps gap above the median of +106. The largest moneyline edge on the entire board today.",
+          "photo_query": "basketball arena empty night",
+          "team_logo": "https://a.espncdn.com/i/teamlogos/nba/500/okc.png",
+          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/basketball_20arena_20empty_20night_954772408724.jpg",
+          "photo_credit": "Photo: Picsum (fallback — set UNSPLASH_ACCESS_KEY for relevant)"
         }
       }
     ]
