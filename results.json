@@ -1,150 +1,149 @@
 {
-  "date": "May 20, 2026",
-  "wins": 4,
+  "date": "May 21, 2026",
+  "wins": 2,
   "losses": 3,
   "pushes": 0,
-  "net_units": 2.08,
-  "summary_text": "4-3 \u00b7 +2.08u",
+  "net_units": -0.06,
+  "summary_text": "2-3 \u00b7 -0.06u  (2 pending manual scoring)",
   "picks": [
     {
-      "league": "MLB",
-      "time": "3:41 PM ET",
-      "away_team": "Chicago White Sox",
-      "home_team": "Seattle Mariners",
-      "game_detail": "Regular Season",
-      "pick": "Under 7.5",
-      "odds": "-104",
-      "book": "BetRivers",
-      "stake": "2u",
-      "reasoning": "The Under 7.5 at BetRivers shows a massive 250.8 edge_bps \u2014 the best line-value signal on the entire slate. Emerson Hancock takes the mound for Seattle, a ground-ball pitcher who limits hard contact, while Sean Burke for Chicago has shown inconsistency but pitches in a favorable environment here. The market median sits at -115, meaning BetRivers is offering significant value at -104 on a total that most books price much higher juice.",
+      "league": "NBA \u00b7 Playoffs",
+      "time": "8:10 PM ET",
+      "away_team": "Cleveland Cavaliers",
+      "home_team": "New York Knicks",
+      "game_detail": "Playoffs",
+      "pick": "Knicks -6.5",
+      "odds": "-101",
+      "book": "LowVig.ag",
+      "stake": "1.5u",
+      "reasoning": "LowVig.ag is offering -101 on the Knicks -6.5, a full 5-point improvement over the median of -106 \u2014 120.8 edge_bps of genuine line value. The Knicks are a heavy moneyline favorite (-240 consensus), and getting the spread at near-even money on a team expected to win by a touchdown is sharp pricing the market has not fully closed.",
       "tags": [
         "Line Value",
-        "Pitching Spot",
         "Confidence B+"
       ],
       "is_premium": false,
       "result": "WON",
-      "units": 1.92
+      "units": 1.49
     },
     {
       "league": "MLB",
-      "time": "7:41 PM ET",
+      "time": "6:41 PM ET",
       "away_team": "Atlanta Braves",
       "home_team": "Miami Marlins",
       "game_detail": "Regular Season",
-      "pick": "Atlanta Braves -1.5",
-      "odds": "-102",
-      "book": "FanDuel",
-      "stake": "2u",
-      "reasoning": "FanDuel's -102 on Atlanta -1.5 generates a blistering 188.6 edge_bps against a median of -110 \u2014 a massive pricing gap across the market. Chris Sale takes the mound for Atlanta against Janson Junk for Miami; Sale is a proven playoff-caliber arm and Junk is a fringe roster arm, making Atlanta's run-line coverage a high-probability outcome. This is elite value on a short spread with an elite starter.",
+      "pick": "Braves -1.5",
+      "odds": "130",
+      "book": "Bovada",
+      "stake": "1.5u",
+      "reasoning": "Bovada's +130 on Atlanta -1.5 sits 197.6 edge_bps above the median of +120 \u2014 the widest run-line value on the board today. Spencer Strider takes the hill for Atlanta against Sandy Alcantara and a Marlins offense that has struggled; Strider's dominance makes the run-line a genuine value at plus-money. The Braves are installed as -138 consensus favorites on the moneyline, making a +130 run-line a near-synthetic arbitrage.",
       "tags": [
         "Line Value",
-        "Pitching Matchup",
+        "Starter Edge",
         "Confidence B+"
       ],
       "is_premium": true,
       "result": "WON",
-      "units": 1.96
+      "units": 1.95
     },
     {
       "league": "MLB",
-      "time": "7:41 PM ET",
-      "away_team": "Milwaukee Brewers",
-      "home_team": "Chicago Cubs",
-      "game_detail": "Regular Season",
-      "pick": "Over 6.5",
-      "odds": "+102",
-      "book": "FanDuel",
-      "stake": "1.5u",
-      "reasoning": "The Over 6.5 at +102 on FanDuel posts a staggering 287.6 edge_bps, the single highest value signal in the entire dataset, against a median of -110 \u2014 a 212-basis-point gap that is almost certainly a stale or outlier price. Edward Cabrera for the Cubs and Kyle Harrison for Milwaukee are both capable of stretching games out, but a total set at 6.5 is extremely low and +102 odds represent pure value regardless of starter quality. Get this before the market corrects.",
-      "tags": [
-        "Huge Line Value",
-        "Market Discrepancy",
-        "Confidence A"
-      ],
-      "is_premium": true,
-      "result": "WON",
-      "units": 1.53
-    },
-    {
-      "league": "MLB",
-      "time": "5:10 PM ET",
-      "away_team": "Texas Rangers",
-      "home_team": "Colorado Rockies",
-      "game_detail": "Regular Season",
-      "pick": "Over 10.5",
-      "odds": "+101",
-      "book": "LowVig.ag",
-      "stake": "1.5u",
-      "reasoning": "LowVig.ag offers +101 on the Over 10.5, generating 146.8 edge_bps against a median of -105 across 9 books \u2014 a 247-basis-point swing that signals a significant pricing error. This game is played at Coors Field, historically one of the highest-scoring environments in baseball, and both Kyle Freeland (who has struggled at altitude) and Jack Leiter are prone to elevated run totals. Getting plus-money on a total in Colorado is extremely rare value.",
-      "tags": [
-        "Coors Effect",
-        "Line Value",
-        "Confidence B+"
-      ],
-      "is_premium": true,
-      "result": "LOST",
-      "units": -1.5
-    },
-    {
-      "league": "NBA \u00b7 Playoffs",
-      "time": "8:40 PM ET",
-      "away_team": "San Antonio Spurs",
-      "home_team": "Oklahoma City Thunder",
-      "game_detail": "Playoffs",
-      "pick": "San Antonio Spurs +6.5",
-      "odds": "-104",
-      "book": "FanDuel",
-      "stake": "1.5u",
-      "reasoning": "FanDuel's -104 on San Antonio +6.5 produces 140.1 edge_bps against a median of -110, a meaningful gap across 9 books. The Spurs moneyline at +215 implies they can hang in this game, and playoff underdogs frequently cover large spreads even in losses. OKC is a significant favorite but 6.5 is a lot of points to lay in a playoff context where the trailing team often controls the final margin.",
-      "tags": [
-        "Playoff Spot",
-        "Line Value",
-        "Confidence B+"
-      ],
-      "is_premium": true,
-      "result": "LOST",
-      "units": -1.5
-    },
-    {
-      "league": "NHL \u00b7 Playoffs",
-      "time": "8:00 PM ET",
-      "away_team": "Vegas Golden Knights",
-      "home_team": "Colorado Avalanche",
-      "game_detail": "Playoffs",
-      "pick": "Vegas Golden Knights +1.5",
-      "odds": "-150",
-      "book": "BetMGM",
-      "stake": "1u",
-      "reasoning": "BetMGM's -150 on Vegas +1.5 shows 153.8 edge_bps against a median of -160 across 9 books, and is the best available price on this puck-line. The Golden Knights at +162 ML are being priced as genuine contenders in a tight series, and covering +1.5 in a playoff hockey game is an extremely high-percentage outcome \u2014 Vegas loses by 1 or wins outright over 70% of the time in close postseason matchups. Solid value at the puck line given the competitive moneyline odds.",
-      "tags": [
-        "Puck Line Value",
-        "Playoff Hockey",
-        "Confidence B"
-      ],
-      "is_premium": true,
-      "result": "WON",
-      "units": 0.67
-    },
-    {
-      "league": "MLB",
-      "time": "6:46 PM ET",
+      "time": "7:06 PM ET",
       "away_team": "New York Mets",
       "home_team": "Washington Nationals",
       "game_detail": "Regular Season",
-      "pick": "New York Mets ML",
-      "odds": "-116",
-      "book": "BetUS",
+      "pick": "Mets -1.5",
+      "odds": "150",
+      "book": "Bovada",
       "stake": "1u",
-      "reasoning": "BetUS offers -116 on the Mets ML, generating a massive 185.2 edge_bps against a median of -125 across 9 books \u2014 a full 9-cent line discrepancy. Zach Thornton starts for the Mets against Zack Littell for Washington; the Nationals are a rebuilding club and Washington is among the weakest home-field advantages in the NL. Getting the favorite at -116 when the market consensus is -125 is straightforward closing-line value.",
+      "reasoning": "Bovada posts +150 on the Mets -1.5 run line, 98.4 edge_bps above the median of +144, while the Mets are a consensus -113 moneyline favorite. David Peterson gets the ball against Cade Cavalli and a weak Nationals lineup; the Mets should have enough to cover the run line at a price well above the market median.",
       "tags": [
         "Line Value",
-        "Closing Line",
-        "Confidence B+"
+        "Starter Edge",
+        "Confidence B"
       ],
       "is_premium": true,
       "result": "LOST",
       "units": -1.0
+    },
+    {
+      "league": "MLB",
+      "time": "5:16 PM ET",
+      "away_team": "Pittsburgh Pirates",
+      "home_team": "St. Louis Cardinals",
+      "game_detail": "Regular Season",
+      "pick": "Cardinals ML",
+      "odds": "112",
+      "book": "LowVig.ag",
+      "stake": "1u",
+      "reasoning": "LowVig.ag offers +112 on the Cardinals moneyline, 113.9 edge_bps above the median of +107, giving real value on a home underdog. Dustin May gets the start for St. Louis while Braxton Ashcraft \u2014 a less proven arm \u2014 starts for Pittsburgh. Getting a home team with a quality starter at plus-money is sound value.",
+      "tags": [
+        "Line Value",
+        "Home Underdog",
+        "Confidence B"
+      ],
+      "is_premium": true,
+      "result": "LOST",
+      "units": -1.0
+    },
+    {
+      "league": "MLB",
+      "time": "9:41 PM ET",
+      "away_team": "Colorado Rockies",
+      "home_team": "Arizona Diamondbacks",
+      "game_detail": "Regular Season",
+      "pick": "Over 9.0",
+      "odds": "-112",
+      "book": "BetRivers",
+      "stake": "1.5u",
+      "reasoning": "BetRivers' -112 on Over 9.0 shows 171.5 edge_bps above the median of -120 \u2014 a significant pricing gap on the totals market. Coors Field-adjacent conditions in Arizona against a Rockies offense that runs up scores, and Eduardo Rodriguez has been hittable. Zach Agnos is a thin Rockies arm who can be tagged early, supporting a high-scoring total.",
+      "tags": [
+        "Line Value",
+        "Totals",
+        "Confidence B+"
+      ],
+      "is_premium": true,
+      "result": "LOST",
+      "units": -1.5
+    },
+    {
+      "league": "NFL \u00b7 2026 Season Futures",
+      "time": "TBD",
+      "away_team": "Atlanta Falcons",
+      "home_team": "Pittsburgh Steelers",
+      "game_detail": "Week 1",
+      "pick": "Falcons +3.0",
+      "odds": "100",
+      "book": "DraftKings",
+      "stake": "1u",
+      "reasoning": "DraftKings offers +100 on Atlanta +3.0 against a median of -106 \u2014 145.6 edge_bps of true line value, and that's a 6-point swing in price. The moneyline market (best -143 vs median -160 for Pittsburgh) shows books are not fully aligned on how dominant the Steelers should be, making the underdog spread at even money a compelling early-market play.",
+      "tags": [
+        "Line Value",
+        "Early Market",
+        "Confidence B"
+      ],
+      "is_premium": true,
+      "result": "PENDING",
+      "units": 0.0
+    },
+    {
+      "league": "NBA \u00b7 Playoffs",
+      "time": "Sat 8:40 PM ET",
+      "away_team": "Oklahoma City Thunder",
+      "home_team": "San Antonio Spurs",
+      "game_detail": "Playoffs",
+      "pick": "Thunder ML",
+      "odds": "117",
+      "book": "LowVig.ag",
+      "stake": "1u",
+      "reasoning": "LowVig.ag posts OKC at +117, a massive 246.1 edge_bps above the median of +106 across six books \u2014 the largest moneyline edge_bps gap on the entire board for a non-blowout game. The market consensus implies a coin-flip matchup, yet San Antonio is only a 1.5-2 point favorite, making +117 on OKC genuine market value.",
+      "tags": [
+        "Line Value",
+        "Dog Value",
+        "Confidence B+"
+      ],
+      "is_premium": true,
+      "result": "PENDING",
+      "units": 0.0
     }
   ]
 }
