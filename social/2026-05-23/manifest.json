@@ -1,5 +1,5 @@
 {
-  "rendered_at": "2026-05-23T09:32:43.988Z",
+  "rendered_at": "2026-05-23T12:02:50.937Z",
   "content_file": "content.json",
   "renders": [
     {
@@ -197,6 +197,16 @@
       "template": "index-card.html",
       "group": "treatments",
       "slide_index": 6,
+      "size": {
+        "width": 1080,
+        "height": 1080
+      }
+    },
+    {
+      "file": "treatment-07.png",
+      "template": "slip-card.html",
+      "group": "treatments",
+      "slide_index": 7,
       "size": {
         "width": 1080,
         "height": 1080
