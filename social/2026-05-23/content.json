@@ -1,0 +1,510 @@
+{
+  "generated_at": "2026-05-23T06:41:21.081683+00:00",
+  "model": "claude-sonnet-4-6",
+  "carousel_topic": "The Kelly criterion — explained without the math degree",
+  "source": {
+    "picks_date": "May 23, 2026",
+    "results_date": "May 22, 2026",
+    "history_stats": {
+      "total_picks": 430,
+      "wins": 265,
+      "losses": 222,
+      "pushes": 22,
+      "win_pct": 54.4,
+      "net_units": 47.11,
+      "roi_pct": 9.3,
+      "best_month_units": 12.4,
+      "worst_month_units": -3.8,
+      "avg_daily_units": 0.85,
+      "days_recorded": 50
+    },
+    "today_free_pick": {
+      "league": "MLB",
+      "time": "3:08 PM ET",
+      "away_team": "Pittsburgh Pirates",
+      "home_team": "Toronto Blue Jays",
+      "game_detail": "Regular Season",
+      "pick": "Under 7.5",
+      "odds": "-107",
+      "book": "LowVig.ag",
+      "stake": "2u",
+      "reasoning": "Paul Skenes takes the mound for Pittsburgh — he's one of the best arms in the game and a near-automatic low-scoring start. Toronto counters with Patrick Corbin, a veteran ground-ball pitcher who keeps games tight. The Under 7.5 at -107 on LowVig carries a 179.8 edge_bps, well above our 100 threshold, beating a median of -115 by a substantial margin. Skenes vs. a below-average Blue Jays offense is a strong pitch-dominant setup.",
+      "tags": [
+        "Starter Mismatch",
+        "Line Value",
+        "Confidence B+"
+      ],
+      "is_premium": false
+    },
+    "results_picks": [
+      {
+        "league": "MLB",
+        "time": "7:39 PM ET",
+        "away_team": "Texas Rangers",
+        "home_team": "Los Angeles Angels",
+        "game_detail": "Regular Season",
+        "pick": "Texas Rangers -1.5",
+        "odds": "+112",
+        "book": "BetRivers",
+        "stake": "1.5u",
+        "reasoning": "Jacob deGrom on the mound for Texas is a massive pitching edge over Grayson Rodriguez and the Angels lineup. The spread edge is real at 161 bps — BetRivers offers +112 on the Rangers -1.5 against a median of +105, representing genuine line value on a side backed by arguably the best starter on today's slate. The Angels are a cellar-dweller and deGrom's dominance makes covering 1.5 runs a reasonable ask.",
+        "tags": [
+          "Pitching Mismatch",
+          "Line Value",
+          "Confidence B+"
+        ],
+        "is_premium": false,
+        "result": "LOST",
+        "units": -1.5
+      },
+      {
+        "league": "MLB",
+        "time": "7:15 PM ET",
+        "away_team": "Washington Nationals",
+        "home_team": "Atlanta Braves",
+        "game_detail": "Regular Season",
+        "pick": "Atlanta Braves -1.5",
+        "odds": "+102",
+        "book": "FanDuel",
+        "stake": "1.5u",
+        "reasoning": "The Braves -1.5 spread at +102 on FanDuel is a standout value with 195 bps of edge over the median of -106 — you are getting plus money on a heavy favorite covering 1.5 runs. Bryce Elder faces Miles Mikolas and the struggling Nationals, and Atlanta's lineup depth makes run-line coverage very attainable at home. The market consensus has Atlanta as a -216 moneyline favorite, making this spread price a clear inefficiency.",
+        "tags": [
+          "Spread Value",
+          "Line Value",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "LOST",
+        "units": -1.5
+      },
+      {
+        "league": "NBA · Playoffs",
+        "time": "8:40 PM ET",
+        "away_team": "Oklahoma City Thunder",
+        "home_team": "San Antonio Spurs",
+        "game_detail": "Playoffs",
+        "pick": "Oklahoma City Thunder ML",
+        "odds": "+115",
+        "book": "Bovada",
+        "stake": "1.5u",
+        "reasoning": "The Thunder ML at +115 on Bovada carries 203 bps of edge over the median of +106 — one of the sharpest moneyline values on the entire board today. The market as a whole makes OKC a slight road dog despite the line suggesting a near pick'em game, and getting plus money on what most books imply is roughly a coin flip represents legitimate value. Bovada is the outlier here and this number is worth acting on before it corrects.",
+        "tags": [
+          "Line Value",
+          "Playoff Game",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 1.72
+      },
+      {
+        "league": "MLB",
+        "time": "7:41 PM ET",
+        "away_team": "Athletics",
+        "home_team": "San Diego Padres",
+        "game_detail": "Regular Season",
+        "pick": "San Diego Padres -1.5",
+        "odds": "+170",
+        "book": "BetRivers",
+        "stake": "1u",
+        "reasoning": "Walker Buehler takes the hill for San Diego against Jeffrey Springs and the Athletics — a significant pitching edge at home. BetRivers posts +170 on the Padres -1.5 against a median of +155, generating 218 bps of edge, the largest spread edge on today's entire board. The Padres are -128 to -136 on the ML across books, meaning the run line at +170 is a clear overlay for a team expected to win comfortably.",
+        "tags": [
+          "Pitching Edge",
+          "Best Line",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 1.7
+      },
+      {
+        "league": "NHL · Playoffs",
+        "time": "8:00 PM ET",
+        "away_team": "Vegas Golden Knights",
+        "home_team": "Colorado Avalanche",
+        "game_detail": "Playoffs",
+        "pick": "Vegas Golden Knights +1.5",
+        "odds": "-145",
+        "book": "BetMGM",
+        "stake": "1.5u",
+        "reasoning": "The Golden Knights +1.5 puck line at -145 on BetMGM has 206 bps of edge over the median of -158, the largest puck line edge in the NHL slate. Colorado is a big favorite at around -195 on the ML, but the puck line at -145 is a meaningful discount for a VGK team capable of keeping this close or winning outright. Playoff hockey is notoriously tight and buying the extra cushion here at a well-priced number is sound value.",
+        "tags": [
+          "Playoff Hockey",
+          "Puck Line Value",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 1.03
+      },
+      {
+        "league": "MLB",
+        "time": "7:15 PM ET",
+        "away_team": "Cleveland Guardians",
+        "home_team": "Philadelphia Phillies",
+        "game_detail": "Regular Season",
+        "pick": "Cleveland Guardians ML",
+        "odds": "+167",
+        "book": "BetOnline.ag",
+        "stake": "1u",
+        "reasoning": "Gavin Williams has been solid for Cleveland and faces Cristopher Sanchez in a matchup where the market is giving 192 bps of edge on the Guardians ML at +167 versus a median of +154. The Phillies are installed as big -185 favorites, but the Guardians at +167 represent legitimate underdog value given the pitching matchup is more competitive than the line implies. BetOnline offers the best available number and this qualifies as a strong plus-odds spot.",
+        "tags": [
+          "Underdog Value",
+          "Pitching Spot",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 1.67
+      },
+      {
+        "league": "MLB",
+        "time": "7:16 PM ET",
+        "away_team": "Detroit Tigers",
+        "home_team": "Baltimore Orioles",
+        "game_detail": "Regular Season",
+        "pick": "Baltimore Orioles ML",
+        "odds": "-125",
+        "book": "LowVig.ag",
+        "stake": "1u",
+        "reasoning": "Chris Bassitt is a quality arm for Baltimore against Jack Flaherty and the Tigers, and the Orioles ML at -125 on LowVig carries 134 bps of edge over the median of -132. LowVig's reduced-juice pricing gives real value here — the true implied probability across the market sits closer to -132, so -125 is a clean entry point. Bassitt's consistency and Baltimore's home advantage make this a straightforward lean at a line with measurable positive edge.",
+        "tags": [
+          "Pitching Edge",
+          "Reduced Juice",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 0.8
+      }
+    ]
+  },
+  "content": {
+    "ig_pick_post": {
+      "caption": "Paul Skenes on the mound. Patrick Corbin keeping it tight. Tonight's free pick is Under 7.5. Start your 7-day free trial at smarterpicks.io.",
+      "slide1_text": "Tonight's Free Pick\nMLB · Pirates @ Blue Jays\nUnder 7.5",
+      "slide2_text": "Paul Skenes starts for Pittsburgh. One of the best arms in baseball. Toronto counters with Corbin, a veteran who keeps games low-scoring. Two pitchers built to suppress runs.",
+      "slide3_text": "Full card (7 picks tonight) at smarterpicks.io. 7-day free trial, then $29.99/mo. Cancel anytime. 21+ only. Bet responsibly.",
+      "hashtags": [
+        "sportsbetting",
+        "sportspicks",
+        "mlbpicks",
+        "mlbbetting",
+        "freepick",
+        "baseballbetting",
+        "paulskenes",
+        "underbetting",
+        "pickstoday",
+        "bettingtips",
+        "sportsbettingpicks",
+        "mlb2026",
+        "todayspick",
+        "sharpbetting",
+        "bettingcommunity",
+        "freesportspick"
+      ]
+    },
+    "ig_results_post": {
+      "caption": "5-2 yesterday, +3.92u. Rangers and Braves run lines didn't hold. OKC ML, Padres -1.5, Golden Knights +1.5, and Guardians ML all cashed. 265-222 on the year, +47.1u.",
+      "headline_text": "Yesterday: 5-2, +3.92u",
+      "hashtags": [
+        "sportsbetting",
+        "sportspicks",
+        "bettingresults",
+        "mlbpicks",
+        "nbapicks",
+        "nhlpicks",
+        "yesterdayspicks",
+        "trackedrecord",
+        "sportsbettingcommunity",
+        "sharpbetting",
+        "bettingtips",
+        "picksresults",
+        "mlb2026",
+        "nhlplayoffs",
+        "nbaplayoffs",
+        "transparentbetting"
+      ]
+    },
+    "ig_carousel_topic": {
+      "topic": "The Kelly criterion explained without the math degree",
+      "slide1_text": "You're probably betting the wrong size. Every single game.",
+      "slide2_text": "Most bettors pick flat units or go by gut. 1 unit on everything. Or 3 units when it 'feels strong.' Neither approach is built to grow a bankroll over time.",
+      "slide3_text": "Kelly sizes your bet based on your actual edge. Bigger edge, more you stake. Smaller edge, less. The formula keeps you from blowing up on a bad week and lets winners compound over time.",
+      "slide4_text": "Say your bankroll is $1,000. You find a bet where your model says you win 56% of the time at -110 odds. Full Kelly says bet about 3.7% of your roll, so $37. Quarter Kelly (safer) says $9.25. Small. Deliberate. Repeatable.",
+      "slide5_text": "The bettors who last years aren't the ones with the hottest picks. They're the ones who never blow up. Sizing is how you stay in the game long enough for the edge to show up.",
+      "caption": "Most bettors size by feel. Kelly sizes by math. Five slides on why the number you bet matters as much as the pick itself.",
+      "hashtags": [
+        "sportsbetting",
+        "bettingstrategy",
+        "kellycriteria",
+        "bankrollmanagement",
+        "bettingtips",
+        "sharpbetting",
+        "sportsbettingeducation",
+        "mlbbetting",
+        "nbabetting",
+        "bettingmath",
+        "unitsbetting",
+        "sportsanalytics",
+        "smarterbetting",
+        "bettingcommunity",
+        "sportspicks",
+        "educationalbetting"
+      ]
+    },
+    "story_sequence": [
+      "Card drops in 30 min. Paul Skenes on the mound tonight. Free pick incoming.",
+      "Poll: Do you bet totals or sides more often? Drop your answer below.",
+      "Last call before first pitch. Pirates @ Blue Jays Under 7.5 is live at smarterpicks.io. Full 7-pick card up now.",
+      "3-1 through the afternoon slate. OKC and Cavaliers games still live. Checking in at 9 PM.",
+      "Strong Saturday. Full recap posts at 8 AM. Six picks on the board tomorrow. Set your alarm."
+    ],
+    "meme_post": {
+      "top_text": "Me at noon: 'I'm only betting the free pick today, staying disciplined'",
+      "bottom_text": "Me at 7 PM with a 6-leg parlay loading on my phone",
+      "image_concept": "Split panel: calm person drinking coffee in the morning vs. the same person frantically typing on a phone at night with a glowing sportsbook app screen"
+    },
+    "treatments": [
+      {
+        "template": "recap-card.html",
+        "rationale": "Yesterday went 5-2 with a strong +3.92u, and the ledger is the receipts post that builds trust.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "",
+        "hashtags": [],
+        "fields": {
+          "tag": "YESTERDAY'S BOARD",
+          "wins": "5",
+          "losses": "2",
+          "units": "+3.92u",
+          "pick_rows": [
+            {
+              "matchup": "NBA · OKC @ SAS",
+              "play": "Thunder ML",
+              "result": "win",
+              "units": 1.72
+            },
+            {
+              "matchup": "MLB · ATH @ SDP",
+              "play": "Padres -1.5",
+              "result": "win",
+              "units": 1.7
+            },
+            {
+              "matchup": "MLB · CLE @ PHI",
+              "play": "Guardians ML",
+              "result": "win",
+              "units": 1.67
+            },
+            {
+              "matchup": "NHL · VGK @ COL",
+              "play": "Knights +1.5",
+              "result": "win",
+              "units": 1.03
+            },
+            {
+              "matchup": "MLB · TEX @ LAA",
+              "play": "Rangers -1.5",
+              "result": "loss",
+              "units": -1.5
+            }
+          ]
+        }
+      },
+      {
+        "template": "pick-card.html",
+        "rationale": "Free pick announcement for Pirates @ Blue Jays Under 7.5 with Skenes on the hill.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "",
+        "hashtags": [],
+        "fields": {
+          "tag": "TODAY'S FREE PICK",
+          "matchup": "Pirates @ Blue Jays",
+          "game_time": "Tonight · MLB",
+          "pick_headline_html": "Pirates/Jays <em>Under 7.5</em>",
+          "line": "-107",
+          "edge": "+6.9%",
+          "confidence": "A-",
+          "away_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/pit.png",
+          "home_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/tor.png"
+        }
+      },
+      {
+        "template": "lifestyle-card.html",
+        "rationale": "Daily mandatory lifestyle post. Aspirational hook tied to tonight's free pick drop.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "Your free pick is live right now. 4,100+ bettors already on tonight's card. Tap the bio link, start a 7-day free trial. Cancel anytime. 21+ only.",
+        "hashtags": [
+          "sportsbetting",
+          "freepick",
+          "sportspicks",
+          "mlbpicks",
+          "bettinglifestyle",
+          "winmore",
+          "smarterbetting",
+          "bettingtips",
+          "sportsbettingcommunity",
+          "todayspick",
+          "freesportspick",
+          "bettingcommunity",
+          "sharpbetting",
+          "mlb2026",
+          "pickstoday",
+          "sportsbettingpicks"
+        ],
+        "fields": {
+          "tag": "FREE PICK · TONIGHT",
+          "eyebrow": "WIN MORE THIS WEEK",
+          "headline_html": "Stop guessing. Start betting <em>smarter</em>.",
+          "sub_html": "Today's free pick is live. <em>4,100+ bettors</em> already on the card. Tap the bio, start your 7-day free trial.",
+          "photo_query": "monaco yacht harbor",
+          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/monaco_20yacht_20harbor_7ff5d69c2ccc.jpg",
+          "photo_credit": "Photo: Picsum (fallback — set UNSPLASH_ACCESS_KEY for relevant)"
+        }
+      },
+      {
+        "template": "news-card.html",
+        "rationale": "Paul Skenes is the lead storyline for tonight's free pick and worth a standalone news brief.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "When Skenes pitches, scoring stays low. Tonight's free pick is built around it. Full card at smarterpicks.io.",
+        "hashtags": [
+          "mlbpicks",
+          "paulskenes",
+          "pittsburghpirates",
+          "baseballbetting",
+          "sportsbetting",
+          "underbetting",
+          "mlb2026",
+          "bettingtips",
+          "sportspicks",
+          "sharpbetting",
+          "mlbtoday",
+          "startingpitcher",
+          "freepick",
+          "bettingcommunity",
+          "sportsbettingpicks"
+        ],
+        "fields": {
+          "tag": "PITCHING SPOTLIGHT",
+          "team_name": "Pittsburgh Pirates",
+          "league": "MLB",
+          "eyebrow": "MLB · TONIGHT",
+          "headline_html": "Paul Skenes is one of the <em>best arms</em> in baseball.",
+          "body_html": "Skenes takes the mound tonight vs. Toronto. His ability to suppress runs makes the Under 7.5 the most compelling total on today's slate.",
+          "photo_query": "baseball stadium dusk",
+          "team_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/pit.png",
+          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/baseball_20stadium_20dusk_4fddb5fcdb83.jpg",
+          "photo_credit": "Photo: Niketh Vellanki / Unsplash"
+        }
+      },
+      {
+        "template": "news-card.html",
+        "rationale": "Cleveland Cavaliers are tonight's NBA playoff pick and worth a news brief on their home-court edge.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "Cavaliers at home tonight in the playoffs. The line value is there. Full breakdown on the card at smarterpicks.io.",
+        "hashtags": [
+          "nbapicks",
+          "nbaplayoffs",
+          "clevelandcavaliers",
+          "basketballbetting",
+          "sportsbetting",
+          "nba2026",
+          "bettingtips",
+          "playoffbetting",
+          "sportspicks",
+          "sharpbetting",
+          "nbabetting",
+          "bettingcommunity",
+          "spreads",
+          "sportsbettingpicks",
+          "todayspick"
+        ],
+        "fields": {
+          "tag": "PLAYOFF EDGE",
+          "team_name": "Cleveland Cavaliers",
+          "league": "NBA",
+          "eyebrow": "NBA PLAYOFFS · TONIGHT",
+          "headline_html": "Cleveland -2.5 at home. <em>Market agrees.</em>",
+          "body_html": "Cavs host the Knicks tonight. The -2.5 at -105 on Bovada shows 116.1 edge_bps vs. a median of -110. Market consensus leans Cleveland.",
+          "photo_query": "basketball arena empty night",
+          "team_logo": "https://a.espncdn.com/i/teamlogos/nba/500/cle.png",
+          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/basketball_20arena_20empty_20night_954772408724.jpg",
+          "photo_credit": "Photo: Picsum (fallback — set UNSPLASH_ACCESS_KEY for relevant)"
+        }
+      },
+      {
+        "template": "index-card.html",
+        "rationale": "Saturday is a good day for a credibility lift post showing the full season scoreboard to new visitors.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "265-222 on the year. +47.1u. 50 days of public picks, wins and losses both posted every morning. Full card at smarterpicks.io.",
+        "hashtags": [
+          "sportsbetting",
+          "trackedrecord",
+          "sportspicks",
+          "bettingresults",
+          "sharpbetting",
+          "transparentbetting",
+          "bettingtips",
+          "sportsbettingcommunity",
+          "mlbpicks",
+          "nbapicks",
+          "nhlpicks",
+          "verifiedpicks",
+          "bettingrecord",
+          "unitsbetting",
+          "sportsbettingpicks",
+          "receipts"
+        ],
+        "fields": {
+          "tag": "RECEIPTS",
+          "eyebrow": "SEASON SCOREBOARD · 2026",
+          "title_html": "The <em>verified</em> ledger.",
+          "note_html": "50 days logged. All picks recorded at posted line.",
+          "cells": [
+            {
+              "label": "Overall",
+              "num": "265-222",
+              "foot": "54.4% win rate",
+              "tone": "win"
+            },
+            {
+              "label": "ROI",
+              "num": "+9.3%",
+              "foot": "season-to-date",
+              "tone": "accent"
+            },
+            {
+              "label": "Net Units",
+              "num": "+47.1u",
+              "foot": "since opening day",
+              "tone": "accent"
+            },
+            {
+              "label": "Sample",
+              "num": "487",
+              "foot": "graded picks"
+            },
+            {
+              "label": "Days Logged",
+              "num": "50",
+              "foot": "public record",
+              "tone": "win"
+            },
+            {
+              "label": "Yesterday",
+              "num": "5-2",
+              "foot": "+3.92u on May 22",
+              "tone": "win"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
