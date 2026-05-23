@@ -1,16 +1,16 @@
 {
   "stats": {
-    "total_picks": 84,
-    "wins": 28,
-    "losses": 30,
+    "total_picks": 91,
+    "wins": 34,
+    "losses": 31,
     "pushes": 0,
-    "win_pct": 48.3,
-    "net_units": 0.17,
-    "roi_pct": 0.2,
+    "win_pct": 52.3,
+    "net_units": 7.13,
+    "roi_pct": 7.8,
     "best_month_units": 12.4,
     "worst_month_units": -3.8,
     "avg_daily_units": 0.85,
-    "days_recorded": 12
+    "days_recorded": 13
   },
   "days": [
     {
@@ -1642,6 +1642,185 @@
           "is_premium": true,
           "result": "PENDING",
           "units": 0.0
+        }
+      ]
+    },
+    {
+      "iso_date": "2026-05-22",
+      "date_display": "May 22, 2026",
+      "wins": 6,
+      "losses": 1,
+      "pushes": 0,
+      "net_units": 6.96,
+      "summary_text": "6-1 · +6.96u",
+      "picks": [
+        {
+          "league": "MLB",
+          "time": "7:39 PM ET",
+          "away_team": "Texas Rangers",
+          "home_team": "Los Angeles Angels",
+          "game_detail": "Regular Season",
+          "pick": "Texas Rangers -1.5",
+          "odds": "+112",
+          "book": "BetRivers",
+          "stake": "1.5u",
+          "reasoning": "Jacob deGrom on the mound for Texas is a massive pitching edge over Grayson Rodriguez and the Angels lineup. The spread edge is real at 161 bps — BetRivers offers +112 on the Rangers -1.5 against a median of +105, representing genuine line value on a side backed by arguably the best starter on today's slate. The Angels are a cellar-dweller and deGrom's dominance makes covering 1.5 runs a reasonable ask.",
+          "tags": [
+            "Pitching Mismatch",
+            "Line Value",
+            "Confidence B+"
+          ],
+          "is_premium": false,
+          "result": "LOST",
+          "units": -1.5,
+          "final_score": "6-9",
+          "away_score": 6,
+          "home_score": 9,
+          "winner_side": "home"
+        },
+        {
+          "league": "MLB",
+          "time": "7:15 PM ET",
+          "away_team": "Washington Nationals",
+          "home_team": "Atlanta Braves",
+          "game_detail": "Regular Season",
+          "pick": "Atlanta Braves -1.5",
+          "odds": "+102",
+          "book": "FanDuel",
+          "stake": "1.5u",
+          "reasoning": "The Braves -1.5 spread at +102 on FanDuel is a standout value with 195 bps of edge over the median of -106 — you are getting plus money on a heavy favorite covering 1.5 runs. Bryce Elder faces Miles Mikolas and the struggling Nationals, and Atlanta's lineup depth makes run-line coverage very attainable at home. The market consensus has Atlanta as a -216 moneyline favorite, making this spread price a clear inefficiency.",
+          "tags": [
+            "Spread Value",
+            "Line Value",
+            "Confidence B+"
+          ],
+          "is_premium": true,
+          "result": "WON",
+          "units": 1.53,
+          "final_score": "4-5",
+          "away_score": 4,
+          "home_score": 5,
+          "winner_side": "home"
+        },
+        {
+          "league": "NBA · Playoffs",
+          "time": "8:40 PM ET",
+          "away_team": "Oklahoma City Thunder",
+          "home_team": "San Antonio Spurs",
+          "game_detail": "Playoffs",
+          "pick": "Oklahoma City Thunder ML",
+          "odds": "+115",
+          "book": "Bovada",
+          "stake": "1.5u",
+          "reasoning": "The Thunder ML at +115 on Bovada carries 203 bps of edge over the median of +106 — one of the sharpest moneyline values on the entire board today. The market as a whole makes OKC a slight road dog despite the line suggesting a near pick'em game, and getting plus money on what most books imply is roughly a coin flip represents legitimate value. Bovada is the outlier here and this number is worth acting on before it corrects.",
+          "tags": [
+            "Line Value",
+            "Playoff Game",
+            "Confidence B+"
+          ],
+          "is_premium": true,
+          "result": "WON",
+          "units": 1.73,
+          "final_score": "123-108",
+          "away_score": 123,
+          "home_score": 108,
+          "winner_side": "away"
+        },
+        {
+          "league": "MLB",
+          "time": "7:41 PM ET",
+          "away_team": "Athletics",
+          "home_team": "San Diego Padres",
+          "game_detail": "Regular Season",
+          "pick": "San Diego Padres -1.5",
+          "odds": "+170",
+          "book": "BetRivers",
+          "stake": "1u",
+          "reasoning": "Walker Buehler takes the hill for San Diego against Jeffrey Springs and the Athletics — a significant pitching edge at home. BetRivers posts +170 on the Padres -1.5 against a median of +155, generating 218 bps of edge, the largest spread edge on today's entire board. The Padres are -128 to -136 on the ML across books, meaning the run line at +170 is a clear overlay for a team expected to win comfortably.",
+          "tags": [
+            "Pitching Edge",
+            "Best Line",
+            "Confidence B"
+          ],
+          "is_premium": true,
+          "result": "WON",
+          "units": 1.7,
+          "final_score": "3-7",
+          "away_score": 3,
+          "home_score": 7,
+          "winner_side": "home"
+        },
+        {
+          "league": "NHL · Playoffs",
+          "time": "8:00 PM ET",
+          "away_team": "Vegas Golden Knights",
+          "home_team": "Colorado Avalanche",
+          "game_detail": "Playoffs",
+          "pick": "Vegas Golden Knights +1.5",
+          "odds": "-145",
+          "book": "BetMGM",
+          "stake": "1.5u",
+          "reasoning": "The Golden Knights +1.5 puck line at -145 on BetMGM has 206 bps of edge over the median of -158, the largest puck line edge in the NHL slate. Colorado is a big favorite at around -195 on the ML, but the puck line at -145 is a meaningful discount for a VGK team capable of keeping this close or winning outright. Playoff hockey is notoriously tight and buying the extra cushion here at a well-priced number is sound value.",
+          "tags": [
+            "Playoff Hockey",
+            "Puck Line Value",
+            "Confidence B+"
+          ],
+          "is_premium": true,
+          "result": "WON",
+          "units": 1.03,
+          "final_score": "3-1",
+          "away_score": 3,
+          "home_score": 1,
+          "winner_side": "away"
+        },
+        {
+          "league": "MLB",
+          "time": "7:15 PM ET",
+          "away_team": "Cleveland Guardians",
+          "home_team": "Philadelphia Phillies",
+          "game_detail": "Regular Season",
+          "pick": "Cleveland Guardians ML",
+          "odds": "+167",
+          "book": "BetOnline.ag",
+          "stake": "1u",
+          "reasoning": "Gavin Williams has been solid for Cleveland and faces Cristopher Sanchez in a matchup where the market is giving 192 bps of edge on the Guardians ML at +167 versus a median of +154. The Phillies are installed as big -185 favorites, but the Guardians at +167 represent legitimate underdog value given the pitching matchup is more competitive than the line implies. BetOnline offers the best available number and this qualifies as a strong plus-odds spot.",
+          "tags": [
+            "Underdog Value",
+            "Pitching Spot",
+            "Confidence B"
+          ],
+          "is_premium": true,
+          "result": "WON",
+          "units": 1.67,
+          "final_score": "1-0",
+          "away_score": 1,
+          "home_score": 0,
+          "winner_side": "away"
+        },
+        {
+          "league": "MLB",
+          "time": "7:16 PM ET",
+          "away_team": "Detroit Tigers",
+          "home_team": "Baltimore Orioles",
+          "game_detail": "Regular Season",
+          "pick": "Baltimore Orioles ML",
+          "odds": "-125",
+          "book": "LowVig.ag",
+          "stake": "1u",
+          "reasoning": "Chris Bassitt is a quality arm for Baltimore against Jack Flaherty and the Tigers, and the Orioles ML at -125 on LowVig carries 134 bps of edge over the median of -132. LowVig's reduced-juice pricing gives real value here — the true implied probability across the market sits closer to -132, so -125 is a clean entry point. Bassitt's consistency and Baltimore's home advantage make this a straightforward lean at a line with measurable positive edge.",
+          "tags": [
+            "Pitching Edge",
+            "Reduced Juice",
+            "Confidence B"
+          ],
+          "is_premium": true,
+          "result": "WON",
+          "units": 0.8,
+          "final_score": "4-7",
+          "away_score": 4,
+          "home_score": 7,
+          "winner_side": "home"
         }
       ]
     }
