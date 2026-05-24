@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmarterPicks Terminal — Live Sports Data Feed</title>
+
+<!-- Auth shortcut: ANY logged-in member visiting the marketing landing
+     gets bounced straight to /members. Terminal stays open to everyone
+     for now — it's a value-demo. Flip the redirect when gating goes in. -->
+
+<meta name="description" content="Live sports data terminal — scores, lines, news, injuries across NBA, MLB, NHL, NFL. Refreshes every 30 seconds.">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="canonical" href="https://smarterpicks.io/terminal">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Fraunces:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     SMARTERPICKS TERMINAL — Bloomberg-aesthetic for sports data
+     ============================================================
+     Pure mono, dense rows, hairline borders, brand-gold accent
+     instead of Bloomberg amber. Three columns: news feed (left),
+     live scores (center), today's lines (right). Auto-refresh 30s.
+     Keyboard command bar at the bottom (focus with /).
+
+     Designed to feel like a working tool, not a marketing surface.
+     Visitors who don't sign up after seeing this aren't going to.
+     ============================================================ */
+
+  :root {
+    --bg:           #0a0a0a;
+    --bg-elevated:  #131313;
+    --bg-row-alt:   #0e0e0e;
+    --border:       #1f1f1f;
+    --border-strong:#2a2a2a;
+    --text:         #f4efe4;
+    --text-muted:   #8a8580;
+    --text-dim:     #5a5550;
+    --accent:       #d4a843;
+    --accent-dim:   #8a6f2d;
+    --up:           #6dbe7a;
+    --down:         #d96565;
+    --live:         #6dbe7a;
+  }
+  *{ box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: var(--bg); color: var(--text); }
+  body {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.45;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--accent); }
+
+  /* ── Top status bar ── */
+  .topbar {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    gap: 24px;
+    height: 44px;
+    padding: 0 18px;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border-strong);
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .topbar .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -.01em;
+    text-transform: none;
+  }
+  .topbar .logo::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: var(--accent);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+  .topbar .logo .term-tag {
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    margin-left: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+  }
+  .topbar .status {
+    display: flex;
+    gap: 28px;
+    color: var(--text-muted);
+  }
+  .topbar .status .key { color: var(--text-dim); margin-right: 8px; }
+  .topbar .status .val { color: var(--text); }
+  .topbar .live-dot {
+    width: 7px; height: 7px;
+    background: var(--live);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50%     { opacity: .35; }
+  }
+  .topbar .clock {
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .topbar .home-link {
+    color: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: .16em;
+  }
+
+  /* ── Ticker strip ── */
+  .ticker {
+    height: 36px;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .ticker-label {
+    flex-shrink: 0;
+    padding: 0 16px;
+    background: var(--accent);
+    color: #000;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: .16em;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .ticker-track {
+    display: flex;
+    gap: 36px;
+    white-space: nowrap;
+    animation: ticker-scroll 90s linear infinite;
+    padding-left: 36px;
+  }
+  @keyframes ticker-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--text);
+  }
+  .ticker-item .league {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: .14em;
+  }
+  .ticker-item .score {
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+  .ticker-item .state {
+    color: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: .08em;
+  }
+  .ticker-item .state.live { color: var(--live); }
+
+  /* ── Main 3-column grid ── */
+  main {
+    height: calc(100vh - 44px - 36px - 40px); /* topbar + ticker + cmdbar */
+    display: grid;
+    grid-template-columns: 22% 1fr 32%;
+  }
+  .pane {
+    border-right: 1px solid var(--border-strong);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .pane:last-child { border-right: 0; }
+
+  /* Custom scrollbar — matches the terminal aesthetic */
+  .pane::-webkit-scrollbar { width: 6px; }
+  .pane::-webkit-scrollbar-track { background: var(--bg); }
+  .pane::-webkit-scrollbar-thumb { background: var(--border-strong); }
+  .pane::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
+
+  .pane-header {
+    position: sticky;
+    top: 0;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border-strong);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    z-index: 5;
+  }
+  .pane-header .count {
+    color: var(--text-dim);
+    font-size: 10px;
+  }
+
+  /* ── News pane (left) ── */
+  .news-item {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: background .15s;
+    cursor: pointer;
+  }
+  .news-item:hover { background: var(--bg-elevated); }
+  .news-item .meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .news-item .meta .league {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .news-item .meta .time {
+    color: var(--text-dim);
+    font-variant-numeric: tabular-nums;
+  }
+  .news-item .headline {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    line-height: 1.3;
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  /* Injury sub-section inside news pane */
+  .injuries {
+    border-top: 1px solid var(--border-strong);
+    padding: 0;
+  }
+  .injuries .sub-header {
+    padding: 10px 14px;
+    font-size: 10px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-elevated);
+  }
+  .injury-row {
+    display: grid;
+    grid-template-columns: 36px 1fr 60px;
+    gap: 8px;
+    padding: 7px 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+    align-items: center;
+  }
+  .injury-row .team { color: var(--accent); font-weight: 700; font-size: 10px; }
+  .injury-row .athlete { color: var(--text); }
+  .injury-row .athlete .pos { color: var(--text-dim); margin-left: 6px; font-size: 10px; }
+  .injury-row .status {
+    color: var(--down);
+    font-size: 9px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    text-align: right;
+  }
+  .injury-row .status.day-to-day { color: var(--accent); }
+  .injury-row .status.questionable { color: var(--text-muted); }
+
+  /* ── Scoreboard pane (center) ── */
+  .league-block {
+    border-bottom: 1px solid var(--border-strong);
+  }
+  .league-strip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .league-strip .count {
+    color: var(--text-dim);
+    font-size: 10px;
+  }
+  .game-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 16px;
+    align-items: center;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    transition: background .15s;
+  }
+  .game-row:hover { background: var(--bg-elevated); }
+  .game-row:nth-child(even) { background: var(--bg-row-alt); }
+  .game-row:nth-child(even):hover { background: var(--bg-elevated); }
+  .game-row .side {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .game-row .side.home { flex-direction: row-reverse; }
+  .game-row .side.home .meta { text-align: right; }
+  .game-row .meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .game-row .team-abbr {
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    letter-spacing: .04em;
+  }
+  .game-row .record {
+    color: var(--text-dim);
+    font-size: 10px;
+    letter-spacing: .08em;
+  }
+  .game-row .score {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+  .game-row.completed .score.winner { color: var(--accent); }
+  .game-row .pivot {
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    min-width: 70px;
+  }
+  .game-row.live .pivot { color: var(--live); }
+  .game-row.live .pivot::before {
+    content: "● ";
+    color: var(--live);
+    animation: pulse 1.5s infinite;
+  }
+
+  /* ── Odds pane (right) ── */
+  .odds-row {
+    display: grid;
+    grid-template-columns: 1fr 60px 60px 60px;
+    gap: 8px;
+    align-items: center;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+  }
+  .odds-row:hover { background: var(--bg-elevated); }
+  .odds-row:nth-child(even) { background: var(--bg-row-alt); }
+  .odds-row .matchup {
+    color: var(--text);
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .odds-row .col {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+  }
+  .odds-row .col.away { color: var(--text); }
+  .odds-row .col.home { color: var(--text); }
+  .odds-row .col.spread { color: var(--accent); }
+  .odds-row .col .neg { color: var(--down); }
+  .odds-row .col .pos { color: var(--up); }
+  .odds-head {
+    display: grid;
+    grid-template-columns: 1fr 60px 60px 60px;
+    gap: 8px;
+    padding: 8px 14px;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border-strong);
+    font-size: 9px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    position: sticky;
+    top: 0;
+    z-index: 4;
+  }
+  .odds-head .col { text-align: right; }
+
+  /* Empty / loading state for any pane */
+  .empty {
+    padding: 24px 14px;
+    color: var(--text-dim);
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+
+  /* ── Command bar (bottom) ── */
+  .cmdbar {
+    height: 40px;
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--border-strong);
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    gap: 16px;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .cmdbar .prompt {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .cmdbar input {
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    outline: none;
+    flex: 1;
+    padding: 0;
+    caret-color: var(--accent);
+  }
+  .cmdbar input::placeholder { color: var(--text-dim); }
+  .cmdbar .keyhint {
+    color: var(--text-dim);
+    font-size: 10px;
+  }
+  .cmdbar .keyhint kbd {
+    background: var(--bg);
+    border: 1px solid var(--border-strong);
+    padding: 1px 6px;
+    font-family: inherit;
+    font-size: 10px;
+    color: var(--text);
+    margin: 0 2px;
+  }
+  .cmdbar .refresh-info {
+    color: var(--text-dim);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── Mobile: stack vertically with reduced density ── */
+  @media (max-width: 960px) {
+    main {
+      grid-template-columns: 1fr;
+      height: auto;
+      overflow-y: auto;
+    }
+    .pane {
+      border-right: 0;
+      border-bottom: 1px solid var(--border-strong);
+      max-height: 60vh;
+    }
+    .topbar .status { display: none; }
+    .cmdbar .keyhint { display: none; }
+    body { overflow: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── TOP STATUS BAR ── -->
+<header class="topbar">
+  <div class="logo">
+    SMARTERPICKS<span class="term-tag">TERMINAL</span>
+  </div>
+  <div class="status">
+    <span><span class="key">MKT</span><span class="live-dot"></span><span class="val">LIVE</span></span>
+    <span><span class="key">DATE</span><span class="val" id="t-date">—</span></span>
+    <span><span class="key">FEED</span><span class="val" id="t-feed">ESPN / ODDS</span></span>
+  </div>
+  <span class="clock" id="t-clock">00:00:00 ET</span>
+  <a class="home-link" href="/">← smarterpicks.io</a>
+</header>
+
+<!-- ── TICKER STRIP ── -->
+<div class="ticker">
+  <div class="ticker-label">LIVE</div>
+  <div class="ticker-track" id="t-ticker">
+    <span class="ticker-item"><span class="league">—</span><span class="state">loading...</span></span>
+  </div>
+</div>
+
+<!-- ── MAIN 3-COL GRID ── -->
+<main>
+
+  <!-- LEFT: News + Injuries -->
+  <section class="pane" id="pane-news">
+    <header class="pane-header">
+      <span>News Feed</span>
+      <span class="count" id="news-count">—</span>
+    </header>
+    <div id="news-list">
+      <div class="empty">Loading wire feed…</div>
+    </div>
+    <div class="injuries">
+      <div class="sub-header">Injury Wire</div>
+      <div id="injury-list">
+        <div class="empty">Loading injuries…</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CENTER: Live Scoreboard -->
+  <section class="pane" id="pane-scores">
+    <header class="pane-header">
+      <span>Scoreboard</span>
+      <span class="count" id="scores-count">—</span>
+    </header>
+    <div id="scores-list">
+      <div class="empty">Pulling scoreboards…</div>
+    </div>
+  </section>
+
+  <!-- RIGHT: Today's Lines -->
+  <section class="pane" id="pane-odds">
+    <header class="pane-header">
+      <span>Today's Lines</span>
+      <span class="count" id="odds-count">—</span>
+    </header>
+    <div class="odds-head">
+      <span>Matchup</span>
+      <span class="col">AWAY ML</span>
+      <span class="col">HOME ML</span>
+      <span class="col">SPREAD</span>
+    </div>
+    <div id="odds-list">
+      <div class="empty">Pulling lines…</div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── COMMAND BAR ── -->
+<footer class="cmdbar">
+  <span class="prompt">GO &gt;</span>
+  <input id="cmd-input" type="text" placeholder="Type a league (NBA, MLB, NHL, NFL) or team abbr to filter — Esc to clear" autocomplete="off" spellcheck="false">
+  <span class="refresh-info" id="refresh-info">Next refresh: 30s</span>
+  <span class="keyhint">
+    <kbd>/</kbd> focus &nbsp;
+    <kbd>R</kbd> refresh &nbsp;
+    <kbd>Esc</kbd> clear
+  </span>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  // ── CONFIG ──
+  const REFRESH_MS = 30_000;
+  const DATA_URL   = "/api/terminal-data";
+
+  // ── STATE ──
+  let DATA = null;
+  let FILTER = "";     // league key or team abbr, or "" for everything
+  let NEXT_TICK = Date.now() + REFRESH_MS;
+
+  // ── ELEMENT REFS ──
+  const $ = id => document.getElementById(id);
+  const els = {
+    date: $("t-date"),
+    clock: $("t-clock"),
+    ticker: $("t-ticker"),
+    newsList: $("news-list"),
+    newsCount: $("news-count"),
+    injuryList: $("injury-list"),
+    scoresList: $("scores-list"),
+    scoresCount: $("scores-count"),
+    oddsList: $("odds-list"),
+    oddsCount: $("odds-count"),
+    cmdInput: $("cmd-input"),
+    refreshInfo: $("refresh-info"),
+  };
+
+  // ── UTIL: HTML-escape so any user/team text can't break out ──
+  const esc = s => String(s == null ? "" : s)
+    .replace(/&/g,  "&amp;")
+    .replace(/</g,  "&lt;")
+    .replace(/>/g,  "&gt;")
+    .replace(/"/g,  "&quot;")
+    .replace(/'/g,  "&#039;");
+
+  // ── UTIL: relative time for news ("3h ago", "12m ago") ──
+  function relTime(iso) {
+    if (!iso) return "";
+    const t = new Date(iso).getTime();
+    if (!t) return "";
+    const sec = Math.floor((Date.now() - t) / 1000);
+    if (sec < 60)    return sec + "s ago";
+    if (sec < 3600)  return Math.floor(sec / 60) + "m ago";
+    if (sec < 86400) return Math.floor(sec / 3600) + "h ago";
+    return Math.floor(sec / 86400) + "d ago";
+  }
+
+  // ── UTIL: format moneyline (+/-) with color span ──
+  function fmtML(price) {
+    if (price == null || isNaN(price)) return "—";
+    const cls = price > 0 ? "pos" : "neg";
+    const sign = price > 0 ? "+" : "";
+    return `<span class="${cls}">${sign}${price}</span>`;
+  }
+
+  // ── UTIL: format spread ("-4.5", "+6.5") ──
+  function fmtSpread(s) {
+    if (s == null || isNaN(s)) return "—";
+    const sign = s > 0 ? "+" : "";
+    return `${sign}${s}`;
+  }
+
+  // ── CLOCK ── (independent of data refresh)
+  function tickClock() {
+    const now = new Date();
+    // Show ET — use Intl for DST-aware conversion
+    const dateStr = now.toLocaleDateString("en-US", { timeZone: "America/New_York", month:"short", day:"2-digit", year:"numeric" }).toUpperCase();
+    const timeStr = now.toLocaleTimeString("en-US", { timeZone: "America/New_York", hour12: false }) + " ET";
+    els.date.textContent  = dateStr;
+    els.clock.textContent = timeStr;
+
+    // Refresh countdown
+    const remaining = Math.max(0, Math.ceil((NEXT_TICK - Date.now()) / 1000));
+    els.refreshInfo.textContent = `Next refresh: ${remaining}s`;
+  }
+  setInterval(tickClock, 1000);
+  tickClock();
+
+  // ── DATA FETCH ──
+  async function loadData() {
+    try {
+      const r = await fetch(DATA_URL, { cache: "no-store" });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      DATA = await r.json();
+      render();
+    } catch (e) {
+      console.warn("terminal data fetch failed", e);
+    } finally {
+      NEXT_TICK = Date.now() + REFRESH_MS;
+    }
+  }
+  loadData();
+  setInterval(loadData, REFRESH_MS);
+
+  // ── RENDER ──
+  function render() {
+    if (!DATA) return;
+    renderTicker();
+    renderNews();
+    renderInjuries();
+    renderScores();
+    renderOdds();
+  }
+
+  function visibleLeagues() {
+    if (!DATA || !DATA.leagues) return [];
+    const all = Object.entries(DATA.leagues);
+    const f = FILTER.trim().toLowerCase();
+    if (!f) return all;
+    // If filter matches a league key exactly, only that league
+    if (DATA.leagues[f]) return [[f, DATA.leagues[f]]];
+    // Otherwise return all (per-row team filter applies later)
+    return all;
+  }
+
+  function rowMatchesFilter(row) {
+    const f = FILTER.trim().toLowerCase();
+    if (!f) return true;
+    if (DATA.leagues[f]) return true; // league filter handled above
+    const haystack = (
+      (row.away_team || "") + " " +
+      (row.home_team || "") + " " +
+      (row.away_name || "") + " " +
+      (row.home_name || "")
+    ).toLowerCase();
+    return haystack.includes(f);
+  }
+
+  // ── TICKER ──
+  function renderTicker() {
+    const items = [];
+    for (const [, lg] of visibleLeagues()) {
+      for (const g of lg.scoreboard.filter(rowMatchesFilter)) {
+        const isLive = g.state === "in";
+        const isFinal = g.completed;
+        const state = isLive ? "LIVE · " + (g.detail || "") : (isFinal ? "FINAL" : (g.detail || ""));
+        const stateClass = isLive ? "state live" : "state";
+        items.push(
+          `<span class="ticker-item">` +
+          `<span class="league">${esc(lg.label)}</span>` +
+          `<span class="score">${esc(g.away_team)} ${esc(g.away_score)} - ${esc(g.home_score)} ${esc(g.home_team)}</span>` +
+          `<span class="${stateClass}">${esc(state)}</span>` +
+          `</span>`
+        );
+      }
+    }
+    if (!items.length) {
+      els.ticker.innerHTML = `<span class="ticker-item"><span class="state">No live games right now</span></span>`;
+      return;
+    }
+    // Double the items so the scroll loop is seamless (CSS animation goes to -50%)
+    els.ticker.innerHTML = items.join("") + items.join("");
+  }
+
+  // ── NEWS PANE ──
+  function renderNews() {
+    if (!DATA.news || !DATA.news.length) {
+      els.newsList.innerHTML = `<div class="empty">No wire items.</div>`;
+      els.newsCount.textContent = "0";
+      return;
+    }
+    const f = FILTER.trim().toLowerCase();
+    const items = DATA.news.filter(n => {
+      if (!f) return true;
+      if (DATA.leagues[f]) return n.league.toLowerCase() === DATA.leagues[f].label.toLowerCase();
+      return n.headline.toLowerCase().includes(f);
+    });
+    els.newsCount.textContent = String(items.length);
+    if (!items.length) {
+      els.newsList.innerHTML = `<div class="empty">No wire items match "${esc(FILTER)}".</div>`;
+      return;
+    }
+    els.newsList.innerHTML = items.map(n => `
+      <div class="news-item" onclick="${n.url ? `window.open('${esc(n.url)}', '_blank')` : ''}">
+        <div class="meta">
+          <span class="league">${esc(n.league)}</span>
+          <span class="time">${esc(relTime(n.published))}</span>
+        </div>
+        <div class="headline">${esc(n.headline)}</div>
+      </div>
+    `).join("");
+  }
+
+  function renderInjuries() {
+    const allInj = [];
+    for (const [, lg] of visibleLeagues()) {
+      for (const inj of (lg.injuries || [])) {
+        allInj.push({ ...inj, league: lg.label });
+      }
+    }
+    if (!allInj.length) {
+      els.injuryList.innerHTML = `<div class="empty">No injuries reported.</div>`;
+      return;
+    }
+    els.injuryList.innerHTML = allInj.slice(0, 20).map(inj => {
+      const statusCls = (inj.status || "").toLowerCase().includes("day-to-day")
+        ? "day-to-day"
+        : (inj.status || "").toLowerCase().includes("questionable") ? "questionable" : "";
+      return `
+        <div class="injury-row">
+          <span class="team">${esc(inj.team)}</span>
+          <span class="athlete">${esc(inj.athlete)}<span class="pos">${esc(inj.position)}</span></span>
+          <span class="status ${statusCls}">${esc(inj.status || "OUT")}</span>
+        </div>
+      `;
+    }).join("");
+  }
+
+  // ── SCOREBOARD PANE ──
+  function renderScores() {
+    const leagues = visibleLeagues();
+    let totalGames = 0;
+    const blocks = leagues.map(([key, lg]) => {
+      const games = (lg.scoreboard || []).filter(rowMatchesFilter);
+      if (!games.length) return "";
+      totalGames += games.length;
+      const rows = games.map(g => {
+        const isLive = g.state === "in";
+        const isFinal = g.completed;
+        const cls = isLive ? "live" : (isFinal ? "completed" : "");
+        // Determine winner side for completed games (gold-tint the winner's score)
+        const aScore = parseInt(g.away_score, 10) || 0;
+        const hScore = parseInt(g.home_score, 10) || 0;
+        const awayWin = isFinal && aScore > hScore;
+        const homeWin = isFinal && hScore > aScore;
+        const pivotText = isLive ? (g.detail || "LIVE") : (isFinal ? "FINAL" : (g.detail || "—"));
+        return `
+          <div class="game-row ${cls}">
+            <div class="side away">
+              <span class="score ${awayWin ? 'winner' : ''}">${esc(g.away_score)}</span>
+              <div class="meta">
+                <span class="team-abbr">${esc(g.away_team)}</span>
+                <span class="record">${esc(g.away_record)}</span>
+              </div>
+            </div>
+            <span class="pivot">${esc(pivotText)}</span>
+            <div class="side home">
+              <span class="score ${homeWin ? 'winner' : ''}">${esc(g.home_score)}</span>
+              <div class="meta">
+                <span class="team-abbr">${esc(g.home_team)}</span>
+                <span class="record">${esc(g.home_record)}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+      return `
+        <div class="league-block">
+          <div class="league-strip">
+            <span>${esc(lg.label)}</span>
+            <span class="count">${games.length} game${games.length === 1 ? "" : "s"}</span>
+          </div>
+          ${rows}
+        </div>
+      `;
+    }).join("");
+    els.scoresCount.textContent = String(totalGames);
+    els.scoresList.innerHTML = blocks || `<div class="empty">No games match the current filter.</div>`;
+  }
+
+  // ── ODDS PANE ──
+  function renderOdds() {
+    const leagues = visibleLeagues();
+    let totalLines = 0;
+    const blocks = leagues.map(([key, lg]) => {
+      const games = (lg.odds || []).filter(o => {
+        if (!FILTER) return true;
+        if (DATA.leagues[FILTER.toLowerCase()]) return true;
+        const t = (o.away_team + " " + o.home_team).toLowerCase();
+        return t.includes(FILTER.toLowerCase());
+      });
+      if (!games.length) return "";
+      totalLines += games.length;
+      const rows = games.map(o => {
+        // Short team names — strip the city prefix for tighter display
+        const shortAway = shortName(o.away_team);
+        const shortHome = shortName(o.home_team);
+        return `
+          <div class="odds-row">
+            <span class="matchup">${esc(shortAway)} @ ${esc(shortHome)}</span>
+            <span class="col away">${fmtML(o.away_ml_price)}</span>
+            <span class="col home">${fmtML(o.home_ml_price)}</span>
+            <span class="col spread">${esc(fmtSpread(o.home_spread))}</span>
+          </div>
+        `;
+      }).join("");
+      return `
+        <div class="league-block">
+          <div class="league-strip">
+            <span>${esc(lg.label)}</span>
+            <span class="count">${games.length} line${games.length === 1 ? "" : "s"}</span>
+          </div>
+          ${rows}
+        </div>
+      `;
+    }).join("");
+    els.oddsCount.textContent = String(totalLines);
+    els.oddsList.innerHTML = blocks || `<div class="empty">No lines published yet.</div>`;
+  }
+
+  // ── UTIL: shorten "Boston Celtics" → "Celtics" for tight cells ──
+  function shortName(full) {
+    if (!full) return "";
+    const parts = full.split(" ");
+    return parts.length > 1 ? parts.slice(1).join(" ") : full;
+  }
+
+  // ── COMMAND BAR INTERACTIONS ──
+  els.cmdInput.addEventListener("input", () => {
+    FILTER = els.cmdInput.value.trim();
+    if (DATA) render();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.target === els.cmdInput) {
+      if (e.key === "Escape") {
+        els.cmdInput.value = "";
+        FILTER = "";
+        render();
+        els.cmdInput.blur();
+      }
+      return;
+    }
+    if (e.key === "/") {
+      e.preventDefault();
+      els.cmdInput.focus();
+    } else if (e.key === "r" || e.key === "R") {
+      // R forces an immediate refresh
+      e.preventDefault();
+      NEXT_TICK = Date.now();
+      loadData();
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
