@@ -1,135 +1,135 @@
 {
-  "date": "May 23, 2026",
-  "date_short": "05-23",
-  "sport_summary": "Loaded 20-game Saturday slate featuring NBA Playoffs, NHL Playoffs, and a full MLB day card headlined by Paul Skenes on the mound in Toronto",
+  "date": "May 24, 2026",
+  "date_short": "05-24",
+  "sport_summary": "Heavy 16-game MLB Sunday slate leads the card alongside NBA Playoffs and NHL Playoff action tonight",
   "picks": [
     {
       "league": "MLB",
-      "time": "3:08 PM ET",
-      "away_team": "Pittsburgh Pirates",
-      "home_team": "Toronto Blue Jays",
+      "time": "2:11 PM ET",
+      "away_team": "St. Louis Cardinals",
+      "home_team": "Cincinnati Reds",
       "game_detail": "Regular Season",
-      "pick": "Under 7.5",
-      "odds": "-107",
-      "book": "LowVig.ag",
+      "pick": "Under 9.5",
+      "odds": "+100",
+      "book": "FanDuel",
       "stake": "2u",
-      "reasoning": "Paul Skenes takes the mound for Pittsburgh \u2014 he's one of the best arms in the game and a near-automatic low-scoring start. Toronto counters with Patrick Corbin, a veteran ground-ball pitcher who keeps games tight. The Under 7.5 at -107 on LowVig carries a 179.8 edge_bps, well above our 100 threshold, beating a median of -115 by a substantial margin. Skenes vs. a below-average Blue Jays offense is a strong pitch-dominant setup.",
+      "reasoning": "The Under 9.5 at FanDuel's +100 against a median of -108 represents 192 edge_bps \u2014 one of the strongest line values on the entire slate. Brady Singer takes the mound for Cincinnati, a ground-ball pitcher who limits big innings, while Matthew Liberatore has shown improved command and groundball tendencies for St. Louis. Getting plus-money on a sub-10 total in this matchup is exceptional value.",
       "tags": [
-        "Starter Mismatch",
         "Line Value",
+        "Pitching Matchup",
         "Confidence B+"
       ],
       "is_premium": false
     },
     {
       "league": "MLB",
-      "time": "4:06 PM ET",
-      "away_team": "Detroit Tigers",
-      "home_team": "Baltimore Orioles",
+      "time": "1:36 PM ET",
+      "away_team": "Minnesota Twins",
+      "home_team": "Boston Red Sox",
       "game_detail": "Regular Season",
-      "pick": "Detroit Tigers ML",
-      "odds": "107",
-      "book": "BetUS",
+      "pick": "Over 7.5",
+      "odds": "-105",
+      "book": "Bovada",
       "stake": "1.5u",
-      "reasoning": "Framber Valdez starts for Detroit \u2014 a proven frontline starter who gives the Tigers a significant pitching edge over Brandon Young, a less-established arm for Baltimore. The Tigers ML at +107 on BetUS shows 169.1 edge_bps against a median of +100, meaning books are significantly underpricing Detroit here. Valdez's ground-ball heavy approach is well-suited to suppress an Orioles lineup and grind out an upset.",
+      "reasoning": "Over 7.5 at -105 against a median of -115 produces 227 edge_bps \u2014 the highest total edge on the board today. Sonny Gray faces Boston's lineup while Bailey Ober takes on the Red Sox, and both pitchers are serviceable but not dominant enough to suppress a Fenway offense. The line discrepancy between books at 7.5 versus those who moved to 8.0 signals sharp over action on the lower number.",
       "tags": [
-        "Starter Advantage",
         "Line Value",
+        "Best Price",
+        "Confidence B+"
+      ],
+      "is_premium": true
+    },
+    {
+      "league": "MLB",
+      "time": "1:36 PM ET",
+      "away_team": "Cleveland Guardians",
+      "home_team": "Philadelphia Phillies",
+      "game_detail": "Regular Season",
+      "pick": "Guardians -1.5",
+      "odds": "+140",
+      "book": "BetRivers",
+      "stake": "1.5u",
+      "reasoning": "Cleveland -1.5 at +140 versus a median of +130 gives 181 edge_bps and strong plus-money value on a team favored on the moneyline. Parker Messick gets the call for the Guardians against Andrew Painter, and Cleveland's run-differential edge makes covering 1.5 runs at Citizens Bank Park a legitimate proposition at this price. BetRivers is the outlier here at +140 while the field sits closer to +130.",
+      "tags": [
+        "Line Value",
+        "Spread",
         "Confidence B"
       ],
       "is_premium": true
     },
     {
       "league": "MLB",
-      "time": "4:11 PM ET",
-      "away_team": "Washington Nationals",
-      "home_team": "Atlanta Braves",
+      "time": "2:06 PM ET",
+      "away_team": "Chicago White Sox",
+      "home_team": "San Francisco Giants",
       "game_detail": "Regular Season",
-      "pick": "Under 9.0",
+      "pick": "Giants ML",
       "odds": "-102",
-      "book": "BetMGM",
-      "stake": "2u",
-      "reasoning": "The Under 9.0 at -102 on BetMGM registers 299.3 edge_bps against a median of -115 \u2014 the single largest pricing discrepancy on today's entire slate. Grant Holmes starts for Atlanta against Jake Irvin for Washington, a matchup of mid-rotation arms, but the consensus is sharply tilted toward the Under at this number. Getting nearly even money on a side the market prices at -115 is a rare opportunity that demands action.",
+      "book": "LowVig.ag",
+      "stake": "1.5u",
+      "reasoning": "San Francisco at essentially pick-em odds (-102 at LowVig) against a median of -110 generates 189 edge_bps on a team that's a slight home favorite across most books. Robbie Ray on the mound for the Giants facing Noah Schultz \u2014 a relatively inexperienced White Sox arm \u2014 gives San Francisco a meaningful pitching edge. Getting a home favorite at near-even money with nearly 2% edge over the median is a clear opportunity.",
       "tags": [
-        "Max Edge",
         "Line Value",
-        "Confidence A"
+        "Home Favorite",
+        "Confidence B+"
+      ],
+      "is_premium": true
+    },
+    {
+      "league": "MLB",
+      "time": "2:11 PM ET",
+      "away_team": "Colorado Rockies",
+      "home_team": "Arizona Diamondbacks",
+      "game_detail": "Regular Season",
+      "pick": "Rockies +1.5",
+      "odds": "-114",
+      "book": "LowVig.ag",
+      "stake": "1.5u",
+      "reasoning": "Colorado +1.5 at -114 versus a median of -125 is 229 edge_bps \u2014 the single largest spread edge across all games today. Ryne Nelson starts for Arizona against Jose Quintana for Colorado, and while Arizona is rightly favored on the moneyline, the Rockies' run-line price at LowVig is dramatically better than the market consensus. Even in a projected Arizona win, getting 1.5 runs at this discount is strong value.",
+      "tags": [
+        "Line Value",
+        "Best Price",
+        "Confidence B+"
+      ],
+      "is_premium": true
+    },
+    {
+      "league": "NHL \u00b7 Playoffs",
+      "time": "8:10 PM ET",
+      "away_team": "Colorado Avalanche",
+      "home_team": "Vegas Golden Knights",
+      "game_detail": "Playoff Game",
+      "pick": "Avalanche -1.5",
+      "odds": "+184",
+      "book": "BetUS",
+      "stake": "1u",
+      "reasoning": "Colorado -1.5 at +184 against a median of +175 yields 115 edge_bps and offers significant plus-money on the series favorite. The Avalanche are favored on the moneyline at -135 to -148 across all books, implying a strong win probability that at +184 on the puck line represents genuine overlay. BetUS is the clear best number and the gap from median makes this actionable.",
+      "tags": [
+        "Line Value",
+        "Puck Line",
+        "Confidence B"
       ],
       "is_premium": true
     },
     {
       "league": "NBA \u00b7 Playoffs",
       "time": "8:10 PM ET",
-      "away_team": "New York Knicks",
-      "home_team": "Cleveland Cavaliers",
-      "game_detail": "Playoffs",
-      "pick": "Cleveland Cavaliers -2.5",
-      "odds": "-105",
-      "book": "Bovada",
-      "stake": "1.5u",
-      "reasoning": "Cleveland -2.5 at -105 on Bovada carries 116.1 edge_bps versus a median of -110, offering meaningful line value on the favorite. The Cavaliers are at home and the market consensus strongly supports their advantage at this spread. Getting the chalk at -105 instead of the standard -110 is a clear pricing edge worth pressing in a playoff setting.",
-      "tags": [
-        "Home Favorite",
-        "Line Value",
-        "Confidence B+"
-      ],
-      "is_premium": true
-    },
-    {
-      "league": "MLB",
-      "time": "4:11 PM ET",
-      "away_team": "Seattle Mariners",
-      "home_team": "Kansas City Royals",
-      "game_detail": "Regular Season",
-      "pick": "Under 8.5",
-      "odds": "100",
-      "book": "FanDuel",
-      "stake": "1.5u",
-      "reasoning": "George Kirby starts for Seattle \u2014 one of the most efficient contact-management pitchers in baseball \u2014 while Kansas City sends Stephen Kolek to the hill. The Under 8.5 at +100 (even money) on FanDuel shows 169.1 edge_bps against a median of -107, meaning you're getting significant positive value on a side the market prices as a mild favorite. Kirby's elite command and low walk rate consistently suppress run totals.",
-      "tags": [
-        "Starter Advantage",
-        "Line Value",
-        "Confidence B+"
-      ],
-      "is_premium": true
-    },
-    {
-      "league": "MLB",
-      "time": "7:16 PM ET",
-      "away_team": "Los Angeles Dodgers",
-      "home_team": "Milwaukee Brewers",
-      "game_detail": "Regular Season",
-      "pick": "Over 9.0",
-      "odds": "100",
-      "book": "FanDuel",
-      "stake": "1u",
-      "reasoning": "Roki Sasaki has shown inconsistency in his transition to MLB, and Robert Gasser is a mid-rotation arm for Milwaukee \u2014 this is a matchup where run-scoring is live. The Over 9.0 at even money on FanDuel carries 122.0 edge_bps against a median of -105, providing genuine positive-value pricing. Getting plus money on the Over in a game where neither starter is an elite run-suppressor is a smart play.",
-      "tags": [
-        "Starter Concern",
-        "Line Value",
-        "Confidence B"
-      ],
-      "is_premium": true
-    },
-    {
-      "league": "NHL \u00b7 Playoffs",
-      "time": "7:10 PM ET",
-      "away_team": "Montr\u00e9al Canadiens",
-      "home_team": "Carolina Hurricanes",
-      "game_detail": "Playoffs",
-      "pick": "Over 6.0",
-      "odds": "106",
+      "away_team": "Oklahoma City Thunder",
+      "home_team": "San Antonio Spurs",
+      "game_detail": "Playoff Game",
+      "pick": "Thunder +2.5",
+      "odds": "-102",
       "book": "LowVig.ag",
       "stake": "1u",
-      "reasoning": "The Over 6.0 at +106 on LowVig.ag shows 96.1 edge_bps against a median of +102 \u2014 just under our strict 100 threshold but the positive American odds on an Over in a playoff game with two offenses capable of pushing pace makes this a calculated inclusion. Carolina is a dominant home team that can force open-ice hockey, and Montreal has shown offensive capability that can keep totals elevated. The positive price on the Over is the key driver here.",
+      "reasoning": "OKC +2.5 at -102 against a median of -110 delivers 189 edge_bps on a near-even spread price for a Thunder team that is only a modest road underdog. The moneyline consensus has OKC around +119-124 suggesting a close game, and getting the points at -102 rather than the standard -110 is meaningful over time. LowVig is the clear outlier price and the 8-book sample gives high confidence in the consensus.",
       "tags": [
-        "Playoff Tempo",
         "Line Value",
+        "Spread",
         "Confidence B"
       ],
       "is_premium": true
     }
   ],
-  "generated_at": "2026-05-23T06:38:59.600653",
-  "generated_at_readable": "May 23, 2026 at 02:38 AM ET"
+  "generated_at": "2026-05-24T07:25:51.827838",
+  "generated_at_readable": "May 24, 2026 at 03:25 AM ET"
 }
