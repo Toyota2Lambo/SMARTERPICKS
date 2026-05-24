@@ -1,0 +1,456 @@
+{
+  "generated_at": "2026-05-24T07:28:03.880932+00:00",
+  "model": "claude-sonnet-4-6",
+  "carousel_topic": "Why anyone claiming an 80% win rate is lying or selling something",
+  "source": {
+    "picks_date": "May 24, 2026",
+    "results_date": "May 23, 2026",
+    "history_stats": {
+      "total_picks": 430,
+      "wins": 266,
+      "losses": 224,
+      "pushes": 22,
+      "win_pct": 54.3,
+      "net_units": 45.61,
+      "roi_pct": 9.3,
+      "best_month_units": 12.4,
+      "worst_month_units": -3.8,
+      "avg_daily_units": 0.85,
+      "days_recorded": 51
+    },
+    "today_free_pick": {
+      "league": "MLB",
+      "time": "2:11 PM ET",
+      "away_team": "St. Louis Cardinals",
+      "home_team": "Cincinnati Reds",
+      "game_detail": "Regular Season",
+      "pick": "Under 9.5",
+      "odds": "+100",
+      "book": "FanDuel",
+      "stake": "2u",
+      "reasoning": "The Under 9.5 at FanDuel's +100 against a median of -108 represents 192 edge_bps — one of the strongest line values on the entire slate. Brady Singer takes the mound for Cincinnati, a ground-ball pitcher who limits big innings, while Matthew Liberatore has shown improved command and groundball tendencies for St. Louis. Getting plus-money on a sub-10 total in this matchup is exceptional value.",
+      "tags": [
+        "Line Value",
+        "Pitching Matchup",
+        "Confidence B+"
+      ],
+      "is_premium": false
+    },
+    "results_picks": [
+      {
+        "league": "MLB",
+        "time": "3:08 PM ET",
+        "away_team": "Pittsburgh Pirates",
+        "home_team": "Toronto Blue Jays",
+        "game_detail": "Regular Season",
+        "pick": "Under 7.5",
+        "odds": "-107",
+        "book": "LowVig.ag",
+        "stake": "2u",
+        "reasoning": "Paul Skenes takes the mound for Pittsburgh — he's one of the best arms in the game and a near-automatic low-scoring start. Toronto counters with Patrick Corbin, a veteran ground-ball pitcher who keeps games tight. The Under 7.5 at -107 on LowVig carries a 179.8 edge_bps, well above our 100 threshold, beating a median of -115 by a substantial margin. Skenes vs. a below-average Blue Jays offense is a strong pitch-dominant setup.",
+        "tags": [
+          "Starter Mismatch",
+          "Line Value",
+          "Confidence B+"
+        ],
+        "is_premium": false,
+        "result": "LOST",
+        "units": -2.0
+      },
+      {
+        "league": "MLB",
+        "time": "4:06 PM ET",
+        "away_team": "Detroit Tigers",
+        "home_team": "Baltimore Orioles",
+        "game_detail": "Regular Season",
+        "pick": "Detroit Tigers ML",
+        "odds": "107",
+        "book": "BetUS",
+        "stake": "1.5u",
+        "reasoning": "Framber Valdez starts for Detroit — a proven frontline starter who gives the Tigers a significant pitching edge over Brandon Young, a less-established arm for Baltimore. The Tigers ML at +107 on BetUS shows 169.1 edge_bps against a median of +100, meaning books are significantly underpricing Detroit here. Valdez's ground-ball heavy approach is well-suited to suppress an Orioles lineup and grind out an upset.",
+        "tags": [
+          "Starter Advantage",
+          "Line Value",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "LOST",
+        "units": -1.5
+      },
+      {
+        "league": "MLB",
+        "time": "4:11 PM ET",
+        "away_team": "Washington Nationals",
+        "home_team": "Atlanta Braves",
+        "game_detail": "Regular Season",
+        "pick": "Under 9.0",
+        "odds": "-102",
+        "book": "BetMGM",
+        "stake": "2u",
+        "reasoning": "The Under 9.0 at -102 on BetMGM registers 299.3 edge_bps against a median of -115 — the single largest pricing discrepancy on today's entire slate. Grant Holmes starts for Atlanta against Jake Irvin for Washington, a matchup of mid-rotation arms, but the consensus is sharply tilted toward the Under at this number. Getting nearly even money on a side the market prices at -115 is a rare opportunity that demands action.",
+        "tags": [
+          "Max Edge",
+          "Line Value",
+          "Confidence A"
+        ],
+        "is_premium": true,
+        "result": "PUSH",
+        "units": 0.0
+      },
+      {
+        "league": "NBA · Playoffs",
+        "time": "8:10 PM ET",
+        "away_team": "New York Knicks",
+        "home_team": "Cleveland Cavaliers",
+        "game_detail": "Playoffs",
+        "pick": "Cleveland Cavaliers -2.5",
+        "odds": "-105",
+        "book": "Bovada",
+        "stake": "1.5u",
+        "reasoning": "Cleveland -2.5 at -105 on Bovada carries 116.1 edge_bps versus a median of -110, offering meaningful line value on the favorite. The Cavaliers are at home and the market consensus strongly supports their advantage at this spread. Getting the chalk at -105 instead of the standard -110 is a clear pricing edge worth pressing in a playoff setting.",
+        "tags": [
+          "Home Favorite",
+          "Line Value",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "LOST",
+        "units": -1.5
+      },
+      {
+        "league": "MLB",
+        "time": "4:11 PM ET",
+        "away_team": "Seattle Mariners",
+        "home_team": "Kansas City Royals",
+        "game_detail": "Regular Season",
+        "pick": "Under 8.5",
+        "odds": "100",
+        "book": "FanDuel",
+        "stake": "1.5u",
+        "reasoning": "George Kirby starts for Seattle — one of the most efficient contact-management pitchers in baseball — while Kansas City sends Stephen Kolek to the hill. The Under 8.5 at +100 (even money) on FanDuel shows 169.1 edge_bps against a median of -107, meaning you're getting significant positive value on a side the market prices as a mild favorite. Kirby's elite command and low walk rate consistently suppress run totals.",
+        "tags": [
+          "Starter Advantage",
+          "Line Value",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 1.5
+      },
+      {
+        "league": "MLB",
+        "time": "7:16 PM ET",
+        "away_team": "Los Angeles Dodgers",
+        "home_team": "Milwaukee Brewers",
+        "game_detail": "Regular Season",
+        "pick": "Over 9.0",
+        "odds": "100",
+        "book": "FanDuel",
+        "stake": "1u",
+        "reasoning": "Roki Sasaki has shown inconsistency in his transition to MLB, and Robert Gasser is a mid-rotation arm for Milwaukee — this is a matchup where run-scoring is live. The Over 9.0 at even money on FanDuel carries 122.0 edge_bps against a median of -105, providing genuine positive-value pricing. Getting plus money on the Over in a game where neither starter is an elite run-suppressor is a smart play.",
+        "tags": [
+          "Starter Concern",
+          "Line Value",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "LOST",
+        "units": -1.0
+      },
+      {
+        "league": "NHL · Playoffs",
+        "time": "7:10 PM ET",
+        "away_team": "Montréal Canadiens",
+        "home_team": "Carolina Hurricanes",
+        "game_detail": "Playoffs",
+        "pick": "Over 6.0",
+        "odds": "106",
+        "book": "LowVig.ag",
+        "stake": "1u",
+        "reasoning": "The Over 6.0 at +106 on LowVig.ag shows 96.1 edge_bps against a median of +102 — just under our strict 100 threshold but the positive American odds on an Over in a playoff game with two offenses capable of pushing pace makes this a calculated inclusion. Carolina is a dominant home team that can force open-ice hockey, and Montreal has shown offensive capability that can keep totals elevated. The positive price on the Over is the key driver here.",
+        "tags": [
+          "Playoff Tempo",
+          "Line Value",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "LOST",
+        "units": -1.0
+      }
+    ]
+  },
+  "content": {
+    "ig_pick_post": {
+      "caption": "Tonight's free pick: Cardinals vs Reds Under 9.5 at +100. Brady Singer on the mound, value on the total. Full card at smarterpicks.io.",
+      "slide1_text": "Tonight's Free Pick\nMLB · Cardinals @ Reds\nUnder 9.5 at +100",
+      "slide2_text": "Brady Singer starts for Cincinnati. Ground-ball pitcher, limits hard contact. The market median sits at -108. You're getting plus-money on a total that should be minus.\n\nEdge: +192 bps on the line.",
+      "slide3_text": "Full card is live at smarterpicks.io.\n7-day free trial. No commitment.\nSee every pick before first pitch.",
+      "hashtags": [
+        "sportsbetting",
+        "mlbpicks",
+        "mlbbetting",
+        "freepick",
+        "cardinalsvreds",
+        "bradysinger",
+        "underbetting",
+        "sportspicks",
+        "baseballbetting",
+        "bettingtips",
+        "sharpbetting",
+        "smarterpicks",
+        "totals",
+        "mlb2026",
+        "baseballodds",
+        "lineshop",
+        "valuebets",
+        "bettinganalysis"
+      ]
+    },
+    "ig_results_post": {
+      "caption": "Yesterday: 1-5-1, -5.50u. One win on the Mariners Under, four losses. Honest day on the board. We post it all.",
+      "headline_text": "Yesterday: 1-5-1, -5.50u",
+      "hashtags": [
+        "sportsbetting",
+        "mlbpicks",
+        "nbapicks",
+        "bettingresults",
+        "sportspicks",
+        "trackedrecord",
+        "bettingtransparency",
+        "mlbbetting",
+        "nbabetting",
+        "sharpbetting",
+        "smarterpicks",
+        "sportsodds",
+        "bettingrecap",
+        "yesterdaypicks",
+        "mlb2026",
+        "nba2026",
+        "lossesontheboard",
+        "publicrecord"
+      ]
+    },
+    "ig_carousel_topic": {
+      "topic": "Why anyone claiming an 80% win rate is lying or selling something",
+      "slide1_text": "Someone just told you they hit 80% of their bets.\n\nThat should be your first red flag.",
+      "slide2_text": "The assumption: a sharp bettor wins most of the time.\n\nMost people believe a good handicapper should be right 7 or 8 times out of 10. It feels logical. It's wrong.",
+      "slide3_text": "The honest math: the best bettors in the world hit 55 to 58 percent.\n\nSportsbooks set lines to be 50/50. Beating that by 5 points consistently is what separates professionals from gamblers. 80% is not a real number.",
+      "slide4_text": "A 55% win rate at -110 juice, betting 1 unit per game across 500 plays:\n\nProfit: roughly +22 units.\nAn 80% claimant would need to go 400-100. No tracked, audited service has ever done that at scale.",
+      "slide5_text": "The target is 53 to 58 percent, not 80.\n\nAnyone showing you a screenshot of 12 wins in a row is showing you 12 picks out of hundreds. Ask for the full ledger. If they don't have one, that's the answer.",
+      "caption": "The 80% win rate claim is the oldest trick in sports betting. Here's what the real numbers look like and why it matters for your bankroll.",
+      "hashtags": [
+        "sportsbetting",
+        "bettingeducation",
+        "bettingtips",
+        "sharpbetting",
+        "winrate",
+        "sportspicks",
+        "bankrollmanagement",
+        "mlbbetting",
+        "nbabetting",
+        "oddsmaking",
+        "bettingmath",
+        "valuebets",
+        "smarterpicks",
+        "bettingadvice",
+        "handicapping",
+        "lineshop",
+        "bettinganalysis",
+        "sportsbettingtips"
+      ]
+    },
+    "story_sequence": [
+      "Card drops in 30 min. Cardinals vs Reds Under 9.5 at plus-money. Free pick, no subscription needed. Check the bio.",
+      "Poll: Do you bet totals or spreads more often? Drop your answer below.",
+      "Last call. Cardinals vs Reds first pitch is close. Full card at smarterpicks.io before you miss the window.",
+      "Tracking today's slate live. Cardinals vs Reds Under still in play. Updates coming after final outs.",
+      "Sunday card is done. Full recap in the morning. Tomorrow's picks post early. Set your alarm."
+    ],
+    "meme_post": {
+      "top_text": "Me before the game: 'I've done the research, this is a smart bet'",
+      "bottom_text": "Me watching the Dodgers go over 9.0 in the 7th inning",
+      "image_concept": "Person confidently pointing at a laptop screen showing betting analysis, then slumped in a chair watching a scoreboard light up"
+    },
+    "treatments": [
+      {
+        "template": "recap-card.html",
+        "rationale": "Yesterday was a 1-5-1 day and the board needs to be shown honestly, wins and losses together.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "",
+        "hashtags": [],
+        "fields": {
+          "tag": "YESTERDAY'S BOARD",
+          "wins": "1",
+          "losses": "5",
+          "units": "-5.50u",
+          "pick_rows": [
+            {
+              "matchup": "MLB · PIT @ TOR",
+              "play": "Under 7.5",
+              "result": "loss",
+              "units": -2.0
+            },
+            {
+              "matchup": "MLB · DET @ BAL",
+              "play": "Tigers ML",
+              "result": "loss",
+              "units": -1.5
+            },
+            {
+              "matchup": "MLB · WAS @ ATL",
+              "play": "Under 9.0",
+              "result": "push",
+              "units": 0.0
+            },
+            {
+              "matchup": "NBA · NYK @ CLE",
+              "play": "Cavaliers -2.5",
+              "result": "loss",
+              "units": -1.5
+            },
+            {
+              "matchup": "MLB · SEA @ KC",
+              "play": "Under 8.5",
+              "result": "win",
+              "units": 1.5
+            },
+            {
+              "matchup": "MLB · LAD @ MIL",
+              "play": "Over 9.0",
+              "result": "loss",
+              "units": -1.0
+            }
+          ]
+        }
+      },
+      {
+        "template": "pick-card.html",
+        "rationale": "Free pick day with a clear plus-money total edge. Pick-card is the workhorse for announcing today's free play.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "",
+        "hashtags": [],
+        "fields": {
+          "tag": "TODAY'S FREE PICK",
+          "matchup": "Cardinals @ Reds",
+          "game_time": "Tonight · MLB",
+          "pick_headline_html": "Under the <em>9.5</em>",
+          "line": "+100",
+          "edge": "+1.92%",
+          "confidence": "B+",
+          "away_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/stl.png",
+          "home_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/cin.png"
+        }
+      },
+      {
+        "template": "news-card.html",
+        "rationale": "Brady Singer's ground-ball profile is the key reasoning behind the free pick. A news-card surfaces that storyline for readers who want context.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "Brady Singer starts tonight and the total is sitting at plus-money. That gap between +100 and the market median is where today's edge lives.",
+        "hashtags": [
+          "mlbpicks",
+          "baseballbetting",
+          "sportsbetting",
+          "bradysinger",
+          "cincinnatireds",
+          "totals",
+          "freepick",
+          "sharpbetting",
+          "mlb2026",
+          "sportspicks",
+          "valuebets",
+          "bettingtips",
+          "underbet",
+          "startingpitcher",
+          "smarterpicks",
+          "lineshop"
+        ],
+        "fields": {
+          "tag": "TONIGHT'S EDGE",
+          "team_name": "Cincinnati Reds",
+          "league": "MLB",
+          "eyebrow": "MLB · STARTING PITCHER SPOT",
+          "headline_html": "Brady Singer limits <em>hard contact</em> on the ground.",
+          "body_html": "Singer's ground-ball rate keeps the ball in the park. Under 9.5 at +100 is plus-money on a total the market prices at -108.",
+          "photo_query": "baseball stadium dusk",
+          "team_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/cin.png",
+          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/baseball_20stadium_20dusk_4fddb5fcdb83.jpg",
+          "photo_credit": "Photo: Niketh Vellanki / Unsplash"
+        }
+      },
+      {
+        "template": "news-card.html",
+        "rationale": "Colorado Rockies plus-money run line edge is the single largest spread edge on today's slate at 229 bps. A second news-card on a different storyline adds depth to the day's content.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "The largest spread edge on today's board isn't the marquee game. It's Colorado getting +1.5 at a price the market undervalues by 11 cents.",
+        "hashtags": [
+          "mlbpicks",
+          "sportsbetting",
+          "runline",
+          "coloradorockies",
+          "sharpbetting",
+          "valuebets",
+          "bettingtips",
+          "mlb2026",
+          "sportspicks",
+          "lineshop",
+          "baseballbetting",
+          "spreadbetting",
+          "smarterpicks",
+          "bettinganalysis",
+          "edgebetting",
+          "bettingvalue"
+        ],
+        "fields": {
+          "tag": "LINE VALUE",
+          "team_name": "Colorado Rockies",
+          "league": "MLB",
+          "eyebrow": "MLB · RUN LINE SPOT",
+          "headline_html": "Rockies +1.5 at -114 is the <em>biggest spread edge</em> today.",
+          "body_html": "229 edge bps on Colorado's run line. The market median sits at -125. That 11-cent gap adds up across a full season.",
+          "photo_query": "baseball stadium afternoon",
+          "team_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/col.png",
+          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/baseball_20stadium_20afternoon_db17d1065ca9.jpg",
+          "photo_credit": "Photo: Niketh Vellanki / Unsplash"
+        }
+      },
+      {
+        "template": "lifestyle-card.html",
+        "rationale": "Mandatory daily lifestyle post. Sunday is a natural day to connect winning picks with weekend lifestyle aspirations.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "You could be guessing tonight or using a card that's up +45.6u this season. Free pick is live. 7-day free trial, no commitment. Link in bio.",
+        "hashtags": [
+          "sportsbetting",
+          "freepick",
+          "mlbpicks",
+          "sportspicks",
+          "sharpbetting",
+          "bettingtips",
+          "smarterpicks",
+          "mlb2026",
+          "valuebets",
+          "bankrollmanagement",
+          "bettinganalysis",
+          "sportsodds",
+          "sundaypicks",
+          "winnerbets",
+          "bettingcommunity",
+          "nhlpicks"
+        ],
+        "fields": {
+          "tag": "FREE PICK · TODAY",
+          "eyebrow": "54.3% WIN RATE · 51 DAYS",
+          "headline_html": "Win more bets. <em>Better Sundays.</em>",
+          "sub_html": "Today's free pick is live. Members up <em>+45.6u</em> this season. Start your 7-day free trial.",
+          "photo_query": "tuscany villa pool sunset",
+          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/tuscany_20villa_20pool_20sunset_9824c24fb901.jpg",
+          "photo_credit": "Photo: Piotr Litwicki / Unsplash"
+        }
+      }
+    ]
+  }
+}
