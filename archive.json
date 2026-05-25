@@ -1,16 +1,16 @@
 {
   "stats": {
-    "total_picks": 98,
-    "wins": 35,
-    "losses": 33,
+    "total_picks": 105,
+    "wins": 37,
+    "losses": 35,
     "pushes": 0,
-    "win_pct": 51.5,
-    "net_units": 5.63,
-    "roi_pct": 5.7,
+    "win_pct": 51.4,
+    "net_units": 6.6,
+    "roi_pct": 6.3,
     "best_month_units": 12.4,
     "worst_month_units": -3.8,
     "avg_daily_units": 0.85,
-    "days_recorded": 14
+    "days_recorded": 15
   },
   "days": [
     {
@@ -1999,6 +1999,185 @@
           "final_score": "2-3",
           "away_score": 2,
           "home_score": 3,
+          "winner_side": "home"
+        }
+      ]
+    },
+    {
+      "iso_date": "2026-05-24",
+      "date_display": "May 24, 2026",
+      "wins": 2,
+      "losses": 2,
+      "pushes": 0,
+      "net_units": 0.97,
+      "summary_text": "2-2 · +0.97u",
+      "picks": [
+        {
+          "league": "MLB",
+          "time": "2:11 PM ET",
+          "away_team": "St. Louis Cardinals",
+          "home_team": "Cincinnati Reds",
+          "game_detail": "Regular Season",
+          "pick": "Under 9.5",
+          "odds": "+100",
+          "book": "FanDuel",
+          "stake": "2u",
+          "reasoning": "The Under 9.5 at FanDuel's +100 against a median of -108 represents 192 edge_bps — one of the strongest line values on the entire slate. Brady Singer takes the mound for Cincinnati, a ground-ball pitcher who limits big innings, while Matthew Liberatore has shown improved command and groundball tendencies for St. Louis. Getting plus-money on a sub-10 total in this matchup is exceptional value.",
+          "tags": [
+            "Line Value",
+            "Pitching Matchup",
+            "Confidence B+"
+          ],
+          "is_premium": false,
+          "result": "WON",
+          "units": 2.0,
+          "final_score": "8-1",
+          "away_score": 8,
+          "home_score": 1,
+          "winner_side": "away"
+        },
+        {
+          "league": "MLB",
+          "time": "1:36 PM ET",
+          "away_team": "Minnesota Twins",
+          "home_team": "Boston Red Sox",
+          "game_detail": "Regular Season",
+          "pick": "Over 7.5",
+          "odds": "-105",
+          "book": "Bovada",
+          "stake": "1.5u",
+          "reasoning": "Over 7.5 at -105 against a median of -115 produces 227 edge_bps — the highest total edge on the board today. Sonny Gray faces Boston's lineup while Bailey Ober takes on the Red Sox, and both pitchers are serviceable but not dominant enough to suppress a Fenway offense. The line discrepancy between books at 7.5 versus those who moved to 8.0 signals sharp over action on the lower number.",
+          "tags": [
+            "Line Value",
+            "Best Price",
+            "Confidence B+"
+          ],
+          "is_premium": true,
+          "result": "PENDING",
+          "units": 0.0,
+          "final_score": "4-2",
+          "away_score": 4,
+          "home_score": 2,
+          "winner_side": "away"
+        },
+        {
+          "league": "MLB",
+          "time": "1:36 PM ET",
+          "away_team": "Cleveland Guardians",
+          "home_team": "Philadelphia Phillies",
+          "game_detail": "Regular Season",
+          "pick": "Guardians -1.5",
+          "odds": "+140",
+          "book": "BetRivers",
+          "stake": "1.5u",
+          "reasoning": "Cleveland -1.5 at +140 versus a median of +130 gives 181 edge_bps and strong plus-money value on a team favored on the moneyline. Parker Messick gets the call for the Guardians against Andrew Painter, and Cleveland's run-differential edge makes covering 1.5 runs at Citizens Bank Park a legitimate proposition at this price. BetRivers is the outlier here at +140 while the field sits closer to +130.",
+          "tags": [
+            "Line Value",
+            "Spread",
+            "Confidence B"
+          ],
+          "is_premium": true,
+          "result": "LOST",
+          "units": -1.5,
+          "final_score": "0-3",
+          "away_score": 0,
+          "home_score": 3,
+          "winner_side": "home"
+        },
+        {
+          "league": "MLB",
+          "time": "2:06 PM ET",
+          "away_team": "Chicago White Sox",
+          "home_team": "San Francisco Giants",
+          "game_detail": "Regular Season",
+          "pick": "Giants ML",
+          "odds": "-102",
+          "book": "LowVig.ag",
+          "stake": "1.5u",
+          "reasoning": "San Francisco at essentially pick-em odds (-102 at LowVig) against a median of -110 generates 189 edge_bps on a team that's a slight home favorite across most books. Robbie Ray on the mound for the Giants facing Noah Schultz — a relatively inexperienced White Sox arm — gives San Francisco a meaningful pitching edge. Getting a home favorite at near-even money with nearly 2% edge over the median is a clear opportunity.",
+          "tags": [
+            "Line Value",
+            "Home Favorite",
+            "Confidence B+"
+          ],
+          "is_premium": true,
+          "result": "WON",
+          "units": 1.47,
+          "final_score": "3-10",
+          "away_score": 3,
+          "home_score": 10,
+          "winner_side": "home"
+        },
+        {
+          "league": "MLB",
+          "time": "2:11 PM ET",
+          "away_team": "Colorado Rockies",
+          "home_team": "Arizona Diamondbacks",
+          "game_detail": "Regular Season",
+          "pick": "Rockies +1.5",
+          "odds": "-114",
+          "book": "LowVig.ag",
+          "stake": "1.5u",
+          "reasoning": "Colorado +1.5 at -114 versus a median of -125 is 229 edge_bps — the single largest spread edge across all games today. Ryne Nelson starts for Arizona against Jose Quintana for Colorado, and while Arizona is rightly favored on the moneyline, the Rockies' run-line price at LowVig is dramatically better than the market consensus. Even in a projected Arizona win, getting 1.5 runs at this discount is strong value.",
+          "tags": [
+            "Line Value",
+            "Best Price",
+            "Confidence B+"
+          ],
+          "is_premium": true,
+          "result": "PENDING",
+          "units": 0.0,
+          "final_score": "4-5",
+          "away_score": 4,
+          "home_score": 5,
+          "winner_side": "home"
+        },
+        {
+          "league": "NHL · Playoffs",
+          "time": "8:10 PM ET",
+          "away_team": "Colorado Avalanche",
+          "home_team": "Vegas Golden Knights",
+          "game_detail": "Playoff Game",
+          "pick": "Avalanche -1.5",
+          "odds": "+184",
+          "book": "BetUS",
+          "stake": "1u",
+          "reasoning": "Colorado -1.5 at +184 against a median of +175 yields 115 edge_bps and offers significant plus-money on the series favorite. The Avalanche are favored on the moneyline at -135 to -148 across all books, implying a strong win probability that at +184 on the puck line represents genuine overlay. BetUS is the clear best number and the gap from median makes this actionable.",
+          "tags": [
+            "Line Value",
+            "Puck Line",
+            "Confidence B"
+          ],
+          "is_premium": true,
+          "result": "LOST",
+          "units": -1.0,
+          "final_score": "3-5",
+          "away_score": 3,
+          "home_score": 5,
+          "winner_side": "home"
+        },
+        {
+          "league": "NBA · Playoffs",
+          "time": "8:10 PM ET",
+          "away_team": "Oklahoma City Thunder",
+          "home_team": "San Antonio Spurs",
+          "game_detail": "Playoff Game",
+          "pick": "Thunder +2.5",
+          "odds": "-102",
+          "book": "LowVig.ag",
+          "stake": "1u",
+          "reasoning": "OKC +2.5 at -102 against a median of -110 delivers 189 edge_bps on a near-even spread price for a Thunder team that is only a modest road underdog. The moneyline consensus has OKC around +119-124 suggesting a close game, and getting the points at -102 rather than the standard -110 is meaningful over time. LowVig is the clear outlier price and the 8-book sample gives high confidence in the consensus.",
+          "tags": [
+            "Line Value",
+            "Spread",
+            "Confidence B"
+          ],
+          "is_premium": true,
+          "result": "PENDING",
+          "units": 0.0,
+          "final_score": "82-103",
+          "away_score": 82,
+          "home_score": 103,
           "winner_side": "home"
         }
       ]
