@@ -1,5 +1,5 @@
 {
-  "rendered_at": "2026-05-25T11:43:14.755Z",
+  "rendered_at": "2026-05-25T14:11:30.665Z",
   "content_file": "content.json",
   "renders": [
     {
@@ -187,16 +187,6 @@
       "template": "news-card.html",
       "group": "treatments",
       "slide_index": 5,
-      "size": {
-        "width": 1080,
-        "height": 1080
-      }
-    },
-    {
-      "file": "treatment-06.png",
-      "template": "index-card.html",
-      "group": "treatments",
-      "slide_index": 6,
       "size": {
         "width": 1080,
         "height": 1080
