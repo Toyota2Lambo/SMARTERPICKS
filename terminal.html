@@ -347,192 +347,63 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 /* ================================================================
-   SmarterPicks Analysis — the hero pick cards
+   Picks teaser strip — invites visitors to the members-only
+   /picks page. Replaces the previous embedded Analysis pane.
    ================================================================ */
-.picks-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  gap: 18px;
-}
-.pick-card.teaser {
-  grid-column: 1 / -1;            /* takes the full row when alone */
-  max-width: 740px;
-  margin: 0 auto;
-  padding: 32px 36px;
-}
-.pick-card.teaser .pick-matchup { font-size: 24px; }
-.pick-card.teaser .pick-reasoning { min-height: 110px; }
-.pick-card {
-  position: relative;
-  background: linear-gradient(180deg, var(--bg-card-2), var(--bg-card));
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 20px 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  transition: all .18s;
-}
-.pick-card:hover {
-  border-color: var(--gold-soft);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(0,0,0,.4);
-}
-.pick-card.premium {
-  border-color: var(--gold-soft);
-  background: linear-gradient(180deg, #1c1810, var(--bg-card));
-}
-.pick-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 11px;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--text-mut);
-}
-.pick-meta .league {
-  font-family: var(--font-mono);
-  color: var(--gold);
-  font-weight: 700;
-  letter-spacing: .18em;
-}
-.pick-meta .time {
-  font-family: var(--font-mono);
-  font-weight: 500;
-}
-.pick-meta .premium-flag {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: var(--gold-glow);
-  color: var(--gold);
-  border: 1px solid var(--gold-soft);
-  padding: 2px 8px;
-  border-radius: 999px;
-  font-size: 10px;
-  letter-spacing: .14em;
-}
-.pick-matchup {
-  font-family: var(--font-serif);
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 1.25;
-  letter-spacing: -.01em;
-  color: var(--text);
-}
-.pick-matchup .at { color: var(--text-mut); font-style: italic; margin: 0 4px; }
-.pick-call {
-  background: #0d0c08;
-  border: 1px solid var(--gold-soft);
-  border-radius: var(--radius);
-  padding: 12px 14px;
+.picks-teaser {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 14px;
   align-items: center;
+  gap: 24px;
+  padding: 24px 28px;
+  background: linear-gradient(135deg, #1c1810 0%, #14110a 100%);
+  border: 1px solid var(--gold-soft);
+  border-radius: var(--radius-lg);
+  color: inherit;
+  text-decoration: none;
+  transition: all .18s;
 }
-.pick-call .label {
+.picks-teaser:hover {
+  transform: translateY(-1px);
+  border-color: var(--gold);
+  box-shadow: 0 6px 22px rgba(0,0,0,.45);
+}
+.picks-teaser-label {
   font-family: var(--font-mono);
   font-size: 10px;
-  letter-spacing: .2em;
+  letter-spacing: .25em;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 3px;
+  margin-bottom: 8px;
 }
-.pick-call .selection {
-  font-size: 17px;
-  font-weight: 600;
+.picks-teaser-title {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 500;
   color: var(--text);
+  line-height: 1.25;
+  letter-spacing: -.01em;
 }
-.pick-call .odds-block {
-  text-align: right;
-  font-family: var(--font-mono);
-}
-.pick-call .odds {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--gold);
-}
-.pick-call .book {
-  font-size: 10px;
-  letter-spacing: .14em;
-  text-transform: uppercase;
+.picks-teaser-title em { color: var(--gold); font-style: italic; }
+.picks-teaser-sub {
   color: var(--text-mut);
-  margin-top: 2px;
-}
-.pick-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-.pick-tag {
-  font-size: 11px;
-  letter-spacing: .04em;
-  color: var(--text-soft);
-  background: var(--bg-soft);
-  border: 1px solid var(--border);
-  padding: 3px 9px;
-  border-radius: 999px;
-}
-.pick-tag.conf { color: var(--up); border-color: rgba(95,207,128,.3); background: rgba(95,207,128,.06); }
-.pick-reasoning {
-  color: var(--text-soft);
-  font-size: 13.5px;
-  line-height: 1.6;
-  position: relative;
-}
-.pick-reasoning .lock-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background: linear-gradient(180deg, rgba(20,19,17,.6), rgba(20,19,17,.96));
-  border-radius: var(--radius);
-  gap: 8px;
-}
-.pick-reasoning .lock-overlay .lock-icon {
-  width: 28px; height: 28px;
-  border: 2px solid var(--gold);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--gold);
-  font-weight: 700;
-}
-.pick-reasoning .lock-overlay .lock-text {
-  color: var(--gold);
-  font-weight: 600;
   font-size: 13px;
-  letter-spacing: .04em;
-}
-.pick-reasoning .lock-overlay .lock-sub {
-  color: var(--text-mut);
-  font-size: 12px;
-  max-width: 280px;
-}
-.pick-reasoning .lock-overlay a {
   margin-top: 6px;
+  max-width: 540px;
+}
+.picks-teaser-cta {
   background: var(--gold);
   color: #100c00;
-  font-weight: 600;
-  font-size: 12px;
-  padding: 6px 14px;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 12px 22px;
   border-radius: 999px;
+  white-space: nowrap;
 }
-.picks-empty {
-  background: var(--bg-card);
-  border: 1px dashed var(--border);
-  border-radius: var(--radius-lg);
-  padding: 40px 24px;
-  text-align: center;
-  color: var(--text-mut);
+@media (max-width: 720px) {
+  .picks-teaser { grid-template-columns: 1fr; }
+  .picks-teaser-cta { justify-self: start; }
 }
-
 /* ================================================================
    Data grid — Games / Lines / News / Injuries
    ================================================================ */
@@ -882,16 +753,13 @@ button { font-family: inherit; cursor: pointer; }
   .hero h1      { font-size: 28px; }
   .hero-top     { grid-template-columns: 1fr; gap: 16px; align-items: stretch; }
   .hero-search  { min-width: 0; }
-  .picks-grid   { grid-template-columns: 1fr; }
   .data-grid    { grid-template-columns: 1fr; }
   .cta-banner   { grid-template-columns: 1fr; padding: 24px; }
   .cta-banner a { justify-self: start; }
 }
 @media (max-width: 540px) {
-  .header .brand .tag { display: none; }
-  .pick-matchup       { font-size: 18px; }
-  .pick-call          { grid-template-columns: 1fr; text-align: left; gap: 8px; }
-  .pick-call .odds-block { text-align: left; }
+  .header .brand .tag      { display: none; }
+  .picks-teaser-title      { font-size: 18px; }
 }
 </style>
 </head>
@@ -949,15 +817,23 @@ button { font-family: inherit; cursor: pointer; }
     </div>
   </section>
 
-  <!-- ─── SmarterPicks Analysis — the meat ─── -->
-  <section class="section" id="analysis-section">
-    <div class="section-head">
-      <h2>SmarterPicks <span class="accent">Analysis</span></h2>
-      <div class="sub" id="analysis-sub">Our take on today's best edges</div>
-    </div>
-    <div class="picks-grid" id="picks-grid">
-      <div class="picks-empty">Loading today's picks…</div>
-    </div>
+  <!-- ─── Picks teaser strip ─── -->
+  <!-- Picks themselves live on /picks (members-only). Here we just
+       advertise the count so visitors know the card exists. The strip
+       updates from the live /api/terminal-data analysis payload. -->
+  <section class="section" id="picks-teaser-section">
+    <a href="/picks" class="picks-teaser" id="picks-teaser">
+      <div class="picks-teaser-main">
+        <div class="picks-teaser-label">Today's Picks · Members Only</div>
+        <div class="picks-teaser-title" id="picks-teaser-title">
+          Loading today's slate…
+        </div>
+        <div class="picks-teaser-sub" id="picks-teaser-sub">
+          Full breakdown, reasoning, odds &amp; stake size — unlocked for members.
+        </div>
+      </div>
+      <div class="picks-teaser-cta">View today's card →</div>
+    </a>
   </section>
 
   <!-- ─── Data grid: games / lines / news / injuries ─── -->
@@ -1050,27 +926,17 @@ button { font-family: inherit; cursor: pointer; }
 const API_URL = '/api/terminal-data';
 const REFRESH_MS = 60_000;
 
-/* Member gate — picks + reasoning are members-only.
-   Bypass paths:
-     · ?premium=1       in URL  (one-off preview)
-     · localStorage.sp_member === '1'  (set after Whop login / trial)
-   Everything else (scores, lines, news, injuries) stays public so the
-   terminal still has obvious utility for visitors and they can feel
-   the live pulse before paying. */
-function isMember() {
-  try {
-    if (new URLSearchParams(location.search).get('premium') === '1') return true;
-    if (localStorage.getItem('sp_member') === '1') return true;
-  } catch (_) {}
-  return false;
-}
+/* The terminal itself is fully public — scoreboard, lines, news,
+   injuries are visible to everyone. The actual pick card (with
+   reasoning, odds, stake, etc.) lives on /picks and is members-only
+   via picks-loader.js; here we just render a teaser strip that
+   points there. */
 
 const state = {
   raw: null,
   fetchedAt: 0,
   leagueFilter: 'ALL',   // 'ALL' | 'NBA' | 'MLB' | 'NHL' | 'NFL'
   search: '',
-  member: isMember(),
 };
 
 const $  = sel => document.querySelector(sel);
@@ -1170,120 +1036,38 @@ function renderTabCounts() {
   $('#ct-nfl').textContent = counts.NFL || '0';
 }
 
-/* ─── Render: SmarterPicks Analysis cards ──────────────────── */
-/* Non-members see ONE big teaser tile — count of today's picks,
-   league breakdown, and a CTA to start the free trial. Members see
-   the full card with reasoning, book, stake. This keeps the bait
-   visible (we obviously have picks today) but the meat is gated. */
-function renderPicks() {
-  const grid = $('#picks-grid');
-  const a    = state.raw && state.raw.analysis;
+/* ─── Render: Picks teaser strip ───────────────────────────── */
+/* Picks themselves are members-only and live on /picks. Here we
+   just advertise the count + league breakdown so visitors know
+   today's card exists and can tap through. */
+function renderPicksTeaser() {
+  const title = $('#picks-teaser-title');
+  const sub   = $('#picks-teaser-sub');
+  const a     = state.raw && state.raw.analysis;
+  if (!title) return;
+
   if (!a || !a.picks || a.picks.length === 0) {
-    grid.innerHTML = `<div class="picks-empty">No picks yet for today. Check back after our morning slate drops.</div>`;
-    $('#analysis-sub').textContent = '';
+    title.innerHTML = `Today's card drops every morning before <em>first pitch</em>.`;
+    if (sub) sub.textContent = 'Full breakdown, reasoning, odds & stake size — unlocked for members.';
     return;
   }
 
-  // Members-only view: render every pick fully
-  if (state.member) {
-    const picks = a.picks.filter(p =>
-      leagueMatch(p.league) &&
-      searchMatch(p.away_team, p.home_team, p.pick)
-    );
-    if (picks.length === 0) {
-      grid.innerHTML = `<div class="picks-empty">No picks match your current filter.</div>`;
-      $('#analysis-sub').textContent = '';
-      return;
-    }
-    $('#analysis-sub').textContent =
-      picks.length + (picks.length === 1 ? ' pick' : ' picks') +
-      ' · members view · unlocked';
-    grid.innerHTML = picks.map(renderMemberPickCard).join('');
-    return;
-  }
-
-  // Non-member view: show ONE teaser, no per-pick details leaked
-  const total       = a.picks.length;
-  const byLeague    = a.picks.reduce((acc, p) => {
-    acc[p.league] = (acc[p.league] || 0) + 1;
+  const total    = a.pick_count || a.picks.length;
+  const byLeague = a.picks.reduce((acc, p) => {
+    const lg = (p.league || '').toUpperCase();
+    acc[lg] = (acc[lg] || 0) + 1;
     return acc;
   }, {});
-  const leagueLine  = Object.entries(byLeague)
+  const breakdown = Object.entries(byLeague)
     .map(([lg, n]) => `${n} ${lg}`)
     .join(' · ');
 
-  $('#analysis-sub').textContent = total + (total === 1 ? ' pick' : ' picks') + ' loaded · members only';
-
-  grid.innerHTML = `
-    <article class="pick-card premium teaser">
-      <div class="pick-meta">
-        <span class="league">TODAY'S CARD</span>
-        <span class="premium-flag">◆ Members</span>
-      </div>
-      <div class="pick-matchup">
-        ${total} ${total === 1 ? 'pick' : 'picks'} ready <span class="at">·</span> waiting on you
-      </div>
-      <div class="pick-call">
-        <div>
-          <div class="label">Slate Breakdown</div>
-          <div class="selection">${escapeHtml(leagueLine) || '—'}</div>
-        </div>
-        <div class="odds-block">
-          <div class="odds">◆</div>
-          <div class="book">Reasoning · Odds · Book</div>
-        </div>
-      </div>
-      <div class="pick-tags">
-        <span class="pick-tag">Edge Reasoning</span>
-        <span class="pick-tag">Best Book + Price</span>
-        <span class="pick-tag">Stake Size</span>
-        <span class="pick-tag conf">Confidence Rating</span>
-      </div>
-      <div class="pick-reasoning">
-        Every pick we publish today comes with a full breakdown — why the line
-        is mispriced, which book has the best number, how confident the model
-        is, and what to stake. Members unlock the entire card before first
-        pitch every morning.
-        <div class="lock-overlay">
-          <div class="lock-icon">◆</div>
-          <div class="lock-text">Members-only · ${total} picks today</div>
-          <div class="lock-sub">Start a 7-day free trial to unlock every pick, the reasoning, and the live edge feed.</div>
-          <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7">Start free trial →</a>
-        </div>
-      </div>
-    </article>
-  `;
-}
-
-/* Full member card — reasoning, odds, book all shown */
-function renderMemberPickCard(p) {
-  const confTag   = (p.tags || []).find(t => /confidence/i.test(t));
-  const otherTags = (p.tags || []).filter(t => t !== confTag);
-  const tagsHtml  = otherTags.map(t => `<span class="pick-tag">${escapeHtml(t)}</span>`).join('') +
-                    (confTag ? `<span class="pick-tag conf">${escapeHtml(confTag)}</span>` : '');
-  return `
-    <article class="pick-card ${p.is_premium ? 'premium' : ''}">
-      <div class="pick-meta">
-        <span class="league">${escapeHtml(p.league)}</span>
-        <span class="time">${escapeHtml(p.time)}</span>
-      </div>
-      <div class="pick-matchup">
-        ${escapeHtml(p.away_team)} <span class="at">@</span> ${escapeHtml(p.home_team)}
-      </div>
-      <div class="pick-call">
-        <div>
-          <div class="label">Our Pick</div>
-          <div class="selection">${escapeHtml(p.pick)}</div>
-        </div>
-        <div class="odds-block">
-          <div class="odds">${escapeHtml(p.odds)}</div>
-          <div class="book">${escapeHtml(p.book)} · ${escapeHtml(p.stake)}</div>
-        </div>
-      </div>
-      ${tagsHtml ? `<div class="pick-tags">${tagsHtml}</div>` : ''}
-      <div class="pick-reasoning">${escapeHtml(p.reasoning)}</div>
-    </article>
-  `;
+  title.innerHTML = `${total} ${total === 1 ? 'pick' : 'picks'} on today's card · <em>members only</em>`;
+  if (sub) {
+    sub.textContent = breakdown
+      ? `${breakdown}. Full reasoning, best price + book, and stake size unlocked for members.`
+      : 'Full reasoning, best price + book, and stake size unlocked for members.';
+  }
 }
 
 /* ─── Render: Today's Games ────────────────────────────────── */
@@ -1445,7 +1229,7 @@ function renderInjuries() {
 function render() {
   renderHero();
   renderTabCounts();
-  renderPicks();
+  renderPicksTeaser();
   renderGames();
   renderLines();
   renderNews();
