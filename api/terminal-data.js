@@ -27,8 +27,47 @@
 //   picks_generator.py / score_yesterday.py)
 // =============================================================
 
+const fs   = require("fs");
+const path = require("path");
+
 const ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports";
 const ODDS_BASE = "https://api.the-odds-api.com/v4/sports";
+
+// SmarterPicks analysis source — picks_generator.py writes this nightly
+// to the repo root. Vercel includes it in the bundle as long as we
+// reference it from a serverless function (which we now do here).
+const PICKS_PATH = path.join(process.cwd(), "picks.json");
+
+function readPicks() {
+  try {
+    const raw = fs.readFileSync(PICKS_PATH, "utf8");
+    const data = JSON.parse(raw);
+    // Trim long reasoning blocks for the terminal card view and tag
+    // each pick with whether we'd surface it free-tier or gate it.
+    const picks = (data.picks || []).map(p => ({
+      league:    p.league || "",
+      time:      p.time || "",
+      away_team: p.away_team || "",
+      home_team: p.home_team || "",
+      pick:      p.pick || "",
+      odds:      p.odds || "",
+      book:      p.book || "",
+      stake:     p.stake || "",
+      reasoning: p.reasoning || "",
+      tags:      Array.isArray(p.tags) ? p.tags : [],
+      is_premium: !!p.is_premium,
+    }));
+    return {
+      date:        data.date || "",
+      summary:     data.sport_summary || "",
+      picks,
+      pick_count:  picks.length,
+      free_count:  picks.filter(p => !p.is_premium).length,
+    };
+  } catch (e) {
+    return { date: "", summary: "", picks: [], pick_count: 0, free_count: 0, error: String(e).slice(0, 120) };
+  }
+}
 
 // Each entry: ESPN path (for scoreboard + news) and Odds API key (for odds).
 // Keep this list lean to bound the work per refresh.
@@ -237,6 +276,11 @@ async function buildPayload() {
     generated_at: new Date().toISOString(),
     leagues,
     news: allNews.slice(0, 30),
+    // SmarterPicks Analysis — today's picks with reasoning, surfaced
+    // directly inside the terminal so fans see *our take* not just raw
+    // scoreboard/lines data. Free picks shown in full; premium picks
+    // are visible but their reasoning is gated client-side.
+    analysis: readPicks(),
   };
 }
 
