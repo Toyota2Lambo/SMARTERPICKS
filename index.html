@@ -594,9 +594,16 @@
 </head>
 <body>
 
-<!-- ANNOUNCEMENT BAR -->
-<div class="announce-bar">
-  🔥 NBA Playoffs Week 2 — Full pick card live now <span>·</span> Members up $3,840 YTD <span>·</span>
+<!-- ANNOUNCEMENT BAR
+     Live-updated by the polish-layer script below — it pulls the
+     real game counts from /api/terminal-data and rewrites the
+     middle copy every 60s. The fallback text below is what visitors
+     see before the API responds. -->
+<div class="announce-bar" id="announce-bar">
+  <span id="announce-live"><span class="live-dot"></span>Today's pick card is live</span>
+  <span>·</span>
+  <span id="announce-stats">Members up $3,840 YTD</span>
+  <span>·</span>
   <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7">Start 7-day free trial →</a>
 </div>
 
@@ -612,8 +619,7 @@
   <div class="nav-inner">
     <a href="#" class="logo"><span class="logo-mark" style="width:16px;height:16px;"></span>SMARTERPICKS</a>
     <ul class="nav-links">
-      <li><a href="picks">Today's Picks</a></li>
-      <li><a href="terminal">Terminal</a></li>
+      <li><a href="terminal">Today's Picks</a></li>
       <li><a href="#record">Archive</a></li>
       <li><a href="pricing">Pricing</a></li>
       <li><a href="discord.html">Discord</a></li>
@@ -634,8 +640,7 @@
 <aside class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
   <button class="close" id="mobile-close" aria-label="Close menu">Close ✕</button>
   <ul>
-    <li><a href="picks">Today's Picks</a></li>
-    <li><a href="terminal">Terminal</a></li>
+    <li><a href="terminal">Today's Picks</a></li>
     <li><a href="#how">How It Works</a></li>
     <li><a href="pricing">Pricing</a></li>
     <li><a href="#record">Archive</a></li>
@@ -651,7 +656,7 @@
 <!-- HERO -->
 <section class="hero">
   <div class="container">
-    <div class="hero-meta"><span class="live-dot"></span><span>Today's slate is live</span></div>
+    <div class="hero-meta"><span class="live-dot"></span><span id="hero-live-text">Today's slate is live</span></div>
     <h1>Stop guessing. Start <em>winning.</em></h1>
 
     <!-- VIDEO — moved up from a dedicated explainer section below.
@@ -1014,36 +1019,123 @@
      ============================================================ -->
 <script>
 (function () {
-  // 1) LIVE TICKER: render today's full slate of games (ESPN-style).
-  // Reads slate.json (every game today across NBA/MLB/NHL/NFL) rather than
-  // picks.json (the games we're actually betting on). This way passing
-  // visitors can't tell which games our pick card is on just by reading
-  // the ticker — they see the whole slate, the same way ESPN/CNN's
-  // bottom-line shows every fixture regardless of betting context.
-  fetch("slate.json?v=" + Date.now())
-    .then(r => r.ok ? r.json() : Promise.reject(new Error("no slate.json")))
-    .then(data => {
-      const items = (data.games || []).map(g => `
-        <div class="ticker-item">
-          <span class="ticker-pulse"></span>
-          <span class="ticker-time">${esc(g.time || "")}</span>
-          <span>${esc(g.away_team || "")}</span>
-          <span class="ticker-vs">@</span>
-          <span>${esc(g.home_team || "")}</span>
-          <span class="ticker-league">${esc(g.league || "")}</span>
-        </div>
-      `).join("");
-      const track = document.getElementById("ticker-track");
-      const wrap  = document.getElementById("ticker");
-      if (!items) { if (wrap) wrap.style.display = "none"; return; }
-      // Duplicate the items so the marquee animation can loop seamlessly
-      // (translateX(-50%) lands exactly on the start of the duplicate).
-      if (track) track.innerHTML = items + items;
-    })
-    .catch(() => {
-      const wrap = document.getElementById("ticker");
-      if (wrap) wrap.style.display = "none";
-    });
+  // 1) LIVE FEED — single source of truth for the marketing site.
+  // We hit /api/terminal-data (the same endpoint the terminal page
+  // uses) so the announce bar, ticker, and hero badge all reflect
+  // what's actually live right now. Refresh every 90s.
+  //
+  // What this updater drives:
+  //   · #announce-bar   — game-count headline replaces static copy
+  //   · #ticker-track   — scrolling live scoreboard (replaces slate.json)
+  //   · #hero-live-text — "Today's slate: 22 games · 4 live now"
+  //
+  // Falls back gracefully on failure: keeps the static fallback copy
+  // already in the markup and hides the ticker if no games returned.
+  function loadLiveFeed() {
+    fetch("/api/terminal-data", { cache: "no-store" })
+      .then(r => r.ok ? r.json() : Promise.reject(new Error("HTTP " + r.status)))
+      .then(payload => {
+        // ── Aggregate counts across leagues ───────────────
+        const leagues = payload.leagues || {};
+        let totalGames = 0, liveGames = 0;
+        const byLeague = {};   // { NBA: { total, live }, ... }
+        const tickerItems = [];
+
+        Object.entries(leagues).forEach(([key, lg]) => {
+          const label = (lg.label || key).toUpperCase();
+          byLeague[label] = { total: 0, live: 0 };
+          (lg.scoreboard || []).forEach(g => {
+            totalGames += 1;
+            byLeague[label].total += 1;
+            const isLive = g.state === "in";
+            if (isLive) { liveGames += 1; byLeague[label].live += 1; }
+            // Build ticker item — show score for live/final, time for pre
+            const left  = esc(g.away_team || "");
+            const right = esc(g.home_team || "");
+            const meta  = isLive
+              ? `<span style="color:var(--win);">${esc(g.away_score||"")} – ${esc(g.home_score||"")}</span> <span class="ticker-vs">LIVE</span>`
+              : (g.state === "post"
+                  ? `<span>${esc(g.away_score||"")} – ${esc(g.home_score||"")}</span> <span class="ticker-vs">F</span>`
+                  : `<span class="ticker-time">${esc(g.detail || formatStartTime(g.start_time))}</span>`);
+            tickerItems.push(`
+              <div class="ticker-item">
+                <span class="ticker-pulse"></span>
+                <span class="ticker-league">${label}</span>
+                <span>${left}</span>
+                <span class="ticker-vs">@</span>
+                <span>${right}</span>
+                ${meta}
+              </div>
+            `);
+          });
+        });
+
+        // ── Update announce bar ───────────────────────────
+        const announceLive = document.getElementById("announce-live");
+        const announceStats = document.getElementById("announce-stats");
+        if (announceLive) {
+          if (liveGames > 0) {
+            announceLive.innerHTML = `<span class="live-dot"></span>${liveGames} ${liveGames === 1 ? "game" : "games"} live right now`;
+          } else if (totalGames > 0) {
+            announceLive.innerHTML = `<span class="live-dot"></span>${totalGames} ${totalGames === 1 ? "game" : "games"} on today's slate`;
+          }
+        }
+        if (announceStats) {
+          const a = payload.analysis;
+          if (a && a.pick_count) {
+            announceStats.textContent = `${a.pick_count} ${a.pick_count === 1 ? "pick" : "picks"} on the card today`;
+          }
+        }
+
+        // ── Update hero "Today's slate is live" badge ─────
+        const heroLive = document.getElementById("hero-live-text");
+        if (heroLive && totalGames > 0) {
+          const parts = [];
+          if (liveGames > 0)   parts.push(`${liveGames} live now`);
+          parts.push(`${totalGames} games today`);
+          const breakdown = Object.entries(byLeague)
+            .filter(([, v]) => v.total > 0)
+            .map(([lg, v]) => `${v.total} ${lg}`)
+            .join(" · ");
+          heroLive.textContent = parts.join(" · ") + (breakdown ? "  ·  " + breakdown : "");
+        }
+
+        // ── Update ticker ─────────────────────────────────
+        const track = document.getElementById("ticker-track");
+        const wrap  = document.getElementById("ticker");
+        if (tickerItems.length === 0) {
+          if (wrap) wrap.style.display = "none";
+        } else {
+          // Duplicate items so the -50% marquee loops seamlessly
+          if (track) track.innerHTML = tickerItems.join("") + tickerItems.join("");
+        }
+      })
+      .catch(err => {
+        // Hide ticker silently; keep announce bar fallback text
+        const wrap = document.getElementById("ticker");
+        if (wrap && !wrap.dataset.failed) {
+          wrap.style.display = "none";
+          wrap.dataset.failed = "1";
+        }
+        // Don't spam console after the first failure
+        if (!loadLiveFeed._warned) {
+          console.warn("terminal-data feed:", err.message);
+          loadLiveFeed._warned = true;
+        }
+      });
+  }
+
+  function formatStartTime(iso) {
+    if (!iso) return "";
+    const d = new Date(iso);
+    if (isNaN(d)) return "";
+    return d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+  }
+
+  loadLiveFeed();
+  // Refresh every 90s — server-side cache is 30s so this is a cheap
+  // poll that keeps the marketing chrome feeling alive.
+  setInterval(loadLiveFeed, 90_000);
 
   function esc(s) {
     return String(s)

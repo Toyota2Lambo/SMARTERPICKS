@@ -354,6 +354,14 @@ button { font-family: inherit; cursor: pointer; }
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: 18px;
 }
+.pick-card.teaser {
+  grid-column: 1 / -1;            /* takes the full row when alone */
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 32px 36px;
+}
+.pick-card.teaser .pick-matchup { font-size: 24px; }
+.pick-card.teaser .pick-reasoning { min-height: 110px; }
 .pick-card {
   position: relative;
   background: linear-gradient(180deg, var(--bg-card-2), var(--bg-card));
@@ -1042,11 +1050,27 @@ button { font-family: inherit; cursor: pointer; }
 const API_URL = '/api/terminal-data';
 const REFRESH_MS = 60_000;
 
+/* Member gate — picks + reasoning are members-only.
+   Bypass paths:
+     · ?premium=1       in URL  (one-off preview)
+     · localStorage.sp_member === '1'  (set after Whop login / trial)
+   Everything else (scores, lines, news, injuries) stays public so the
+   terminal still has obvious utility for visitors and they can feel
+   the live pulse before paying. */
+function isMember() {
+  try {
+    if (new URLSearchParams(location.search).get('premium') === '1') return true;
+    if (localStorage.getItem('sp_member') === '1') return true;
+  } catch (_) {}
+  return false;
+}
+
 const state = {
   raw: null,
   fetchedAt: 0,
   leagueFilter: 'ALL',   // 'ALL' | 'NBA' | 'MLB' | 'NHL' | 'NFL'
   search: '',
+  member: isMember(),
 };
 
 const $  = sel => document.querySelector(sel);
@@ -1147,6 +1171,10 @@ function renderTabCounts() {
 }
 
 /* ─── Render: SmarterPicks Analysis cards ──────────────────── */
+/* Non-members see ONE big teaser tile — count of today's picks,
+   league breakdown, and a CTA to start the free trial. Members see
+   the full card with reasoning, book, stake. This keeps the bait
+   visible (we obviously have picks today) but the meat is gated. */
 function renderPicks() {
   const grid = $('#picks-grid');
   const a    = state.raw && state.raw.analysis;
@@ -1155,61 +1183,107 @@ function renderPicks() {
     $('#analysis-sub').textContent = '';
     return;
   }
-  const picks = a.picks.filter(p =>
-    leagueMatch(p.league) &&
-    searchMatch(p.away_team, p.home_team, p.pick)
-  );
-  if (picks.length === 0) {
-    grid.innerHTML = `<div class="picks-empty">No picks match your current filter.</div>`;
-    $('#analysis-sub').textContent = '';
+
+  // Members-only view: render every pick fully
+  if (state.member) {
+    const picks = a.picks.filter(p =>
+      leagueMatch(p.league) &&
+      searchMatch(p.away_team, p.home_team, p.pick)
+    );
+    if (picks.length === 0) {
+      grid.innerHTML = `<div class="picks-empty">No picks match your current filter.</div>`;
+      $('#analysis-sub').textContent = '';
+      return;
+    }
+    $('#analysis-sub').textContent =
+      picks.length + (picks.length === 1 ? ' pick' : ' picks') +
+      ' · members view · unlocked';
+    grid.innerHTML = picks.map(renderMemberPickCard).join('');
     return;
   }
-  $('#analysis-sub').textContent =
-    picks.length + (picks.length === 1 ? ' pick' : ' picks') +
-    ' · ' + picks.filter(p => !p.is_premium).length + ' free, ' +
-    picks.filter(p =>  p.is_premium).length + ' members-only';
 
-  grid.innerHTML = picks.map(p => {
-    const confTag = (p.tags || []).find(t => /confidence/i.test(t));
-    const otherTags = (p.tags || []).filter(t => t !== confTag);
-    const tagsHtml = (otherTags || []).map(t => `<span class="pick-tag">${escapeHtml(t)}</span>`).join('') +
-                     (confTag ? `<span class="pick-tag conf">${escapeHtml(confTag)}</span>` : '');
-    const lockedReasoning = p.is_premium ? `
-      <div class="lock-overlay">
-        <div class="lock-icon">◆</div>
-        <div class="lock-text">Members-only pick</div>
-        <div class="lock-sub">The reasoning, book, and stake size are unlocked for members.</div>
-        <a href="https://smarterpicks.io/members">Unlock →</a>
-      </div>` : '';
+  // Non-member view: show ONE teaser, no per-pick details leaked
+  const total       = a.picks.length;
+  const byLeague    = a.picks.reduce((acc, p) => {
+    acc[p.league] = (acc[p.league] || 0) + 1;
+    return acc;
+  }, {});
+  const leagueLine  = Object.entries(byLeague)
+    .map(([lg, n]) => `${n} ${lg}`)
+    .join(' · ');
 
-    return `
-      <article class="pick-card ${p.is_premium ? 'premium' : ''}">
-        <div class="pick-meta">
-          <span class="league">${escapeHtml(p.league)}</span>
-          <span class="time">${escapeHtml(p.time)}</span>
-          ${p.is_premium ? '<span class="premium-flag">◆ Members</span>' : ''}
+  $('#analysis-sub').textContent = total + (total === 1 ? ' pick' : ' picks') + ' loaded · members only';
+
+  grid.innerHTML = `
+    <article class="pick-card premium teaser">
+      <div class="pick-meta">
+        <span class="league">TODAY'S CARD</span>
+        <span class="premium-flag">◆ Members</span>
+      </div>
+      <div class="pick-matchup">
+        ${total} ${total === 1 ? 'pick' : 'picks'} ready <span class="at">·</span> waiting on you
+      </div>
+      <div class="pick-call">
+        <div>
+          <div class="label">Slate Breakdown</div>
+          <div class="selection">${escapeHtml(leagueLine) || '—'}</div>
         </div>
-        <div class="pick-matchup">
-          ${escapeHtml(p.away_team)} <span class="at">@</span> ${escapeHtml(p.home_team)}
+        <div class="odds-block">
+          <div class="odds">◆</div>
+          <div class="book">Reasoning · Odds · Book</div>
         </div>
-        <div class="pick-call">
-          <div>
-            <div class="label">Our Pick</div>
-            <div class="selection">${escapeHtml(p.pick)}</div>
-          </div>
-          <div class="odds-block">
-            <div class="odds">${escapeHtml(p.odds)}</div>
-            <div class="book">${escapeHtml(p.book)} · ${escapeHtml(p.stake)}</div>
-          </div>
+      </div>
+      <div class="pick-tags">
+        <span class="pick-tag">Edge Reasoning</span>
+        <span class="pick-tag">Best Book + Price</span>
+        <span class="pick-tag">Stake Size</span>
+        <span class="pick-tag conf">Confidence Rating</span>
+      </div>
+      <div class="pick-reasoning">
+        Every pick we publish today comes with a full breakdown — why the line
+        is mispriced, which book has the best number, how confident the model
+        is, and what to stake. Members unlock the entire card before first
+        pitch every morning.
+        <div class="lock-overlay">
+          <div class="lock-icon">◆</div>
+          <div class="lock-text">Members-only · ${total} picks today</div>
+          <div class="lock-sub">Start a 7-day free trial to unlock every pick, the reasoning, and the live edge feed.</div>
+          <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7">Start free trial →</a>
         </div>
-        ${tagsHtml ? `<div class="pick-tags">${tagsHtml}</div>` : ''}
-        <div class="pick-reasoning">
-          ${escapeHtml(p.reasoning)}
-          ${lockedReasoning}
+      </div>
+    </article>
+  `;
+}
+
+/* Full member card — reasoning, odds, book all shown */
+function renderMemberPickCard(p) {
+  const confTag   = (p.tags || []).find(t => /confidence/i.test(t));
+  const otherTags = (p.tags || []).filter(t => t !== confTag);
+  const tagsHtml  = otherTags.map(t => `<span class="pick-tag">${escapeHtml(t)}</span>`).join('') +
+                    (confTag ? `<span class="pick-tag conf">${escapeHtml(confTag)}</span>` : '');
+  return `
+    <article class="pick-card ${p.is_premium ? 'premium' : ''}">
+      <div class="pick-meta">
+        <span class="league">${escapeHtml(p.league)}</span>
+        <span class="time">${escapeHtml(p.time)}</span>
+      </div>
+      <div class="pick-matchup">
+        ${escapeHtml(p.away_team)} <span class="at">@</span> ${escapeHtml(p.home_team)}
+      </div>
+      <div class="pick-call">
+        <div>
+          <div class="label">Our Pick</div>
+          <div class="selection">${escapeHtml(p.pick)}</div>
         </div>
-      </article>
-    `;
-  }).join('');
+        <div class="odds-block">
+          <div class="odds">${escapeHtml(p.odds)}</div>
+          <div class="book">${escapeHtml(p.book)} · ${escapeHtml(p.stake)}</div>
+        </div>
+      </div>
+      ${tagsHtml ? `<div class="pick-tags">${tagsHtml}</div>` : ''}
+      <div class="pick-reasoning">${escapeHtml(p.reasoning)}</div>
+    </article>
+  `;
 }
 
 /* ─── Render: Today's Games ────────────────────────────────── */
