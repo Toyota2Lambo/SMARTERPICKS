@@ -4,7 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SMARTERPICKS — Privacy Policy</title>
-<meta name="description" content="What SMARTERPICKS collects, what it doesn't, and how your data is handled.">
+
+<!-- ============================================================
+     Privacy Policy
+     ------------------------------------------------------------
+     Written to be (a) truthful to what the codebase actually
+     does and (b) defensible under GDPR/UK-GDPR, CCPA/CPRA, and
+     the newer US state privacy laws (VCDPA, CPA, CTDPA, UCPA,
+     OCPA, DPDPA, MCDPA, etc.).
+
+     If you add a new data flow (new API, new third party, new
+     tracking pixel) you MUST update sections 1, 3, 4, and 11.
+     Treat this file as part of the data layer, not as copy.
+     ============================================================ -->
+
+<meta name="description" content="SMARTERPICKS Privacy Policy — what we collect, what we don't, who receives it, and how to exercise your privacy rights.">
 <meta name="theme-color" content="#0a0a0a">
 <link rel="canonical" href="https://smarterpicks.io/privacy">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -13,6 +27,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
   :root{
     --bg:#0a0a0a;--bg-elevated:#131313;--bg-surface:#1a1a1a;
@@ -24,9 +39,10 @@
     --mono:"JetBrains Mono","Courier New",monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:400;line-height:1.65;-webkit-font-smoothing:antialiased;}
   body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");opacity:.035;pointer-events:none;z-index:100;}
-  .container{max-width:780px;margin:0 auto;padding:0 32px;}
+  .container{max-width:820px;margin:0 auto;padding:0 32px;}
+
   nav{border-bottom:1px solid var(--border);background:rgba(10,10,10,.92);backdrop-filter:blur(16px);position:sticky;top:0;z-index:50;}
   .nav-inner{max-width:1200px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;}
   .logo{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);}
@@ -34,41 +50,79 @@
   .nav-back{font-family:var(--mono);font-size:12px;color:var(--text-muted);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--border);padding:10px 14px;transition:color .2s, border-color .2s;}
   .nav-back:hover{color:var(--text);border-color:var(--text-muted);}
 
-  header.page-head{padding:80px 0 24px;border-bottom:1px solid var(--border);}
+  header.page-head{padding:72px 0 24px;border-bottom:1px solid var(--border);}
   .page-head .tag{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;display:flex;align-items:center;gap:14px;}
   .page-head .tag::before{content:"";width:24px;height:1px;background:var(--accent);}
   .page-head h1{font-family:var(--display);font-weight:400;font-size:clamp(40px,5vw,56px);letter-spacing:-.02em;line-height:1.05;margin-bottom:14px;}
   .page-head h1 em{font-style:italic;color:var(--accent);font-weight:300;}
-  .page-head .updated{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.06em;text-transform:uppercase;}
+  .page-head .updated{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.06em;text-transform:uppercase;display:flex;gap:24px;flex-wrap:wrap;margin-top:6px;}
+  .page-head .updated span strong{color:var(--text-muted);font-weight:500;margin-right:8px;}
+
+  /* Sticky TOC */
+  .toc{background:var(--bg-elevated);border:1px solid var(--border);padding:18px 22px;margin:36px 0 0;}
+  .toc-head{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px;}
+  .toc ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px 18px;}
+  .toc a{color:var(--text-muted);text-decoration:none;font-size:13px;display:flex;gap:10px;align-items:baseline;transition:color .15s;}
+  .toc a:hover{color:var(--accent);}
+  .toc a .num{font-family:var(--mono);font-size:11px;color:var(--text-dim);min-width:22px;}
 
   main{padding:48px 0 96px;}
-  main h2{font-family:var(--display);font-size:24px;font-weight:400;letter-spacing:-.01em;margin:48px 0 12px;color:var(--text);}
+  main h2{font-family:var(--display);font-size:26px;font-weight:400;letter-spacing:-.01em;margin:52px 0 12px;color:var(--text);scroll-margin-top:80px;}
   main h2:first-of-type{margin-top:0;}
   main h2 .num{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--accent);margin-right:14px;letter-spacing:.06em;display:inline-block;min-width:30px;}
-  main p{font-size:16px;color:var(--text-muted);margin-bottom:14px;line-height:1.7;}
+  main h3{font-family:var(--display);font-size:18px;font-weight:500;margin:26px 0 8px;color:var(--text);}
+  main p{font-size:15.5px;color:var(--text-muted);margin-bottom:14px;line-height:1.7;}
   main p strong{color:var(--text);font-weight:600;}
-  main ul{margin:14px 0 14px 22px;color:var(--text-muted);}
+  main ul,main ol{margin:14px 0 14px 22px;color:var(--text-muted);}
   main li{margin-bottom:8px;line-height:1.65;}
+  main li strong{color:var(--text);}
   main a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;}
   main a:hover{color:var(--win);}
+  main code{font-family:var(--mono);font-size:13px;color:var(--text);background:var(--bg-surface);padding:1px 6px;border-radius:3px;}
 
-  .callout{background:var(--bg-elevated);border-left:3px solid var(--accent);padding:18px 22px;margin:24px 0;font-size:15px;line-height:1.65;color:var(--text-muted);}
+  .callout{background:var(--bg-elevated);border-left:3px solid var(--accent);padding:18px 22px;margin:24px 0;font-size:15px;line-height:1.7;color:var(--text-muted);}
   .callout strong{color:var(--text);}
-  .data-table{margin:24px 0;border:1px solid var(--border);}
-  .data-row{display:grid;grid-template-columns:200px 1fr;gap:24px;padding:14px 18px;border-bottom:1px solid var(--border);font-size:14px;}
+  .callout.warn{border-left-color:var(--loss);}
+  .callout.info{border-left-color:var(--win);}
+
+  /* Data-flow table */
+  .data-table{margin:24px 0;border:1px solid var(--border);background:var(--bg-elevated);}
+  .data-row{display:grid;grid-template-columns:200px 1fr;gap:24px;padding:16px 20px;border-bottom:1px solid var(--border);font-size:14px;}
   .data-row:last-child{border-bottom:none;}
-  .data-row .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);}
-  .data-row .val{color:var(--text);}
+  .data-row .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);}
+  .data-row .lbl small{display:block;color:var(--text-dim);font-weight:400;text-transform:none;letter-spacing:0;margin-top:4px;font-family:var(--body);}
+  .data-row .val{color:var(--text-muted);line-height:1.6;}
+  .data-row .val code{font-size:12px;}
+
+  /* Third-party table */
+  .vendor-table{margin:24px 0;border:1px solid var(--border);background:var(--bg-elevated);}
+  .vendor-row{display:grid;grid-template-columns:160px 1fr 110px;gap:18px;padding:14px 20px;border-bottom:1px solid var(--border);font-size:14px;align-items:start;}
+  .vendor-row:last-child{border-bottom:none;}
+  .vendor-row .name{font-weight:600;color:var(--text);}
+  .vendor-row .name small{display:block;color:var(--text-dim);font-weight:400;font-family:var(--mono);font-size:11px;margin-top:3px;}
+  .vendor-row .desc{color:var(--text-muted);line-height:1.55;}
+  .vendor-row .link{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;}
+  .vendor-row .link a{color:var(--accent);text-decoration:none;}
+  .vendor-row .link a:hover{text-decoration:underline;}
+
+  /* Rights / contact card */
+  .rights-card{background:linear-gradient(180deg,#1a1814,var(--bg-elevated));border:1px solid var(--border-strong);padding:24px 28px;margin:24px 0;}
+  .rights-card h3{margin-top:0;font-family:var(--display);font-size:20px;color:var(--text);}
+  .rights-card p{font-size:14.5px;line-height:1.65;}
+  .rights-card .email{font-family:var(--mono);color:var(--accent);font-size:14px;}
 
   footer{border-top:1px solid var(--border);padding:36px 0;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.05em;}
   footer a{color:var(--text-muted);text-decoration:none;margin:0 10px;}
   footer a:hover{color:var(--accent);}
 
-  @media(max-width:640px){
+  @media(max-width:680px){
     .container{padding:0 20px;}
     .nav-inner{padding:14px 20px;}
     header.page-head{padding:48px 0 20px;}
-    .data-row{grid-template-columns:1fr;gap:6px;}
+    .data-row,.vendor-row{grid-template-columns:1fr;gap:6px;}
+    .vendor-row .link{margin-top:6px;}
+    .toc ul{grid-template-columns:1fr;}
+    main h2{font-size:22px;}
   }
 </style>
 </head>
@@ -85,80 +139,326 @@
   <div class="container">
     <div class="tag">Legal · Privacy Policy</div>
     <h1>Privacy <em>Policy.</em></h1>
-    <div class="updated">Last updated: May 2026</div>
+    <div class="updated">
+      <span><strong>Effective:</strong> May 25, 2026</span>
+      <span><strong>Last updated:</strong> May 25, 2026</span>
+      <span><strong>Version:</strong> 2.0</span>
+    </div>
+
+    <div class="toc">
+      <div class="toc-head">Sections</div>
+      <ul>
+        <li><a href="#summary"><span class="num">00</span>Plain-English summary</a></li>
+        <li><a href="#scope"><span class="num">01</span>Scope &amp; who we are</a></li>
+        <li><a href="#collect"><span class="num">02</span>Data we collect</a></li>
+        <li><a href="#use"><span class="num">03</span>How we use it</a></li>
+        <li><a href="#share"><span class="num">04</span>Who we share with</a></li>
+        <li><a href="#legal-basis"><span class="num">05</span>Legal basis (GDPR)</a></li>
+        <li><a href="#cookies"><span class="num">06</span>Cookies &amp; storage</a></li>
+        <li><a href="#retention"><span class="num">07</span>Retention</a></li>
+        <li><a href="#security"><span class="num">08</span>Security &amp; breach</a></li>
+        <li><a href="#transfers"><span class="num">09</span>International transfers</a></li>
+        <li><a href="#rights"><span class="num">10</span>Your rights</a></li>
+        <li><a href="#ccpa"><span class="num">11</span>California (CCPA/CPRA)</a></li>
+        <li><a href="#states"><span class="num">12</span>Other US states</a></li>
+        <li><a href="#children"><span class="num">13</span>Age &amp; children</a></li>
+        <li><a href="#dnt"><span class="num">14</span>Do Not Track &amp; GPC</a></li>
+        <li><a href="#changes"><span class="num">15</span>Changes</a></li>
+        <li><a href="#contact"><span class="num">16</span>Contact &amp; complaints</a></li>
+      </ul>
+    </div>
   </div>
 </header>
 
 <main>
   <div class="container">
 
-    <div class="callout">
-      <strong>Plain-English summary:</strong> We collect the minimum amount of data we need to run the Service — basically your Whop account info and your IP for rate limiting. We do not see or store your payment details (Whop handles that). We do not run third-party analytics or ad trackers. You can ask us to delete your data at any time.
+    <!-- ─── 00 — Plain-English summary ─── -->
+    <h2 id="summary"><span class="num">00</span>Plain-English summary</h2>
+    <div class="callout info">
+      <strong>Short version:</strong>
+      <ul style="margin:10px 0 0 18px;">
+        <li>We collect the minimum data needed to run SmarterPicks: your Whop account info (email, name, user ID, subscription status), your IP address for rate-limiting our APIs, and — if you opt in — your newsletter email.</li>
+        <li>We <strong>don't</strong> see or store your payment card. Whop is the merchant of record and handles billing.</li>
+        <li>We <strong>don't</strong> use Google Analytics, the Meta pixel, or any third-party advertising / tracking pixels. There are <strong>no advertising cookies</strong> on this site.</li>
+        <li>Auth tokens stay in your browser's <code>localStorage</code>. We don't have a backend database of users.</li>
+        <li>If you use the AI Pick Explainer chat, your questions and the pick context are sent to Anthropic to generate a reply. We don't store those conversations on our servers.</li>
+        <li>You can request access, correction, deletion, or export of your data at any time — email <a href="mailto:privacy@smarterpicks.io">privacy@smarterpicks.io</a>.</li>
+        <li>We do <strong>not</strong> sell or "share" your personal information for cross-context behavioral advertising. Ever.</li>
+      </ul>
     </div>
 
-    <h2><span class="num">1.</span>What We Collect</h2>
-    <p>Here's everything SMARTERPICKS collects, where it's stored, and what we do with it:</p>
+    <!-- ─── 01 — Scope & who we are ─── -->
+    <h2 id="scope"><span class="num">01</span>Scope &amp; who we are</h2>
+    <p>This Privacy Policy describes how <strong>SmarterPicks</strong> ("SmarterPicks," "we," "us," or "our") collects, uses, discloses, and protects personal information when you visit <a href="https://smarterpicks.io">smarterpicks.io</a>, the SmarterPicks Terminal, the members area, our newsletter, and any related pages (collectively, the "<strong>Service</strong>").</p>
+    <p>It applies to <strong>everyone</strong> who interacts with the Service — visitors, free-trial users, paying members, and anyone who emails us. It does <strong>not</strong> cover third-party sites we link to (Whop checkout, Discord, sportsbooks, news sources) — each of those is governed by its own privacy policy.</p>
+    <p>For the purposes of the EU/UK General Data Protection Regulation, SmarterPicks is the <strong>controller</strong> of the personal data described here.</p>
+
+    <!-- ─── 02 — Data we collect ─── -->
+    <h2 id="collect"><span class="num">02</span>Data we collect</h2>
+    <p>Below is the full list. If a category isn't on this table, we don't collect it.</p>
+
     <div class="data-table">
       <div class="data-row">
-        <div class="lbl">Whop account info</div>
-        <div class="val">When you sign in with Whop OAuth, we receive your Whop user ID, name, and email. Used to verify your subscription status and address you in the Service.</div>
+        <div class="lbl">Whop account data<small>identity</small></div>
+        <div class="val">When you sign in with Whop OAuth, Whop sends us your <strong>user ID</strong>, <strong>email address</strong>, <strong>username/display name</strong>, and your <strong>subscription / access status</strong> for SmarterPicks. We do not request, and Whop does not send, your card details, billing address, or government ID.</div>
       </div>
       <div class="data-row">
-        <div class="lbl">Auth tokens</div>
-        <div class="val">A Whop access token and refresh token are stored in your browser's <code>localStorage</code> so you stay signed in between visits. They are not sent to any third party other than Whop's API.</div>
+        <div class="lbl">Browser storage<small>authentication state</small></div>
+        <div class="val">After login, your browser stores the following keys in <code>localStorage</code> on your device:
+          <ul style="margin:8px 0 0 16px;">
+            <li><code>whop_token</code> — short-lived Whop access token</li>
+            <li><code>whop_refresh</code> — refresh token used to renew the access token</li>
+            <li><code>whop_user_id</code> — your Whop user ID</li>
+            <li><code>whop_user</code> — your Whop user object (name, email, avatar URL)</li>
+            <li><code>whop_access</code> — your subscription access flag</li>
+          </ul>
+          During the OAuth handshake we also use <code>sessionStorage.whop_pkce</code> to hold a temporary PKCE state/verifier; it is cleared once the callback completes. These keys are read only by SmarterPicks JavaScript and sent only to <a href="https://whop.com">whop.com</a> APIs.
+        </div>
       </div>
       <div class="data-row">
-        <div class="lbl">IP address</div>
-        <div class="val">Your IP is read transiently for rate limiting on our chat API (so a single attacker can't drain our budget). We do not log it persistently or correlate it with your account.</div>
+        <div class="lbl">IP address<small>rate limiting</small></div>
+        <div class="val">When you call our APIs (Terminal data feed, AI Pick Explainer, newsletter signup), Vercel passes your IP via the <code>x-forwarded-for</code> header. We hold it in an in-memory counter for at most one minute to enforce per-IP request limits and prevent abuse. It is <strong>not</strong> written to a database, logged persistently, or correlated with your account.</div>
       </div>
       <div class="data-row">
-        <div class="lbl">Chat content</div>
-        <div class="val">Questions you type into the "Ask Claude" chat panel are sent to Anthropic to generate a reply. The pick context (league, line, reasoning) is sent alongside. Conversations are not stored on our servers.</div>
+        <div class="lbl">AI chat content<small>only if you use the chat</small></div>
+        <div class="val">If you use the AI Pick Explainer on a pick card, the question you type and the relevant pick context (league, teams, the pick, odds, the model's stated reasoning, your prior turns in that conversation) are sent through our server to <strong>Anthropic</strong> to generate a reply. We do not retain the conversation on our servers after the reply is returned. Anthropic's own retention is governed by their <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">Privacy Policy</a> and our API Terms with them.</div>
       </div>
       <div class="data-row">
-        <div class="lbl">Newsletter email</div>
-        <div class="val">If you sign up for the newsletter, your email goes to our email provider for delivery only.</div>
+        <div class="lbl">Newsletter email<small>only if you sign up</small></div>
+        <div class="val">If you submit your email to the newsletter form, our <code>/api/newsletter</code> endpoint forwards it (with your IP, for spam protection) to the email-service provider configured in our <code>NEWSLETTER_WEBHOOK_URL</code> environment variable — currently <strong>Beehiiv</strong>. We do not store newsletter signups on our infrastructure; the ESP is the system of record.</div>
+      </div>
+      <div class="data-row">
+        <div class="lbl">Support emails<small>only if you email us</small></div>
+        <div class="val">If you contact <code>support@smarterpicks.io</code> or <code>privacy@smarterpicks.io</code>, we receive your email address, the message content, and any attachments. We retain support correspondence for up to 24 months for service quality and dispute resolution unless you ask us to delete it sooner.</div>
+      </div>
+      <div class="data-row">
+        <div class="lbl">Server / access logs<small>operational</small></div>
+        <div class="val">Vercel — our hosting provider — produces standard server logs containing request method, path, status code, response time, country (derived from IP), and a truncated user agent. Vercel retains these for the period stated in their policy (typically up to 30 days for standard logs). We use these only to monitor uptime and debug errors.</div>
       </div>
     </div>
 
-    <h2><span class="num">2.</span>What We Don't Collect</h2>
+    <h3>Data we explicitly don't collect</h3>
     <ul>
-      <li><strong>Payment details.</strong> Whop is the merchant of record. They process your card; we never see it.</li>
-      <li><strong>No third-party analytics or ad pixels.</strong> No Google Analytics, no Facebook Pixel, no fingerprinting tools.</li>
-      <li><strong>No tracking cookies.</strong> We use <code>localStorage</code> for auth state — not for tracking — and there are no other cookies set by this site.</li>
-      <li><strong>No betting history.</strong> We don't know which picks you actually placed, where you placed them, or what you wagered. We never ask.</li>
+      <li><strong>Payment information.</strong> We never see your card number, CVV, billing ZIP, expiration date, or bank account info. Whop is the merchant of record.</li>
+      <li><strong>Betting history.</strong> We don't know which picks you placed, which sportsbook you used, how much you wagered, or whether you won.</li>
+      <li><strong>Location beyond country-level.</strong> We don't use precise geolocation, browser geolocation prompts, or any GPS/Wi-Fi-based location services.</li>
+      <li><strong>Device identifiers / fingerprints.</strong> No canvas, audio, font, or WebGL fingerprinting. No advertising IDs.</li>
+      <li><strong>Cross-site tracking.</strong> No Google Analytics, no Meta/Facebook Pixel, no TikTok Pixel, no LinkedIn Insight Tag, no advertising network tags.</li>
+      <li><strong>Biometric, health, religious, sexual-orientation, or political data.</strong> Never requested, never inferred.</li>
     </ul>
 
-    <h2><span class="num">3.</span>Third Parties</h2>
-    <p>We rely on a small number of services to run the Site. Each only sees the data it needs to do its job:</p>
+    <!-- ─── 03 — How we use it ─── -->
+    <h2 id="use"><span class="num">03</span>How we use it</h2>
+    <p>We use the data above only for these specific purposes:</p>
+    <ol>
+      <li><strong>Provide the Service.</strong> Authenticate you, show you the right tier of content (free vs. members-only picks), display your name in the members area.</li>
+      <li><strong>Operate, secure, and improve the Service.</strong> Rate-limit APIs to prevent abuse, monitor uptime, debug errors, prevent fraud.</li>
+      <li><strong>Provide the AI Pick Explainer.</strong> Forward your chat input and the relevant pick context to Anthropic so the model can reply.</li>
+      <li><strong>Send transactional or service messages.</strong> Confirm a free-trial signup, notify you of policy changes, respond to your support emails. These are not marketing.</li>
+      <li><strong>Send the newsletter</strong> — only to addresses that opted in via the form. Every newsletter includes a one-click unsubscribe link.</li>
+      <li><strong>Comply with law.</strong> Respond to lawful requests, enforce our Terms, defend legal claims.</li>
+    </ol>
+    <p>We do <strong>not</strong> use your data for: advertising profiling, automated decision-making with legal effects, training third-party AI models on your conversations, selling to data brokers, or any cross-context behavioral advertising.</p>
+
+    <!-- ─── 04 — Who we share with ─── -->
+    <h2 id="share"><span class="num">04</span>Who we share with</h2>
+    <p>We share personal data only with the service providers below — each acts as a <strong>processor</strong> (GDPR) / <strong>service provider</strong> (CCPA) on our behalf, under contractual terms restricting use to providing the contracted service. We do not sell personal information for monetary or other valuable consideration. We do not "share" it for cross-context behavioral advertising as those terms are defined under CPRA.</p>
+
+    <div class="vendor-table">
+      <div class="vendor-row">
+        <div class="name">Whop<small>processor</small></div>
+        <div class="desc">Authentication, subscription management, billing, refunds, customer identity. Receives everything required to verify your subscription and process payments.</div>
+        <div class="link"><a href="https://whop.com/privacy" target="_blank" rel="noopener">Policy ↗</a></div>
+      </div>
+      <div class="vendor-row">
+        <div class="name">Anthropic, PBC<small>processor</small></div>
+        <div class="desc">Powers the AI Pick Explainer. Receives only your chat input and pick context when you use that feature. Per our API Terms, Anthropic does not train its models on your inputs without consent.</div>
+        <div class="link"><a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">Policy ↗</a></div>
+      </div>
+      <div class="vendor-row">
+        <div class="name">Vercel, Inc.<small>processor</small></div>
+        <div class="desc">Hosts the Site and serverless functions. Sees IP, request URL, response status, and request body in transit while a request is being served. Operates as a sub-processor for everything above.</div>
+        <div class="link"><a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Policy ↗</a></div>
+      </div>
+      <div class="vendor-row">
+        <div class="name">Beehiiv, Inc.<small>processor</small></div>
+        <div class="desc">Newsletter delivery and list management. Receives only the email address you submitted to the newsletter form, plus the timestamp and IP captured for spam protection.</div>
+        <div class="link"><a href="https://www.beehiiv.com/privacy" target="_blank" rel="noopener">Policy ↗</a></div>
+      </div>
+      <div class="vendor-row">
+        <div class="name">Discord, Inc.<small>third party (external)</small></div>
+        <div class="desc">We link to our Discord server. We don't share your data with Discord; if you join, your interactions there are governed by Discord's own policies.</div>
+        <div class="link"><a href="https://discord.com/privacy" target="_blank" rel="noopener">Policy ↗</a></div>
+      </div>
+      <div class="vendor-row">
+        <div class="name">Synthesia<small>third party (external)</small></div>
+        <div class="desc">Hosts the explainer video on our homepage. The lite-embed pattern delays loading any Synthesia code until you click play. If you click play, Synthesia receives standard request metadata (IP, user agent, referrer).</div>
+        <div class="link"><a href="https://www.synthesia.io/privacy" target="_blank" rel="noopener">Policy ↗</a></div>
+      </div>
+      <div class="vendor-row">
+        <div class="name">Google Fonts<small>third party (external)</small></div>
+        <div class="desc">Serves the typefaces used across the Site. Google sees your IP and user agent in the font request. We use only the CSS API; no Google tracking scripts run on the Site.</div>
+        <div class="link"><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Policy ↗</a></div>
+      </div>
+      <div class="vendor-row">
+        <div class="name">The Odds API<small>upstream data</small></div>
+        <div class="desc">Provides odds and lines that appear in the Terminal. We make server-to-server calls; <strong>no user data is sent.</strong></div>
+        <div class="link"><a href="https://the-odds-api.com" target="_blank" rel="noopener">Provider ↗</a></div>
+      </div>
+      <div class="vendor-row">
+        <div class="name">ESPN public APIs<small>upstream data</small></div>
+        <div class="desc">Provides scoreboards, news headlines, and injury reports that appear in the Terminal. We make server-to-server calls; <strong>no user data is sent.</strong></div>
+        <div class="link"><a href="https://disneyprivacycenter.com" target="_blank" rel="noopener">Policy ↗</a></div>
+      </div>
+    </div>
+
+    <p>We may also disclose information if we believe in good faith it is necessary to (a) comply with a subpoena, court order, or other legal process; (b) enforce our Terms; (c) protect the rights, safety, or property of SmarterPicks, our users, or the public; or (d) facilitate a merger, acquisition, or asset transfer — in which case we will notify you in advance and your data will continue to be subject to a policy at least as protective as this one.</p>
+
+    <!-- ─── 05 — Legal basis (GDPR) ─── -->
+    <h2 id="legal-basis"><span class="num">05</span>Legal basis (EU/UK GDPR)</h2>
+    <p>If you are in the European Economic Area, United Kingdom, or Switzerland, Article 6 of the GDPR requires us to identify a legal basis for each processing activity:</p>
     <ul>
-      <li><strong>Whop</strong> — handles authentication, subscriptions, billing, and refunds. See <a href="https://whop.com/privacy" target="_blank" rel="noopener">Whop's Privacy Policy</a>.</li>
-      <li><strong>Anthropic (Claude)</strong> — receives your chat questions plus the pick they're about. See <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">Anthropic's Privacy Policy</a>.</li>
-      <li><strong>The Odds API</strong> — provides game odds and final scores. We send no user data here.</li>
-      <li><strong>Vercel</strong> — hosts the Site. Their server logs may include IP and request URL for routine operations.</li>
+      <li><strong>Performance of a contract</strong> (Art. 6(1)(b)) — authenticating you, granting access to members-only content, processing your free-trial or subscription, providing the AI Pick Explainer when you use it.</li>
+      <li><strong>Legitimate interests</strong> (Art. 6(1)(f)) — operating the Service, rate-limiting and security monitoring, responding to support requests, debugging errors. We have assessed these interests against your rights and concluded they are not overridden, but you may object at any time (see <a href="#rights">Section 10</a>).</li>
+      <li><strong>Consent</strong> (Art. 6(1)(a)) — newsletter subscriptions, optional cookies if we ever add any. Withdrawing consent is one click in any email or via <a href="#contact">contact</a>; withdrawal doesn't affect prior processing.</li>
+      <li><strong>Legal obligation</strong> (Art. 6(1)(c)) — responding to valid law-enforcement requests, financial recordkeeping if applicable.</li>
     </ul>
 
-    <h2><span class="num">4.</span>Data Retention</h2>
-    <p>Auth tokens live in your browser until you log out or they expire. Chat conversations are not retained server-side once the response is returned. IP-based rate-limit counters are kept in memory for at most a few minutes. If you cancel and request deletion of your account info, we'll work with Whop to remove what we control.</p>
+    <!-- ─── 06 — Cookies & storage ─── -->
+    <h2 id="cookies"><span class="num">06</span>Cookies, local storage &amp; similar technologies</h2>
+    <p>SmarterPicks does <strong>not</strong> set first-party cookies on its own domain. We use the browser's <code>localStorage</code> and <code>sessionStorage</code> for the keys enumerated in <a href="#collect">Section 2</a>. These are <strong>strictly necessary</strong> for the Service to remember that you're signed in.</p>
+    <p>Third-party services we embed (Synthesia video player, if you click play; Google Fonts; Whop login flow on whop.com) may set their own cookies in your browser when their code runs. Those cookies are governed by their respective privacy policies linked in <a href="#share">Section 4</a>.</p>
+    <p>You can clear SmarterPicks storage at any time by signing out (which calls <code>localStorage.removeItem</code> on every <code>whop_*</code> key) or by clearing site data in your browser. We do not block functionality if you do — but you'll need to sign in again.</p>
 
-    <h2><span class="num">5.</span>Your Rights</h2>
-    <p>Depending on where you live, you may have the right to access, correct, delete, or export the personal data we hold about you. To exercise any of these rights, email <a href="mailto:support@smarterpicks.io">support@smarterpicks.io</a> from the email associated with your Whop account. We'll respond within a reasonable time and at no cost.</p>
-    <p>You can sign yourself out at any time with the "Logout" link in the header on any page — that immediately clears your tokens from this device.</p>
+    <!-- ─── 07 — Retention ─── -->
+    <h2 id="retention"><span class="num">07</span>Retention</h2>
+    <ul>
+      <li><strong>Browser storage</strong> (auth tokens, user object): lives in your browser until you log out, clear site data, or the refresh token expires. We never see it server-side except when you initiate an API call that requires it.</li>
+      <li><strong>IP-based rate-limit counters</strong>: held in memory for the duration of the one-minute rolling window, then evicted.</li>
+      <li><strong>AI chat content</strong>: not retained on SmarterPicks servers after the response is returned. Anthropic's retention is governed by their policy and our API agreement with them.</li>
+      <li><strong>Newsletter subscriptions</strong>: held by Beehiiv for as long as you remain subscribed plus a short suppression-list period after unsubscribe.</li>
+      <li><strong>Support correspondence</strong>: up to 24 months, then deleted unless an open dispute requires longer retention.</li>
+      <li><strong>Server logs (Vercel)</strong>: per Vercel's policy, typically up to 30 days.</li>
+      <li><strong>Whop-side account data</strong>: governed by Whop's retention policy. To delete data Whop holds, use Whop's own account deletion flow or contact them directly.</li>
+    </ul>
 
-    <h2><span class="num">6.</span>Children</h2>
-    <p>The Service is restricted to users <strong>21 and older</strong>. We do not knowingly collect data from anyone under 21. If you believe a minor has signed up, please contact us and we'll remove the account.</p>
+    <!-- ─── 08 — Security ─── -->
+    <h2 id="security"><span class="num">08</span>Security &amp; breach notification</h2>
+    <p>We protect personal data with technical and organizational measures appropriate to the risk:</p>
+    <ul>
+      <li>HTTPS / TLS 1.2+ on every page and API endpoint.</li>
+      <li>OAuth 2.0 with PKCE for the Whop login flow — no password ever crosses our domain.</li>
+      <li>API keys (Anthropic, The Odds API, newsletter webhook) are stored as encrypted environment variables in Vercel, never exposed to the client.</li>
+      <li>No admin dashboard, no user database, no internal tooling that reads bulk user data — there is nothing to log into.</li>
+      <li>Dependencies are kept current and the codebase is open to security reports.</li>
+    </ul>
+    <div class="callout warn">
+      <strong>If you suspect a security issue,</strong> please email <a href="mailto:security@smarterpicks.io">security@smarterpicks.io</a> rather than posting publicly. We commit to acknowledging reports within 72 hours.
+    </div>
+    <p>If we learn of a personal-data breach that is likely to result in a risk to your rights and freedoms, we will notify the relevant supervisory authority within <strong>72 hours</strong> as required by GDPR Art. 33 and notify affected users without undue delay where required by Art. 34 or by applicable US state law.</p>
 
-    <h2><span class="num">7.</span>Security</h2>
-    <p>We use HTTPS for all traffic. Auth tokens never leave your browser except in calls to Whop's API. The Service has no admin dashboard with access to user data. That said: no system is perfectly secure. If you suspect a security issue, please email us so we can investigate.</p>
+    <!-- ─── 09 — International transfers ─── -->
+    <h2 id="transfers"><span class="num">09</span>International data transfers</h2>
+    <p>SmarterPicks is operated from the United States. If you access the Service from outside the US, your information will be transferred to, processed in, and stored in the US and potentially other countries where our processors operate (e.g., Anthropic, Vercel, Whop, Beehiiv all process data primarily in the US).</p>
+    <p>For transfers from the EEA, UK, or Switzerland to the US, we rely on the <strong>Standard Contractual Clauses</strong> (SCCs) adopted by the European Commission and the UK International Data Transfer Addendum where applicable, supplemented by the technical measures described in <a href="#security">Section 8</a>. Where our processors participate in the EU-US Data Privacy Framework, we rely on that adequacy decision in addition to SCCs.</p>
+    <p>You can request a copy of our SCC-backed agreements with a specific processor by emailing <a href="mailto:privacy@smarterpicks.io">privacy@smarterpicks.io</a>.</p>
 
-    <h2><span class="num">8.</span>Changes to This Policy</h2>
-    <p>If we change what we collect or how we use it, we'll update this page and bump the "Last updated" date. Material changes will be communicated through the Service or by email.</p>
+    <!-- ─── 10 — Your rights ─── -->
+    <h2 id="rights"><span class="num">10</span>Your rights</h2>
+    <p>Subject to applicable law, you have the right to:</p>
+    <ul>
+      <li><strong>Access</strong> — request a copy of the personal data we hold about you.</li>
+      <li><strong>Correct</strong> — fix anything inaccurate.</li>
+      <li><strong>Delete</strong> — request erasure of your data ("right to be forgotten"). Note: data held by Whop is subject to Whop's own deletion flow; we will delete what we control.</li>
+      <li><strong>Port</strong> — receive your data in a structured, machine-readable format (JSON), or have it transmitted to another controller where technically feasible.</li>
+      <li><strong>Object</strong> — to processing based on legitimate interests, including profiling (we don't profile, but the right exists).</li>
+      <li><strong>Restrict</strong> — pause processing while a dispute is resolved.</li>
+      <li><strong>Withdraw consent</strong> — at any time, without affecting prior processing.</li>
+      <li><strong>Lodge a complaint</strong> — with your local supervisory authority (EEA/UK) or attorney general (US states).</li>
+    </ul>
+    <div class="rights-card">
+      <h3>How to exercise these rights</h3>
+      <p>Email <span class="email">privacy@smarterpicks.io</span> from the email associated with your account. We will verify your identity (typically by sending a confirmation link to that address), respond within <strong>30 days</strong>, and let you know if we need to extend by up to 60 more days for complex requests. There is no charge for the first request in a 12-month period.</p>
+      <p style="margin-bottom:0;">You may use an authorized agent to submit a request on your behalf; we will require documentation of their authority and may verify directly with you.</p>
+    </div>
 
-    <h2><span class="num">9.</span>Contact</h2>
-    <p>Email <a href="mailto:support@smarterpicks.io">support@smarterpicks.io</a> with any privacy question or request.</p>
+    <!-- ─── 11 — California ─── -->
+    <h2 id="ccpa"><span class="num">11</span>California residents (CCPA/CPRA)</h2>
+    <p>If you are a California resident, the California Consumer Privacy Act (as amended by the CPRA) gives you specific rights with respect to your personal information.</p>
+
+    <h3>Categories collected in the last 12 months</h3>
+    <ul>
+      <li><strong>Identifiers</strong> — email, name, Whop user ID, IP address.</li>
+      <li><strong>Internet or electronic network activity</strong> — server logs (request URL, status, country, user agent).</li>
+      <li><strong>Inferences</strong> — none. We do not build profiles.</li>
+    </ul>
+    <p>We collect these from <strong>you directly</strong> (when you sign up, type in chat, submit the newsletter form) and from <strong>Whop</strong> (when you authenticate via OAuth). The business purpose for each category is described in <a href="#use">Section 3</a>. The processors we disclose to are listed in <a href="#share">Section 4</a>.</p>
+
+    <h3>"Sale" and "sharing" of personal information</h3>
+    <p>SmarterPicks does <strong>not</strong> sell personal information for monetary or other valuable consideration. SmarterPicks does <strong>not</strong> "share" personal information for cross-context behavioral advertising as defined by CPRA. We have not done so in the preceding 12 months and have no plans to do so.</p>
+    <p>Because we do not sell or share, there is no "<strong>Do Not Sell or Share My Personal Information</strong>" link in our footer — there is nothing to opt out of. If we ever change that, we will add the link and disclose the change here.</p>
+
+    <h3>Sensitive personal information</h3>
+    <p>We do not collect, use, or disclose sensitive personal information beyond what is necessary to perform the service you requested (e.g., your account email). Accordingly, the right to limit use of sensitive PI under CPRA § 1798.121 does not apply, but you may still email us with any such request.</p>
+
+    <h3>Your California rights</h3>
+    <p>In addition to the rights in <a href="#rights">Section 10</a>, you have the right to:</p>
+    <ul>
+      <li><strong>Know</strong> what categories of personal information we have collected, the sources, the business purposes, and the categories of recipients.</li>
+      <li><strong>Delete</strong> personal information we collected from you, subject to permitted exceptions (e.g., security, debugging, legal obligations).</li>
+      <li><strong>Correct</strong> inaccurate personal information.</li>
+      <li><strong>Non-discrimination</strong> — we will not deny you the Service, charge you a different price, or provide a lower-quality experience because you exercised your rights.</li>
+      <li><strong>Use an authorized agent</strong> — see <a href="#rights">Section 10</a>.</li>
+    </ul>
+    <p>To submit a California rights request, email <a href="mailto:privacy@smarterpicks.io">privacy@smarterpicks.io</a> with the subject line "California Privacy Request." We will verify your identity using the email associated with your account.</p>
+
+    <h3>Shine the Light</h3>
+    <p>California Civil Code § 1798.83 permits California residents to request information about disclosures of personal information to third parties for direct-marketing purposes. We do not share personal information for third-party direct-marketing.</p>
+
+    <!-- ─── 12 — Other state laws ─── -->
+    <h2 id="states"><span class="num">12</span>Other US state privacy laws</h2>
+    <p>If you are a resident of <strong>Virginia, Colorado, Connecticut, Utah, Iowa, Indiana, Texas, Montana, Oregon, Delaware, New Hampshire, New Jersey, Kentucky, Maryland, Minnesota, Nebraska, Rhode Island, Tennessee</strong>, or another US state with a comprehensive privacy law in effect, you have rights similar to those described in Sections 10 and 11 — including the right to access, correct, delete, port, and opt out of targeted advertising, sale, or certain profiling.</p>
+    <p>We do not engage in targeted advertising, do not sell personal data, and do not conduct profiling that produces legal or similarly significant effects, so the opt-outs available under these statutes have nothing to apply to today. If you still wish to file a request, email <a href="mailto:privacy@smarterpicks.io">privacy@smarterpicks.io</a> and we will respond within the statutory timeframe (typically 45 days, extendable by 45 more for complex requests).</p>
+    <p>You may appeal a decision regarding your request by replying to our response email; we will respond to the appeal within 60 days. If your appeal is denied you may contact your state Attorney General.</p>
+
+    <!-- ─── 13 — Children ─── -->
+    <h2 id="children"><span class="num">13</span>Age requirement &amp; children</h2>
+    <p>The Service is intended only for adults <strong>21 years of age or older</strong> in jurisdictions where sports wagering is legal. We do not knowingly collect personal information from anyone under 21, and the Service is not directed at children under 16 within the meaning of GDPR Art. 8 or under 13 within the meaning of COPPA.</p>
+    <p>If we learn that we have collected personal information from a person under the required age without verifiable parental or guardian consent, we will delete it promptly. Parents or guardians who believe their child has provided us with personal information should email <a href="mailto:privacy@smarterpicks.io">privacy@smarterpicks.io</a>.</p>
+
+    <!-- ─── 14 — DNT & GPC ─── -->
+    <h2 id="dnt"><span class="num">14</span>Do Not Track &amp; Global Privacy Control</h2>
+    <p>Some browsers transmit "Do Not Track" (DNT) or <a href="https://globalprivacycontrol.org" target="_blank" rel="noopener">Global Privacy Control</a> (GPC) signals. Because we do not sell or share personal information and do not run cross-site tracking, our handling does not change based on those signals — there is nothing for them to opt out of. We treat valid GPC signals received from California residents as a deemed opt-out request for any "sale" or "sharing" that might apply in the future.</p>
+
+    <!-- ─── 15 — Changes ─── -->
+    <h2 id="changes"><span class="num">15</span>Changes to this policy</h2>
+    <p>If we materially change how we collect, use, or share personal information, we will:</p>
+    <ul>
+      <li>Update the <strong>"Last updated"</strong> date at the top of this page;</li>
+      <li>Increment the <strong>version</strong> number;</li>
+      <li>Post a notice on the homepage for at least <strong>30 days</strong> following the change; and</li>
+      <li>If the change is material and adverse, email everyone with an active account or newsletter subscription.</li>
+    </ul>
+    <p>Prior versions are kept in the public GitHub repository where this Site lives, so the change history is auditable.</p>
+
+    <!-- ─── 16 — Contact ─── -->
+    <h2 id="contact"><span class="num">16</span>Contact &amp; complaints</h2>
+    <p>For any privacy question, request, or complaint:</p>
+    <div class="rights-card">
+      <h3>Privacy contact</h3>
+      <p>
+        Email: <span class="email">privacy@smarterpicks.io</span><br>
+        General support: <span class="email">support@smarterpicks.io</span><br>
+        Security: <span class="email">security@smarterpicks.io</span>
+      </p>
+      <p style="margin-bottom:0;">Postal mail: c/o SmarterPicks · 1207 Delaware Ave #1145 · Wilmington, DE 19806 · USA. (Mail-handling address; please prefer email for faster response.)</p>
+    </div>
+    <p><strong>EEA/UK supervisory authority complaints:</strong> If you believe we have not handled your data properly, you have the right to lodge a complaint with your local data-protection authority. A list of EU supervisory authorities is available at <a href="https://edpb.europa.eu/about-edpb/board/members_en" target="_blank" rel="noopener">edpb.europa.eu</a>. UK residents can complain to the Information Commissioner's Office at <a href="https://ico.org.uk" target="_blank" rel="noopener">ico.org.uk</a>.</p>
+    <p><strong>US state attorneys general:</strong> Most US state privacy laws allow you to complain to your state attorney general. California residents can contact the California Privacy Protection Agency at <a href="https://cppa.ca.gov" target="_blank" rel="noopener">cppa.ca.gov</a>.</p>
 
     <div class="callout" style="margin-top:48px;">
-      See also: <a href="terms">Terms of Service</a> and <a href="disclaimer">Risk Disclaimer</a>.
+      See also: <a href="terms">Terms of Service</a> · <a href="disclaimer">Risk Disclaimer</a>
     </div>
 
   </div>
