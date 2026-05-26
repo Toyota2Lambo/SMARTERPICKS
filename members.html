@@ -290,11 +290,7 @@
   .chart-tooltip .tt-day.loss{color:var(--loss);}
   .chart-tooltip .tt-day.flat{color:var(--text-muted);}
 
-  /* Stack range tabs below header text on narrow screens */
-  @media(max-width:640px){
-    .chart-header{flex-direction:column;align-items:stretch;}
-    .chart-range-tabs{align-self:flex-start;}
-  }
+  /* (Chart-header stacking on small screens lives in the mobile block below.) */
 
   /* FOOTER (slim — members don't need full marketing footer) */
   footer{background:var(--bg);border-top:1px solid var(--border);padding:36px 0;text-align:center;}
@@ -312,18 +308,46 @@
     .live-dot{animation:none;}
   }
 
-  @media(max-width:960px){
-    .nav-links{display:none;}
-    .container{padding:0 20px;}
-    .nav-inner{padding:14px 20px;}
-    .picks-grid{grid-template-columns:1fr;}
-    .yday-card{grid-template-columns:1fr;text-align:center;}
-    .yday-net{text-align:center;}
-    .yday-pills{justify-content:center;}
-    .section-header{flex-direction:column;gap:10px;}
-    .section-title{font-size:28px;}
-    .welcome{padding:40px 0 24px;}
-    .nav-billing{display:none;}
+  /* ═══════════════════════════ Mobile collapse ═══════════════════════════ */
+  @media (max-width: 1080px) {
+    .picks-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 960px) {
+    .nav-billing  { display: none; }
+    .yday-card    { grid-template-columns: 1fr; text-align: left; gap: var(--s-5); padding: var(--s-6); }
+    .yday-pills   { justify-content: flex-start; }
+    .yday-net     { text-align: left; }
+    .section-header { flex-direction: column; gap: 10px; }
+    .section-title  { font-size: 32px; letter-spacing: -0.012em; }
+    .welcome        { padding: 40px 0 24px; }
+    .welcome h1     { font-size: 38px; letter-spacing: -0.012em; }
+    .welcome-sub    { font-size: var(--t-sm); }
+  }
+  @media (max-width: 720px) {
+    .picks-grid    { grid-template-columns: 1fr; gap: 1px; }
+    .pick-card     { padding: var(--s-6); gap: var(--s-3); transform: none !important; }
+    .pick-card:not(.locked):hover { transform: none !important; box-shadow: none !important; }
+    .pick-matchup  { font-size: var(--t-lg); }
+    .pick-call-value { font-size: var(--t-base); }
+    .pick-reasoning  { font-size: 13px; }
+    .welcome h1      { font-size: 32px; }
+    .section-title   { font-size: 26px; }
+    .yday-card       { padding: var(--s-5); }
+    .yday-tag        { font-size: 10px; letter-spacing: 0.12em; }
+    .yday-title      { font-size: var(--t-md); }
+    .yday-net #yday-net-num { font-size: 32px; }
+
+    /* Chart header collapses onto two lines so range tabs sit clean
+       below the title on small screens. */
+    .chart-header    { flex-direction: column; align-items: stretch; gap: var(--s-3); }
+    .chart-range-tabs{ align-self: flex-start; }
+
+    .nav-logout      { padding: 6px 10px; font-size: 10px; }
+  }
+  @media (max-width: 480px) {
+    .welcome h1     { font-size: 28px; }
+    .section-title  { font-size: 22px; }
+    .pick-card      { padding: var(--s-5); }
   }
 </style>
 </head>

@@ -113,7 +113,7 @@
 
 /* ── Hero ──────────────────────────────────────────────────────── */
 .hero {
-  padding: var(--s-20) 0 var(--s-24);
+  padding: var(--hero-pad-top) 0 var(--hero-pad-bot);
   position: relative;
   overflow: hidden;
 }
@@ -342,9 +342,23 @@
 }
 
 @media (max-width: 980px) {
-  .hero { padding: var(--s-12) 0 var(--s-16); }
-  .hero-inner { grid-template-columns: 1fr; gap: var(--s-10); }
-  .hero-stats { grid-template-columns: 1fr 1fr; gap: var(--s-6); margin-top: var(--s-10); }
+  .hero-inner   { grid-template-columns: 1fr; gap: var(--s-8); }
+  .hero-stats   { grid-template-columns: 1fr 1fr; gap: var(--s-5); margin-top: var(--s-8); padding-top: var(--s-6); }
+  .hero h1      { letter-spacing: -0.012em; }
+  .hero-sub     { font-size: var(--t-base); }
+}
+@media (max-width: 640px) {
+  .hero-stats             { gap: var(--s-4); margin-top: var(--s-6); padding-top: var(--s-5); }
+  .hero-stats .stat-num   { font-size: 30px; }
+  .hero-stats .stat-prefix{ font-size: 50%; margin-top: 4px; }
+  .hero-stats .stat-label { font-size: 10px; letter-spacing: 0.12em; }
+  .hero-trust             { font-size: 10px; letter-spacing: 0.06em; gap: 6px 12px; }
+  .hero-meta              { font-size: 10px; padding: 6px 10px; }
+  /* Video shell hides extra glow on small screens (perf + clarity) */
+  .video-shell::before    { display: none; }
+  .video-thumb-title      { font-size: var(--t-lg); }
+  .video-thumb-runtime    { font-size: 10px; }
+  .video-play             { width: 56px; height: 56px; }
 }
 
 /* ── Social proof bar ──────────────────────────────────────────── */
@@ -380,7 +394,7 @@
 
 /* ── Section base ──────────────────────────────────────────────── */
 .section {
-  padding: var(--s-24) 0;
+  padding: var(--section-pad) 0;
   border-top: 1px solid var(--border-soft);
 }
 
@@ -662,7 +676,7 @@
 .testi-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--s-6);
+  gap: var(--s-5);
 }
 .testi-card {
   background: var(--bg-card);
@@ -850,7 +864,7 @@
 
 /* ── Final CTA ─────────────────────────────────────────────────── */
 .final-cta {
-  padding: var(--s-24) 0 var(--s-20);
+  padding: var(--section-pad) 0 var(--section-pad-tight);
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -925,6 +939,49 @@
   transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
 }
 .fade-in.in-view { opacity: 1; transform: translateY(0); }
+
+/* ═════════════════════════════════════════════════════════════════
+   Mobile / tablet collapses — index-specific.
+   The shared design-system breakpoints handle nav, scale, section
+   padding. These rules collapse the index-only multi-col grids.
+   ═════════════════════════════════════════════════════════════════ */
+@media (max-width: 980px) {
+  .how-grid      { grid-template-columns: 1fr; }
+  .testi-grid    { grid-template-columns: 1fr; }
+  .record-summary{ grid-template-columns: 1fr 1fr; gap: var(--s-5); }
+  .news-grid     { grid-template-columns: 1fr; gap: var(--s-6); padding: var(--s-12) 0; }
+}
+@media (max-width: 720px) {
+  /* Announce-bar dial-back: hide the middle stat line so the live
+     count + CTA stay on one line on phones. */
+  .announce-bar { font-size: 10px; gap: 6px; padding: 8px 12px; flex-wrap: nowrap; }
+  .announce-bar > span:nth-child(2),
+  .announce-bar > span:nth-child(4) { display: none; }
+  .announce-bar #announce-stats     { display: none; }
+
+  .how-step { padding: var(--s-6) var(--s-6) var(--s-8); }
+  .testi-card { padding: var(--s-6); }
+  .testi-quote { font-size: var(--t-md); }
+  .yday-card  { padding: var(--s-5); }
+  .chart-wrap { padding: var(--s-4) var(--s-5); }
+  .calc       { padding: var(--s-5); gap: var(--s-6); }
+  .calc-out-num { font-size: 44px; }
+  .faq-q      { padding: var(--s-5) var(--s-5); font-size: var(--t-base); }
+  .faq-a      { padding: 0 var(--s-5); font-size: var(--t-sm); }
+  .faq-item.open .faq-a { padding: 0 var(--s-5) var(--s-5); }
+  .news-form  { width: 100%; }
+  .gambling-warning { padding: var(--s-5); font-size: 11px; }
+}
+@media (max-width: 480px) {
+  .record-summary { grid-template-columns: 1fr 1fr; gap: var(--s-4); }
+  .record-summary .summary-num { font-size: 26px; }
+  .calc-title  { font-size: var(--t-lg); }
+  .hero h1     { font-size: 36px; letter-spacing: -0.008em; }
+  .hero-meta   { padding: 5px 10px; font-size: 9.5px; gap: 7px; }
+  .hero-sub    { font-size: var(--t-sm); }
+  .video-thumb-title { font-size: 16px; }
+  .cta-title   { font-size: 36px; }
+}
 </style>
 </head>
 <body>

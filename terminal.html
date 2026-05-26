@@ -534,10 +534,54 @@
 .inj-row .status.def  { background: var(--bg-surface); color: var(--text-mut); border: 1px solid var(--border-strong); }
 
 @media (max-width: 1080px) {
-  .data-grid { grid-template-columns: 1fr 1fr; }
+  .data-grid { grid-template-columns: 1fr 1fr; gap: var(--s-5); }
 }
+
+/* ═══════════════════════════ Mobile collapse ═══════════════════════════ */
 @media (max-width: 720px) {
-  .data-grid { grid-template-columns: 1fr; }
+  .data-grid     { grid-template-columns: 1fr; gap: var(--s-5); }
+  .data-section  { padding: var(--s-8) 0 var(--s-12); }
+  .term-hero     { padding: var(--s-8) 0 var(--s-6); }
+  .term-hero h1  { font-size: 34px; letter-spacing: -0.012em; }
+  .term-hero p   { font-size: var(--t-sm); }
+  .term-search   { max-width: 100%; height: 42px; padding: 6px 14px; }
+  .term-search input { font-size: var(--t-sm); }
+  .league-tabs   { gap: 6px; }
+  .league-tab    { padding: 7px 14px; font-size: 12px; }
+  .league-tab .ct{ font-size: 10px; margin-left: 4px; }
+
+  .picks-teaser  { padding: var(--s-5); gap: var(--s-4); }
+  .picks-teaser-title { font-size: var(--t-lg); }
+  .picks-teaser-sub   { font-size: 12px; }
+  .picks-teaser-cta   { padding: 12px 18px; font-size: 13px; }
+
+  .panel-head  { padding: var(--s-4) var(--s-5); }
+  .panel-head h3 { font-size: var(--t-base); }
+  .panel-body  { max-height: 420px !important; }
+  .game-row, .line-row, .news-row, .inj-row {
+    padding: var(--s-3) var(--s-4);
+    gap: var(--s-3);
+  }
+  .game-row .team .name,
+  .game-row .team .score { font-size: 13px; }
+  .game-row .status { min-width: 64px; }
+  .game-row .status .pill   { font-size: 9px; padding: 2px 6px; }
+  .game-row .status .detail { font-size: 10px; }
+  .line-row .prices { gap: var(--s-2); flex-wrap: wrap; justify-content: flex-end; }
+  .line-row .price-block { min-width: 48px; }
+  .news-row .head { font-size: 13px; line-height: 1.4; }
+  .news-row .meta { font-size: 10px; }
+  .inj-row .who .name { font-size: 13px; }
+  .league-tag    { font-size: 8px; padding: 2px 5px; }
+}
+
+@media (max-width: 480px) {
+  .term-hero-top { gap: var(--s-4); }
+  .term-meta     { font-size: 10px; flex-direction: row; flex-wrap: wrap; gap: var(--s-3); }
+  .term-meta .k  { display: none; }
+  .term-hero h1  { font-size: 28px; }
+  .picks-teaser-title { font-size: var(--t-md); }
+  .picks-teaser-cta { width: 100%; text-align: center; justify-self: stretch; }
 }
 </style>
 </head>

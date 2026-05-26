@@ -540,8 +540,53 @@
   max-width: 56ch;
   line-height: 1.55;
 }
+/* ═══════════════════════════ Mobile collapse ═══════════════════════════ */
+@media (max-width: 980px) {
+  .picks-hero      { padding: var(--s-10) 0 var(--s-8); }
+  .picks-hero h1   { font-size: 44px; letter-spacing: -0.012em; }
+  .slate           { padding: var(--s-8) 0 var(--s-12); }
+}
 @media (max-width: 720px) {
-  .upsell-banner { grid-template-columns: 1fr; padding: var(--s-6); }
+  .picks-hero h1   { font-size: 36px; }
+  .picks-hero p    { font-size: var(--t-sm); }
+  .picks-hero .slate-date { font-size: 10px; padding: 5px 12px; }
+
+  /* Card padding tight on phones so the prose isn't crammed against
+     the screen edge. Also kill 3D tilt on mobile (CPU heat + bad UX). */
+  .pick-card { padding: var(--s-6); gap: var(--s-3); transform: none !important; }
+  .pick-card.conf-a,
+  .pick-card.conf-b,
+  .pick-card.conf-c { padding-left: calc(var(--s-6) - 3px); }
+  .pick-card:hover  { transform: none !important; box-shadow: none !important; }
+  .pick-matchup     { font-size: var(--t-lg); }
+  .pick-call        { padding: var(--s-4) var(--s-5); }
+  .pick-call-value  { font-size: var(--t-base); }
+  .pick-reasoning   { font-size: 13px; line-height: 1.6; }
+  .pick-league      { font-size: 9px; padding: 3px 8px; }
+  .pick-time        { font-size: 10px; }
+
+  /* Lock overlay full-bleed CTA — easier to tap */
+  .lock-overlay     { padding: var(--s-5); gap: var(--s-2); }
+  .lock-title       { font-size: var(--t-lg); }
+  .lock-sub         { font-size: 12px; }
+  .lock-btn         { width: 100%; }
+
+  /* Chat panel: keep on-card, smaller pills, larger touch on send */
+  .chat-msgs        { max-height: 180px; }
+  .chat-msg         { font-size: 12px; padding: var(--s-2) var(--s-3); }
+  .chat-chip        { font-size: 9px; padding: 4px 8px; }
+  .chat-input       { font-size: 13px; padding: 9px var(--s-3); }
+  .chat-form button[type="submit"] { padding: 0 var(--s-3); height: 36px; font-size: 12px; }
+
+  .upsell-banner    { grid-template-columns: 1fr; padding: var(--s-6); gap: var(--s-5); }
+  .upsell-banner h3 { font-size: var(--t-xl); }
+  .upsell-banner a  { width: 100%; text-align: center; justify-content: center; }
+}
+@media (max-width: 480px) {
+  .picks-hero h1   { font-size: 32px; }
+  .pick-card       { padding: var(--s-5); }
+  .pick-tools      { flex-direction: column; align-items: stretch; gap: var(--s-2); }
+  .pick-tool       { width: 100%; justify-content: center; }
 }
 </style>
 </head>

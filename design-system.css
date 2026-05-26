@@ -113,6 +113,15 @@
   --page-pad-x:  32px;
   --page-pad-x-mobile: 20px;
 
+  /* Section spacing — these get re-tuned at each breakpoint so the
+     page doesn't have 96px gaps on a 375px screen. Pages reference
+     --section-pad (not --s-24) so a single token override at the
+     mobile breakpoint cascades to every section on every page. */
+  --section-pad:        96px;
+  --section-pad-tight:  64px;
+  --hero-pad-top:       80px;
+  --hero-pad-bot:       96px;
+
   /* Radii */
   --r-xs: 2px;
   --r-sm: 4px;
@@ -139,21 +148,34 @@
 /* ── Reset ─────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;             /* belt + suspenders no-horizontal-scroll */
+}
 body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
   font-size: var(--t-base);
-  line-height: 1.65;            /* warmer rhythm — was 1.55 (too tight) */
-  letter-spacing: 0.005em;      /* nudge open-ness across body copy */
+  line-height: 1.65;
+  letter-spacing: 0.005em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: "kern", "liga", "ss03", "cv11", "calt";
   text-rendering: optimizeLegibility;
   font-weight: 400;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: rgba(212, 168, 67, 0.18);   /* mobile tap flash */
+  /* Safe-area insets so the iPhone notch / home indicator don't clip
+     content (announce bar, footer, sticky nav). */
+  padding-left:  env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
 }
 img, svg, video { display: block; max-width: 100%; height: auto; }
+/* Prevent any grid/flex child from overflowing — common mobile gotcha
+   when long words / team names blow out the column width. */
+* { min-width: 0; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; cursor: pointer; background: none; border: 0; color: inherit; }
 input, textarea, select { font: inherit; color: inherit; }
@@ -733,22 +755,98 @@ body::before {
 .win   { color: var(--win); }
 .loss  { color: var(--loss); }
 
-/* ── Breakpoints ──────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────────
+   Breakpoints
+   Three steps:
+     · ≤ 980px  — tablet / large phone landscape
+     · ≤ 720px  — phone portrait
+     · ≤ 480px  — narrow phone (iPhone SE class)
+
+   Section/hero padding tokens get re-tuned at each step so EVERY
+   section on EVERY page collapses gracefully without touching the
+   page-specific stylesheets. Buttons go full-width inside hero
+   action rows. Cards keep edge-to-edge padding so dense data
+   doesn't get cropped.
+   ───────────────────────────────────────────────────────────── */
+
 @media (max-width: 980px) {
-  :root { --page-pad-x: var(--page-pad-x-mobile); }
+  :root {
+    --page-pad-x:     var(--page-pad-x-mobile);
+    --section-pad:    72px;
+    --section-pad-tight: 48px;
+    --hero-pad-top:   56px;
+    --hero-pad-bot:   72px;
+
+    /* Scale display sizes down so 80px headlines don't blow out
+       375px viewports. */
+    --t-7xl: 64px;
+    --t-6xl: 56px;
+    --t-5xl: 48px;
+    --t-4xl: 40px;
+  }
   .nav-links { display: none; }
   .nav-burger { display: flex; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s-8); }
   .footer-brand { grid-column: span 2; }
 }
-@media (max-width: 640px) {
+
+@media (max-width: 720px) {
   :root {
-    --t-4xl: 36px;
-    --t-3xl: 30px;
-    --t-2xl: 24px;
+    --section-pad:    56px;
+    --section-pad-tight: 40px;
+    --hero-pad-top:   40px;
+    --hero-pad-bot:   56px;
+    --t-4xl: 34px;
+    --t-3xl: 28px;
+    --t-2xl: 22px;
+    --t-xl:  18px;
   }
+  .nav-inner    { padding: var(--s-3) var(--page-pad-x); gap: var(--s-4); }
+  .nav-right    { gap: var(--s-2); }
   .section-head { grid-template-columns: 1fr; gap: var(--s-3); }
-  .footer-grid { grid-template-columns: 1fr; }
+  .footer-grid  { grid-template-columns: 1fr; gap: var(--s-6); }
   .footer-brand { grid-column: auto; }
-  .footer-bottom { flex-direction: column; }
+  .footer-bottom{ flex-direction: column; align-items: flex-start; }
+
+  /* Stat-num shouldn't be bigger than 36px on phones — it overflows
+     the column otherwise. */
+  .stat-num { font-size: 32px !important; }
+
+  /* The nav's "Free trial ↗" CTA gets too wide on small phones.
+     Tighten the label spacing. */
+  .nav-right .btn-sm { padding: 0 var(--s-4); height: 38px; font-size: 12px; }
+
+  /* Eyebrow / kicker tighter on mobile so they wrap less */
+  .eyebrow, .kicker { font-size: 10px; letter-spacing: 0.10em; }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --section-pad:    44px;
+    --section-pad-tight: 32px;
+    --hero-pad-top:   28px;
+    --hero-pad-bot:   44px;
+    --t-4xl: 30px;
+    --t-3xl: 24px;
+    --t-2xl: 20px;
+  }
+  .nav-inner       { padding: 12px var(--page-pad-x); }
+  .brand           { font-size: 14px; gap: 8px; }
+  .brand-mark      { width: 9px; height: 9px; }
+  .footer          { margin-top: var(--s-16); padding: var(--s-12) 0 var(--s-8); }
+}
+
+/* Phone-only: when buttons sit in a hero action row, make them
+   full-width so they're easy to tap. Desktop button styles unchanged. */
+@media (max-width: 600px) {
+  .hero-actions,
+  .cta-buttons,
+  .drawer-cta {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+  .hero-actions  .btn,
+  .cta-buttons   .btn,
+  .drawer-cta    .btn { width: 100%; }
 }
