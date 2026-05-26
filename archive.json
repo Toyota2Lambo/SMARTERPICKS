@@ -1,16 +1,16 @@
 {
   "stats": {
-    "total_picks": 105,
-    "wins": 37,
-    "losses": 35,
+    "total_picks": 112,
+    "wins": 39,
+    "losses": 38,
     "pushes": 0,
-    "win_pct": 51.4,
-    "net_units": 6.6,
-    "roi_pct": 6.3,
+    "win_pct": 50.6,
+    "net_units": 5.42,
+    "roi_pct": 4.8,
     "best_month_units": 12.4,
     "worst_month_units": -3.8,
     "avg_daily_units": 0.85,
-    "days_recorded": 15
+    "days_recorded": 16
   },
   "days": [
     {
@@ -2179,6 +2179,185 @@
           "away_score": 82,
           "home_score": 103,
           "winner_side": "home"
+        }
+      ]
+    },
+    {
+      "iso_date": "2026-05-25",
+      "date_display": "May 25, 2026",
+      "wins": 2,
+      "losses": 3,
+      "pushes": 0,
+      "net_units": -1.18,
+      "summary_text": "2-3 · -1.18u",
+      "picks": [
+        {
+          "league": "MLB",
+          "time": "7:06 PM ET",
+          "away_team": "Minnesota Twins",
+          "home_team": "Chicago White Sox",
+          "game_detail": "Regular Season",
+          "pick": "Minnesota Twins -1.5",
+          "odds": "155",
+          "book": "Bovada",
+          "stake": "1.5u",
+          "reasoning": "The Twins run-line edge is real — Bovada's +155 sits 160 bps above the median of +145, one of the stronger run-line values on the board today. Minnesota sends Zebby Matthews to the mound against Anthony Kay, a significant pitching edge. The White Sox are one of the weakest offenses in the AL, making the -1.5 a viable play at this price.",
+          "tags": [
+            "Line Value",
+            "Pitching Edge",
+            "Confidence B+"
+          ],
+          "is_premium": false,
+          "result": "LOST",
+          "units": -1.5,
+          "final_score": "1-3",
+          "away_score": 1,
+          "home_score": 3,
+          "winner_side": "home"
+        },
+        {
+          "league": "MLB",
+          "time": "7:06 PM ET",
+          "away_team": "St. Louis Cardinals",
+          "home_team": "Milwaukee Brewers",
+          "game_detail": "Regular Season",
+          "pick": "Milwaukee Brewers -1.5",
+          "odds": "104",
+          "book": "BetRivers",
+          "stake": "2u",
+          "reasoning": "BetRivers is posting +104 on the Brewers -1.5, a massive 267 bps above the median of -107 — the highest edge_bps run-line value on today's slate by a wide margin. Jacob Misiorowski is a significant pitching upgrade over Matthew Liberatore for St. Louis. Getting plus-money on a heavy favorite's run line when the consensus says it should be priced at -107 is a clear mispricing to attack.",
+          "tags": [
+            "Best Price",
+            "Mispricing",
+            "Confidence A"
+          ],
+          "is_premium": true,
+          "result": "WON",
+          "units": 1.92,
+          "final_score": "1-5",
+          "away_score": 1,
+          "home_score": 5,
+          "winner_side": "home"
+        },
+        {
+          "league": "NBA · Playoffs",
+          "time": "8:10 PM ET",
+          "away_team": "New York Knicks",
+          "home_team": "Cleveland Cavaliers",
+          "game_detail": "Playoffs",
+          "pick": "Cleveland Cavaliers +2.5",
+          "odds": "-104",
+          "book": "LowVig.ag",
+          "stake": "1.5u",
+          "reasoning": "LowVig's -104 on the Cavaliers +2.5 is 140 bps better than the median of -110, representing genuine line value in a playoff game that figures to be tight. Cleveland is the home team in what is likely a competitive series situation, and getting nearly a field goal at reduced juice on the home side is a playable spot. The consensus median implies a coin-flip game closer to pick'em territory.",
+          "tags": [
+            "Line Value",
+            "Home Playoff Spot",
+            "Confidence B+"
+          ],
+          "is_premium": true,
+          "result": "LOST",
+          "units": -1.5,
+          "final_score": "130-93",
+          "away_score": 130,
+          "home_score": 93,
+          "winner_side": "away"
+        },
+        {
+          "league": "MLB",
+          "time": "4:11 PM ET",
+          "away_team": "Chicago Cubs",
+          "home_team": "Pittsburgh Pirates",
+          "game_detail": "Regular Season",
+          "pick": "Chicago Cubs ML",
+          "odds": "-113",
+          "book": "BetUS",
+          "stake": "1.5u",
+          "reasoning": "BetUS is posting -113 on the Cubs ML, 170 bps above the median of -121, making this one of the sharpest moneyline values on the board. Ben Brown gets the start for Chicago against Carmen Mlodzinski — a clear pitching advantage on the road. Paying only -113 for a team that the market prices closer to -121 across the board is a legitimate edge.",
+          "tags": [
+            "Best Price",
+            "Pitching Edge",
+            "Confidence B+"
+          ],
+          "is_premium": true,
+          "result": "LOST",
+          "units": -1.5,
+          "final_score": "1-2",
+          "away_score": 1,
+          "home_score": 2,
+          "winner_side": "home"
+        },
+        {
+          "league": "MLB",
+          "time": "7:11 PM ET",
+          "away_team": "New York Yankees",
+          "home_team": "Kansas City Royals",
+          "game_detail": "Regular Season",
+          "pick": "New York Yankees -1.5",
+          "odds": "112",
+          "book": "MyBookie.ag",
+          "stake": "1u",
+          "reasoning": "MyBookie is offering +112 on the Yankees -1.5, sitting 114 bps above the median of +107. Will Warren takes the hill for New York against Michael Wacha, and the Yankees are a team capable of winning by multiple runs against a Royals club hovering around .500. Getting plus-money on a superior team's run line is the preferred angle here.",
+          "tags": [
+            "Line Value",
+            "Run Line Plus Money",
+            "Confidence B"
+          ],
+          "is_premium": true,
+          "result": "PENDING",
+          "units": 0.0,
+          "final_score": "4-3",
+          "away_score": 4,
+          "home_score": 3,
+          "winner_side": "away"
+        },
+        {
+          "league": "MLB",
+          "time": "6:11 PM ET",
+          "away_team": "Washington Nationals",
+          "home_team": "Cleveland Guardians",
+          "game_detail": "Regular Season",
+          "pick": "Over 8.0",
+          "odds": "-107",
+          "book": "LowVig.ag",
+          "stake": "1.5u",
+          "reasoning": "LowVig's -107 on the Over 8.0 is 158 bps above the median of -114 across 8 books — a substantial totals edge backed by significant book agreement on a higher number. Tanner Bibee faces Zack Littell and the Nationals offense, while the Guardians have been generating runs at home. The line compression from -114 median to -107 best price is meaningful value on a total with real upside.",
+          "tags": [
+            "Line Value",
+            "Totals Edge",
+            "Confidence B+"
+          ],
+          "is_premium": true,
+          "result": "WON",
+          "units": 1.4,
+          "final_score": "10-2",
+          "away_score": 10,
+          "home_score": 2,
+          "winner_side": "away"
+        },
+        {
+          "league": "NHL · Playoffs",
+          "time": "8:00 PM ET",
+          "away_team": "Carolina Hurricanes",
+          "home_team": "Montréal Canadiens",
+          "game_detail": "Playoffs",
+          "pick": "Over 6.0",
+          "odds": "102",
+          "book": "Bovada",
+          "stake": "1u",
+          "reasoning": "Bovada is offering +102 on the Over 6.0 while the median across 4 books sits at -103 — a 123 bps swing that effectively turns a losing-juice bet into a plus-money opportunity. Carolina is a high-event playoff team and Montreal games can turn into track meets when the Hurricanes impose their pace. Getting plus-money on a total that the market prices as a slight favorite to go under is a clear structural edge.",
+          "tags": [
+            "Best Price",
+            "Plus Money Total",
+            "Confidence B"
+          ],
+          "is_premium": true,
+          "result": "PENDING",
+          "units": 0.0,
+          "final_score": "3-2",
+          "away_score": 3,
+          "home_score": 2,
+          "winner_side": "away"
         }
       ]
     }
