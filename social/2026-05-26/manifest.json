@@ -1,5 +1,5 @@
 {
-  "rendered_at": "2026-05-26T07:59:11.481Z",
+  "rendered_at": "2026-05-26T09:35:40.212Z",
   "content_file": "content.json",
   "renders": [
     {
@@ -164,7 +164,7 @@
     },
     {
       "file": "treatment-03.png",
-      "template": "news-card.html",
+      "template": "lifestyle-card.html",
       "group": "treatments",
       "slide_index": 3,
       "size": {
@@ -184,9 +184,19 @@
     },
     {
       "file": "treatment-05.png",
-      "template": "lifestyle-card.html",
+      "template": "news-card.html",
       "group": "treatments",
       "slide_index": 5,
+      "size": {
+        "width": 1080,
+        "height": 1080
+      }
+    },
+    {
+      "file": "treatment-06.png",
+      "template": "index-card.html",
+      "group": "treatments",
+      "slide_index": 6,
       "size": {
         "width": 1080,
         "height": 1080
