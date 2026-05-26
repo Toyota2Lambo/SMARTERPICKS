@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T09:35:18.535680+00:00",
+  "generated_at": "2026-05-26T13:57:07.508226+00:00",
   "model": "claude-sonnet-4-6",
   "carousel_topic": "Why your win rate matters less than your ROI",
   "source": {
@@ -181,10 +181,10 @@
   },
   "content": {
     "ig_pick_post": {
-      "caption": "Tonight's free pick: Blue Jays @ Marlins Over 8.0 at +107. Getting plus money on a total is uncommon. Card is live, link in bio.",
-      "slide1_text": "TONIGHT'S FREE PICK\nBlue Jays @ Marlins\nOver 8.0 at +107",
-      "slide2_text": "Sandy Alcantara has been durable but gives up runs. Toronto's lineup makes contact. LowVig is posting +107 against a median of -103. You're getting paid on the over.",
-      "slide3_text": "Full card (7 picks tonight) at smarterpicks.io. Start your 7-day free trial, cancel anytime. 21+ only. Bet responsibly.",
+      "caption": "Tonight's free pick: Blue Jays @ Marlins Over 8.0 at +107. Plus money on the over, with a 243 bps edge. Full card at smarterpicks.io.",
+      "slide1_text": "FREE PICK TONIGHT\nToronto @ Miami\nOver 8.0 at +107",
+      "slide2_text": "Sandy Alcantara is durable but gives up runs. The market median is -103. We're getting +107 on the over. That's a 243 bps edge on a number that should be even money or worse.",
+      "slide3_text": "Full card (7 picks tonight) unlocked at smarterpicks.io. 7-day free trial, cancel anytime.",
       "hashtags": [
         "sportsbetting",
         "sportspicks",
@@ -196,73 +196,83 @@
         "bettingadvice",
         "baseballbetting",
         "todayspick",
-        "sportsbettingtips",
+        "sharpbetting",
+        "sportsanalysis",
+        "bettingedge",
+        "mlb2026",
+        "totalbets",
         "overpick",
-        "totals",
-        "sharpbetting"
+        "oddsvalue",
+        "bettingcommunity"
       ]
     },
     "ig_results_post": {
-      "caption": "Yesterday: 2-5, -3.02u. Brewers Over hit clean. Nationals Over came through. Four losses we own. Back at it tonight with a 7-pick card.",
+      "caption": "May 25: 2-5, -3.02u. Brewers and the Nationals/Guardians Over both hit. Four MLB plays missed. We post every result, good and bad.",
       "headline_text": "Yesterday: 2-5, -3.02u",
       "hashtags": [
         "sportsbetting",
         "sportspicks",
         "mlbpicks",
         "bettingresults",
-        "transparency",
         "trackrecord",
-        "sportsbettingtips",
+        "transparency",
+        "mlbbetting",
+        "bettingadvice",
+        "sportsanalysis",
+        "sharpbetting",
         "picksandparlays",
         "bettingcommunity",
-        "mlbbetting"
+        "mlb2026",
+        "loserspost",
+        "honesthandicapping",
+        "publicrecord"
       ]
     },
     "ig_carousel_topic": {
       "topic": "Why your win rate matters less than your ROI",
       "slide1_text": "Your win rate is lying to you.",
-      "slide2_text": "Most bettors chase 60%, 65%, higher. They think a bigger win rate means more money. It usually doesn't.",
-      "slide3_text": "ROI is what actually hits your bankroll. A 54% bettor risking 1 unit to win 2 beats a 60% bettor laying -200 every game. The math is that simple.",
-      "slide4_text": "Example: Bettor A goes 54-46 at -110 odds. Net: +4.2u. Bettor B goes 60-40 but averages -180 odds. Net: -1.8u. Same 100 bets. Bettor A wins.",
-      "slide5_text": "SmarterPicks sits at 54.1% this season, +45.4u, 9.3% ROI across 499 graded picks. Win rate is fine. ROI is the number that matters.",
-      "caption": "Win rate gets the attention. ROI pays the bills. Swipe to see why 54% can beat 60% every time. 499 picks logged this season.",
+      "slide2_text": "Most bettors chase 60%, 70%, even 80% win rates. Higher is better, right? Not necessarily. A bettor hitting 60% on -200 favorites is losing money. A bettor at 52% on +150 dogs is printing it.",
+      "slide3_text": "ROI measures what you actually keep per dollar wagered. Win rate ignores the price you paid to win. Those are two completely different numbers, and only one of them shows up in your bank account.",
+      "slide4_text": "Example: Bettor A goes 60-40 at -200 average odds. Net: roughly -8 units. Bettor B goes 52-48 at +150 average odds. Net: roughly +14 units. Same sample size. Bettor B wins less often and makes more money.",
+      "slide5_text": "54.1% win rate, +9.3% ROI, +45.4u across 53 days. The win rate is ordinary. The ROI is where the real number lives.",
+      "caption": "Win rate is a vanity stat. ROI is the one that actually matters. 499 picks in. +45.4u. The math is public.",
       "hashtags": [
         "sportsbetting",
         "bettingeducation",
-        "sportsbettingtips",
+        "bettingstrategy",
         "roi",
         "winrate",
         "sharpbetting",
-        "bettingstrategy",
-        "bankrollmanagement",
+        "sportspicks",
+        "bettingadvice",
         "mlbbetting",
         "nbabetting",
-        "sportspicks",
+        "sportsanalysis",
         "bettingmath",
-        "valuebetting",
-        "picksandparlays",
-        "oddsvalue",
-        "lineshop",
-        "bettingadvice",
-        "smarterbetting"
+        "edgebetting",
+        "valuebets",
+        "bettingcommunity",
+        "handicapping",
+        "smartbetting",
+        "bettingtips"
       ]
     },
     "story_sequence": [
-      "Card drops in 30 min. Blue Jays @ Marlins Over 8.0 at +107 is your free pick today. Plus money on a total. Don't sleep on it.",
-      "Poll: Do you track your ROI or just your win rate? (Win Rate / ROI / Both / Neither) Drop it below.",
-      "Last call before first pitch. Over 8.0 at +107, Blue Jays @ Marlins. Full 7-pick card at smarterpicks.io.",
-      "2-1 through the early slate tonight. Checking in on the Over. More updates as games go final.",
-      "Night wrap incoming. Full results posted tomorrow morning. Seven picks on tonight's card. See you at 7 AM."
+      "Card drops in 30 min. Free pick tonight: Blue Jays @ Marlins Over 8.0 at +107. Plus money on the over.",
+      "Poll: Do you track your ROI or just your win rate? Drop your answer below.",
+      "Last call. Blue Jays/Marlins Over 8.0 locks at first pitch. Full card at smarterpicks.io.",
+      "1-0 on tonight's free pick so far. Marlins game still live. Watching the run total closely.",
+      "Night recap: results post in the morning. Seven plays on the board tonight. Check back at 9 AM."
     ],
     "meme_post": {
-      "top_text": "Me after going 2-5 yesterday: 'I understand variance now'",
-      "bottom_text": "Me 10 minutes later building a 6-leg parlay",
-      "image_concept": "Guy in a suit calmly nodding at a whiteboard full of complex math, then immediately crumpling up the paper and pulling out a parlay ticket"
+      "top_text": "Me after going 2-5 yesterday: 'I've identified the problem.'",
+      "bottom_text": "Also me: bets the same four MLB run lines tomorrow.",
+      "image_concept": "A guy confidently pointing at a whiteboard covered in complex baseball stats and arrows, while a trash can full of losing bet slips sits beside him."
     },
     "treatments": [
       {
         "template": "recap-card.html",
-        "rationale": "Yesterday went 2-5 and the full ledger needs to be posted with transparency before today's card goes live.",
+        "rationale": "Yesterday was a 2-5 losing day and the full ledger needs to be posted publicly as a receipts card.",
         "group": "treatments",
         "size": "feed",
         "caption": "",
@@ -298,12 +308,6 @@
               "units": -1.5
             },
             {
-              "matchup": "MLB · NYY @ KC",
-              "play": "Yankees -1.5",
-              "result": "loss",
-              "units": -1.0
-            },
-            {
               "matchup": "MLB · WSH @ CLE",
               "play": "Over 8.0",
               "result": "win",
@@ -314,7 +318,7 @@
       },
       {
         "template": "pick-card.html",
-        "rationale": "The free pick today is Blue Jays @ Marlins Over 8.0 at +107, a strong totals edge worth a dedicated pick card.",
+        "rationale": "Free pick announcement for tonight's Blue Jays/Marlins Over 8.0 at plus money.",
         "group": "treatments",
         "size": "feed",
         "caption": "",
@@ -322,68 +326,79 @@
         "fields": {
           "tag": "TODAY'S FREE PICK",
           "matchup": "Blue Jays @ Marlins",
-          "game_time": "6:40 PM ET",
-          "pick_headline_html": "Over <em>8.0</em> runs tonight",
-          "line": "8.0",
+          "game_time": "Tonight · MLB",
+          "pick_headline_html": "Blue Jays/Marlins <em>Over 8.0</em>",
+          "line": "+107",
           "edge": "+2.43%",
-          "confidence": "B+",
+          "confidence": "A",
           "away_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/tor.png",
           "home_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/mia.png"
         }
       },
       {
         "template": "lifestyle-card.html",
-        "rationale": "Daily mandatory lifestyle post. Aspirational hook tied to tonight's free pick going live.",
+        "rationale": "Daily mandatory lifestyle post. Aspirational hook tied to tonight's free pick and the 7-day free trial offer.",
         "group": "treatments",
         "size": "feed",
-        "caption": "You could keep guessing tonight, or you could use a card built on 499 graded picks. Free trial, link in bio. 21+ only. Bet responsibly.",
+        "caption": "You could be betting smarter tonight. Free pick is live, plus money on the over. 7-day free trial at smarterpicks.io, cancel anytime.",
         "hashtags": [
           "sportsbetting",
-          "sportspicks",
           "freepick",
           "mlbpicks",
+          "sportspicks",
           "bettingadvice",
-          "sportsbettingtips",
           "sharpbetting",
-          "valuebetting",
-          "bankrollmanagement",
-          "picksandparlays"
+          "sportsanalysis",
+          "bettingcommunity",
+          "todayspick",
+          "mlbbetting",
+          "valuebets",
+          "oddsvalue",
+          "bettingedge",
+          "smartbetting",
+          "freetrial",
+          "sportsbettingtips"
         ],
         "fields": {
           "tag": "FREE PICK · TONIGHT",
-          "eyebrow": "54.1% WIN RATE · +45.4u",
-          "headline_html": "Stop guessing. Start <em>winning</em>.",
-          "sub_html": "Tonight's free pick is live. Start your 7-day free trial. Cancel anytime.",
-          "photo_query": "vintage porsche 911 classic",
-          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/vintage_20porsche_20911_20classic_98581ba11070.jpg",
-          "photo_credit": "Photo: YRKA PICTURED / Unsplash"
+          "eyebrow": "WIN MORE THIS WEEK",
+          "headline_html": "Stop guessing on <em>totals</em>.",
+          "sub_html": "Tonight's free pick is live. <em>+45.4u</em> on the season. Start your 7-day free trial.",
+          "photo_query": "monaco yacht harbor",
+          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/monaco_20yacht_20harbor_7ff5d69c2ccc.jpg",
+          "photo_credit": "Photo: Picsum (fallback — set UNSPLASH_ACCESS_KEY for relevant)"
         }
       },
       {
         "template": "news-card.html",
-        "rationale": "Sandy Alcantara's run-allowing tendency is the key storyline behind today's free pick and worth a standalone news beat card.",
+        "rationale": "Sandy Alcantara pitching tonight is a sharp observation from picks.json reasoning worth surfacing as a news brief.",
         "group": "treatments",
         "size": "feed",
-        "caption": "Alcantara has been durable this season. He's also been hittable. Tonight's Over 8.0 at +107 is the sharpest number on the board.",
+        "caption": "Alcantara on the mound tonight. Durable arm, but the run total tells a different story. Free pick is live at smarterpicks.io.",
         "hashtags": [
           "mlbpicks",
-          "baseballbetting",
-          "sportsbetting",
           "marlins",
           "bluejays",
-          "pitcherwatch",
-          "totals",
-          "overpick",
+          "baseballbetting",
+          "sportsbetting",
+          "startingpitcher",
+          "mlbbetting",
+          "bettingadvice",
           "sportspicks",
-          "bettingadvice"
+          "sharpbetting",
+          "totalbets",
+          "overpick",
+          "mlb2026",
+          "bettingedge",
+          "sportsanalysis"
         ],
         "fields": {
-          "tag": "PITCHER WATCH",
+          "tag": "STARTING TONIGHT",
           "team_name": "Miami Marlins",
           "league": "MLB",
-          "eyebrow": "MLB · TONIGHT'S TOTAL",
-          "headline_html": "Alcantara is durable. He's also <em>giving up runs</em>.",
-          "body_html": "Sandy Alcantara takes the hill tonight as Toronto's lineup applies pressure. The Over 8.0 at +107 is the standout number on today's board.",
+          "eyebrow": "MLB · TONIGHT'S SLATE",
+          "headline_html": "Alcantara is durable. He still <em>gives up runs</em>.",
+          "body_html": "Sandy Alcantara takes the hill for Miami tonight. He's been consistent but run-prone, and the total sits at 8.0 with plus money on the over.",
           "photo_query": "baseball stadium dusk",
           "team_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/mia.png",
           "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/baseball_20stadium_20dusk_4fddb5fcdb83.jpg",
@@ -392,94 +407,39 @@
       },
       {
         "template": "news-card.html",
-        "rationale": "The Avalanche vs Golden Knights playoff Over is a strong secondary storyline from tonight's card worth a separate news card.",
+        "rationale": "The White Sox ML value play is a sharp market observation from picks.json worth a second news card on a different team.",
         "group": "treatments",
         "size": "feed",
-        "caption": "Colorado vs Vegas tonight. Over 6.5 at +110 in a playoff game where both teams can light the lamp. Full card at smarterpicks.io.",
+        "caption": "The market can't agree on the White Sox tonight. When books split this wide, there's usually a reason. Full card at smarterpicks.io.",
         "hashtags": [
-          "nhlpicks",
-          "hockeybetting",
+          "mlbpicks",
+          "whitesox",
+          "twins",
+          "baseballbetting",
           "sportsbetting",
-          "nhlfplayoffs",
-          "avalanche",
-          "goldenknights",
-          "sportspicks",
-          "overpick",
-          "playoffbetting",
-          "sharpbetting"
-        ],
-        "fields": {
-          "tag": "PLAYOFF EDGE",
-          "team_name": "Colorado Avalanche",
-          "league": "NHL",
-          "eyebrow": "NHL PLAYOFFS · TONIGHT",
-          "headline_html": "Avs vs Knights: two offenses, one <em>Over</em>.",
-          "body_html": "FanDuel posts Over 6.5 at +110 in a high-powered playoff matchup. Two of the most offensively capable teams in the postseason meet tonight.",
-          "photo_query": "hockey ice closeup",
-          "team_logo": "https://a.espncdn.com/i/teamlogos/nhl/500/col.png",
-          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/hockey_20ice_20closeup_99116f4e01fd.jpg",
-          "photo_credit": "Photo: Sarah Jeffs / Unsplash"
-        }
-      },
-      {
-        "template": "index-card.html",
-        "rationale": "Season credibility lift after a rough day. The YTD ledger is the trust anchor before tonight's card.",
-        "group": "treatments",
-        "size": "feed",
-        "caption": "2-5 yesterday. +45.4u on the season. We post every result, win or lose. 499 picks, 53 days, 9.3% ROI. That's the record.",
-        "hashtags": [
-          "sportsbetting",
-          "trackrecord",
-          "transparency",
-          "sportspicks",
+          "linemovement",
+          "mlbbetting",
           "bettingadvice",
-          "roi",
+          "sportspicks",
           "sharpbetting",
-          "bankrollmanagement",
-          "sportsbettingtips",
-          "picksandparlays"
+          "mlbodds",
+          "valuebets",
+          "mlb2026",
+          "bettingedge",
+          "sportsanalysis",
+          "moneyline"
         ],
         "fields": {
-          "tag": "RECEIPTS",
-          "eyebrow": "SEASON SCOREBOARD · 2026",
-          "title_html": "The <em>verified</em> ledger.",
-          "note_html": "499 picks graded. 53 days logged.",
-          "cells": [
-            {
-              "label": "Overall",
-              "num": "270-229",
-              "foot": "54.1% win rate",
-              "tone": "win"
-            },
-            {
-              "label": "ROI",
-              "num": "+9.3%",
-              "foot": "season-to-date",
-              "tone": "accent"
-            },
-            {
-              "label": "Net Units",
-              "num": "+45.4u",
-              "foot": "since day one",
-              "tone": "accent"
-            },
-            {
-              "label": "Sample",
-              "num": "499",
-              "foot": "graded picks"
-            },
-            {
-              "label": "Days Logged",
-              "num": "53",
-              "foot": "public record"
-            },
-            {
-              "label": "Yesterday",
-              "num": "2-5",
-              "foot": "-3.02u · we post it all",
-              "tone": "loss"
-            }
-          ]
+          "tag": "LINE WATCH",
+          "team_name": "Chicago White Sox",
+          "league": "MLB",
+          "eyebrow": "MLB · MARKET SIGNAL",
+          "headline_html": "White Sox priced as a <em>dog</em> at split books.",
+          "body_html": "Some books have Chicago near even money, others as a slight dog. That spread at +105 ML is a 172 bps edge worth tracking before first pitch.",
+          "photo_query": "baseball stadium dusk",
+          "team_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/cws.png",
+          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/baseball_20stadium_20dusk_4fddb5fcdb83.jpg",
+          "photo_credit": "Photo: Niketh Vellanki / Unsplash"
         }
       }
     ]
