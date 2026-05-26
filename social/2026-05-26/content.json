@@ -1,0 +1,449 @@
+{
+  "generated_at": "2026-05-26T07:58:50.130000+00:00",
+  "model": "claude-sonnet-4-6",
+  "carousel_topic": "Why your win rate matters less than your ROI",
+  "source": {
+    "picks_date": "May 26, 2026",
+    "results_date": "May 25, 2026",
+    "history_stats": {
+      "total_picks": 430,
+      "wins": 270,
+      "losses": 229,
+      "pushes": 22,
+      "win_pct": 54.1,
+      "net_units": 45.4,
+      "roi_pct": 9.3,
+      "best_month_units": 12.4,
+      "worst_month_units": -3.8,
+      "avg_daily_units": 0.85,
+      "days_recorded": 53
+    },
+    "today_free_pick": {
+      "league": "MLB",
+      "time": "7:08 PM ET",
+      "away_team": "Toronto Blue Jays",
+      "home_team": "Miami Marlins",
+      "game_detail": "Regular Season",
+      "pick": "Over 8.0",
+      "odds": "+107",
+      "book": "LowVig.ag",
+      "stake": "2u",
+      "reasoning": "This is the standout number on the board today — edge_bps of 243, with LowVig offering +107 against a median of -103. The Marlins send Sandy Alcantara, who has been durable but is prone to giving up runs, while Braydon Fisher is a young Blue Jays arm facing a Miami lineup that still has enough bats to push this over 8. Getting plus money on a total the market has moved dramatically on is a rare spot worth two units.",
+      "tags": [
+        "Line Value",
+        "Plus Money Total",
+        "Confidence B+"
+      ],
+      "is_premium": false
+    },
+    "results_picks": [
+      {
+        "league": "MLB",
+        "time": "7:06 PM ET",
+        "away_team": "Minnesota Twins",
+        "home_team": "Chicago White Sox",
+        "game_detail": "Regular Season",
+        "pick": "Minnesota Twins -1.5",
+        "odds": "155",
+        "book": "Bovada",
+        "stake": "1.5u",
+        "reasoning": "The Twins run-line edge is real — Bovada's +155 sits 160 bps above the median of +145, one of the stronger run-line values on the board today. Minnesota sends Zebby Matthews to the mound against Anthony Kay, a significant pitching edge. The White Sox are one of the weakest offenses in the AL, making the -1.5 a viable play at this price.",
+        "tags": [
+          "Line Value",
+          "Pitching Edge",
+          "Confidence B+"
+        ],
+        "is_premium": false,
+        "result": "LOST",
+        "units": -1.5
+      },
+      {
+        "league": "MLB",
+        "time": "7:06 PM ET",
+        "away_team": "St. Louis Cardinals",
+        "home_team": "Milwaukee Brewers",
+        "game_detail": "Regular Season",
+        "pick": "Milwaukee Brewers -1.5",
+        "odds": "104",
+        "book": "BetRivers",
+        "stake": "2u",
+        "reasoning": "BetRivers is posting +104 on the Brewers -1.5, a massive 267 bps above the median of -107 — the highest edge_bps run-line value on today's slate by a wide margin. Jacob Misiorowski is a significant pitching upgrade over Matthew Liberatore for St. Louis. Getting plus-money on a heavy favorite's run line when the consensus says it should be priced at -107 is a clear mispricing to attack.",
+        "tags": [
+          "Best Price",
+          "Mispricing",
+          "Confidence A"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 2.08
+      },
+      {
+        "league": "NBA · Playoffs",
+        "time": "8:10 PM ET",
+        "away_team": "New York Knicks",
+        "home_team": "Cleveland Cavaliers",
+        "game_detail": "Playoffs",
+        "pick": "Cleveland Cavaliers +2.5",
+        "odds": "-104",
+        "book": "LowVig.ag",
+        "stake": "1.5u",
+        "reasoning": "LowVig's -104 on the Cavaliers +2.5 is 140 bps better than the median of -110, representing genuine line value in a playoff game that figures to be tight. Cleveland is the home team in what is likely a competitive series situation, and getting nearly a field goal at reduced juice on the home side is a playable spot. The consensus median implies a coin-flip game closer to pick'em territory.",
+        "tags": [
+          "Line Value",
+          "Home Playoff Spot",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "LOST",
+        "units": -1.5
+      },
+      {
+        "league": "MLB",
+        "time": "4:11 PM ET",
+        "away_team": "Chicago Cubs",
+        "home_team": "Pittsburgh Pirates",
+        "game_detail": "Regular Season",
+        "pick": "Chicago Cubs ML",
+        "odds": "-113",
+        "book": "BetUS",
+        "stake": "1.5u",
+        "reasoning": "BetUS is posting -113 on the Cubs ML, 170 bps above the median of -121, making this one of the sharpest moneyline values on the board. Ben Brown gets the start for Chicago against Carmen Mlodzinski — a clear pitching advantage on the road. Paying only -113 for a team that the market prices closer to -121 across the board is a legitimate edge.",
+        "tags": [
+          "Best Price",
+          "Pitching Edge",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "LOST",
+        "units": -1.5
+      },
+      {
+        "league": "MLB",
+        "time": "7:11 PM ET",
+        "away_team": "New York Yankees",
+        "home_team": "Kansas City Royals",
+        "game_detail": "Regular Season",
+        "pick": "New York Yankees -1.5",
+        "odds": "112",
+        "book": "MyBookie.ag",
+        "stake": "1u",
+        "reasoning": "MyBookie is offering +112 on the Yankees -1.5, sitting 114 bps above the median of +107. Will Warren takes the hill for New York against Michael Wacha, and the Yankees are a team capable of winning by multiple runs against a Royals club hovering around .500. Getting plus-money on a superior team's run line is the preferred angle here.",
+        "tags": [
+          "Line Value",
+          "Run Line Plus Money",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "LOST",
+        "units": -1.0
+      },
+      {
+        "league": "MLB",
+        "time": "6:11 PM ET",
+        "away_team": "Washington Nationals",
+        "home_team": "Cleveland Guardians",
+        "game_detail": "Regular Season",
+        "pick": "Over 8.0",
+        "odds": "-107",
+        "book": "LowVig.ag",
+        "stake": "1.5u",
+        "reasoning": "LowVig's -107 on the Over 8.0 is 158 bps above the median of -114 across 8 books — a substantial totals edge backed by significant book agreement on a higher number. Tanner Bibee faces Zack Littell and the Nationals offense, while the Guardians have been generating runs at home. The line compression from -114 median to -107 best price is meaningful value on a total with real upside.",
+        "tags": [
+          "Line Value",
+          "Totals Edge",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 1.4
+      },
+      {
+        "league": "NHL · Playoffs",
+        "time": "8:00 PM ET",
+        "away_team": "Carolina Hurricanes",
+        "home_team": "Montréal Canadiens",
+        "game_detail": "Playoffs",
+        "pick": "Over 6.0",
+        "odds": "102",
+        "book": "Bovada",
+        "stake": "1u",
+        "reasoning": "Bovada is offering +102 on the Over 6.0 while the median across 4 books sits at -103 — a 123 bps swing that effectively turns a losing-juice bet into a plus-money opportunity. Carolina is a high-event playoff team and Montreal games can turn into track meets when the Hurricanes impose their pace. Getting plus-money on a total that the market prices as a slight favorite to go under is a clear structural edge.",
+        "tags": [
+          "Best Price",
+          "Plus Money Total",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "LOST",
+        "units": -1.0
+      }
+    ]
+  },
+  "content": {
+    "ig_pick_post": {
+      "caption": "Tonight's free pick is live. Blue Jays vs. Marlins total, and the number is sitting at +107 on LowVig while the market median is -103. That gap is real.",
+      "slide1_text": "Tonight's Free Pick\nMLB · Blue Jays @ Marlins\nOver 8.0 at +107",
+      "slide2_text": "Over 8.0 (+107)\nLowVig is +107 vs. a market median of -103.\nSandy Alcantara has been leaking runs all season. Both lineups are live.",
+      "slide3_text": "Full card is at smarterpicks.io.\n7-day free trial, cancel anytime.\n21+ only. Bet responsibly.",
+      "hashtags": [
+        "sportsbetting",
+        "sportspicks",
+        "mlbpicks",
+        "baseballbetting",
+        "freepick",
+        "bettinganalysis",
+        "bluejays",
+        "marlins",
+        "todayspick",
+        "bettingtips",
+        "mlbbetting",
+        "sportshandicapping",
+        "sharpbetting",
+        "smarterpicks",
+        "bettingcommunity",
+        "mlbodds"
+      ]
+    },
+    "ig_results_post": {
+      "caption": "Yesterday: 2-5, -3.02u. Two hit, five didn't. Brewers over covered, Guardians total cleared. Four others went the wrong way. We post every result, good and bad.",
+      "headline_text": "Yesterday: 2-5, -3.02u",
+      "hashtags": [
+        "sportsbetting",
+        "sportspicks",
+        "mlbpicks",
+        "bettingresults",
+        "bettingtransparency",
+        "trackedrecord",
+        "sharpbetting",
+        "mlbbetting",
+        "bettinganalysis",
+        "sportshandicapping",
+        "nbapicks",
+        "nbaplayoffs",
+        "bettingcommunity",
+        "smarterpicks",
+        "publictrackrecord",
+        "honesthandicapping"
+      ]
+    },
+    "ig_carousel_topic": {
+      "topic": "Why your win rate matters less than your ROI",
+      "slide1_text": "Your Win Rate Is Not the Number That Pays You",
+      "slide2_text": "Most bettors chase 60%, 65%, even 70% win rates.\nThe assumption: win more bets, make more money.\nThat math only works if every bet is the same size at the same price.",
+      "slide3_text": "ROI is what actually moves your bankroll.\nA bettor going 54% on +120 underdogs beats a bettor going 60% on -145 favorites.\nThe odds are doing more work than the wins.",
+      "slide4_text": "Example:\n100 bets at 60% win rate, all at -145: net -3.0u\n100 bets at 54% win rate, all at +120: net +9.6u\nSame discipline. Very different outcomes.",
+      "slide5_text": "Our YTD: 270-229, 54.1% win rate, +45.4u, 9.3% ROI.\nWe track ROI first. Win rate is context, not the goal.",
+      "caption": "Win rate feels good to brag about. ROI is what you actually take home. Swipe through the math, then check your own numbers.",
+      "hashtags": [
+        "sportsbetting",
+        "bettingeducation",
+        "bettingmath",
+        "roi",
+        "winrate",
+        "sharpbetting",
+        "bettinganalysis",
+        "sportshandicapping",
+        "mlbbetting",
+        "nbabetting",
+        "bettingtips",
+        "bankrollmanagement",
+        "smarterpicks",
+        "bettingcommunity",
+        "sportspicks",
+        "valuebetting",
+        "oddsmaking",
+        "bettingstrategy"
+      ]
+    },
+    "story_sequence": [
+      "Card is almost live. Blue Jays vs. Marlins Over 8.0 at +107. Drops in 30 minutes at smarterpicks.io.",
+      "Poll time: which sport are you most confident in this week? MLB, NHL playoffs, or NBA playoffs? Reply with your answer.",
+      "Last call before first pitch. Blue Jays @ Marlins Over 8.0 (+107) is on the board. Full card at smarterpicks.io, free trial in bio.",
+      "2-5 yesterday, rough one. Today's card is fresh. Blue Jays total tracking well through early innings.",
+      "Night recap: full results post tomorrow morning. Six picks on the board today. Check smarterpicks.io for final grades at wake-up."
+    ],
+    "meme_post": {
+      "top_text": "Me after going 2-5 yesterday: 'I have a system.'",
+      "bottom_text": "The system: bet the other team next time.",
+      "image_concept": "A person confidently pointing at a whiteboard covered in incomprehensible sports betting diagrams and arrows, looking very sure of themselves."
+    },
+    "treatments": [
+      {
+        "template": "recap-card.html",
+        "rationale": "Yesterday was a 2-5 losing day and posting the receipts publicly is a core brand trust signal.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "Full board from yesterday. 2-5, -3.02u. Brewers covered, Guardians total cleared. Everything else missed. Track record is public.",
+        "hashtags": [
+          "sportsbetting",
+          "bettingresults",
+          "mlbpicks",
+          "bettingtransparency",
+          "trackedrecord",
+          "sharpbetting",
+          "sportshandicapping",
+          "smarterpicks",
+          "mlbbetting",
+          "nbapicks",
+          "publictrackrecord",
+          "bettinganalysis"
+        ],
+        "fields": {
+          "tag": "YESTERDAY'S BOARD",
+          "wins": "2",
+          "losses": "5",
+          "units": "-3.02u",
+          "pick_rows": [
+            {
+              "matchup": "MLB · MIN @ CWS",
+              "play": "Twins -1.5",
+              "result": "loss",
+              "units": -1.5
+            },
+            {
+              "matchup": "MLB · STL @ MIL",
+              "play": "Brewers -1.5",
+              "result": "win",
+              "units": 2.08
+            },
+            {
+              "matchup": "NBA · NYK @ CLE",
+              "play": "Cavaliers +2.5",
+              "result": "loss",
+              "units": -1.5
+            },
+            {
+              "matchup": "MLB · CHC @ PIT",
+              "play": "Cubs ML",
+              "result": "loss",
+              "units": -1.5
+            },
+            {
+              "matchup": "MLB · NYY @ KC",
+              "play": "Yankees -1.5",
+              "result": "loss",
+              "units": -1.0
+            }
+          ]
+        }
+      },
+      {
+        "template": "pick-card.html",
+        "rationale": "The free pick is the daily workhorse and the +107 odds on a totals edge is a concrete hook.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "",
+        "hashtags": [],
+        "fields": {
+          "tag": "TODAY'S FREE PICK",
+          "matchup": "Blue Jays @ Marlins",
+          "game_time": "7:05 PM ET",
+          "pick_headline_html": "Over <em>8.0</em> tonight",
+          "line": "O8.0",
+          "edge": "+2.43%",
+          "confidence": "B+",
+          "away_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/tor.png",
+          "home_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/mia.png"
+        }
+      },
+      {
+        "template": "news-card.html",
+        "rationale": "Sandy Alcantara's run-prevention issues are the key reasoning behind the free pick and worth surfacing as a standalone beat post.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "Alcantara takes the mound tonight and the totals market is priced too low. Over 8.0 at +107 is today's free pick. Full card at smarterpicks.io.",
+        "hashtags": [
+          "mlbpicks",
+          "sportsbetting",
+          "baseballbetting",
+          "marlins",
+          "bluejays",
+          "bettinganalysis",
+          "sharpbetting",
+          "mlbbetting",
+          "sportspicks",
+          "bettingtips",
+          "smarterpicks",
+          "sportshandicapping"
+        ],
+        "fields": {
+          "tag": "PITCHING WATCH",
+          "team_name": "Miami Marlins",
+          "league": "MLB",
+          "eyebrow": "MLB · TONIGHT",
+          "headline_html": "Alcantara has been <em>leaking runs</em> all season.",
+          "body_html": "Sandy Alcantara is durable but has struggled to suppress scoring in 2026. The Blue Jays lineup is live against him tonight.",
+          "photo_query": "baseball stadium dusk",
+          "team_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/mia.png",
+          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/baseball_20stadium_20dusk_4fddb5fcdb83.jpg",
+          "photo_credit": "Photo: Niketh Vellanki / Unsplash"
+        }
+      },
+      {
+        "template": "news-card.html",
+        "rationale": "The Yankees vs. Royals Under 8.5 at +109 is a notable line split worth a beat post since the same matchup went the other way yesterday.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "Same matchup, different angle. Under 8.5 at +109 on Yankees vs. Royals tonight. Full card at smarterpicks.io, 7-day free trial in bio.",
+        "hashtags": [
+          "mlbpicks",
+          "sportsbetting",
+          "yankees",
+          "bettinganalysis",
+          "baseballbetting",
+          "sharpbetting",
+          "mlbbetting",
+          "sportspicks",
+          "bettingtips",
+          "smarterpicks",
+          "sportshandicapping",
+          "linemovement"
+        ],
+        "fields": {
+          "tag": "LINE WATCH",
+          "team_name": "New York Yankees",
+          "league": "MLB",
+          "eyebrow": "MLB · TONIGHT",
+          "headline_html": "Yankees total flipped to <em>Under</em> tonight.",
+          "body_html": "Yesterday's Yankees -1.5 missed. Tonight Cam Schlittler starts for New York, and LowVig is posting Under 8.5 at +109 against a median of +100.",
+          "photo_query": "baseball stadium dusk",
+          "team_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png",
+          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/baseball_20stadium_20dusk_4fddb5fcdb83.jpg",
+          "photo_credit": "Photo: Niketh Vellanki / Unsplash"
+        }
+      },
+      {
+        "template": "lifestyle-card.html",
+        "rationale": "Daily mandatory lifestyle post with aspirational copy tied to today's free pick drop.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "You can win more this week. Today's free pick is up and the edge is real. 4,100+ bettors already on the card. Tap the bio.",
+        "hashtags": [
+          "sportsbetting",
+          "sportspicks",
+          "freepick",
+          "bettinganalysis",
+          "sharpbetting",
+          "mlbbetting",
+          "smarterpicks",
+          "bettingcommunity",
+          "sportshandicapping",
+          "bettingtips",
+          "winmore",
+          "bankrollmanagement",
+          "mlbpicks",
+          "valuebetting"
+        ],
+        "fields": {
+          "tag": "FREE PICK · TODAY",
+          "eyebrow": "54.1% · +45.4u · 2026",
+          "headline_html": "Win more bets. <em>Live better.</em>",
+          "sub_html": "Today's free pick is live. Start your 7-day free trial. Cancel anytime.",
+          "photo_query": "monaco yacht harbor",
+          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/monaco_20yacht_20harbor_7ff5d69c2ccc.jpg",
+          "photo_credit": "Photo: Picsum (fallback — set UNSPLASH_ACCESS_KEY for relevant)"
+        }
+      }
+    ]
+  }
+}
