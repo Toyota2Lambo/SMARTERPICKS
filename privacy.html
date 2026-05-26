@@ -26,17 +26,17 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="design-system.css">
 
 <style>
-  :root{
-    --bg:#0a0a0a;--bg-elevated:#131313;--bg-surface:#1a1a1a;
-    --border:#2a2a2a;--border-strong:#3a3a3a;
-    --text:#f4efe4;--text-muted:#8a8580;--text-dim:#5a5550;
-    --accent:#d4a843;--win:#6dbe7a;--loss:#d96565;
-    --display:"Fraunces","Times New Roman",serif;
-    --body:"Inter Tight",-apple-system,BlinkMacSystemFont,sans-serif;
-    --mono:"JetBrains Mono","Courier New",monospace;
+  /* Alias legacy token names to design-system tokens. */
+  :root {
+    --accent:      var(--gold);
+    --bg-elevated: var(--bg-elev);
+    --text-muted:  var(--text-mut);
+    --display:     var(--font-display);
+    --body:        var(--font-body);
+    --mono:        var(--font-mono);
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:400;line-height:1.65;-webkit-font-smoothing:antialiased;}

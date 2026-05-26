@@ -5,8 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SMARTERPICKS — Today's Picks</title>
 
-<meta name="description" content="Today's full pick card from SmarterPicks — 5 to 8 plays across NBA, MLB, NHL, and NFL. The free pick is open to everyone; the rest unlocks with your 7-day free trial.">
-<meta name="theme-color" content="#0a0a0a">
+<!-- ============================================================
+     /picks — Today's full pick card (members-only experience)
+     ------------------------------------------------------------
+     picks-loader.js fills in #picks-grid with the day's picks.
+     - Non-members see the free pick + locked-card teasers
+     - Logged-in members get redirected to /members
+     The redirect happens BEFORE the page paints so members never
+     see the locked-card layout flash.
+     ============================================================ -->
+
+<meta name="description" content="Today's full pick card from SmarterPicks — 5 to 8 plays across NBA, MLB, NHL, and NFL with full reasoning, best price + book, and stake size. The free pick is open to everyone; the full card unlocks with your 7-day trial.">
+<meta name="theme-color" content="#08080a">
 <link rel="canonical" href="https://smarterpicks.io/picks">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/favicon.svg">
@@ -20,149 +30,519 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SMARTERPICKS — Today's Picks">
-<meta name="twitter:image" content="https://smarterpicks.io/og-image.png">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.whop.com">
+
+<link rel="stylesheet" href="design-system.css">
 
 <style>
-  :root{
-    --bg:#0a0a0a;--bg-elevated:#131313;--bg-surface:#1a1a1a;
-    --border:#2a2a2a;--border-strong:#3a3a3a;
-    --text:#f4efe4;--text-muted:#8a8580;--text-dim:#5a5550;
-    --accent:#d4a843;--accent-dim:#8a6f2d;
-    --win:#6dbe7a;--loss:#d96565;--push:#888;
-    --display:"Fraunces","Times New Roman",serif;
-    --body:"Inter Tight",-apple-system,BlinkMacSystemFont,sans-serif;
-    --mono:"JetBrains Mono","Courier New",monospace;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:400;line-height:1.5;-webkit-font-smoothing:antialiased;}
-  body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");opacity:.035;pointer-events:none;z-index:100;}
-  a{color:inherit;}
-  .container{max-width:1280px;margin:0 auto;padding:0 32px;}
+/* =================================================================
+   picks.html · editorial pick-card layout
+   ================================================================= */
 
-  /* NAV */
-  nav{border-bottom:1px solid var(--border);background:rgba(10,10,10,.92);backdrop-filter:blur(16px);position:sticky;top:0;z-index:50;}
-  .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:16px 32px;max-width:1280px;margin:0 auto;}
-  .logo{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);}
-  .logo-mark{width:9px;height:9px;background:var(--accent);transform:rotate(45deg);flex-shrink:0;}
-  .nav-back{font-family:var(--mono);font-size:12px;color:var(--text-muted);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:color .2s;}
-  .nav-back:hover{color:var(--text);}
+/* Members go straight to /members — never see locked cards. */
 
-  /* SLATE */
-  .slate{padding:80px 0;border-bottom:1px solid var(--border);}
-  .section-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:48px;padding-bottom:20px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:16px;}
-  .section-tag{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
-  .section-title{font-family:var(--display);font-size:44px;font-weight:400;letter-spacing:-.02em;line-height:1.05;}
-  .section-title em{font-style:italic;color:var(--accent);}
-  .section-meta{font-family:var(--mono);font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;}
-  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
-  .live-dot{display:inline-block;width:6px;height:6px;background:var(--win);border-radius:50%;margin-right:6px;animation:pulse 2s infinite;vertical-align:middle;}
+/* ── Hero strip ─────────────────────────────────────────────── */
+.picks-hero {
+  padding: var(--s-16) 0 var(--s-12);
+  border-bottom: 1px solid var(--border-soft);
+  position: relative;
+  overflow: hidden;
+}
+.picks-hero::before {
+  content: "";
+  position: absolute;
+  top: -120px; left: 50%;
+  width: 700px; height: 600px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(212,168,67,0.07) 0%, transparent 60%);
+  pointer-events: none;
+}
+.picks-hero-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--s-8);
+  align-items: end;
+}
+.picks-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.4vw, 76px);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--text);
+}
+.picks-hero h1 em { font-style: italic; color: var(--gold); font-weight: 350; }
+.picks-hero .slate-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 6px 14px;
+  background: var(--gold-glow);
+  border: 1px solid var(--gold-soft);
+  border-radius: var(--r-pill);
+  margin-bottom: var(--s-5);
+  width: max-content;
+}
+.picks-hero .slate-date .live-dot {
+  width: 7px; height: 7px;
+  background: var(--win);
+  border-radius: 50%;
+  animation: pulse 1.8s infinite;
+}
+.picks-hero p {
+  margin-top: var(--s-5);
+  color: var(--text-soft);
+  font-size: var(--t-md);
+  max-width: 56ch;
+  line-height: 1.55;
+}
+.picks-hero .meta {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-mut);
+  text-align: right;
+  white-space: nowrap;
+}
+@media (max-width: 720px) {
+  .picks-hero-inner { grid-template-columns: 1fr; align-items: start; }
+  .picks-hero .meta { text-align: left; }
+}
 
-  /* PICK CARDS */
-  .picks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);perspective:1400px;}
-  .pick-card{background:var(--bg);padding:32px;transition:transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s cubic-bezier(.2,.7,.2,1), background .25s ease;position:relative;transform-style:preserve-3d;}
-  .pick-card:not(.locked):hover{transform:translate3d(0,-4px,0);box-shadow:0 14px 36px rgba(0,0,0,.42);z-index:1;}
-  .pick-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
-  .pick-league{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);padding:4px 8px;border:1px solid var(--accent-dim);}
-  .pick-icon{margin-right:6px;font-size:12px;line-height:1;display:inline-block;}
-  .pick-time{font-family:var(--mono);font-size:11px;color:var(--text-dim);}
-  .pick-matchup{font-family:var(--display);font-size:24px;font-weight:400;line-height:1.2;margin-bottom:4px;}
-  .pick-matchup .vs{color:var(--text-dim);font-style:italic;margin:0 5px;}
-  .pick-detail{font-size:13px;color:var(--text-muted);margin-bottom:22px;}
-  .pick-call{background:var(--bg-surface);padding:18px 20px;margin-bottom:20px;border-left:2px solid var(--accent);}
-  .pick-call-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
-  .pick-call-value{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--text);}
-  .pick-call-odds{font-family:var(--mono);font-size:12px;color:var(--accent);margin-top:4px;}
-  .pick-reasoning{font-size:14px;line-height:1.65;color:var(--text-muted);margin-bottom:20px;}
-  .pick-tags{display:flex;gap:8px;flex-wrap:wrap;}
-  .tag{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);padding:4px 8px;border:1px solid var(--border);}
+/* ── Pick grid ──────────────────────────────────────────────── */
+.slate {
+  padding: var(--s-12) 0 var(--s-20);
+}
+.picks-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-1);
+  background: var(--border-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  perspective: 1400px;
+}
+@media (max-width: 1080px) { .picks-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px)  { .picks-grid { grid-template-columns: 1fr; } }
 
-  /* CONFIDENCE METER */
-  .conf-meter{display:flex;align-items:center;gap:10px;margin:10px 0 18px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);}
-  .conf-meter-track{flex:1;height:5px;background:var(--bg-surface);position:relative;overflow:hidden;}
-  .conf-meter-fill{position:absolute;inset:0;background:linear-gradient(90deg, var(--accent), var(--win));transform-origin:left center;transform:scaleX(var(--conf, .5));}
-  .pick-card.conf-c .conf-meter-fill{background:linear-gradient(90deg, var(--text-dim), var(--accent));}
-  .pick-card.conf-a .conf-meter-fill{background:linear-gradient(90deg, var(--accent), var(--win));}
-  .conf-label{flex-shrink:0;font-weight:700;color:var(--text);}
+/* ── Pick card ──────────────────────────────────────────────── */
+.pick-card {
+  background: var(--bg-card);
+  padding: var(--s-8) var(--s-8) var(--s-6);
+  position: relative;
+  transform-style: preserve-3d;
+  transition:
+    transform var(--dur-slow) var(--ease),
+    box-shadow var(--dur-slow) var(--ease),
+    background var(--dur) var(--ease);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+.pick-card:not(.locked):hover {
+  transform: translate3d(0, -3px, 0);
+  box-shadow: var(--shadow-lg);
+  z-index: 1;
+  background: var(--bg-elev);
+}
 
-  /* LOCKED CARDS */
-  .pick-card.locked{overflow:hidden;}
-  .pick-blur{filter:blur(5px);pointer-events:none;user-select:none;opacity:.4;}
-  .lock-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(10,10,10,.78);backdrop-filter:blur(2px);text-align:center;padding:24px;z-index:2;}
-  .lock-icon{font-size:28px;margin-bottom:14px;}
-  .lock-title{font-family:var(--display);font-size:22px;font-weight:400;margin-bottom:8px;}
-  .lock-sub{font-size:13px;color:var(--text-muted);margin-bottom:20px;line-height:1.5;max-width:24ch;}
-  .lock-btn{background:var(--accent);color:#000;padding:13px 22px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;transition:all .2s;}
-  .lock-btn:hover{background:#e6b950;transform:translateY(-1px);}
-  .lock-badge{position:absolute;top:14px;right:14px;background:var(--accent);color:#000;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;z-index:3;}
-  @keyframes premiumGlow{
-    0%,100%{box-shadow:0 0 0 1px rgba(212,168,67,.30), 0 0 22px rgba(212,168,67,.10);}
-    50%    {box-shadow:0 0 0 1px rgba(212,168,67,.55), 0 0 32px rgba(212,168,67,.22);}
-  }
-  .pick-card.locked{animation:premiumGlow 4.5s ease-in-out infinite;}
+/* Confidence accent stripe */
+.pick-card.conf-a { border-left: 3px solid var(--win); padding-left: 29px; }
+.pick-card.conf-b { border-left: 3px solid var(--gold); padding-left: 29px; }
+.pick-card.conf-c { border-left: 3px solid var(--text-dim); padding-left: 29px; }
 
-  /* PICK TOOLS (Open in book / Ask Claude) */
-  .pick-tools{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
-  .pick-tool{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;border:1px solid var(--border);background:transparent;color:var(--text-muted);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all .2s;}
-  .pick-tool:hover{border-color:var(--accent);color:var(--text);}
-  .pick-tool.primary{border-color:var(--accent-dim);color:var(--accent);}
-  .pick-tool.primary:hover{background:var(--accent);color:#000;}
+.pick-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pick-league {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 4px 10px;
+  border: 1px solid var(--gold-soft);
+  border-radius: var(--r-pill);
+  background: var(--gold-glow);
+}
+.pick-icon { font-size: 12px; line-height: 1; }
+.pick-time {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.1em;
+  color: var(--text-mut);
+  text-transform: uppercase;
+}
+.pick-matchup {
+  font-family: var(--font-display);
+  font-size: var(--t-xl);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--text);
+}
+.pick-matchup .vs {
+  color: var(--text-dim);
+  font-style: italic;
+  margin: 0 6px;
+  font-weight: 350;
+}
+.pick-detail {
+  font-size: var(--t-sm);
+  color: var(--text-mut);
+}
 
-  /* CHAT PANEL */
-  .chat-panel{max-height:0;opacity:0;margin-top:0;padding-top:0;border-top:1px solid transparent;overflow:hidden;transition:max-height .4s cubic-bezier(.2,.7,.2,1), opacity .3s ease, padding-top .4s cubic-bezier(.2,.7,.2,1), margin-top .4s cubic-bezier(.2,.7,.2,1), border-color .3s ease;}
-  .pick-card.chat-open .chat-panel{max-height:600px;opacity:1;margin-top:14px;padding-top:14px;border-top-color:var(--border);}
-  .chat-msgs{display:flex;flex-direction:column;gap:10px;margin-bottom:10px;max-height:280px;overflow-y:auto;}
-  .chat-msg{font-size:13px;line-height:1.55;padding:10px 12px;border:1px solid var(--border);}
-  .chat-msg.user{background:var(--bg-surface);color:var(--text);align-self:flex-end;max-width:82%;}
-  .chat-msg.assistant{background:transparent;color:var(--text);max-width:100%;}
-  .chat-msg.error{border-color:rgba(217,101,101,.4);color:var(--loss);font-family:var(--mono);font-size:11px;}
-  .chat-typing{display:inline-flex;gap:4px;align-items:center;}
-  .chat-typing span{width:6px;height:6px;border-radius:50%;background:var(--text-muted);animation:chatBounce 1.2s infinite ease-in-out;}
-  .chat-typing span:nth-child(2){animation-delay:.15s;}
-  .chat-typing span:nth-child(3){animation-delay:.3s;}
-  @keyframes chatBounce{0%,80%,100%{transform:translateY(0);opacity:.4;}40%{transform:translateY(-3px);opacity:1;}}
-  .chat-suggest{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
-  .chat-chip{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border:1px solid var(--border);background:var(--bg-surface);color:var(--text-muted);cursor:pointer;transition:all .2s;}
-  .chat-chip:hover{border-color:var(--accent);color:var(--text);}
-  .chat-form{display:flex;gap:6px;}
-  .chat-input{flex:1;background:var(--bg-surface);border:1px solid var(--border);padding:10px 12px;color:var(--text);font-family:var(--body);font-size:13px;outline:none;transition:border-color .2s;}
-  .chat-input:focus{border-color:var(--accent);}
-  .chat-send{background:var(--accent);color:#000;border:none;padding:0 14px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .2s;}
-  .chat-send:hover{background:#e6b950;}
-  .chat-send:disabled{opacity:.4;cursor:not-allowed;}
-  .chat-byline{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-top:8px;text-align:right;}
+/* The call-out — the play itself */
+.pick-call {
+  background: linear-gradient(135deg, #1c1810, var(--bg-elev));
+  border: 1px solid var(--gold-soft);
+  border-radius: var(--r-md);
+  padding: var(--s-5) var(--s-6);
+  position: relative;
+}
+.pick-call::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--gold);
+  border-top-left-radius: var(--r-md);
+  border-bottom-left-radius: var(--r-md);
+}
+.pick-call-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: var(--s-2);
+}
+.pick-call-value {
+  font-family: var(--font-mono);
+  font-size: var(--t-lg);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.005em;
+}
+.pick-call-odds {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--text-mut);
+  margin-top: var(--s-2);
+  letter-spacing: 0.06em;
+}
 
-  /* RESULT REVEAL */
-  .result-reveal{position:absolute;top:14px;right:14px;perspective:600px;z-index:4;pointer-events:none;}
-  .result-chip{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 10px;color:#000;}
-  .result-chip.won{background:var(--win);}
-  .result-chip.lost{background:var(--loss);color:#fff;}
-  .result-chip.push{background:var(--text-muted);color:#000;}
+.pick-reasoning {
+  font-size: var(--t-sm);
+  line-height: 1.65;
+  color: var(--text-soft);
+  font-family: var(--font-body);
+}
 
-  /* SKELETONS */
-  @keyframes shimmer{0%{background-position:-200% 0;}100%{background-position:200% 0;}}
-  .skeleton-line{height:14px;background:linear-gradient(90deg, var(--bg-elevated) 25%, var(--bg-surface) 50%, var(--bg-elevated) 75%);background-size:200% 100%;animation:shimmer 1.4s linear infinite;margin-bottom:12px;}
+/* Tags + confidence meter */
+.pick-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-mut);
+  padding: 3px 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-pill);
+}
 
-  /* FOOTER */
-  footer{background:var(--bg);border-top:1px solid var(--border);padding:48px 0;text-align:center;}
-  .footer-bottom{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.05em;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
-  .footer-bottom a{color:var(--text-muted);text-decoration:none;margin:0 12px;}
-  .footer-bottom a:hover{color:var(--accent);}
+.conf-meter {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-top: var(--s-2);
+}
+.conf-meter-track {
+  flex: 1;
+  height: 4px;
+  background: var(--bg-surface);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+.conf-meter-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--gold-deep) 0%, var(--gold) 70%, var(--win) 100%);
+  transform-origin: left center;
+  transform: scaleX(var(--conf, .5));
+  transition: transform var(--dur-slow) var(--ease);
+}
+.conf-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  white-space: nowrap;
+}
 
-  @media(max-width:960px){
-    .container{padding:0 20px;}
-    .nav-inner{padding:14px 20px;}
-    .slate{padding:48px 0;}
-    .picks-grid{grid-template-columns:1fr;}
-    .section-header{flex-direction:column;gap:10px;}
-    .section-title{font-size:32px;}
-  }
+/* Tools row (Open in book + Ask Claude) */
+.pick-tools {
+  display: flex;
+  gap: var(--s-2);
+  margin-top: var(--s-2);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--border-soft);
+}
+.pick-tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 8px 14px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border-strong);
+  color: var(--text-soft);
+  background: transparent;
+  cursor: pointer;
+  transition: all var(--dur) var(--ease);
+}
+.pick-tool:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-glow);
+}
+.pick-tool.primary {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--bg);
+}
+.pick-tool.primary:hover {
+  background: var(--gold-light);
+  border-color: var(--gold-light);
+  color: var(--bg);
+}
+
+/* ── Locked card overlay ──────────────────────────────────── */
+.pick-card.locked {
+  overflow: hidden;
+  border-left: 3px solid var(--gold-deep);
+  padding-left: 29px;
+}
+.pick-blur {
+  filter: blur(5px);
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.35;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+.lock-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(8,8,10,0.5), rgba(8,8,10,0.88));
+  backdrop-filter: blur(2px);
+  text-align: center;
+  padding: var(--s-8);
+  z-index: 2;
+  gap: var(--s-3);
+}
+.lock-icon {
+  width: 42px; height: 42px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: var(--s-2);
+}
+.lock-title {
+  font-family: var(--font-display);
+  font-size: var(--t-xl);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.lock-title em { font-style: italic; color: var(--gold); font-weight: 350; }
+.lock-sub {
+  font-size: var(--t-sm);
+  color: var(--text-mut);
+  max-width: 28ch;
+  line-height: 1.55;
+}
+.lock-btn {
+  margin-top: var(--s-3);
+}
+
+/* Skeleton */
+.skeleton-line {
+  background: linear-gradient(90deg, var(--bg-elev) 0%, var(--bg-surface) 50%, var(--bg-elev) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+  border-radius: var(--r-sm);
+  height: 14px;
+}
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Chat panel (Ask Claude) ──────────────────────────────── */
+.chat-panel {
+  display: none;
+  margin-top: var(--s-3);
+  padding-top: var(--s-5);
+  border-top: 1px dashed var(--border-strong);
+  flex-direction: column;
+  gap: var(--s-3);
+}
+.chat-panel.open { display: flex; }
+.chat-msgs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  max-height: 220px;
+  overflow-y: auto;
+}
+.chat-msg {
+  font-size: var(--t-sm);
+  line-height: 1.55;
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--r-md);
+  max-width: 92%;
+}
+.chat-msg.user {
+  background: var(--bg-elev);
+  color: var(--text);
+  align-self: flex-end;
+  border: 1px solid var(--border-strong);
+}
+.chat-msg.assistant {
+  background: var(--gold-glow);
+  border: 1px solid var(--gold-soft);
+  color: var(--text);
+  align-self: flex-start;
+}
+.chat-msg.error {
+  background: var(--loss-soft);
+  border: 1px solid rgba(231,96,96,0.4);
+  color: var(--loss);
+}
+.chat-suggest {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chat-chip {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-pill);
+  color: var(--text-mut);
+  cursor: pointer;
+  transition: all var(--dur) var(--ease);
+}
+.chat-chip:hover { border-color: var(--gold); color: var(--gold); }
+.chat-form {
+  display: flex;
+  gap: var(--s-2);
+  align-items: center;
+}
+.chat-input {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-md);
+  padding: 10px var(--s-3);
+  color: var(--text);
+  font-size: var(--t-sm);
+  outline: none;
+}
+.chat-input:focus { border-color: var(--gold); }
+.chat-form button[type="submit"] {
+  background: var(--gold);
+  color: var(--bg);
+  border: 0;
+  border-radius: var(--r-md);
+  padding: 0 var(--s-4);
+  height: 38px;
+  font-weight: 700;
+  font-size: var(--t-sm);
+  cursor: pointer;
+  transition: background var(--dur) var(--ease);
+}
+.chat-form button[type="submit"]:hover { background: var(--gold-light); }
+
+/* ── CTA banner (non-members) ─────────────────────────────── */
+.upsell-banner {
+  margin-top: var(--s-12);
+  background: linear-gradient(135deg, #1c1810 0%, var(--bg-card) 100%);
+  border: 1px solid var(--gold-soft);
+  border-radius: var(--r-lg);
+  padding: var(--s-10) var(--s-10);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--s-8);
+  align-items: center;
+}
+.upsell-banner h3 {
+  font-family: var(--font-display);
+  font-size: var(--t-2xl);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.upsell-banner h3 em { font-style: italic; color: var(--gold); font-weight: 350; }
+.upsell-banner p {
+  margin-top: var(--s-3);
+  color: var(--text-soft);
+  font-size: var(--t-sm);
+  max-width: 56ch;
+  line-height: 1.55;
+}
+@media (max-width: 720px) {
+  .upsell-banner { grid-template-columns: 1fr; padding: var(--s-6); }
+}
 </style>
 </head>
 <body>
@@ -177,27 +557,66 @@
 })();
 </script>
 
-<nav>
+<!-- NAV -->
+<nav class="nav">
   <div class="nav-inner">
-    <a href="/" class="logo"><span class="logo-mark" style="width:16px;height:16px;"></span>SMARTERPICKS</a>
-    <a href="/" class="nav-back">← Back to site</a>
+    <a href="/" class="brand">
+      <span class="brand-mark"></span>
+      SmarterPicks
+    </a>
+    <ul class="nav-links">
+      <li><a href="picks" class="active">Today's Picks</a></li>
+      <li><a href="terminal">Terminal</a></li>
+      <li><a href="/#record">Archive</a></li>
+      <li><a href="pricing">Pricing</a></li>
+      <li><a href="discord.html">Discord</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="login.html" class="btn btn-ghost btn-sm nav-login" id="nav-login-btn">Log in</a>
+      <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="btn btn-primary btn-sm">Free trial ↗</a>
+      <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
 
-<!-- ============================================================
-     TODAY'S PICKS — same hooks as the old slate section on index.
-     picks-loader.js fills this in from picks.json on page load.
-     ============================================================ -->
+<!-- MOBILE DRAWER -->
+<div class="mobile-backdrop" id="mobile-backdrop"></div>
+<aside class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+  <button class="close" id="mobile-close" aria-label="Close menu">Close ✕</button>
+  <ul>
+    <li><a href="picks">Today's Picks</a></li>
+    <li><a href="terminal">Terminal</a></li>
+    <li><a href="/#record">Archive</a></li>
+    <li><a href="pricing">Pricing</a></li>
+    <li><a href="discord.html">Discord</a></li>
+  </ul>
+  <div class="drawer-cta">
+    <a href="login.html" class="btn btn-secondary">Log in</a>
+    <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="btn btn-primary">Start 7-day free trial →</a>
+  </div>
+</aside>
+
+<!-- HERO -->
+<header class="picks-hero">
+  <div class="container">
+    <div class="picks-hero-inner">
+      <div>
+        <div class="slate-date"><span class="live-dot"></span><span id="slate-date">Loading today's slate…</span></div>
+        <h1>Today's <em>picks.</em></h1>
+        <p id="slate-summary">Loading today's full card across the major leagues. Each pick comes with reasoning, the best price + book, and a stake size — published before lock.</p>
+      </div>
+      <div class="meta">
+        <span id="pick-count">Loading picks…</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- SLATE — picks-loader fills #picks-grid -->
 <section class="slate" id="slate">
   <div class="container">
-    <div class="section-header">
-      <div>
-        <div class="section-tag"><span class="live-dot"></span> <span id="slate-date">Loading today's slate…</span></div>
-        <h2 class="section-title">Today's <em>picks.</em></h2>
-      </div>
-      <div class="section-meta" id="pick-count">Loading picks…</div>
-    </div>
-
     <div class="picks-grid" id="picks-grid">
       <!-- Skeleton placeholders while picks.json loads -->
       <div class="pick-card">
@@ -225,27 +644,78 @@
         <div class="skeleton-line" style="width:60%;height:12px;"></div>
       </div>
     </div>
+
+    <!-- Non-member upsell banner -->
+    <div class="upsell-banner" data-non-member-only>
+      <div>
+        <h3>One pick is free. The <em>rest of today's card</em> is for members.</h3>
+        <p>Members get every pick with reasoning, line-shop alerts, and the morning recap delivered before first pitch. Cancel anytime, no questions.</p>
+      </div>
+      <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="btn btn-primary btn-lg">Start 7-day free trial →</a>
+    </div>
   </div>
 </section>
 
-<footer>
+<!-- FOOTER -->
+<footer class="footer">
   <div class="container">
-    <div class="footer-bottom">
-      <div>© 2026 SMARTERPICKS · ALL RIGHTS RESERVED</div>
-      <div>
-        <a href="/">Home</a>
-        <a href="archive">Archive</a>
-        <a href="pricing">Pricing</a>
-        <a href="discord">Discord</a>
-        <a href="login">Login</a>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="brand"><span class="brand-mark"></span>SmarterPicks</a>
+        <p>AI-powered sports betting insights with a fully public track record. Honest math, real plays, no sure things.</p>
       </div>
-      <div>21+ · BET RESPONSIBLY · 1-800-GAMBLER</div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="picks">Today's Picks</a></li>
+          <li><a href="terminal">Terminal</a></li>
+          <li><a href="/#newsletter">Newsletter</a></li>
+          <li><a href="discord.html">Discord</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/#how">How it works</a></li>
+          <li><a href="/#record">Track record</a></li>
+          <li><a href="archive">Archive</a></li>
+          <li><a href="mailto:hello@smarterpicks.io">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="terms">Terms</a></li>
+          <li><a href="privacy">Privacy</a></li>
+          <li><a href="disclaimer">Disclaimer</a></li>
+          <li><a href="https://www.ncpgambling.org/help-treatment/national-helpline-1-800-522-4700/" target="_blank" rel="noopener">Responsible gambling</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 SmarterPicks · All rights reserved</div>
+      <div>21+ · Bet responsibly · 1-800-GAMBLER</div>
     </div>
   </div>
 </footer>
 
-<!-- Reuse the same loader as the rest of the site so locked cards,
-     confidence meter, AI explainer chat, etc. all work identically. -->
+<!-- Mobile drawer wiring -->
+<script>
+(function(){
+  const burger = document.getElementById("nav-burger");
+  const drawer = document.getElementById("mobile-drawer");
+  const backdrop = document.getElementById("mobile-backdrop");
+  const closeBtn = document.getElementById("mobile-close");
+  function open()  { drawer.classList.add("open"); backdrop.classList.add("open"); burger.setAttribute("aria-expanded","true"); drawer.setAttribute("aria-hidden","false"); document.body.style.overflow = "hidden"; }
+  function close() { drawer.classList.remove("open"); backdrop.classList.remove("open"); burger.setAttribute("aria-expanded","false"); drawer.setAttribute("aria-hidden","true"); document.body.style.overflow = ""; }
+  if (burger)   burger.addEventListener("click", () => drawer.classList.contains("open") ? close() : open());
+  if (closeBtn) closeBtn.addEventListener("click", close);
+  if (backdrop) backdrop.addEventListener("click", close);
+  drawer && drawer.querySelectorAll("a").forEach(a => a.addEventListener("click", close));
+})();
+</script>
+
+<!-- Picks loader — fills #picks-grid from picks.json, handles auth gate -->
 <script src="whop-config.js"></script>
 <script src="auth-chrome.js"></script>
 <script src="picks-loader.js"></script>

@@ -31,42 +31,74 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="design-system.css">
+
+<!-- Aliases for legacy class hooks (kept so picks-loader/feature-layer
+     keep working without renaming everything). --accent maps to --gold,
+     etc. The members layout is its own page-specific styles below. -->
 <style>
   :root {
-    --bg:#0a0a0a;--bg-elevated:#131313;--bg-surface:#1a1a1a;
-    --border:#2a2a2a;--border-strong:#3a3a3a;
-    --text:#f4efe4;--text-muted:#8a8580;--text-dim:#5a5550;
-    --accent:#d4a843;--accent-dim:#8a6f2d;
-    --win:#6dbe7a;--loss:#d96565;--push:#888;
-    --display:"Fraunces","Times New Roman",serif;
-    --body:"Inter Tight",-apple-system,BlinkMacSystemFont,sans-serif;
-    --mono:"JetBrains Mono","Courier New",monospace;
+    --accent:       var(--gold);
+    --accent-dim:   var(--gold-deep);
+    --bg-elevated:  var(--bg-elev);
+    --text-muted:   var(--text-mut);
+    --push:         var(--text-mut);
+    --display:      var(--font-display);
+    --body:         var(--font-body);
+    --mono:         var(--font-mono);
+    /* --bg-surface, --bg, --border, --border-strong, --text, --text-dim,
+       --win, --loss are already defined in design-system.css */
   }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:400;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
-  body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");opacity:.035;pointer-events:none;z-index:100;}
-  .container{max-width:1280px;margin:0 auto;padding:0 32px;}
+  body { overflow-x: hidden; }
+  .container { max-width: var(--page-max); margin-inline: auto; padding-inline: var(--page-pad-x); }
 
   /* MEMBER STATUS BAR (replaces noisy marketing announce bar) */
   .member-bar{background:rgba(109,190,122,.08);border-bottom:1px solid rgba(109,190,122,.2);text-align:center;padding:10px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--win);}
   .member-bar .dot{display:inline-block;width:6px;height:6px;background:var(--win);border-radius:50%;margin-right:8px;vertical-align:middle;}
 
-  /* NAV */
-  nav{border-bottom:1px solid var(--border);background:rgba(10,10,10,.92);backdrop-filter:blur(16px);position:sticky;top:0;z-index:50;}
-  .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:16px 32px;max-width:1280px;margin:0 auto;}
-  .logo{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);}
-  .logo-mark{width:9px;height:9px;background:var(--accent);transform:rotate(45deg);flex-shrink:0;}
-  .logo-tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--win);border:1px solid rgba(109,190,122,.4);padding:3px 7px;margin-left:8px;}
-  .nav-links{display:flex;gap:32px;list-style:none;font-size:14px;font-weight:500;}
-  .nav-links a{color:var(--text-muted);text-decoration:none;transition:color .2s;}
-  .nav-links a:hover{color:var(--text);}
-  .nav-right{display:flex;gap:12px;align-items:center;}
-  .nav-billing{font-family:var(--mono);font-size:12px;color:var(--text-muted);background:none;border:1px solid var(--border);cursor:pointer;letter-spacing:.06em;text-transform:uppercase;padding:10px 14px;transition:color .2s;text-decoration:none;display:inline-block;}
-  .nav-billing:hover{color:var(--text);border-color:var(--text-muted);}
-  .nav-logout{font-family:var(--mono);font-size:12px;color:var(--text-muted);background:none;border:1px solid var(--border);cursor:pointer;letter-spacing:.06em;text-transform:uppercase;padding:10px 14px;transition:color .2s;}
-  .nav-logout:hover{color:var(--loss);border-color:var(--loss);}
+  /* Member-specific tag in the nav next to brand */
+  .logo-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--win);
+    border: 1px solid rgba(95,207,128,0.4);
+    background: rgba(95,207,128,0.08);
+    border-radius: var(--r-pill);
+    padding: 3px 9px;
+    margin-left: 10px;
+  }
+  .nav-billing {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-soft);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: var(--r-pill);
+    transition: color var(--dur) var(--ease);
+  }
+  .nav-billing:hover { color: var(--gold); }
+  .nav-logout {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-mut);
+    background: none;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--r-pill);
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: all var(--dur) var(--ease);
+  }
+  .nav-logout:hover {
+    color: var(--loss);
+    border-color: var(--loss);
+    background: var(--loss-soft);
+  }
 
   /* MEMBER WELCOME HEADER */
   .welcome{padding:64px 0 32px;}
@@ -303,22 +335,23 @@
 </div>
 
 <!-- NAV -->
-<nav>
+<nav class="nav">
   <div class="nav-inner">
-    <a href="members" class="logo">
-      <span class="logo-mark"></span>SMARTERPICKS
+    <a href="members" class="brand">
+      <span class="brand-mark"></span>
+      SmarterPicks
       <span class="logo-tag">Members</span>
     </a>
     <ul class="nav-links">
-      <li><a href="#slate">Today's Picks</a></li>
+      <li><a href="#slate" class="active">Today's Picks</a></li>
       <li><a href="#yday-section">Yesterday</a></li>
       <li><a href="#record">Track Record</a></li>
       <li><a href="archive">Archive</a></li>
-      <li><a href="discord">Discord</a></li>
+      <li><a href="discord.html">Discord</a></li>
     </ul>
     <div class="nav-right">
       <a href="billing" class="nav-billing">Billing</a>
-      <button class="nav-logout" id="member-logout">Logout</button>
+      <button class="nav-logout" id="member-logout">Log out</button>
     </div>
   </div>
 </nav>
@@ -462,13 +495,44 @@
 </section>
 
 <!-- FOOTER -->
-<footer>
+<footer class="footer">
   <div class="container">
-    <div class="footer-line">
-      SMARTERPICKS · Members area
-      <a href="discord">Discord</a>·
-      <a href="billing">Billing</a>·
-      <a href="index">Public site</a>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="members" class="brand"><span class="brand-mark"></span>SmarterPicks <span class="logo-tag">Members</span></a>
+        <p>Full pick card daily · line alerts · members-only Discord. Cancel anytime in your Whop dashboard.</p>
+      </div>
+      <div class="footer-col">
+        <h4>This page</h4>
+        <ul>
+          <li><a href="#slate">Today's Picks</a></li>
+          <li><a href="#yday-section">Yesterday's results</a></li>
+          <li><a href="#record">Track record</a></li>
+          <li><a href="archive">Full archive</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Account</h4>
+        <ul>
+          <li><a href="billing">Billing</a></li>
+          <li><a href="discord.html">Discord</a></li>
+          <li><a href="/">Public site</a></li>
+          <li><a href="mailto:support@smarterpicks.io">Support</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="terms">Terms</a></li>
+          <li><a href="privacy">Privacy</a></li>
+          <li><a href="disclaimer">Disclaimer</a></li>
+          <li><a href="https://www.ncpgambling.org/help-treatment/national-helpline-1-800-522-4700/" target="_blank" rel="noopener">Responsible gambling</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 SmarterPicks · Members area</div>
+      <div>21+ · Bet responsibly · 1-800-GAMBLER</div>
     </div>
   </div>
 </footer>

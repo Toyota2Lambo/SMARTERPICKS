@@ -5,166 +5,461 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SMARTERPICKS — Pricing</title>
 
-<meta name="description" content="Pick the plan that fits your style. 7-day free trial, $29.99 monthly, or $199 yearly (save 44%). All plans get the full daily pick card, line-move alerts, and Premium Discord access. Cancel anytime.">
-<meta name="theme-color" content="#0a0a0a">
+<meta name="description" content="SmarterPicks pricing — 7-day free trial on every plan. $29.99/mo or $199/yr. Cancel anytime. The full pick card unlocked from day one.">
+<meta name="theme-color" content="#08080a">
 <link rel="canonical" href="https://smarterpicks.io/pricing">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="apple-touch-icon" href="/favicon.svg">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SMARTERPICKS">
 <meta property="og:url" content="https://smarterpicks.io/pricing">
-<meta property="og:title" content="SMARTERPICKS — Simple pricing">
-<meta property="og:description" content="7-day free trial. $29.99/mo or $199/yr after. Cancel anytime.">
-<meta property="og:image" content="https://smarterpicks.io/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SMARTERPICKS — Pricing">
-<meta name="twitter:description" content="7-day free trial. $29.99/mo or $199/yr. Cancel anytime.">
-<meta name="twitter:image" content="https://smarterpicks.io/og-image.png">
+<meta property="og:title" content="SMARTERPICKS — Pricing">
+<meta property="og:description" content="7-day free trial · $29.99/mo or $199/yr · Cancel anytime.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="design-system.css">
+
 <style>
-  :root{
-    --bg:#0a0a0a;--bg-elevated:#131313;--bg-surface:#1a1a1a;
-    --border:#2a2a2a;--border-strong:#3a3a3a;
-    --text:#f4efe4;--text-muted:#8a8580;--text-dim:#5a5550;
-    --accent:#d4a843;--accent-dim:#8a6f2d;
-    --win:#6dbe7a;--loss:#d96565;
-    --display:"Fraunces","Times New Roman",serif;
-    --body:"Inter Tight",-apple-system,BlinkMacSystemFont,sans-serif;
-    --mono:"JetBrains Mono","Courier New",monospace;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:400;line-height:1.5;-webkit-font-smoothing:antialiased;}
-  body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");opacity:.035;pointer-events:none;z-index:100;}
-  a{color:inherit;}
+/* =================================================================
+   pricing.html · plan comparison
+   ================================================================= */
 
-  .container{max-width:1280px;margin:0 auto;padding:0 32px;}
+.pricing-hero {
+  padding: var(--s-16) 0 var(--s-10);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-soft);
+}
+.pricing-hero::before {
+  content: "";
+  position: absolute;
+  top: -150px; left: 50%;
+  width: 900px; height: 600px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse, rgba(212,168,67,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.pricing-hero > .container { position: relative; z-index: 1; }
+.pricing-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 5.6vw, 84px);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: var(--s-5);
+}
+.pricing-hero h1 em { font-style: italic; color: var(--gold); font-weight: 350; }
+.pricing-hero .sub {
+  color: var(--text-soft);
+  font-size: var(--t-md);
+  max-width: 60ch;
+  margin: 0 auto;
+  line-height: 1.55;
+}
 
-  /* NAV */
-  nav{border-bottom:1px solid var(--border);background:rgba(10,10,10,.92);backdrop-filter:blur(16px);position:sticky;top:0;z-index:50;}
-  .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:16px 32px;max-width:1280px;margin:0 auto;}
-  .logo{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);}
-  .logo-mark{width:9px;height:9px;background:var(--accent);transform:rotate(45deg);flex-shrink:0;}
-  .nav-back{font-family:var(--mono);font-size:12px;color:var(--text-muted);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:color .2s;}
-  .nav-back:hover{color:var(--text);}
+/* Bankroll calculator */
+.section { padding: var(--s-16) 0; }
+.calc {
+  background: linear-gradient(180deg, var(--bg-elev), var(--bg-card));
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--s-8);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--s-10);
+  align-items: center;
+  margin-bottom: var(--s-12);
+}
+.calc-left { display: flex; flex-direction: column; gap: var(--s-3); }
+.calc-tag {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.calc-title {
+  font-family: var(--font-display);
+  font-size: var(--t-xl);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.calc-title em { font-style: italic; color: var(--gold); font-weight: 350; }
+.calc-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-mut);
+}
+.calc-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  height: 4px;
+  background: var(--border-strong);
+  outline: none;
+  cursor: pointer;
+  border-radius: var(--r-pill);
+}
+.calc-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px; height: 20px;
+  background: var(--gold);
+  cursor: pointer;
+  border: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(212,168,67,0.18);
+}
+.calc-slider::-moz-range-thumb {
+  width: 20px; height: 20px;
+  background: var(--gold);
+  cursor: pointer;
+  border: 0;
+  border-radius: 50%;
+}
+.calc-unit { min-width: 62px; text-align: right; color: var(--text); font-weight: 700; }
+.calc-out  { text-align: right; }
+.calc-out-num {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 5vw, 72px);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--win);
+}
+.calc-out-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-mut);
+  margin-top: var(--s-3);
+}
+@media (max-width: 720px) {
+  .calc { grid-template-columns: 1fr; padding: var(--s-6); }
+  .calc-out { text-align: left; }
+}
 
-  /* HEADER */
-  .page-head{padding:80px 0 56px;border-bottom:1px solid var(--border);text-align:center;position:relative;overflow:hidden;}
-  .page-head::after{content:"";position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(212,168,67,.08) 0%,transparent 60%);pointer-events:none;}
-  .page-tag{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:22px;display:inline-flex;align-items:center;gap:14px;position:relative;}
-  .page-tag::before,.page-tag::after{content:"";width:24px;height:1px;background:var(--accent);}
-  h1{font-family:var(--display);font-weight:400;font-size:clamp(44px,6vw,72px);line-height:1.0;letter-spacing:-.03em;margin-bottom:20px;max-width:18ch;margin-left:auto;margin-right:auto;position:relative;}
-  h1 em{font-style:italic;color:var(--accent);}
-  .page-sub{font-size:17px;color:var(--text-muted);max-width:54ch;line-height:1.65;margin:0 auto;position:relative;}
+/* Plans grid */
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-6);
+}
+@media (max-width: 1080px) { .plans-grid { grid-template-columns: 1fr; max-width: 540px; margin: 0 auto; } }
 
-  /* PRICING */
-  .pricing{padding:80px 0;border-bottom:1px solid var(--border);position:relative;}
-  .pricing::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(212,168,67,.05),transparent 55%);pointer-events:none;}
+.plan {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--s-10) var(--s-8) var(--s-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  position: relative;
+  transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.plan:hover {
+  border-color: var(--gold-soft);
+  transform: translateY(-2px);
+}
+.plan.featured {
+  background: linear-gradient(180deg, #1c1810 0%, var(--bg-card) 100%);
+  border-color: var(--gold-soft);
+  box-shadow: 0 0 0 1px var(--gold-soft), var(--shadow-gold);
+}
+.plan-badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow-gold);
+}
+.plan-name {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.plan-price {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 6vw, 80px);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--text);
+}
+.plan-price sup {
+  font-size: 0.4em;
+  color: var(--text-mut);
+  font-family: var(--font-body);
+  font-weight: 500;
+  vertical-align: top;
+  margin-right: 4px;
+  line-height: 1;
+  position: relative;
+  top: 0.6em;
+}
+.plan-price sub {
+  font-size: 0.28em;
+  color: var(--text-mut);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  vertical-align: baseline;
+  margin-left: 6px;
+}
+.plan-sub {
+  color: var(--text-soft);
+  font-size: var(--t-sm);
+  line-height: 1.55;
+  min-height: 42px;
+}
+.plan-divider {
+  height: 1px;
+  background: var(--border);
+  margin: var(--s-2) 0;
+}
+.plan-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  margin-bottom: var(--s-5);
+}
+.plan-features li {
+  font-size: var(--t-sm);
+  line-height: 1.5;
+  color: var(--text-soft);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  align-items: baseline;
+}
+.plan-features li.inactive { color: var(--text-dim); }
+.chk, .crs {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  width: 14px;
+  text-align: center;
+  display: inline-block;
+}
+.chk { color: var(--gold); }
+.crs { color: var(--text-faint); }
 
-  /* CALC */
-  .calc{background:var(--bg-elevated);border:1px solid var(--border);padding:32px;margin-bottom:48px;display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center;position:relative;}
-  .calc-left{display:flex;flex-direction:column;gap:14px;}
-  .calc-tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);}
-  .calc-title{font-family:var(--display);font-size:24px;font-weight:400;letter-spacing:-.01em;line-height:1.2;}
-  .calc-row{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);}
-  .calc-slider{-webkit-appearance:none;appearance:none;flex:1;height:4px;background:var(--border);outline:none;cursor:pointer;}
-  .calc-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;background:var(--accent);cursor:pointer;border:none;border-radius:0;}
-  .calc-slider::-moz-range-thumb{width:18px;height:18px;background:var(--accent);cursor:pointer;border:none;border-radius:0;}
-  .calc-unit{min-width:62px;text-align:right;color:var(--text);font-weight:700;}
-  .calc-out{text-align:right;}
-  .calc-out-num{font-family:var(--display);font-size:54px;font-weight:400;letter-spacing:-.03em;line-height:1;color:var(--win);}
-  .calc-out-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-top:8px;}
+.plan-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 50px;
+  border-radius: var(--r-pill);
+  font-size: var(--t-sm);
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  margin-top: auto;
+  transition: all var(--dur) var(--ease);
+}
+.plan-btn.ghost {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+}
+.plan-btn.ghost:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-glow);
+}
+.plan-btn.gold {
+  background: var(--gold);
+  color: var(--bg);
+  border: 1px solid var(--gold);
+}
+.plan-btn.gold:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-gold);
+}
+.plan-btn.dark {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+}
+.plan-btn.dark:hover {
+  background: var(--bg-elev);
+  border-color: var(--gold-soft);
+  color: var(--gold);
+}
+.plan-fineprint {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-align: center;
+  margin-top: var(--s-2);
+}
 
-  /* PLANS */
-  .plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);position:relative;}
-  .plan{background:var(--bg);padding:40px 36px 44px;position:relative;display:flex;flex-direction:column;}
-  .plan.featured{background:var(--bg-elevated);outline:1px solid var(--accent);outline-offset:-1px;}
-  .plan-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--accent);color:#000;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 14px;white-space:nowrap;}
-  .plan-name{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;}
-  .plan-price{font-family:var(--display);font-size:58px;font-weight:400;letter-spacing:-.03em;line-height:1;margin-bottom:6px;}
-  .plan-price sup{font-size:24px;vertical-align:top;margin-top:12px;font-family:var(--body);font-weight:500;color:var(--text-muted);}
-  .plan-price sub{font-size:16px;color:var(--text-muted);font-family:var(--mono);font-weight:400;}
-  .plan-sub{font-size:13px;color:var(--text-muted);margin-bottom:32px;min-height:36px;}
-  .plan-divider{width:100%;height:1px;background:var(--border);margin-bottom:28px;}
-  .plan-features{list-style:none;margin-bottom:36px;flex:1;}
-  .plan-features li{font-size:14px;color:var(--text-muted);padding:10px 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:12px;line-height:1.4;}
-  .plan-features li:last-child{border-bottom:none;}
-  .plan-features li.inactive{color:var(--text-dim);}
-  .chk{color:var(--win);font-size:13px;flex-shrink:0;margin-top:1px;}
-  .crs{color:var(--text-dim);font-size:13px;flex-shrink:0;margin-top:1px;}
-  .plan-btn{display:block;text-align:center;padding:17px;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;transition:all .2s;}
-  .plan-btn.ghost{background:transparent;color:var(--text);border:1px solid var(--border-strong);}
-  .plan-btn.ghost:hover{border-color:var(--text-muted);}
-  .plan-btn.gold{background:var(--accent);color:#000;}
-  .plan-btn.gold:hover{background:#e6b950;transform:translateY(-2px);box-shadow:0 8px 24px rgba(212,168,67,.3);}
-  .plan-btn.dark{background:var(--text);color:var(--bg);}
-  .plan-btn.dark:hover{transform:translateY(-2px);}
+/* Guarantee strip */
+.pricing-guarantee {
+  margin-top: var(--s-12);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--s-6) var(--s-8);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--s-6);
+  align-items: center;
+}
+.guarantee-icon {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--gold-glow);
+  border: 1px solid var(--gold-soft);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+.guarantee-title {
+  font-family: var(--font-display);
+  font-size: var(--t-lg);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.guarantee-body {
+  color: var(--text-mut);
+  font-size: var(--t-sm);
+  line-height: 1.6;
+}
 
-  .pricing-guarantee{margin-top:36px;padding:26px 30px;border:1px solid var(--border);background:var(--bg-elevated);display:flex;gap:20px;align-items:flex-start;}
-  .guarantee-icon{font-size:26px;flex-shrink:0;}
-  .guarantee-title{font-family:var(--display);font-size:20px;font-weight:400;margin-bottom:8px;}
-  .guarantee-body{font-size:14px;color:var(--text-muted);line-height:1.6;}
-
-  /* FOOTER */
-  footer{background:var(--bg);border-top:1px solid var(--border);padding:48px 0;text-align:center;}
-  .footer-bottom{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.05em;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
-  .footer-bottom a{color:var(--text-muted);text-decoration:none;margin:0 12px;}
-  .footer-bottom a:hover{color:var(--accent);}
-
-  @media(max-width:960px){
-    .container{padding:0 20px;}
-    .nav-inner{padding:14px 20px;}
-    .page-head{padding:56px 0 40px;}
-    .plans-grid{grid-template-columns:1fr;}
-    .plan.featured{outline:none;border:1px solid var(--accent);}
-    .calc{grid-template-columns:1fr;text-align:center;}
-    .calc-out{text-align:center;}
-  }
+/* FAQ short list */
+.pricing-faq {
+  margin-top: var(--s-16);
+  padding-top: var(--s-12);
+  border-top: 1px solid var(--border-soft);
+}
+.pricing-faq h2 {
+  font-family: var(--font-display);
+  font-size: var(--t-3xl);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+  letter-spacing: -0.025em;
+  margin-bottom: var(--s-8);
+}
+.pricing-faq h2 em { font-style: italic; color: var(--gold); font-weight: 350; }
+.faq-pairs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-8) var(--s-12);
+}
+.faq-pair h4 {
+  font-family: var(--font-display);
+  font-size: var(--t-md);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--text);
+  margin-bottom: var(--s-2);
+}
+.faq-pair p {
+  color: var(--text-mut);
+  font-size: var(--t-sm);
+  line-height: 1.7;
+}
+@media (max-width: 720px) {
+  .faq-pairs { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
 
-<!-- Same auth shortcut as index — paying members shouldn't see /pricing,
-     they should be in /members. -->
-<script>
-(function(){
-  try{
-    var a = JSON.parse(localStorage.getItem("whop_access") || "null");
-    if (a && a.has_access) { location.replace("members"); }
-  }catch(_){}
-})();
-</script>
-
-<nav>
+<!-- NAV -->
+<nav class="nav">
   <div class="nav-inner">
-    <a href="/" class="logo"><span class="logo-mark" style="width:16px;height:16px;"></span>SMARTERPICKS</a>
-    <a href="/" class="nav-back">← Back to site</a>
+    <a href="/" class="brand">
+      <span class="brand-mark"></span>
+      SmarterPicks
+    </a>
+    <ul class="nav-links">
+      <li><a href="picks">Today's Picks</a></li>
+      <li><a href="terminal">Terminal</a></li>
+      <li><a href="/#record">Archive</a></li>
+      <li><a href="pricing" class="active">Pricing</a></li>
+      <li><a href="discord.html">Discord</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="login.html" class="btn btn-ghost btn-sm">Log in</a>
+      <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="btn btn-primary btn-sm">Free trial ↗</a>
+      <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
 
-<header class="page-head">
+<!-- MOBILE DRAWER -->
+<div class="mobile-backdrop" id="mobile-backdrop"></div>
+<aside class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+  <button class="close" id="mobile-close" aria-label="Close menu">Close ✕</button>
+  <ul>
+    <li><a href="picks">Today's Picks</a></li>
+    <li><a href="terminal">Terminal</a></li>
+    <li><a href="/#record">Archive</a></li>
+    <li><a href="pricing">Pricing</a></li>
+    <li><a href="discord.html">Discord</a></li>
+  </ul>
+  <div class="drawer-cta">
+    <a href="login.html" class="btn btn-secondary">Log in</a>
+    <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="btn btn-primary">Start 7-day free trial →</a>
+  </div>
+</aside>
+
+<!-- HERO -->
+<header class="pricing-hero">
   <div class="container">
-    <div class="page-tag">Simple Pricing</div>
-    <h1>One number. <em>Full access.</em></h1>
-    <p class="page-sub">7-day free trial on every plan. After that, $29.99 a month or $199 a year — same content, just billing cadence. Cancel anytime in your Whop dashboard.</p>
+    <div class="eyebrow" style="justify-content: center; margin-bottom: var(--s-5);">Pricing · 7-day free trial</div>
+    <h1>One card. <em>Three ways</em><br>to subscribe.</h1>
+    <p class="sub">Same content on every plan. The only difference is billing cadence. Try Premium free for 7 days — cancel anytime in your Whop dashboard.</p>
   </div>
 </header>
 
-<section class="pricing">
+<section class="section">
   <div class="container">
 
-    <!-- PROFIT CALCULATOR — reads last 30 days of units from history.json. -->
+    <!-- BANKROLL CALCULATOR (powered by history.json) -->
     <div class="calc">
       <div class="calc-left">
-        <div class="calc-tag">Math · last 30 days</div>
-        <div class="calc-title">If you'd bet <em style="font-style:italic;color:var(--accent);">your number</em> per unit, you'd be up:</div>
+        <div class="calc-tag">Bankroll math · last 30 days</div>
+        <div class="calc-title">If you'd bet <em>your number</em> per unit, you'd be up:</div>
         <div class="calc-row">
           <span>Unit size</span>
           <input type="range" min="10" max="500" step="5" value="50" class="calc-slider" id="calc-slider">
@@ -177,21 +472,22 @@
       </div>
     </div>
 
+    <!-- PLANS -->
     <div class="plans-grid">
 
       <div class="plan">
-        <div class="plan-name">7-Day Trial</div>
+        <div class="plan-name">Free Trial</div>
         <div class="plan-price"><sup>$</sup>0</div>
         <div class="plan-sub">Try the full Premium card for a week. No charge.</div>
         <div class="plan-divider"></div>
         <ul class="plan-features">
-          <li><span class="chk">✓</span> 7 days of the full premium pick card</li>
-          <li><span class="chk">✓</span> Line movement alerts during your trial</li>
-          <li><span class="chk">✓</span> Player props & same-game parlays</li>
-          <li><span class="chk">✓</span> Premium Discord access for the week</li>
-          <li><span class="chk">✓</span> Cancel before day 7 — never charged</li>
-          <li class="inactive"><span class="crs">—</span> Auto-converts to a paid plan if not cancelled</li>
-          <li class="inactive"><span class="crs">—</span> Pick your plan at checkout</li>
+          <li><span class="chk">✓</span><span>7 days of the full premium pick card</span></li>
+          <li><span class="chk">✓</span><span>Line movement alerts during your trial</span></li>
+          <li><span class="chk">✓</span><span>Player props &amp; same-game parlays</span></li>
+          <li><span class="chk">✓</span><span>Premium Discord access for the week</span></li>
+          <li><span class="chk">✓</span><span>Cancel before day 7 — never charged</span></li>
+          <li class="inactive"><span class="crs">—</span><span>Auto-converts to a paid plan if not cancelled</span></li>
+          <li class="inactive"><span class="crs">—</span><span>Pick your plan at checkout</span></li>
         </ul>
         <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="plan-btn ghost">Start 7-day free trial →</a>
       </div>
@@ -199,21 +495,21 @@
       <div class="plan featured">
         <div class="plan-badge">Most Popular</div>
         <div class="plan-name">Premium</div>
-        <div class="plan-price"><sup>$</sup>29<span style="font-size:0.42em;color:var(--text-muted);font-family:var(--body);font-weight:500;">.99</span><sub>/mo</sub></div>
+        <div class="plan-price"><sup>$</sup>29<sub>/mo</sub></div>
         <div class="plan-sub">Everything. Every day. Full card unlocked.</div>
         <div class="plan-divider"></div>
         <ul class="plan-features">
-          <li><span class="chk">✓</span> Full pick card daily — 5 to 8 plays across all sports</li>
-          <li><span class="chk">✓</span> Player props & same-game parlays</li>
-          <li><span class="chk">✓</span> Line movement alerts before the market moves</li>
-          <li><span class="chk">✓</span> Best bet of the day flagged every morning</li>
-          <li><span class="chk">✓</span> Morning injury report breakdowns</li>
-          <li><span class="chk">✓</span> Premium Discord with picks discussion</li>
-          <li><span class="chk">✓</span> Weekly recap & trends breakdown</li>
-          <li><span class="chk">✓</span> Cancel anytime — one click, no runaround</li>
+          <li><span class="chk">✓</span><span>Full pick card daily — 5 to 8 plays across all sports</span></li>
+          <li><span class="chk">✓</span><span>Player props &amp; same-game parlays</span></li>
+          <li><span class="chk">✓</span><span>Line movement alerts before the market moves</span></li>
+          <li><span class="chk">✓</span><span>Best bet of the day flagged every morning</span></li>
+          <li><span class="chk">✓</span><span>Morning injury report breakdowns</span></li>
+          <li><span class="chk">✓</span><span>Premium Discord with picks discussion</span></li>
+          <li><span class="chk">✓</span><span>Weekly recap &amp; trends breakdown</span></li>
+          <li><span class="chk">✓</span><span>Cancel anytime — one click, no runaround</span></li>
         </ul>
-        <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj" class="plan-btn gold">Get Premium — $29.99/mo →</a>
-        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);text-align:center;margin-top:10px;">$29.99/month · Cancel anytime</div>
+        <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj" class="plan-btn gold">Get Premium →</a>
+        <div class="plan-fineprint">$29.99/month · cancel anytime</div>
       </div>
 
       <div class="plan">
@@ -222,48 +518,117 @@
         <div class="plan-sub">Save 44% vs monthly. Lock in the rate forever.</div>
         <div class="plan-divider"></div>
         <ul class="plan-features">
-          <li><span class="chk">✓</span> Everything in Premium, full access</li>
-          <li><span class="chk">✓</span> Priority Discord role</li>
-          <li><span class="chk">✓</span> Full historical pick database since launch</li>
-          <li><span class="chk">✓</span> Monthly member-only strategy breakdowns</li>
-          <li><span class="chk">✓</span> Early access to new features</li>
-          <li><span class="chk">✓</span> $16.58/mo effective — best rate we offer</li>
-          <li><span class="chk">✓</span> Price never increases while subscribed</li>
-          <li><span class="chk">✓</span> Pro-rated refund if you cancel</li>
+          <li><span class="chk">✓</span><span>Everything in Premium, full access</span></li>
+          <li><span class="chk">✓</span><span>Priority Discord role</span></li>
+          <li><span class="chk">✓</span><span>Full historical pick database since launch</span></li>
+          <li><span class="chk">✓</span><span>Monthly member-only strategy breakdowns</span></li>
+          <li><span class="chk">✓</span><span>Early access to new features</span></li>
+          <li><span class="chk">✓</span><span>$16.58/mo effective — best rate we offer</span></li>
+          <li><span class="chk">✓</span><span>Price never increases while subscribed</span></li>
+          <li><span class="chk">✓</span><span>Pro-rated refund if you cancel</span></li>
         </ul>
-        <a href="https://whop.com/checkout/plan_UvETXgAfoUQj5" class="plan-btn dark">Get Annual — $199/yr →</a>
-        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);text-align:center;margin-top:10px;">$199/year · Save 44% vs monthly</div>
+        <a href="https://whop.com/checkout/plan_UvETXgAfoUQj5" class="plan-btn dark">Get Annual →</a>
+        <div class="plan-fineprint">$199/year · save 44% vs monthly</div>
       </div>
 
     </div>
 
+    <!-- GUARANTEE -->
     <div class="pricing-guarantee">
-      <div class="guarantee-icon">🛡</div>
+      <div class="guarantee-icon">◆</div>
       <div>
         <div class="guarantee-title">7-day free trial, then bill on day 8</div>
         <div class="guarantee-body">No charge for the first week — try the full premium card and decide for yourself. Cancel anytime in your Whop dashboard before day 7 and you'll never be billed. Stay in and we'll charge the plan you picked.</div>
       </div>
     </div>
+
+    <!-- SHORT FAQ -->
+    <div class="pricing-faq">
+      <h2>Pricing <em>FAQ.</em></h2>
+      <div class="faq-pairs">
+        <div class="faq-pair">
+          <h4>Is there a refund policy?</h4>
+          <p>Yes. The trial is free for 7 days, so if you change your mind, just cancel before day 8 and you're never charged. Annual plans get a pro-rated refund for unused time.</p>
+        </div>
+        <div class="faq-pair">
+          <h4>How do I cancel?</h4>
+          <p>One click in your Whop dashboard — no retention emails, no "are you sure" loop, no phone call. You can re-subscribe later at the same rate if you're on the annual plan.</p>
+        </div>
+        <div class="faq-pair">
+          <h4>Are the picks the same on every plan?</h4>
+          <p>Yes. The free trial unlocks the same premium card the monthly and annual members see. Annual subscribers additionally get strategy breakdowns and the full historical pick database.</p>
+        </div>
+        <div class="faq-pair">
+          <h4>What payment methods are accepted?</h4>
+          <p>All major cards via Whop checkout. Whop is the merchant of record — we never see your card details. See our <a href="privacy" style="color: var(--gold);">Privacy Policy</a> for more.</p>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<footer>
+<!-- FOOTER -->
+<footer class="footer">
   <div class="container">
-    <div class="footer-bottom">
-      <div>© 2026 SMARTERPICKS · ALL RIGHTS RESERVED</div>
-      <div>
-        <a href="/">Home</a>
-        <a href="archive">Archive</a>
-        <a href="discord">Discord</a>
-        <a href="login">Login</a>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="brand"><span class="brand-mark"></span>SmarterPicks</a>
+        <p>AI-powered sports betting insights with a fully public track record. Honest math, real plays, no sure things.</p>
       </div>
-      <div>21+ · BET RESPONSIBLY · 1-800-GAMBLER</div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="picks">Today's Picks</a></li>
+          <li><a href="terminal">Terminal</a></li>
+          <li><a href="/#newsletter">Newsletter</a></li>
+          <li><a href="discord.html">Discord</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/#how">How it works</a></li>
+          <li><a href="/#record">Track record</a></li>
+          <li><a href="archive">Archive</a></li>
+          <li><a href="mailto:hello@smarterpicks.io">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="terms">Terms</a></li>
+          <li><a href="privacy">Privacy</a></li>
+          <li><a href="disclaimer">Disclaimer</a></li>
+          <li><a href="https://www.ncpgambling.org/help-treatment/national-helpline-1-800-522-4700/" target="_blank" rel="noopener">Responsible gambling</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 SmarterPicks · All rights reserved</div>
+      <div>21+ · Bet responsibly · 1-800-GAMBLER</div>
     </div>
   </div>
 </footer>
 
+<!-- Mobile drawer wiring -->
 <script>
-// PROFIT CALCULATOR — same logic as the polish-layer on index.html
+(function(){
+  const burger = document.getElementById("nav-burger");
+  const drawer = document.getElementById("mobile-drawer");
+  const backdrop = document.getElementById("mobile-backdrop");
+  const closeBtn = document.getElementById("mobile-close");
+  function open()  { drawer.classList.add("open"); backdrop.classList.add("open"); burger.setAttribute("aria-expanded","true"); drawer.setAttribute("aria-hidden","false"); document.body.style.overflow = "hidden"; }
+  function close() { drawer.classList.remove("open"); backdrop.classList.remove("open"); burger.setAttribute("aria-expanded","false"); drawer.setAttribute("aria-hidden","true"); document.body.style.overflow = ""; }
+  if (burger)   burger.addEventListener("click", () => drawer.classList.contains("open") ? close() : open());
+  if (closeBtn) closeBtn.addEventListener("click", close);
+  if (backdrop) backdrop.addEventListener("click", close);
+  drawer && drawer.querySelectorAll("a").forEach(a => a.addEventListener("click", close));
+})();
+</script>
+
+<!-- Bankroll calculator — pulls last 30 days from history.json -->
+<script>
 (function(){
   fetch("history.json?v=" + Date.now())
     .then(r => r.ok ? r.json() : Promise.reject())
@@ -288,7 +653,7 @@
       slider.addEventListener("input", recompute);
       recompute();
     })
-    .catch(() => { /* leave default state */ });
+    .catch(() => {});
 })();
 </script>
 

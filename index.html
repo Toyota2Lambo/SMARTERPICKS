@@ -3,602 +3,927 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SMARTERPICKS — AI-Powered Sports Betting Insights</title>
+<title>SMARTERPICKS — AI sports-betting analysis, written for sharp fans.</title>
 
-<!-- Auth shortcut: ANY logged-in member visiting the marketing landing
-     gets bounced straight to /members. Otherwise they'd see "Start free
-     trial" CTAs everywhere, which makes no sense for someone who's
-     already paying. Runs in <head> so the swap happens before render. -->
-<script>
-(function(){
-  try{
-    var a = JSON.parse(localStorage.getItem("whop_access") || "null");
-    if (a && a.has_access) { location.replace("members"); }
-  }catch(_){}
-})();
-</script>
+<!-- ============================================================
+     SmarterPicks · Landing
+     ------------------------------------------------------------
+     Editorial-premium aesthetic, B2C, warm-noir palette.
+     Reads as one cohesive object with /terminal, /picks, /pricing,
+     /members thanks to design-system.css.
 
-<!-- SEO -->
-<meta name="description" content="AI-powered daily sports betting picks across NBA, MLB, NHL, and NFL. Full pick card published every morning before lock. Public track record, members' Discord, cancel anytime.">
-<meta name="theme-color" content="#0a0a0a">
+     IMPORTANT: every #id used in the JS at the bottom of this file
+     is functional. Do not rename without updating the script block.
+     The picks-loader, polish-layer, feature-layer scripts at the
+     end of this file expect these hooks intact.
+     ============================================================ -->
+
+<meta name="description" content="AI-powered sports betting picks, edges, and analysis — published before lock every morning with a fully public track record. Tested by 4,100+ members across NBA, MLB, NHL, and NFL.">
+<meta name="theme-color" content="#08080a">
 <link rel="canonical" href="https://smarterpicks.io/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/favicon.svg">
 
-<!-- Open Graph (link previews on Discord, iMessage, Slack, Facebook, LinkedIn) -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SMARTERPICKS">
 <meta property="og:url" content="https://smarterpicks.io/">
-<meta property="og:title" content="SMARTERPICKS — Stop guessing. Start winning.">
-<meta property="og:description" content="Daily AI-powered sports betting picks across every major league. Full card published every morning. 4,100+ members.">
+<meta property="og:title" content="SMARTERPICKS — AI sports-betting analysis, written for sharp fans.">
+<meta property="og:description" content="The full pick card, line alerts, and best edges of the day — every morning by 9am.">
 <meta property="og:image" content="https://smarterpicks.io/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="SMARTERPICKS — Stop guessing. Start winning.">
 
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SMARTERPICKS — Stop guessing. Start winning.">
-<meta name="twitter:description" content="Daily AI-powered sports betting picks across every major league. Full card published every morning. 4,100+ members.">
+<meta name="twitter:title" content="SMARTERPICKS — AI sports-betting analysis, written for sharp fans.">
 <meta name="twitter:image" content="https://smarterpicks.io/og-image.png">
 
-<!-- Schema.org Organization (drives the logo in Google search results) -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "SMARTERPICKS",
-  "alternateName": "Smarter Picks",
-  "url": "https://smarterpicks.io",
-  "logo": "https://smarterpicks.io/favicon.svg",
-  "image": "https://smarterpicks.io/og-image.png",
-  "description": "AI-powered daily sports betting picks across NBA, MLB, NHL, and NFL.",
-  "foundingDate": "2026"
-}
-</script>
+<!-- Preconnects so the first paint is fast on slow networks. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://share.synthesia.io">
+<link rel="preconnect" href="https://api.whop.com">
+
+<!-- Shared design system: tokens, fonts, nav, footer, buttons, pills,
+     ticker, mobile drawer, scroll-reveal helpers. -->
+<link rel="stylesheet" href="design-system.css">
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "SMARTERPICKS",
-  "url": "https://smarterpicks.io"
+  "url": "https://smarterpicks.io/",
+  "name": "SmarterPicks",
+  "description": "AI-powered sports betting analysis with a fully public track record."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "SmarterPicks",
+  "url": "https://smarterpicks.io/",
+  "logo": "https://smarterpicks.io/favicon.svg"
 }
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Pre-resolve the two third-party origins picks-loader.js + the lazy
-     Synthesia iframe will eventually hit, so we don't pay full DNS +
-     TLS handshake at request time. -->
-<link rel="preconnect" href="https://api.whop.com" crossorigin>
-<link rel="preconnect" href="https://share.synthesia.io" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg:#0a0a0a;--bg-elevated:#131313;--bg-surface:#1a1a1a;
-    --border:#2a2a2a;--border-strong:#3a3a3a;
-    --text:#f4efe4;--text-muted:#8a8580;--text-dim:#5a5550;
-    --accent:#d4a843;--accent-dim:#8a6f2d;
-    --win:#6dbe7a;--loss:#d96565;--push:#888;
-    --display:"Fraunces","Times New Roman",serif;
-    --body:"Inter Tight",-apple-system,BlinkMacSystemFont,sans-serif;
-    --mono:"JetBrains Mono","Courier New",monospace;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:400;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
-  /* Soft vignette only — was a fractalNoise SVG filter on full-viewport
-     fixed position, repainting every frame. Even at opacity .035 the
-     SVG filter pipeline was CPU-heavy on lower-end devices and added
-     noticeable jank to scrolls. Same fix applied to social templates
-     in commit b75baf2; bringing it here. */
-  body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 50% 38%, transparent 0%, transparent 55%, rgba(0,0,0,0.4) 100%);pointer-events:none;z-index:100;}
-  .container{max-width:1280px;margin:0 auto;padding:0 32px;}
-  .announce-bar{background:var(--accent);color:#000;text-align:center;padding:10px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
-  .announce-bar a{color:#000;text-decoration:underline;}
-  .announce-bar span{opacity:.6;margin:0 12px;}
-  nav{border-bottom:1px solid var(--border);background:rgba(10,10,10,.92);backdrop-filter:blur(16px);position:sticky;top:0;z-index:50;}
-  .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:16px 32px;max-width:1280px;margin:0 auto;}
-  .logo{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);}
-  .logo-mark{width:9px;height:9px;background:var(--accent);transform:rotate(45deg);flex-shrink:0;}
-  .nav-links{display:flex;gap:32px;list-style:none;font-size:14px;font-weight:500;}
-  .nav-links a{color:var(--text-muted);text-decoration:none;transition:color .2s;}
-  .nav-links a:hover{color:var(--text);}
-  .nav-right{display:flex;gap:12px;align-items:center;}
-  .nav-login{font-family:var(--mono);font-size:12px;color:var(--text-muted);background:none;border:1px solid var(--border);cursor:pointer;letter-spacing:.06em;text-transform:uppercase;padding:10px 14px;transition:color .2s;text-decoration:none;display:inline-block;}
-  .nav-login:hover{color:var(--text);border-color:var(--text-muted);}
-  .nav-cta{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;padding:11px 20px;background:var(--accent);color:#000;border:none;cursor:pointer;font-weight:700;transition:all .2s;text-decoration:none;display:inline-block;}
-  .nav-cta:hover{background:#e6b950;transform:translateY(-1px);}
-  .hero{padding:90px 0 80px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
-  .hero::after{content:"";position:absolute;top:-40%;right:-10%;width:700px;height:700px;background:radial-gradient(circle,rgba(212,168,67,.07) 0%,transparent 70%);pointer-events:none;}
-  .hero-meta{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:28px;display:flex;gap:16px;align-items:center;animation:fadeUp .5s ease-out .1s backwards;}
-  .hero-meta::before{content:"";width:28px;height:1px;background:var(--accent);}
-  .hero h1{font-family:var(--display);font-weight:400;font-size:clamp(50px,7vw,88px);line-height:.97;letter-spacing:-.03em;margin-bottom:28px;max-width:15ch;animation:fadeUp .6s ease-out .2s backwards;}
-  .hero h1 em{font-style:italic;color:var(--accent);font-weight:300;}
-  .hero-sub{font-size:18px;color:var(--text-muted);max-width:52ch;line-height:1.65;margin-bottom:40px;animation:fadeUp .6s ease-out .3s backwards;}
-  .hero-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:16px;animation:fadeUp .6s ease-out .4s backwards;}
-  .btn-primary{background:var(--accent);color:#000;padding:17px 32px;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .2s;}
-  .btn-primary:hover{background:#e6b950;transform:translateY(-2px);box-shadow:0 8px 24px rgba(212,168,67,.25);}
-  .btn-secondary{color:var(--text);padding:17px 28px;font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--border-strong);background:transparent;cursor:pointer;text-decoration:none;display:inline-block;transition:all .2s;}
-  .btn-secondary:hover{border-color:var(--text-muted);}
-  .hero-trust{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.06em;animation:fadeUp .6s ease-out .45s backwards;}
-  .hero-trust .dot{margin:0 10px;color:var(--accent);}
-  .hero-stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:72px;padding-top:36px;border-top:1px solid var(--border);animation:fadeUp .7s ease-out .55s backwards;}
-  .stat{padding:8px 28px 8px 0;border-right:1px solid var(--border);}
-  .stat:last-child{border-right:none;}
-  .stat-num{font-family:var(--display);font-size:40px;font-weight:400;letter-spacing:-.02em;margin-bottom:4px;}
-  .stat-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);}
-  .section-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:48px;padding-bottom:20px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:16px;}
-  .section-tag{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
-  .section-title{font-family:var(--display);font-size:44px;font-weight:400;letter-spacing:-.02em;line-height:1.05;}
-  .section-title em{font-style:italic;color:var(--accent);}
-  .section-meta{font-family:var(--mono);font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;}
-  .slate{padding:96px 0;border-bottom:1px solid var(--border);}
-  .picks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
-  .pick-card{background:var(--bg);padding:32px;transition:background .2s;position:relative;}
-  .pick-card:hover{background:var(--bg-elevated);}
-  .pick-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
-  .pick-league{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);padding:4px 8px;border:1px solid var(--accent-dim);}
-  .pick-time{font-family:var(--mono);font-size:11px;color:var(--text-dim);}
-  .pick-matchup{font-family:var(--display);font-size:24px;font-weight:400;line-height:1.2;margin-bottom:4px;}
-  .pick-matchup .vs{color:var(--text-dim);font-style:italic;margin:0 5px;}
-  .pick-detail{font-size:13px;color:var(--text-muted);margin-bottom:22px;}
-  .pick-call{background:var(--bg-surface);padding:18px 20px;margin-bottom:20px;border-left:2px solid var(--accent);}
-  .pick-call-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
-  .pick-call-value{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--text);}
-  .pick-call-odds{font-family:var(--mono);font-size:12px;color:var(--accent);margin-top:4px;}
-  .pick-reasoning{font-size:14px;line-height:1.65;color:var(--text-muted);margin-bottom:20px;}
-  .pick-tags{display:flex;gap:8px;flex-wrap:wrap;}
-  .tag{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);padding:4px 8px;border:1px solid var(--border);}
-  .pick-card.locked{overflow:hidden;}
-  .pick-blur{filter:blur(5px);pointer-events:none;user-select:none;opacity:.4;}
-  .lock-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(10,10,10,.78);backdrop-filter:blur(2px);text-align:center;padding:24px;z-index:2;}
-  .lock-icon{font-size:28px;margin-bottom:14px;}
-  .lock-title{font-family:var(--display);font-size:22px;font-weight:400;margin-bottom:8px;}
-  .lock-sub{font-size:13px;color:var(--text-muted);margin-bottom:20px;line-height:1.5;max-width:24ch;}
-  .lock-btn{background:var(--accent);color:#000;padding:13px 22px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;transition:all .2s;display:inline-block;}
-  .lock-btn:hover{background:#e6b950;transform:translateY(-1px);}
-  .lock-badge{position:absolute;top:14px;right:14px;background:var(--accent);color:#000;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;z-index:3;}
-  .proof-bar{background:var(--bg-elevated);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:26px 0;}
-  .proof-inner{display:flex;gap:56px;align-items:center;justify-content:center;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--text-muted);letter-spacing:.06em;text-transform:uppercase;}
-  .proof-item{display:flex;align-items:center;gap:10px;}
-  .proof-dot{width:6px;height:6px;background:var(--win);border-radius:50%;flex-shrink:0;}
-  .proof-num{color:var(--text);font-weight:700;}
-  .pricing{padding:100px 0;border-bottom:1px solid var(--border);position:relative;}
-  .pricing::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(212,168,67,.05),transparent 55%);pointer-events:none;}
-  .plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
-  .plan{background:var(--bg);padding:40px 36px 44px;position:relative;display:flex;flex-direction:column;}
-  .plan.featured{background:var(--bg-elevated);outline:1px solid var(--accent);outline-offset:-1px;}
-  .plan-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--accent);color:#000;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 14px;white-space:nowrap;}
-  .plan-name{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;}
-  .plan-price{font-family:var(--display);font-size:58px;font-weight:400;letter-spacing:-.03em;line-height:1;margin-bottom:6px;}
-  .plan-price sup{font-size:24px;vertical-align:top;margin-top:12px;font-family:var(--body);font-weight:500;color:var(--text-muted);}
-  .plan-price sub{font-size:16px;color:var(--text-muted);font-family:var(--mono);font-weight:400;}
-  .plan-sub{font-size:13px;color:var(--text-muted);margin-bottom:32px;min-height:36px;}
-  .plan-divider{width:100%;height:1px;background:var(--border);margin-bottom:28px;}
-  .plan-features{list-style:none;margin-bottom:36px;flex:1;}
-  .plan-features li{font-size:14px;color:var(--text-muted);padding:10px 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:12px;line-height:1.4;}
-  .plan-features li:last-child{border-bottom:none;}
-  .plan-features li.inactive{color:var(--text-dim);}
-  .chk{color:var(--win);font-size:13px;flex-shrink:0;margin-top:1px;}
-  .crs{color:var(--text-dim);font-size:13px;flex-shrink:0;margin-top:1px;}
-  .plan-btn{display:block;text-align:center;padding:17px;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;transition:all .2s;}
-  .plan-btn.ghost{background:transparent;color:var(--text);border:1px solid var(--border-strong);}
-  .plan-btn.ghost:hover{border-color:var(--text-muted);}
-  .plan-btn.gold{background:var(--accent);color:#000;}
-  .plan-btn.gold:hover{background:#e6b950;transform:translateY(-2px);box-shadow:0 8px 24px rgba(212,168,67,.3);}
-  .plan-btn.dark{background:var(--text);color:var(--bg);}
-  .plan-btn.dark:hover{transform:translateY(-2px);}
-  .pricing-guarantee{margin-top:36px;padding:26px 30px;border:1px solid var(--border);background:var(--bg-elevated);display:flex;gap:20px;align-items:flex-start;}
-  .guarantee-icon{font-size:26px;flex-shrink:0;}
-  .guarantee-title{font-family:var(--display);font-size:20px;font-weight:400;margin-bottom:8px;}
-  .guarantee-body{font-size:14px;color:var(--text-muted);line-height:1.6;}
-  .record{padding:96px 0;border-bottom:1px solid var(--border);}
-  .record-grid{display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start;}
-  .record-intro p{font-size:16px;color:var(--text-muted);line-height:1.7;margin-bottom:20px;}
-  .record-intro a{color:var(--accent);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;}
-  .record-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:13px;}
-  .record-table thead th{text-align:left;padding:12px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);border-bottom:1px solid var(--border-strong);font-weight:500;}
-  .record-table tbody td{padding:15px 12px;border-bottom:1px solid var(--border);}
-  .record-table tbody tr:hover{background:var(--bg-elevated);}
-  .result-won{color:var(--win);font-weight:700;}
-  .result-lost{color:var(--loss);font-weight:700;}
-  .result-push{color:var(--push);}
-  .units-pos{color:var(--win);}
-  .units-neg{color:var(--loss);}
-  .record-summary{margin-top:28px;padding:24px;background:var(--bg-elevated);border:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
-  .summary-num{font-family:var(--display);font-size:26px;font-weight:400;margin-bottom:4px;letter-spacing:-.02em;}
-  .summary-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);}
-  .testimonials{padding:96px 0;border-bottom:1px solid var(--border);background:var(--bg-elevated);}
-  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
-  .testi-card{background:var(--bg-elevated);padding:36px;}
-  .testi-stars{color:var(--accent);font-size:14px;letter-spacing:2px;margin-bottom:18px;}
-  .testi-quote{font-family:var(--display);font-size:19px;font-weight:400;font-style:italic;line-height:1.45;margin-bottom:24px;}
-  .testi-meta{display:flex;align-items:center;gap:14px;}
-  .testi-avatar{width:40px;height:40px;background:var(--border-strong);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;font-weight:700;color:var(--accent);flex-shrink:0;}
-  .testi-name{font-weight:600;font-size:14px;}
-  .testi-handle{font-family:var(--mono);font-size:11px;color:var(--text-muted);margin-top:2px;}
-  .testi-result{margin-left:auto;background:rgba(109,190,122,.12);color:var(--win);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;padding:5px 10px;}
-  .final-cta{padding:120px 0;text-align:center;position:relative;overflow:hidden;}
-  .final-cta::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(212,168,67,.1),transparent 60%);pointer-events:none;}
-  .cta-tag{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:22px;}
-  .cta-title{font-family:var(--display);font-size:clamp(40px,6vw,72px);font-weight:400;letter-spacing:-.02em;line-height:1.04;margin-bottom:24px;max-width:16ch;margin-left:auto;margin-right:auto;}
-  .cta-title em{font-style:italic;color:var(--accent);}
-  .cta-sub{font-size:17px;color:var(--text-muted);max-width:48ch;margin:0 auto 48px;line-height:1.6;}
-  .cta-buttons{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:24px;}
-  .cta-fineprint{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.05em;}
-  footer{background:var(--bg);border-top:1px solid var(--border);padding:72px 0 36px;}
-  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;margin-bottom:56px;}
-  .footer-brand{font-family:var(--display);font-size:26px;font-weight:400;margin-bottom:12px;}
-  .footer-tagline{color:var(--text-muted);font-size:14px;max-width:36ch;line-height:1.6;}
-  .footer-col h4{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim);margin-bottom:18px;font-weight:500;}
-  .footer-col ul{list-style:none;}
-  .footer-col li{margin-bottom:10px;}
-  .footer-col a{color:var(--text-muted);text-decoration:none;font-size:14px;transition:color .2s;}
-  .footer-col a:hover{color:var(--accent);}
-  .gambling-warning{background:var(--bg-surface);border:1px solid var(--border);padding:18px 22px;margin-bottom:28px;font-size:12px;color:var(--text-dim);line-height:1.65;}
-  .gambling-warning strong{color:var(--text-muted);}
-  .footer-bottom{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.05em;}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
-  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
-  .live-dot{display:inline-block;width:6px;height:6px;background:var(--win);border-radius:50%;margin-right:6px;animation:pulse 2s infinite;vertical-align:middle;}
-  @media(max-width:960px){
-    .nav-links{display:none;}
-    .container{padding:0 20px;}
-    .nav-inner{padding:14px 20px;}
-    .hero{padding:56px 0 44px;}
-    .hero-stats{grid-template-columns:repeat(2,1fr);margin-top:44px;}
-    .stat{border-right:none;border-bottom:1px solid var(--border);padding-bottom:14px;}
-    .picks-grid,.plans-grid,.testi-grid{grid-template-columns:1fr;}
-    .record-grid{grid-template-columns:1fr;gap:40px;}
-    .record-summary{grid-template-columns:repeat(2,1fr);}
-    .footer-grid{grid-template-columns:1fr 1fr;gap:36px;}
-    .section-header{flex-direction:column;gap:10px;}
-    .section-title{font-size:32px;}
-    .plan.featured{outline:none;border:1px solid var(--accent);}
-    .record-table thead th:nth-child(2),.record-table tbody td:nth-child(2){display:none;}
-  }
+/* =================================================================
+   index.html · page-specific layout
+   Shared chrome (nav, footer, ticker, buttons) lives in
+   design-system.css. Everything below is index-only.
+   ================================================================= */
 
-  /* ==========================================================
-     POLISH LAYER — microinteractions, ticker, glow, skeletons
-     ========================================================== */
+/* ── Announce bar ───────────────────────────────────────────────── */
+.announce-bar {
+  background: linear-gradient(90deg, #16130b 0%, #1f1812 50%, #16130b 100%);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  padding: 10px var(--page-pad-x);
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.announce-bar a {
+  color: var(--gold);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.announce-bar a:hover { color: var(--gold-light); }
+.announce-bar .live-dot {
+  width: 6px; height: 6px;
+  background: var(--win);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+  animation: pulse 1.8s infinite;
+}
+@media (max-width: 640px) {
+  .announce-bar { font-size: 10px; gap: 8px; padding: 8px 14px; }
+  .announce-bar > span:nth-child(2) { display: none; }
+}
 
-  /* Pick card hover-lift — longer, smoother return; box-shadow softened so paint cost is lower */
-  .pick-card{transition:transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s cubic-bezier(.2,.7,.2,1), background .25s ease;}
-  .pick-card:not(.locked):hover{transform:translate3d(0,-4px,0);box-shadow:0 14px 36px rgba(0,0,0,.42);z-index:1;}
+/* ── Hero ──────────────────────────────────────────────────────── */
+.hero {
+  padding: var(--s-20) 0 var(--s-24);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -200px; left: 50%;
+  width: 900px; height: 900px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(212,168,67,0.08) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: var(--s-12);
+  align-items: center;
+}
+.hero-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 6px 14px;
+  background: var(--gold-glow);
+  border: 1px solid var(--gold-soft);
+  border-radius: var(--r-pill);
+  margin-bottom: var(--s-6);
+  width: max-content;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hero-meta .live-dot {
+  width: 7px; height: 7px;
+  background: var(--win);
+  border-radius: 50%;
+  animation: pulse 1.8s infinite;
+  flex-shrink: 0;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6.6vw, 92px);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+  color: var(--text);
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 350;
+}
+.hero h1 .strike {
+  position: relative;
+  white-space: nowrap;
+}
+.hero h1 .strike::after {
+  content: "";
+  position: absolute;
+  left: -4%;
+  right: -4%;
+  top: 52%;
+  height: 6px;
+  background: var(--gold);
+  transform: rotate(-3deg);
+  border-radius: 2px;
+}
+.hero-sub {
+  margin-top: var(--s-6);
+  font-size: var(--t-md);
+  color: var(--text-soft);
+  line-height: 1.55;
+  max-width: 54ch;
+}
+.hero-actions {
+  display: flex;
+  gap: var(--s-3);
+  flex-wrap: wrap;
+  margin-top: var(--s-8);
+}
+.hero-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-top: var(--s-6);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-mut);
+  align-items: center;
+}
+.hero-trust .sep { color: var(--text-faint); }
 
-  /* Premium card glow — slowed so it feels like a heartbeat, not a strobe.
-     Box-shadow can't be GPU-composited but at this duration it's not noticeable. */
-  @keyframes premiumGlow{
-    0%,100%{box-shadow:0 0 0 1px rgba(212,168,67,.30), 0 0 22px rgba(212,168,67,.10);}
-    50%    {box-shadow:0 0 0 1px rgba(212,168,67,.55), 0 0 32px rgba(212,168,67,.22);}
-  }
-  .pick-card.locked{animation:premiumGlow 4.5s ease-in-out infinite;}
-  @keyframes ctaPulse{
-    0%,100%{box-shadow:0 0 0 0 rgba(212,168,67,.40);}
-    50%    {box-shadow:0 0 0 10px rgba(212,168,67,0);}
-  }
-  .lock-btn{animation:ctaPulse 3s ease-in-out infinite;}
+/* Hero video — Synthesia lite-embed */
+.video-shell {
+  position: relative;
+  border-radius: var(--r-xl);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  box-shadow: var(--shadow-lg);
+}
+.video-shell::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(212,168,67,0.4), transparent 40%, transparent 60%, rgba(212,168,67,0.15));
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.6;
+}
+.video-shell iframe,
+.video-shell .video-thumb {
+  position: absolute;
+  inset: 1px;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  border: 0;
+  z-index: 1;
+  border-radius: calc(var(--r-xl) - 1px);
+}
+.video-thumb {
+  background:
+    radial-gradient(60% 80% at 50% 100%, rgba(212,168,67,0.18) 0%, transparent 70%),
+    linear-gradient(180deg, var(--bg-elev), var(--bg-soft));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-3);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform var(--dur) var(--ease);
+  padding: var(--s-8);
+}
+.video-thumb:hover { transform: scale(1.005); }
+.video-play {
+  width: 76px;
+  height: 76px;
+  filter: drop-shadow(0 4px 24px rgba(212,168,67,0.5));
+  transition: transform var(--dur) var(--ease);
+}
+.video-thumb:hover .video-play { transform: scale(1.05); }
+.video-thumb-title {
+  font-family: var(--font-display);
+  font-size: var(--t-2xl);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: var(--text);
+  max-width: 28ch;
+  margin-top: var(--s-3);
+}
+.video-thumb-title em { font-style: italic; color: var(--gold); font-weight: 350; }
+.video-thumb-runtime {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-mut);
+}
+.video-corner {
+  position: absolute;
+  top: 16px; right: 16px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 6px 12px;
+  background: rgba(8,8,10,0.75);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-pill);
+  backdrop-filter: blur(8px);
+}
+.video-corner .dot {
+  width: 6px; height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: pulse 1.6s infinite;
+}
 
-  /* Scroll-triggered fade-in — cinematic easing curve, longer duration */
-  .fade-in{opacity:0;transform:translate3d(0,24px,0);transition:opacity 1s cubic-bezier(.16,.7,.16,1), transform 1s cubic-bezier(.16,.7,.16,1);will-change:opacity,transform;}
-  .fade-in.in-view{opacity:1;transform:translate3d(0,0,0);}
+/* Hero stats — under hero, before social proof */
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--s-8);
+  margin-top: var(--s-16);
+  padding-top: var(--s-8);
+  border-top: 1px solid var(--border-soft);
+  position: relative;
+  z-index: 1;
+}
+.hero-stats .stat .stat-num {
+  font-size: clamp(36px, 4vw, 56px);
+}
+.hero-stats .stat .stat-prefix {
+  font-size: 60%;
+  color: var(--text-mut);
+  vertical-align: top;
+  margin-top: 6px;
+  display: inline-block;
+}
 
-  /* Smooth reveal for sections shown dynamically by JS (yesterday, chart, ticker).
-     JS sets data-revealed after data loads; CSS animates the transition. */
-  [data-reveal]{opacity:0;transform:translate3d(0,12px,0);transition:opacity .55s cubic-bezier(.16,.7,.16,1), transform .55s cubic-bezier(.16,.7,.16,1);}
-  [data-reveal][data-revealed]{opacity:1;transform:translate3d(0,0,0);}
+@media (max-width: 980px) {
+  .hero { padding: var(--s-12) 0 var(--s-16); }
+  .hero-inner { grid-template-columns: 1fr; gap: var(--s-10); }
+  .hero-stats { grid-template-columns: 1fr 1fr; gap: var(--s-6); margin-top: var(--s-10); }
+}
 
-  /* Skeleton shimmer used while picks.json is loading */
-  @keyframes shimmer{0%{background-position:-200% 0;}100%{background-position:200% 0;}}
-  .skeleton{background:linear-gradient(90deg, var(--bg-elevated) 25%, var(--bg-surface) 50%, var(--bg-elevated) 75%);background-size:200% 100%;animation:shimmer 1.4s linear infinite;}
-  .skeleton-line{height:14px;background:linear-gradient(90deg, var(--bg-elevated) 25%, var(--bg-surface) 50%, var(--bg-elevated) 75%);background-size:200% 100%;animation:shimmer 1.4s linear infinite;margin-bottom:12px;}
+/* ── Social proof bar ──────────────────────────────────────────── */
+.proof-bar {
+  background: var(--bg-soft);
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+  padding: var(--s-5) 0;
+}
+.proof-bar .container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--s-4) var(--s-12);
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-mut);
+}
+.proof-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.proof-item .dot-sm {
+  width: 4px; height: 4px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+.proof-item .num { color: var(--text); font-weight: 600; }
 
-  /* Live game ticker (marquee) */
-  .ticker{background:var(--bg-elevated);border-bottom:1px solid var(--border);overflow:hidden;position:relative;}
-  .ticker::before,.ticker::after{content:"";position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;}
-  .ticker::before{left:0;background:linear-gradient(90deg, var(--bg-elevated), transparent);}
-  .ticker::after{right:0;background:linear-gradient(-90deg, var(--bg-elevated), transparent);}
-  .ticker-track{display:flex;gap:44px;padding:11px 0;white-space:nowrap;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);animation:tickerScroll 180s linear infinite;width:max-content;will-change:transform;}
-  .ticker-item{display:inline-flex;align-items:center;gap:10px;flex-shrink:0;}
-  .ticker-league{color:var(--accent);font-weight:700;}
-  .ticker-time{color:var(--text-dim);}
-  .ticker-vs{color:var(--text-dim);}
-  .ticker-pulse{width:5px;height:5px;background:var(--win);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0;}
-  .ticker:hover .ticker-track{animation-play-state:paused;}
-  @keyframes tickerScroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+/* ── Section base ──────────────────────────────────────────────── */
+.section {
+  padding: var(--s-24) 0;
+  border-top: 1px solid var(--border-soft);
+}
 
-  /* Testimonial card hover (existing markup, just polish) */
-  .testi-card{transition:transform .25s cubic-bezier(.2,.7,.2,1), background .2s;}
-  .testi-card:hover{transform:translateY(-3px);background:var(--bg-surface);}
+/* ── How it works ──────────────────────────────────────────────── */
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-1);
+  background: var(--border-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.how-step {
+  background: var(--bg-card);
+  padding: var(--s-8) var(--s-8) var(--s-10);
+  position: relative;
+  transition: background var(--dur) var(--ease);
+}
+.how-step:hover { background: var(--bg-elev); }
+.how-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  margin-bottom: var(--s-6);
+}
+.how-title {
+  font-family: var(--font-display);
+  font-size: var(--t-2xl);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: var(--s-4);
+}
+.how-body {
+  color: var(--text-mut);
+  font-size: var(--t-sm);
+  line-height: 1.65;
+}
 
-  /* Reduce-motion users: kill all animations/transitions for accessibility */
-  @media (prefers-reduced-motion: reduce){
-    .pick-card.locked,.lock-btn,.ticker-track,.live-dot,.ticker-pulse{animation:none !important;}
-    .fade-in{opacity:1;transform:none;transition:none;}
-  }
+/* ── Yesterday's results card ──────────────────────────────────── */
+.yday-card {
+  background: linear-gradient(135deg, #1a1610, var(--bg-card));
+  border: 1px solid var(--gold-soft);
+  border-radius: var(--r-lg);
+  padding: var(--s-8) var(--s-10);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--s-8);
+  align-items: center;
+  transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+}
+.yday-card[data-reveal]:not([data-revealed]) { opacity: 0; transform: translateY(12px); }
+.yday-card[data-revealed] { opacity: 1; transform: translateY(0); }
+.yday-tag {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: var(--s-2);
+}
+.yday-title {
+  font-family: var(--font-display);
+  font-size: var(--t-xl);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+  letter-spacing: -0.01em;
+}
+.yday-title em { font-style: italic; color: var(--gold); font-weight: 350; }
+.yday-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+.yday-pill {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-pill);
+  color: var(--text-mut);
+}
+.yday-pill.win  { color: var(--win);  border-color: rgba(95,207,128,0.4); background: var(--win-soft); }
+.yday-pill.loss { color: var(--loss); border-color: rgba(231,96,96,0.4); background: var(--loss-soft); }
+.yday-pill.push { color: var(--text-mut); }
+.yday-net {
+  text-align: right;
+  font-family: var(--font-display);
+}
+.yday-net #yday-net-num {
+  font-size: var(--t-4xl);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  display: block;
+  color: var(--text);
+  line-height: 1;
+}
+.yday-net.up #yday-net-num   { color: var(--win); }
+.yday-net.down #yday-net-num { color: var(--loss); }
+.yday-net #yday-net-record {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-mut);
+  display: block;
+  margin-top: 4px;
+}
+@media (max-width: 720px) {
+  .yday-card { grid-template-columns: 1fr; padding: var(--s-6); gap: var(--s-5); }
+  .yday-pills { justify-content: flex-start; }
+  .yday-net { text-align: left; }
+}
 
-  /* ===== EXPLAINER VIDEO SECTION =====
-     Sits right after the hero. Frames a UGC-style video on the left,
-     a tight copy block + CTA on the right. Designed to look intentional
-     even if the video file hasn't been uploaded yet — the poster image
-     reuses og-image.png so the placeholder is still on-brand. */
-  .explainer{padding:80px 0;border-bottom:1px solid var(--border);background:var(--bg-elevated);}
-  /* Single-column stack: header → big video → copy + CTA below.
-     The previous two-column grid capped the video at ~660px wide on a
-     1280px container, which read as a thumbnail next to the giant h2.
-     Now the video gets the full container width (up to 1100px) and
-     copy lands underneath, narrower for readability. */
-  .explainer-grid{display:flex;flex-direction:column;align-items:center;gap:48px;}
-  .explainer-header{max-width:760px;text-align:center;}
-  .explainer-body{max-width:680px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:24px;}
-  /* aspect-ratio:16/9 = the Synthesia explainer's native landscape frame
-     (1920x1080). Full container width up to a 1100px cap so it doesn't
-     sprawl on ultra-wide monitors. */
-  .video-shell{position:relative;background:#000;border:1px solid var(--border);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 0 1px rgba(212,168,67,.18);aspect-ratio:16/9;width:100%;max-width:1100px;margin:0 auto;overflow:hidden;}
-  /* Hero-specific override: the video now sits inside the hero (was a
-     standalone section). Cap at 820px so it doesn't compete with the
-     headline + CTA stack, add vertical spacing top/bottom, and on mobile
-     give it edge-to-edge inside the hero's container padding. */
-  .hero .video-shell{max-width:820px;margin:24px auto 32px;}
-  @media(max-width:720px){.hero .video-shell{margin:20px auto 24px;}}
-  .video-shell video,.video-shell iframe{width:100%;height:100%;display:block;border:0;background:#000;}
-  /* Lite-embed click-to-load poster. Renders instantly with zero
-     Synthesia bytes; on click, the inline script at the bottom of the
-     page swaps in a real iframe with ?autoplay=1 so playback starts
-     immediately. Before: every page view was paying ~600KB+ of
-     Synthesia player JS + DRM streams whether or not the user ever
-     scrolled to the video. After: zero until intent is clear. */
-  .video-thumb{position:absolute;inset:0;width:100%;height:100%;background:linear-gradient(135deg,#0a0a0a 0%,#15110a 65%,#1c1612 100%);border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0;color:var(--text);transition:opacity .2s,transform .2s;font-family:var(--display);}
-  .video-thumb:hover{opacity:.96;}
-  .video-thumb:hover .video-play{transform:scale(1.06);}
-  .video-thumb::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(212,168,67,.08) 0%,transparent 70%);pointer-events:none;}
-  .video-play{width:96px;height:96px;flex-shrink:0;transition:transform .25s cubic-bezier(.2,.7,.2,1);filter:drop-shadow(0 8px 24px rgba(0,0,0,.6));}
-  .video-thumb-title{display:block;font-size:32px;font-style:italic;font-weight:400;letter-spacing:-.02em;margin-top:28px;text-align:center;max-width:600px;padding:0 24px;line-height:1.15;text-shadow:0 2px 12px rgba(0,0,0,.5);}
-  .video-thumb-title em{font-style:italic;color:var(--accent);font-weight:300;}
-  .video-thumb-runtime{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-muted);margin-top:14px;}
-  @media(max-width:720px){
-    .video-play{width:72px;height:72px;}
-    .video-thumb-title{font-size:22px;margin-top:20px;}
-  }
-  .video-corner{position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(10,10,10,.78);backdrop-filter:blur(6px);border:1px solid rgba(212,168,67,.35);font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);z-index:2;}
-  .video-corner .dot{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;}
-  .explainer-header .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;display:inline-flex;align-items:center;gap:14px;}
-  .explainer-header .kicker::before{content:"";width:24px;height:1px;background:var(--accent);}
-  .explainer-header h2{font-family:var(--display);font-size:clamp(34px,4vw,52px);font-weight:400;line-height:1.04;letter-spacing:-.02em;margin:0;}
-  .explainer-header h2 em{font-style:italic;color:var(--accent);font-weight:300;}
-  .explainer-body p{color:var(--text-muted);font-size:16px;line-height:1.65;margin:0;max-width:54ch;}
-  .explainer-runtime{display:inline-flex;gap:24px;padding:18px 22px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);}
-  .explainer-runtime strong{color:var(--text);font-weight:700;}
-  @media(max-width:960px){
-    .explainer{padding:56px 0;}
-    .explainer-grid{gap:32px;}
-    .explainer-runtime{flex-wrap:wrap;justify-content:center;gap:16px 24px;}
-  }
+/* ── Cumulative P/L chart ──────────────────────────────────────── */
+.chart-wrap {
+  margin-top: var(--s-8);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--s-6) var(--s-8) var(--s-5);
+  transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+}
+.chart-wrap[data-reveal]:not([data-revealed]) { opacity: 0; transform: translateY(12px); }
+.chart-wrap[data-revealed] { opacity: 1; transform: translateY(0); }
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--s-3);
+}
+.chart-title {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-mut);
+}
+.chart-now {
+  font-family: var(--font-display);
+  font-size: var(--t-2xl);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--win);
+}
+.chart-svg {
+  width: 100%;
+  height: 200px;
+  display: block;
+}
+.chart-line  { fill: none; stroke: var(--gold); stroke-width: 2; }
+.chart-fill  { fill: url(#chartGrad); }
+.chart-grid  { stroke: var(--border-soft); stroke-width: 1; stroke-dasharray: 4 4; }
+.chart-axis  { fill: var(--text-dim); font-family: 'JetBrains Mono'; font-size: 10px; }
+.chart-pulse { fill: var(--gold); }
 
-  /* ==========================================================
-     FEATURE LAYER — yesterday results, how it works, calculator,
-     P/L chart, FAQ, newsletter, mobile menu, sport icons,
-     confidence color rings
-     ========================================================== */
+.record-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--s-8);
+  margin-top: var(--s-12);
+  padding-top: var(--s-8);
+  border-top: 1px solid var(--border-soft);
+}
+.summary-num {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 44px);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  color: var(--text);
+  display: block;
+  line-height: 1;
+}
+.summary-label {
+  display: block;
+  margin-top: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-mut);
+}
 
-  /* Sport icon prepended in pick-league badge */
-  .pick-icon{margin-right:6px;font-size:12px;line-height:1;display:inline-block;}
+/* ── Bankroll calculator ───────────────────────────────────────── */
+.calc {
+  margin-top: var(--s-12);
+  background: linear-gradient(180deg, var(--bg-elev), var(--bg-card));
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--s-8);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--s-10);
+  align-items: center;
+}
+.calc-left { display: flex; flex-direction: column; gap: var(--s-3); }
+.calc-tag {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.calc-title {
+  font-family: var(--font-display);
+  font-size: var(--t-xl);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.calc-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-mut);
+}
+.calc-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  height: 4px;
+  background: var(--border-strong);
+  outline: none;
+  cursor: pointer;
+  border-radius: var(--r-pill);
+}
+.calc-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px; height: 20px;
+  background: var(--gold);
+  cursor: pointer;
+  border: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(212,168,67,0.18);
+}
+.calc-slider::-moz-range-thumb {
+  width: 20px; height: 20px;
+  background: var(--gold);
+  cursor: pointer;
+  border: 0;
+  border-radius: 50%;
+}
+.calc-unit { min-width: 62px; text-align: right; color: var(--text); font-weight: 700; }
+.calc-out  { text-align: right; }
+.calc-out-num {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 5vw, 72px);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--win);
+}
+.calc-out-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-mut);
+  margin-top: var(--s-3);
+}
+@media (max-width: 720px) {
+  .calc { grid-template-columns: 1fr; }
+  .calc-out { text-align: left; }
+}
 
-  /* Confidence color accents — applied via class on .pick-card */
-  .pick-card.conf-a{border-left:3px solid var(--win);padding-left:29px;}
-  .pick-card.conf-b{border-left:3px solid var(--accent);padding-left:29px;}
-  .pick-card.conf-c{border-left:3px solid var(--text-dim);padding-left:29px;}
+/* ── Testimonials ──────────────────────────────────────────────── */
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-6);
+}
+.testi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--s-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+  transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.testi-card:hover {
+  border-color: var(--gold-soft);
+  transform: translateY(-2px);
+}
+.testi-stars { color: var(--gold); font-size: var(--t-md); letter-spacing: 2px; }
+.testi-quote {
+  font-family: var(--font-display);
+  font-size: var(--t-lg);
+  line-height: 1.4;
+  color: var(--text);
+  letter-spacing: -0.005em;
+  font-weight: 400;
+}
+.testi-meta {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--s-3);
+  margin-top: auto;
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--border-soft);
+}
+.testi-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-deep) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bg);
+}
+.testi-name { font-size: var(--t-sm); font-weight: 600; color: var(--text); }
+.testi-handle { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; color: var(--text-mut); text-transform: uppercase; }
+.testi-result {
+  font-family: var(--font-mono);
+  font-size: var(--t-base);
+  font-weight: 700;
+  color: var(--win);
+}
 
-  /* === YESTERDAY'S RESULTS === */
-  .yday{padding:48px 0 0;}
-  .yday-card{background:var(--bg-elevated);border:1px solid var(--border);padding:24px 28px;display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;}
-  .yday-tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);}
-  .yday-title{font-family:var(--display);font-size:22px;font-weight:400;letter-spacing:-.01em;line-height:1.15;margin-top:4px;}
-  .yday-pills{display:flex;gap:8px;flex-wrap:wrap;}
-  .yday-pill{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--border);background:var(--bg);}
-  .yday-pill.win{color:var(--win);border-color:rgba(109,190,122,.35);}
-  .yday-pill.loss{color:var(--loss);border-color:rgba(217,101,101,.35);}
-  .yday-pill.push{color:var(--push);}
-  .yday-net{font-family:var(--display);font-size:34px;font-weight:400;letter-spacing:-.02em;text-align:right;}
-  .yday-net.up{color:var(--win);}
-  .yday-net.down{color:var(--loss);}
-  .yday-net small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-top:4px;font-weight:400;}
+/* ── FAQ ───────────────────────────────────────────────────────── */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.faq-item { border-bottom: 1px solid var(--border-soft); }
+.faq-item:last-child { border-bottom: 0; }
+.faq-q {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: var(--s-6) var(--s-8);
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: var(--t-md);
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.faq-q:hover { background: var(--bg-elev); color: var(--gold); }
+.faq-icon {
+  font-family: var(--font-mono);
+  font-size: var(--t-lg);
+  color: var(--gold);
+  transition: transform var(--dur) var(--ease);
+  margin-left: var(--s-4);
+  flex-shrink: 0;
+}
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--dur-slow) var(--ease), padding var(--dur-slow) var(--ease);
+  color: var(--text-mut);
+  font-size: var(--t-sm);
+  line-height: 1.7;
+  padding: 0 var(--s-8);
+}
+.faq-item.open .faq-a { max-height: 400px; padding: 0 var(--s-8) var(--s-6); }
+.faq-item.open .faq-icon { transform: rotate(45deg); }
 
-  /* === HOW IT WORKS === */
-  .how{padding:96px 0;border-bottom:1px solid var(--border);}
-  .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
-  .how-step{background:var(--bg);padding:36px 32px;}
-  .how-num{font-family:var(--display);font-size:48px;font-weight:300;font-style:italic;color:var(--accent);line-height:1;margin-bottom:18px;letter-spacing:-.02em;}
-  .how-title{font-family:var(--display);font-size:22px;font-weight:400;letter-spacing:-.01em;margin-bottom:10px;}
-  .how-body{color:var(--text-muted);font-size:14px;line-height:1.65;}
+/* ── Newsletter ────────────────────────────────────────────────── */
+.news {
+  background: linear-gradient(135deg, #1a1610 0%, var(--bg-card) 60%);
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+}
+.news-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--s-10);
+  align-items: center;
+  padding: var(--s-16) 0;
+}
+.news-tag {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: var(--s-3);
+}
+.news-title {
+  font-family: var(--font-display);
+  font-size: var(--t-3xl);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--text);
+}
+.news-title em { font-style: italic; color: var(--gold); font-weight: 350; }
+.news-sub {
+  margin-top: var(--s-3);
+  color: var(--text-mut);
+  font-size: var(--t-sm);
+  max-width: 50ch;
+}
+.news-form {
+  display: flex;
+  gap: var(--s-2);
+  align-items: center;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-pill);
+  padding: 4px;
+  width: 400px;
+  max-width: 100%;
+  transition: border-color var(--dur) var(--ease);
+}
+.news-form:focus-within { border-color: var(--gold); }
+.news-input {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  padding: 0 var(--s-5);
+  height: 44px;
+  font-size: var(--t-sm);
+  color: var(--text);
+}
+.news-input::placeholder { color: var(--text-dim); }
+.news-btn {
+  background: var(--gold);
+  color: var(--bg);
+  font-weight: 700;
+  font-size: var(--t-sm);
+  border-radius: var(--r-pill);
+  padding: 0 var(--s-6);
+  height: 40px;
+  transition: background var(--dur) var(--ease);
+}
+.news-btn:hover { background: var(--gold-light); }
+.news-ok {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--win);
+  padding: var(--s-3) var(--s-5);
+}
+@media (max-width: 880px) {
+  .news-grid { grid-template-columns: 1fr; padding: var(--s-12) 0; }
+  .news-form { width: 100%; }
+}
 
-  /* === PROFIT CALCULATOR === */
-  .calc{background:var(--bg-elevated);border:1px solid var(--border);padding:32px;margin-bottom:48px;display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center;}
-  .calc-left{display:flex;flex-direction:column;gap:14px;}
-  .calc-tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);}
-  .calc-title{font-family:var(--display);font-size:24px;font-weight:400;letter-spacing:-.01em;line-height:1.2;}
-  .calc-row{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);}
-  .calc-slider{-webkit-appearance:none;appearance:none;flex:1;height:4px;background:var(--border);outline:none;cursor:pointer;}
-  .calc-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;background:var(--accent);cursor:pointer;border:none;border-radius:0;}
-  .calc-slider::-moz-range-thumb{width:18px;height:18px;background:var(--accent);cursor:pointer;border:none;border-radius:0;}
-  .calc-unit{min-width:62px;text-align:right;color:var(--text);font-weight:700;}
-  .calc-out{text-align:right;}
-  .calc-out-num{font-family:var(--display);font-size:54px;font-weight:400;letter-spacing:-.03em;line-height:1;color:var(--win);}
-  .calc-out-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-top:8px;}
+/* ── Final CTA ─────────────────────────────────────────────────── */
+.final-cta {
+  padding: var(--s-24) 0 var(--s-20);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.final-cta::before {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 800px; height: 600px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, rgba(212,168,67,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+.final-cta > .container { position: relative; z-index: 1; }
+.cta-tag {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: var(--s-5);
+}
+.cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.5vw, 76px);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: var(--s-5);
+}
+.cta-title em { font-style: italic; color: var(--gold); font-weight: 350; }
+.cta-sub {
+  color: var(--text-soft);
+  font-size: var(--t-md);
+  max-width: 56ch;
+  margin: 0 auto var(--s-8);
+  line-height: 1.55;
+}
+.cta-buttons {
+  display: inline-flex;
+  gap: var(--s-3);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.cta-fineprint {
+  margin-top: var(--s-8);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
 
-  /* === CUMULATIVE P/L CHART === */
-  .chart-wrap{background:var(--bg-elevated);border:1px solid var(--border);padding:28px;margin-bottom:32px;}
-  .chart-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px;flex-wrap:wrap;gap:14px;}
-  .chart-title{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);}
-  .chart-now{font-family:var(--display);font-size:28px;font-weight:400;letter-spacing:-.02em;color:var(--win);}
-  .chart-svg{width:100%;height:200px;display:block;}
-  .chart-line{fill:none;stroke:var(--accent);stroke-width:2;}
-  .chart-fill{fill:url(#chartGrad);}
-  .chart-grid{stroke:var(--border);stroke-width:1;stroke-dasharray:2 4;}
-  .chart-axis{font-family:var(--mono);font-size:10px;fill:var(--text-dim);letter-spacing:.06em;}
-  .chart-pulse{fill:var(--accent);}
+/* ── Gambling warning band (above footer) ──────────────────────── */
+.gambling-warning {
+  background: var(--bg-soft);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-lg);
+  padding: var(--s-5) var(--s-6);
+  font-size: var(--t-xs);
+  line-height: 1.6;
+  color: var(--text-mut);
+  margin-bottom: var(--s-10);
+}
+.gambling-warning strong { color: var(--text); }
 
-  /* === FAQ ACCORDION === */
-  .faq{padding:96px 0;border-bottom:1px solid var(--border);}
-  .faq-list{border:1px solid var(--border);}
-  .faq-item{border-bottom:1px solid var(--border);}
-  .faq-item:last-child{border-bottom:none;}
-  .faq-q{display:flex;justify-content:space-between;align-items:center;padding:22px 26px;cursor:pointer;font-family:var(--display);font-size:18px;font-weight:400;letter-spacing:-.01em;background:transparent;border:none;width:100%;text-align:left;color:var(--text);transition:background .2s;}
-  .faq-q:hover{background:var(--bg-elevated);}
-  .faq-icon{font-family:var(--mono);font-size:18px;color:var(--accent);transition:transform .25s;flex-shrink:0;margin-left:14px;}
-  .faq-item.open .faq-icon{transform:rotate(45deg);}
-  .faq-a{padding:0 26px;max-height:0;overflow:hidden;transition:max-height .35s ease, padding .35s ease;color:var(--text-muted);font-size:14px;line-height:1.7;}
-  .faq-item.open .faq-a{padding:0 26px 24px;max-height:500px;}
-
-  /* === NEWSLETTER === */
-  .news{padding:64px 0;border-bottom:1px solid var(--border);background:var(--bg-elevated);}
-  .news-grid{display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center;}
-  .news-tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
-  .news-title{font-family:var(--display);font-size:28px;font-weight:400;letter-spacing:-.01em;line-height:1.2;}
-  .news-title em{font-style:italic;color:var(--accent);}
-  .news-sub{color:var(--text-muted);font-size:14px;margin-top:6px;}
-  .news-form{display:flex;gap:10px;}
-  .news-input{background:var(--bg);border:1px solid var(--border-strong);padding:14px 16px;color:var(--text);font-family:var(--body);font-size:14px;outline:none;min-width:260px;transition:border-color .2s;}
-  .news-input:focus{border-color:var(--accent);}
-  .news-btn{background:var(--accent);color:#000;border:none;padding:0 22px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:background .2s;}
-  .news-btn:hover{background:#e6b950;}
-  .news-ok{font-family:var(--mono);font-size:12px;color:var(--win);letter-spacing:.06em;text-transform:uppercase;}
-
-  /* === MOBILE NAV (hamburger + drawer) === */
-  .nav-burger{display:none;width:40px;height:40px;background:transparent;border:1px solid var(--border);cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px;padding:0;}
-  .nav-burger span{width:18px;height:1px;background:var(--text);transition:transform .25s, opacity .25s;}
-  .nav-burger.open span:nth-child(1){transform:translateY(3px) rotate(45deg);}
-  .nav-burger.open span:nth-child(2){opacity:0;}
-  .nav-burger.open span:nth-child(3){transform:translateY(-3px) rotate(-45deg);}
-  .mobile-drawer{position:fixed;top:0;right:0;bottom:0;width:min(86vw,340px);background:var(--bg-elevated);border-left:1px solid var(--border);transform:translateX(100%);transition:transform .3s cubic-bezier(.2,.7,.2,1);z-index:60;display:flex;flex-direction:column;padding:24px;gap:20px;}
-  .mobile-drawer.open{transform:translateX(0);}
-  .mobile-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .3s;z-index:55;}
-  .mobile-backdrop.open{opacity:1;pointer-events:auto;}
-  .mobile-drawer .close{align-self:flex-end;background:none;border:none;color:var(--text-muted);font-family:var(--mono);font-size:13px;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;padding:6px 8px;}
-  .mobile-drawer ul{list-style:none;display:flex;flex-direction:column;gap:4px;margin:0;padding:0;}
-  .mobile-drawer li a{display:block;padding:14px 6px;color:var(--text);text-decoration:none;font-size:18px;border-bottom:1px solid var(--border);font-family:var(--display);font-weight:400;letter-spacing:-.01em;}
-  .mobile-drawer .drawer-cta{margin-top:auto;display:flex;flex-direction:column;gap:10px;}
-
-  @media(max-width:960px){
-    .nav-links{display:none;}
-    .nav-right .nav-cta,.nav-right .nav-login{display:none;}
-    .nav-burger{display:flex;}
-    .yday-card{grid-template-columns:1fr;text-align:center;}
-    .yday-net{text-align:center;}
-    .yday-pills{justify-content:center;}
-    .how-grid{grid-template-columns:1fr;}
-    .calc{grid-template-columns:1fr;text-align:center;}
-    .calc-out{text-align:center;}
-    .news-grid{grid-template-columns:1fr;}
-    .news-form{flex-direction:column;}
-    .news-input{min-width:0;width:100%;}
-  }
-
-  /* ==========================================================
-     INTERACTIVE LAYER — view transitions, 3D tilt cards,
-     confidence meter, result-reveal flip, AI pick chat panel,
-     sportsbook deep-link button
-     ========================================================== */
-
-  /* View Transitions API — smooth crossfade between same-origin pages */
-  @view-transition { navigation: auto; }
-  ::view-transition-old(root){ animation: vtFadeOut .2s ease-out forwards; }
-  ::view-transition-new(root){ animation: vtFadeIn  .35s ease-out forwards; }
-  @keyframes vtFadeOut{ to { opacity: 0; transform: translateY(-6px); } }
-  @keyframes vtFadeIn { from{ opacity: 0; transform: translateY(8px); } }
-
-  /* 3D tilt — applied via JS mousemove; CSS just sets the perspective + transition */
-  .picks-grid{perspective:1400px;}
-  .pick-card{transform-style:preserve-3d;}
-  .pick-card:not(.locked){will-change:transform;}
-
-  /* Pick-card layout for new buttons row at the bottom */
-  .pick-tools{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
-  .pick-tool{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;border:1px solid var(--border);background:transparent;color:var(--text-muted);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all .2s;}
-  .pick-tool:hover{border-color:var(--accent);color:var(--text);}
-  .pick-tool.primary{border-color:var(--accent-dim);color:var(--accent);}
-  .pick-tool.primary:hover{background:var(--accent);color:#000;}
-
-  /* === CONFIDENCE METER ===
-     Uses transform:scaleX so the fill is GPU-composited (smooth on
-     every device). The fill spans the full track width and just
-     scales horizontally; transform-origin:left keeps it left-anchored. */
-  .conf-meter{display:flex;align-items:center;gap:10px;margin:10px 0 18px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);}
-  .conf-meter-track{flex:1;height:5px;background:var(--bg-surface);position:relative;overflow:hidden;}
-  .conf-meter-fill{position:absolute;inset:0;background:linear-gradient(90deg, var(--accent), var(--win));transform-origin:left center;transform:scaleX(0);transition:transform 1.4s cubic-bezier(.2,.7,.2,1);will-change:transform;}
-  .conf-meter-fill.in-view{transform:scaleX(var(--conf, .5));}
-  .pick-card.conf-c .conf-meter-fill{background:linear-gradient(90deg, var(--text-dim), var(--accent));}
-  .pick-card.conf-a .conf-meter-fill{background:linear-gradient(90deg, var(--accent), var(--win));}
-  .conf-label{flex-shrink:0;font-weight:700;color:var(--text);}
-
-  /* === RESULT REVEAL CHIP (post-game flip) ===
-     If a pick has a `result` field, picks-loader inserts this chip
-     on top of the card and animates it in via a flip. */
-  .result-reveal{position:absolute;top:14px;right:14px;perspective:600px;z-index:4;pointer-events:none;}
-  .result-chip{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 10px;color:#000;transform:rotateY(90deg);transform-origin:center;animation:resultFlip .8s cubic-bezier(.2,.9,.3,1.05) forwards;}
-  .result-chip.won { background:var(--win); }
-  .result-chip.lost{ background:var(--loss); color:#fff; }
-  .result-chip.push{ background:var(--text-muted); color:#000; }
-  @keyframes resultFlip{
-    0%   { transform: rotateY(90deg) scale(.9); opacity: 0; }
-    60%  { transform: rotateY(-10deg) scale(1.05); opacity: 1; }
-    100% { transform: rotateY(0deg) scale(1); opacity: 1; }
-  }
-  /* Hide the lock badge if a result is shown (only on member-pick variant) */
-  .pick-card.has-result .lock-badge { display:none; }
-
-  /* === AI PICK EXPLAINER CHAT PANEL ===
-     Animated open/close via max-height + opacity instead of display:none
-     (display can't be transitioned). On chat-open we expand smoothly. */
-  .chat-panel{
-    max-height:0;
-    opacity:0;
-    margin-top:0;
-    padding-top:0;
-    border-top:1px solid transparent;
-    overflow:hidden;
-    transition:max-height .4s cubic-bezier(.2,.7,.2,1), opacity .3s ease, padding-top .4s cubic-bezier(.2,.7,.2,1), margin-top .4s cubic-bezier(.2,.7,.2,1), border-color .3s ease;
-  }
-  .pick-card.chat-open .chat-panel{
-    max-height:600px;
-    opacity:1;
-    margin-top:14px;
-    padding-top:14px;
-    border-top-color:var(--border);
-  }
-  .chat-msgs{display:flex;flex-direction:column;gap:10px;margin-bottom:10px;max-height:280px;overflow-y:auto;}
-  .chat-msg{font-size:13px;line-height:1.55;padding:10px 12px;border:1px solid var(--border);}
-  .chat-msg.user{background:var(--bg-surface);color:var(--text);align-self:flex-end;max-width:82%;}
-  .chat-msg.assistant{background:transparent;color:var(--text);max-width:100%;}
-  .chat-msg.assistant strong{color:var(--accent);font-weight:600;}
-  .chat-msg.error{border-color:rgba(217,101,101,.4);color:var(--loss);font-family:var(--mono);font-size:11px;}
-  .chat-typing{display:inline-flex;gap:4px;align-items:center;}
-  .chat-typing span{width:6px;height:6px;border-radius:50%;background:var(--text-muted);animation:chatBounce 1.2s infinite ease-in-out;}
-  .chat-typing span:nth-child(2){animation-delay:.15s;}
-  .chat-typing span:nth-child(3){animation-delay:.3s;}
-  @keyframes chatBounce{0%,80%,100%{transform:translateY(0);opacity:.4;}40%{transform:translateY(-3px);opacity:1;}}
-
-  .chat-suggest{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
-  .chat-chip{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border:1px solid var(--border);background:var(--bg-surface);color:var(--text-muted);cursor:pointer;transition:all .2s;}
-  .chat-chip:hover{border-color:var(--accent);color:var(--text);}
-
-  .chat-form{display:flex;gap:6px;}
-  .chat-input{flex:1;background:var(--bg-surface);border:1px solid var(--border);padding:10px 12px;color:var(--text);font-family:var(--body);font-size:13px;outline:none;transition:border-color .2s;}
-  .chat-input:focus{border-color:var(--accent);}
-  .chat-send{background:var(--accent);color:#000;border:none;padding:0 14px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .2s;}
-  .chat-send:hover{background:#e6b950;}
-  .chat-send:disabled{opacity:.4;cursor:not-allowed;}
-  .chat-byline{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-top:8px;text-align:right;}
+/* ── Scroll-reveal helpers ─────────────────────────────────────── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+}
+.fade-in.in-view { opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body>
 
-<!-- ANNOUNCEMENT BAR
-     Live-updated by the polish-layer script below — it pulls the
-     real game counts from /api/terminal-data and rewrites the
-     middle copy every 60s. The fallback text below is what visitors
-     see before the API responds. -->
+<!-- ANNOUNCE BAR (live-driven by polish-layer script) -->
 <div class="announce-bar" id="announce-bar">
   <span id="announce-live"><span class="live-dot"></span>Today's pick card is live</span>
   <span>·</span>
@@ -607,17 +932,20 @@
   <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7">Start 7-day free trial →</a>
 </div>
 
-<!-- LIVE GAME TICKER (populated by polish-layer script from picks.json) -->
+<!-- LIVE GAME TICKER (live-driven) -->
 <div class="ticker" id="ticker">
   <div class="ticker-track" id="ticker-track">
-    <!-- inserted at runtime; hidden gracefully if picks.json fails -->
+    <!-- inserted at runtime; hidden gracefully if the feed fails -->
   </div>
 </div>
 
 <!-- NAV -->
-<nav>
+<nav class="nav">
   <div class="nav-inner">
-    <a href="#" class="logo"><span class="logo-mark" style="width:16px;height:16px;"></span>SMARTERPICKS</a>
+    <a href="/" class="brand">
+      <span class="brand-mark"></span>
+      SmarterPicks
+    </a>
     <ul class="nav-links">
       <li><a href="picks">Today's Picks</a></li>
       <li><a href="terminal">Terminal</a></li>
@@ -626,9 +954,8 @@
       <li><a href="discord.html">Discord</a></li>
     </ul>
     <div class="nav-right">
-      <!-- WHOP LOGIN BUTTON: replace the href with your Whop login URL -->
-      <a href="login.html" class="nav-login">Login</a>
-      <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="nav-cta">Free Trial ↗</a>
+      <a href="login.html" class="btn btn-ghost btn-sm">Log in</a>
+      <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="btn btn-primary btn-sm">Free trial ↗</a>
       <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -636,148 +963,148 @@
   </div>
 </nav>
 
-<!-- MOBILE NAV DRAWER -->
+<!-- MOBILE DRAWER -->
 <div class="mobile-backdrop" id="mobile-backdrop"></div>
 <aside class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
   <button class="close" id="mobile-close" aria-label="Close menu">Close ✕</button>
   <ul>
     <li><a href="picks">Today's Picks</a></li>
     <li><a href="terminal">Terminal</a></li>
-    <li><a href="#how">How It Works</a></li>
+    <li><a href="#how">How it works</a></li>
     <li><a href="pricing">Pricing</a></li>
     <li><a href="#record">Archive</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="discord.html">Discord</a></li>
   </ul>
   <div class="drawer-cta">
-    <a href="login.html" class="btn-secondary" style="text-align:center;">Login</a>
-    <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="btn-primary" style="text-align:center;">Start 7-day free trial →</a>
+    <a href="login.html" class="btn btn-secondary">Log in</a>
+    <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="btn btn-primary">Start 7-day free trial →</a>
   </div>
 </aside>
 
 <!-- HERO -->
 <section class="hero">
   <div class="container">
-    <div class="hero-meta"><span class="live-dot"></span><span id="hero-live-text">Today's slate is live</span></div>
-    <h1>Stop guessing. Start <em>winning.</em></h1>
+    <div class="hero-inner">
+      <div>
+        <div class="hero-meta">
+          <span class="live-dot"></span>
+          <span id="hero-live-text">Today's slate is live</span>
+        </div>
+        <h1>
+          Stop <span class="strike">guessing.</span><br>
+          Start <em>winning.</em>
+        </h1>
+        <p class="hero-sub">
+          AI-powered daily picks across every major league. Sharp line movement, prop edges, and the plays the public isn't making — delivered before tip-off, with a fully public track record.
+        </p>
+        <div class="hero-actions">
+          <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="btn btn-primary btn-lg">Start 7-day free trial →</a>
+          <a href="#record" class="btn btn-secondary btn-lg">See the receipts</a>
+        </div>
+        <div class="hero-trust">
+          <span>$100 bettors up $3,840 YTD</span>
+          <span class="sep">·</span>
+          <span>412 picks publicly logged</span>
+          <span class="sep">·</span>
+          <span>4,100+ active members</span>
+          <span class="sep">·</span>
+          <span>Cancel anytime</span>
+        </div>
+      </div>
 
-    <!-- VIDEO — moved up from a dedicated explainer section below.
-         Mobile complaint was that the explainer was invisible above
-         the fold; putting the lite-embed poster here makes it the
-         second thing visitors see, right under the headline.
-         Lite-embed: zero Synthesia bytes until clicked. -->
-    <div class="video-shell" data-video-src="https://share.synthesia.io/embeds/videos/2733e2ec-1441-4a9b-8a19-a0c7784d90a4">
-      <span class="video-corner"><span class="dot"></span>Watch · Explainer</span>
-      <button class="video-thumb" type="button" aria-label="Play explainer video: Beat the Sportsbook With SmarterPicks">
-        <svg class="video-play" viewBox="0 0 100 100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="50" cy="50" r="48" fill="rgba(212,168,67,0.95)"/>
-          <polygon points="42,32 42,68 70,50" fill="#0a0a0a"/>
-        </svg>
-        <span class="video-thumb-title">Beat the Sportsbook With <em>SmarterPicks</em>.</span>
-        <span class="video-thumb-runtime">Press play to watch</span>
-      </button>
+      <!-- VIDEO: lite-embed — zero Synthesia bytes until clicked -->
+      <div class="video-shell" data-video-src="https://share.synthesia.io/embeds/videos/2733e2ec-1441-4a9b-8a19-a0c7784d90a4">
+        <span class="video-corner"><span class="dot"></span>Watch · Explainer</span>
+        <button class="video-thumb" type="button" aria-label="Play explainer video">
+          <svg class="video-play" viewBox="0 0 100 100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="48" fill="rgba(212,168,67,0.96)"/>
+            <polygon points="42,32 42,68 70,50" fill="#0a0a0a"/>
+          </svg>
+          <span class="video-thumb-title">Beat the sportsbook with <em>SmarterPicks</em>.</span>
+          <span class="video-thumb-runtime">Press play · 90 sec</span>
+        </button>
+      </div>
     </div>
 
-    <p class="hero-sub">AI-powered daily insights on every major sport. Game previews, sharp line movement, prop edges, and the plays the public isn't making — delivered before tip-off.</p>
-
-    <!-- Primary CTA now goes straight to checkout (the video already
-         did the convincing work). Secondary remains the archive link
-         for the receipts-curious. -->
-    <div class="hero-actions">
-      <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="btn-primary">Start 7-day free trial →</a>
-      <a href="#record" class="btn-secondary">See the receipts</a>
-    </div>
-    <div class="hero-trust">
-      <span>$100 bettors up $3,840 this year</span><span class="dot">·</span>
-      <span>412 picks publicly logged</span><span class="dot">·</span>
-      <span>4,100+ active members</span><span class="dot">·</span>
-      <span>Cancel anytime</span>
-    </div>
     <div class="hero-stats">
-      <div class="stat"><div class="stat-num"><span style="font-size:30px;color:var(--text-muted);vertical-align:top;margin-top:8px;display:inline-block;">+$</span>3,840</div><div class="stat-label">$100 Bettor Profit · YTD</div></div>
-      <div class="stat"><div class="stat-num">412</div><div class="stat-label">Picks Logged Public</div></div>
-      <div class="stat"><div class="stat-num">4.1k</div><div class="stat-label">Active Members</div></div>
-      <div class="stat"><div class="stat-num">7<span style="font-size:22px;color:var(--text-muted)">-day</span></div><div class="stat-label">Free Trial · Both Plans</div></div>
+      <div class="stat">
+        <div class="stat-num"><span class="stat-prefix">+$</span><span class="counter">3,840</span></div>
+        <div class="stat-label">$100 bettor profit · YTD</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num counter">412</div>
+        <div class="stat-label">Picks publicly logged</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><span class="counter">4.1</span>k</div>
+        <div class="stat-label">Active members</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">7<span class="stat-prefix">-day</span></div>
+        <div class="stat-label">Free trial · both plans</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- The dedicated explainer section was removed — its video, headline,
-     and CTA all live in the hero above now (mobile users were missing
-     the video because they never scrolled past the fold). The CSS for
-     .explainer / .explainer-grid / .explainer-header / .explainer-body
-     is left in the stylesheet above as dead-code; cheap to keep, easy
-     to revive if we ever want a deeper "how it works" section back. -->
-
-<!-- Yesterday's results card moved into the Archive section (below) so it
-     reads as the lead receipt above the cumulative chart. -->
-
-<!-- Today's picks now live on /picks (their own page).
-     The 3 nav links + the hero secondary CTA all point there. -->
-
-
-<!-- SOCIAL PROOF BAR -->
+<!-- SOCIAL PROOF -->
 <div class="proof-bar">
-  <div class="proof-inner">
-    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num counter">+$3,840</span> profit on $100/unit YTD</span></div>
-    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num counter">412</span> picks publicly tracked</span></div>
-    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num counter">4,100+</span> members</span></div>
-    <div class="proof-item"><span class="proof-dot"></span><span><span class="proof-num counter">7-day</span> free trial · both plans</span></div>
-    <div class="proof-item"><span class="proof-dot"></span><span>Cancel anytime, no questions</span></div>
+  <div class="container">
+    <div class="proof-item"><span class="dot-sm"></span><span class="num counter">+$3,840</span><span>profit · $100/unit YTD</span></div>
+    <div class="proof-item"><span class="dot-sm"></span><span class="num counter">412</span><span>picks publicly tracked</span></div>
+    <div class="proof-item"><span class="dot-sm"></span><span class="num counter">4,100+</span><span>members</span></div>
+    <div class="proof-item"><span class="dot-sm"></span><span class="num">7-day</span><span>free trial · both plans</span></div>
+    <div class="proof-item"><span class="dot-sm"></span><span>Cancel anytime, no questions</span></div>
   </div>
 </div>
 
 <!-- HOW IT WORKS -->
-<section class="how" id="how">
+<section class="section" id="how">
   <div class="container">
-    <div class="section-header">
+    <div class="section-head">
       <div>
-        <div class="section-tag">Methodology</div>
-        <h2 class="section-title">How we <em>find the edges.</em></h2>
+        <div class="eyebrow">Methodology</div>
+        <h2 style="margin-top: var(--s-3);">How we <em>find the edges.</em></h2>
       </div>
-      <div class="section-meta">Same process every morning · before lock</div>
+      <div class="meta">Same process · before lock · every morning</div>
     </div>
     <div class="how-grid">
       <div class="how-step">
-        <div class="how-num">01</div>
+        <div class="how-num">01 · Ingest</div>
         <div class="how-title">We pull every line.</div>
-        <p class="how-body">Live odds from DraftKings, FanDuel, Caesars, BetMGM and more — every morning, every market. We're watching openers, steam, and reverse-line moves before the public sees them.</p>
+        <p class="how-body">Live odds from DraftKings, FanDuel, Caesars, BetMGM, Pinnacle and more — every morning, every market. We're watching openers, steam, and reverse-line moves before the public sees them.</p>
       </div>
       <div class="how-step">
-        <div class="how-num">02</div>
+        <div class="how-num">02 · Analyze</div>
         <div class="how-title">AI hunts the edges.</div>
-        <p class="how-body">Every game gets analyzed for situational angles, pace, matchup edges, and pricing inefficiencies. The model surfaces the plays where the number is mispriced — not just where the team is "good."</p>
+        <p class="how-body">Every game gets scored for situational angles, pace, matchup edges, and pricing inefficiencies. The model surfaces the plays where the number is mispriced — not just where the team is "good."</p>
       </div>
       <div class="how-step">
-        <div class="how-num">03</div>
+        <div class="how-num">03 · Publish</div>
         <div class="how-title">You bet the best plays.</div>
-        <p class="how-body">Full card published by 9am ET with reasoning, stake size, and confidence. No vague "lean", no recap of yesterday — just today's plays, with the why attached. Bet legally, bet responsibly.</p>
+        <p class="how-body">Full card published by 9am ET with reasoning, stake size, and confidence. No vague "lean," no recap of yesterday — just today's plays with the why attached. Bet legally, bet responsibly.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PRICING section moved to /pricing — only the 7-day trial CTA lives
-     on the landing page now. See pricing.html for the full plan grid. -->
-
 <!-- TRACK RECORD -->
-<section class="record" id="record">
+<section class="section" id="record">
   <div class="container">
-    <div class="section-header">
+    <div class="section-head">
       <div>
-        <div class="section-tag">Transparent · Public · Never Edited</div>
-        <h2 class="section-title">The <em>archive.</em></h2>
+        <div class="eyebrow">Transparent · public · never edited</div>
+        <h2 style="margin-top: var(--s-3);">The <em>archive.</em></h2>
       </div>
-      <div class="section-meta">Every pick, every result · open to everyone</div>
+      <div class="meta">Every pick, every result · open to everyone</div>
     </div>
 
-    <!-- YESTERDAY'S RESULTS — leads off the archive. Populated from
-         results.json by the polish-layer script. Hidden gracefully if
-         results.json fails. -->
-    <div class="yday-card" id="yday-section" data-reveal style="display:none;margin-bottom:28px;">
+    <!-- Yesterday's results: populated from results.json -->
+    <div class="yday-card" id="yday-section" data-reveal style="display:none;">
       <div>
-        <div class="yday-tag">Yesterday's results · <span id="yday-date">—</span></div>
-        <div class="yday-title">Posted publicly. <em style="font-style:italic;color:var(--accent);">Receipts visible.</em></div>
+        <div class="yday-tag">Yesterday · <span id="yday-date">—</span></div>
+        <div class="yday-title">Posted publicly. <em>Receipts visible.</em></div>
       </div>
       <div class="yday-pills" id="yday-pills"></div>
       <div class="yday-net" id="yday-net">
@@ -786,7 +1113,7 @@
       </div>
     </div>
 
-    <!-- CUMULATIVE P/L CHART — populated by polish-layer from history.json -->
+    <!-- Cumulative chart: populated from history.json -->
     <div class="chart-wrap" id="chart-wrap" data-reveal style="display:none;">
       <div class="chart-header">
         <div class="chart-title">Cumulative units · <span id="chart-range">last 36 days</span></div>
@@ -795,41 +1122,53 @@
       <svg class="chart-svg" id="chart-svg" viewBox="0 0 800 200" preserveAspectRatio="none">
         <defs>
           <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"  stop-color="#d4a843" stop-opacity="0.28"/>
+            <stop offset="0%"  stop-color="#d4a843" stop-opacity="0.32"/>
             <stop offset="100%" stop-color="#d4a843" stop-opacity="0"/>
           </linearGradient>
         </defs>
-        <!-- grid + paths injected at runtime -->
       </svg>
     </div>
 
-    <!-- Summary stats stay here so the cumulative number is at a glance.
-         The full searchable per-pick history lives on /archive (public). -->
-    <div class="record-summary" style="margin-top:32px;">
-      <div><div class="summary-num counter">226-186</div><div class="summary-label">Record W–L</div></div>
-      <div><div class="summary-num counter">+$1,240</div><div class="summary-label">Best Month</div></div>
-      <div><div class="summary-num counter">+38.4u</div><div class="summary-label">Net Units</div></div>
-      <div><div class="summary-num counter">+9.3%</div><div class="summary-label">ROI</div></div>
+    <div class="record-summary">
+      <div><span class="summary-num counter">226-186</span><span class="summary-label">Record W–L</span></div>
+      <div><span class="summary-num counter">+$1,240</span><span class="summary-label">Best month</span></div>
+      <div><span class="summary-num counter">+38.4u</span><span class="summary-label">Net units</span></div>
+      <div><span class="summary-num counter">+9.3%</span><span class="summary-label">ROI</span></div>
     </div>
 
-    <div style="text-align:center;margin-top:48px;">
-      <p style="color:var(--text-muted);max-width:56ch;margin:0 auto 28px;line-height:1.65;">
-        Every pick is logged before the game and updated after. Losses stay in the record &mdash; we don't hide them. Filter the full archive by sport, outcome, or date, and run the bankroll calculator against any slice.
+    <!-- Bankroll calculator: wired to history.json by feature-layer -->
+    <div class="calc">
+      <div class="calc-left">
+        <div class="calc-tag">Bankroll calculator</div>
+        <div class="calc-title">What would <em>your</em> last 30 days have looked like?</div>
+        <div class="calc-row">
+          <span>Unit size</span>
+          <input type="range" class="calc-slider" id="calc-slider" min="10" max="500" step="10" value="100">
+          <span class="calc-unit" id="calc-unit-label">$100</span>
+        </div>
+      </div>
+      <div class="calc-out">
+        <div class="calc-out-num" id="calc-output">+$0</div>
+        <div class="calc-out-label" id="calc-out-detail">following the full card · last 30 days</div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top: var(--s-12);">
+      <p style="color: var(--text-mut); max-width: 56ch; margin: 0 auto var(--s-6); line-height: 1.65;">
+        Every pick logged before the game, updated after. Losses stay in the record — we don't hide them. Filter the full archive by sport, outcome, or date, and run the calculator against any slice.
       </p>
-      <a href="archive" class="btn-primary" style="display:inline-flex;">
-        Browse the full archive &rarr;
-      </a>
+      <a href="archive" class="btn btn-secondary">Browse the full archive →</a>
     </div>
   </div>
 </section>
 
 <!-- TESTIMONIALS -->
-<section class="testimonials">
+<section class="section">
   <div class="container">
-    <div class="section-header">
+    <div class="section-head">
       <div>
-        <div class="section-tag">Member Results</div>
-        <h2 class="section-title">What they're <em>saying.</em></h2>
+        <div class="eyebrow">Member results</div>
+        <h2 style="margin-top: var(--s-3);">What they're <em>saying.</em></h2>
       </div>
     </div>
     <div class="testi-grid">
@@ -838,7 +1177,10 @@
         <div class="testi-quote">"Finally a picks service that shows you the losses too. That alone told me it was legit. Up 18 units following the full card in my first month."</div>
         <div class="testi-meta">
           <div class="testi-avatar">MR</div>
-          <div><div class="testi-name">Marcus R.</div><div class="testi-handle">Premium · 3 months</div></div>
+          <div>
+            <div class="testi-name">Marcus R.</div>
+            <div class="testi-handle">Premium · 3 months</div>
+          </div>
           <div class="testi-result">+18u</div>
         </div>
       </div>
@@ -847,7 +1189,10 @@
         <div class="testi-quote">"The line movement alerts alone are worth the $29. Got into Knicks +7 before it dropped to +6. That half point hit in overtime."</div>
         <div class="testi-meta">
           <div class="testi-avatar">JT</div>
-          <div><div class="testi-name">Jade T.</div><div class="testi-handle">Annual · 5 months</div></div>
+          <div>
+            <div class="testi-name">Jade T.</div>
+            <div class="testi-handle">Annual · 5 months</div>
+          </div>
           <div class="testi-result">+31u</div>
         </div>
       </div>
@@ -856,7 +1201,10 @@
         <div class="testi-quote">"Had a rough 3-week stretch and they just kept being straight about it in the recap. No spin. When it turned around it really turned around."</div>
         <div class="testi-meta">
           <div class="testi-avatar">DK</div>
-          <div><div class="testi-name">Devon K.</div><div class="testi-handle">Premium · 7 months</div></div>
+          <div>
+            <div class="testi-name">Devon K.</div>
+            <div class="testi-handle">Premium · 7 months</div>
+          </div>
           <div class="testi-result">+22u</div>
         </div>
       </div>
@@ -865,14 +1213,14 @@
 </section>
 
 <!-- FAQ -->
-<section class="faq" id="faq">
+<section class="section" id="faq">
   <div class="container">
-    <div class="section-header">
+    <div class="section-head">
       <div>
-        <div class="section-tag">Common questions</div>
-        <h2 class="section-title">Before you <em>subscribe.</em></h2>
+        <div class="eyebrow">Common questions</div>
+        <h2 style="margin-top: var(--s-3);">Before you <em>subscribe.</em></h2>
       </div>
-      <div class="section-meta">Email support@smarterpicks.io for anything else</div>
+      <div class="meta">Email support@smarterpicks.io for anything else</div>
     </div>
     <div class="faq-list" id="faq-list">
       <div class="faq-item">
@@ -880,7 +1228,7 @@
         <div class="faq-a">We pull live odds from every major sportsbook each morning, then run them through models that look for line moves, situational angles, and matchup edges. The strongest plays get published as the daily card before lock — usually 5 to 8 picks across the major leagues in season.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">Why should I trust you over [random capper on Twitter]?<span class="faq-icon">+</span></button>
+        <button class="faq-q">Why should I trust you over a random capper on Twitter?<span class="faq-icon">+</span></button>
         <div class="faq-a">Because every pick is logged before the game and updated after. The losses stay in the record — we don't quietly delete them. We aim for 53–58% over hundreds of plays, which is what realistic edge actually looks like. Anyone claiming 80%+ is either lying or cherry-picking their best week.</div>
       </div>
       <div class="faq-item">
@@ -888,8 +1236,8 @@
         <div class="faq-a">A unit is your standard bet size — pick whatever fits your bankroll and stick with it. If you bet $50/unit, a "1u play" risks $50 and a "2u play" risks $100. We size between 1u (speculative) and 2u (strong) based on confidence. Never bet more than you'd be okay losing.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">What happens if I lose money my first month?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Sports betting has variance — even sharp bettors have losing weeks. That's the math. If you don't feel like the service is for you in the first 7 days, email support and we refund you the same day, no runaround. After that, we recommend judging the service over a full month, not a single bad slate.</div>
+        <button class="faq-q">What if I lose money my first month?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Sports betting has variance — even sharp bettors have losing weeks. If you don't feel like the service is for you in the first 7 days, email support and we refund you the same day, no runaround. After that, judge the service over a full month, not a single bad slate.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q">How often do I get picks?<span class="faq-icon">+</span></button>
@@ -935,67 +1283,64 @@
     <h2 class="cta-title">Stop leaving money on the <em>table.</em></h2>
     <p class="cta-sub">The full pick card, line alerts, props, and best bet of the day — every morning. Try it free for 7 days, then $29.99/month or $199/year. Cancel anytime.</p>
     <div class="cta-buttons">
-      <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="btn-primary">Start 7-day free trial →</a>
-      <a href="pricing" class="btn-secondary">View pricing</a>
+      <a href="https://whop.com/checkout/plan_VIlKaPMvfDPoj?trial=7" class="btn btn-primary btn-lg">Start 7-day free trial →</a>
+      <a href="pricing" class="btn btn-secondary btn-lg">View pricing</a>
     </div>
-    <div class="cta-fineprint">7-day free trial · No contracts · Cancel in 2 clicks · 21+ only · Bet responsibly</div>
+    <div class="cta-fineprint">7-day free trial · no contracts · cancel in 2 clicks · 21+ only · bet responsibly</div>
   </div>
 </section>
 
 <!-- FOOTER -->
-<footer>
+<footer class="footer">
   <div class="container">
     <div class="gambling-warning">
-      <strong>Important:</strong> Sports betting involves financial risk. SMARTERPICKS provides analysis and opinion only — not financial advice and not a guarantee of profit. Past performance does not predict future results. If you or someone you know has a gambling problem, call <strong>1-800-GAMBLER</strong> or visit ncpgambling.org. Must be 21+ to legally bet in most US states.
+      <strong>Important:</strong> Sports betting involves financial risk. SmarterPicks provides analysis and opinion only — not financial advice and not a guarantee of profit. Past performance does not predict future results. If you or someone you know has a gambling problem, call <strong>1-800-GAMBLER</strong> or visit ncpgambling.org. Must be 21+ to legally bet in most US states.
     </div>
     <div class="footer-grid">
-      <div>
-        <div class="footer-brand">SMARTERPICKS</div>
-        <p class="footer-tagline">AI-powered sports betting insights with a fully public track record. Honest math, real plays, no sure things.</p>
+      <div class="footer-brand">
+        <a href="/" class="brand"><span class="brand-mark"></span>SmarterPicks</a>
+        <p style="margin-top: var(--s-4); color: var(--text-mut); font-size: var(--t-sm); line-height: 1.6; max-width: 320px;">AI-powered sports betting insights with a fully public track record. Honest math, real plays, no sure things.</p>
       </div>
       <div class="footer-col">
         <h4>Product</h4>
-        <ul><li><a href="#">Today's Picks</a></li><li><a href="#">Archive</a></li><li><a href="#">Newsletter</a></li><li><a href="#">Discord</a></li></ul>
+        <ul>
+          <li><a href="picks">Today's Picks</a></li>
+          <li><a href="terminal">Terminal</a></li>
+          <li><a href="#newsletter">Newsletter</a></li>
+          <li><a href="discord.html">Discord</a></li>
+        </ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
-        <ul><li><a href="#">About</a></li><li><a href="#">Methodology</a></li><li><a href="#">Affiliates</a></li><li><a href="#">Contact</a></li></ul>
+        <ul>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#record">Track record</a></li>
+          <li><a href="archive">Archive</a></li>
+          <li><a href="mailto:hello@smarterpicks.io">Contact</a></li>
+        </ul>
       </div>
       <div class="footer-col">
         <h4>Legal</h4>
-        <ul><li><a href="terms">Terms of Service</a></li><li><a href="privacy">Privacy Policy</a></li><li><a href="disclaimer">Disclaimer</a></li><li><a href="https://www.ncpgambling.org/help-treatment/national-helpline-1-800-522-4700/" target="_blank" rel="noopener">Responsible Gambling</a></li></ul>
+        <ul>
+          <li><a href="terms">Terms</a></li>
+          <li><a href="privacy">Privacy</a></li>
+          <li><a href="disclaimer">Disclaimer</a></li>
+          <li><a href="https://www.ncpgambling.org/help-treatment/national-helpline-1-800-522-4700/" target="_blank" rel="noopener">Responsible gambling</a></li>
+        </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <div>© 2026 SMARTERPICKS · ALL RIGHTS RESERVED</div>
-      <div>21+ · BET RESPONSIBLY · 1-800-GAMBLER</div>
+      <div>© 2026 SmarterPicks · All rights reserved</div>
+      <div>21+ · Bet responsibly · 1-800-GAMBLER</div>
     </div>
   </div>
 </footer>
 
 <!-- ============================================================
-     PICKS LOADER — DO NOT REMOVE THIS LINE
-     This script automatically loads today's picks from picks.json
-     and fills in the picks section above.
-     ============================================================ -->
-<!-- defer: picks-loader has a DOMContentLoaded handler that calls Whop
-     for membership state and then fetches picks.json. Without defer the
-     parser pauses to fetch+exec this script at this point in the body
-     even though it doesn't need to run until DOM is built. defer lets
-     the browser stream the rest of the page, then runs picks-loader
-     once the document is parsed. Faster time-to-first-paint. -->
-<script src="picks-loader.js" defer></script>
-
-<!-- ============================================================
      LITE-EMBED HANDLER — swap poster button for Synthesia iframe
-     ============================================================
-     Until the user clicks Play, we render the poster button (zero
-     Synthesia bytes). On click, we drop in the real iframe — exactly
-     as Synthesia originally generated it (no ?autoplay= query param,
-     because Synthesia rejects unknown params and the iframe ends up
-     showing nothing). User clicks our poster, Synthesia loads, they
-     hit Synthesia's own play button. Two clicks instead of one, but
-     reliable across players. -->
+     Until clicked: zero Synthesia bytes. On click: drop in the
+     iframe in-place.
+     ============================================================ -->
 <script>
 (function(){
   var shell = document.querySelector('.video-shell[data-video-src]');
@@ -1008,39 +1353,25 @@
     iframe.title = 'Beat the Sportsbook With SmarterPicks';
     iframe.setAttribute('allowfullscreen', '');
     iframe.setAttribute('allow', 'encrypted-media; fullscreen; microphone; screen-wake-lock;');
-    // Replace the button with the iframe in-place. The .video-corner
-    // badge stays — it's an editorial element, not the play UI.
     btn.replaceWith(iframe);
   }, { once: true });
 })();
 </script>
 
 <!-- ============================================================
-     POLISH LAYER — ticker, scroll fade-in, animated counters
-     Pure presentation; doesn't talk to Whop or alter picks data.
+     POLISH LAYER — live data feed, scroll reveal, counters
+     Hits /api/terminal-data every 90s to power the announce bar,
+     hero badge, and ticker with real numbers.
      ============================================================ -->
 <script>
 (function () {
-  // 1) LIVE FEED — single source of truth for the marketing site.
-  // We hit /api/terminal-data (the same endpoint the terminal page
-  // uses) so the announce bar, ticker, and hero badge all reflect
-  // what's actually live right now. Refresh every 90s.
-  //
-  // What this updater drives:
-  //   · #announce-bar   — game-count headline replaces static copy
-  //   · #ticker-track   — scrolling live scoreboard (replaces slate.json)
-  //   · #hero-live-text — "Today's slate: 22 games · 4 live now"
-  //
-  // Falls back gracefully on failure: keeps the static fallback copy
-  // already in the markup and hides the ticker if no games returned.
   function loadLiveFeed() {
     fetch("/api/terminal-data", { cache: "no-store" })
       .then(r => r.ok ? r.json() : Promise.reject(new Error("HTTP " + r.status)))
       .then(payload => {
-        // ── Aggregate counts across leagues ───────────────
         const leagues = payload.leagues || {};
         let totalGames = 0, liveGames = 0;
-        const byLeague = {};   // { NBA: { total, live }, ... }
+        const byLeague = {};
         const tickerItems = [];
 
         Object.entries(leagues).forEach(([key, lg]) => {
@@ -1051,7 +1382,6 @@
             byLeague[label].total += 1;
             const isLive = g.state === "in";
             if (isLive) { liveGames += 1; byLeague[label].live += 1; }
-            // Build ticker item — show score for live/final, time for pre
             const left  = esc(g.away_team || "");
             const right = esc(g.home_team || "");
             const meta  = isLive
@@ -1072,7 +1402,6 @@
           });
         });
 
-        // ── Update announce bar ───────────────────────────
         const announceLive = document.getElementById("announce-live");
         const announceStats = document.getElementById("announce-stats");
         if (announceLive) {
@@ -1089,7 +1418,6 @@
           }
         }
 
-        // ── Update hero "Today's slate is live" badge ─────
         const heroLive = document.getElementById("hero-live-text");
         if (heroLive && totalGames > 0) {
           const parts = [];
@@ -1102,55 +1430,43 @@
           heroLive.textContent = parts.join(" · ") + (breakdown ? "  ·  " + breakdown : "");
         }
 
-        // ── Update ticker ─────────────────────────────────
         const track = document.getElementById("ticker-track");
         const wrap  = document.getElementById("ticker");
         if (tickerItems.length === 0) {
           if (wrap) wrap.style.display = "none";
         } else {
-          // Duplicate items so the -50% marquee loops seamlessly
           if (track) track.innerHTML = tickerItems.join("") + tickerItems.join("");
         }
       })
       .catch(err => {
-        // Hide ticker silently; keep announce bar fallback text
         const wrap = document.getElementById("ticker");
         if (wrap && !wrap.dataset.failed) {
           wrap.style.display = "none";
           wrap.dataset.failed = "1";
         }
-        // Don't spam console after the first failure
         if (!loadLiveFeed._warned) {
           console.warn("terminal-data feed:", err.message);
           loadLiveFeed._warned = true;
         }
       });
   }
-
   function formatStartTime(iso) {
     if (!iso) return "";
     const d = new Date(iso);
     if (isNaN(d)) return "";
     return d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
   }
-
-  loadLiveFeed();
-  // Refresh every 90s — server-side cache is 30s so this is a cheap
-  // poll that keeps the marketing chrome feeling alive.
-  setInterval(loadLiveFeed, 90_000);
-
   function esc(s) {
     return String(s)
       .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
       .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
   }
+  loadLiveFeed();
+  setInterval(loadLiveFeed, 90_000);
 
-  // 2) SCROLL FADE-IN — applied to the long-scrolling sections
-  const fadeTargets = document.querySelectorAll(
-    ".slate, .pricing, .record, .testimonials, .final-cta, .proof-bar"
-  );
+  // Scroll fade-in
+  const fadeTargets = document.querySelectorAll(".section, .proof-bar, .news, .final-cta");
   fadeTargets.forEach(el => el.classList.add("fade-in"));
-
   if ("IntersectionObserver" in window) {
     const fadeObs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -1162,7 +1478,7 @@
     }, { threshold: 0.12 });
     fadeTargets.forEach(el => fadeObs.observe(el));
 
-    // 3) ANIMATED COUNTERS — count up when each one scrolls into view
+    // Animated counters
     const counters = document.querySelectorAll(".counter");
     const countObs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -1174,13 +1490,10 @@
     }, { threshold: 0.55 });
     counters.forEach(el => countObs.observe(el));
   } else {
-    // No IntersectionObserver — just show everything immediately
     fadeTargets.forEach(el => el.classList.add("in-view"));
   }
-
   function animateCounter(el) {
     const original = el.textContent.trim();
-    // Extract: optional non-digit prefix, the number (with optional comma/decimal), optional suffix
     const m = original.match(/^([^\d.\-]*)(-?[\d,]+(?:\.\d+)?)(.*)$/);
     if (!m) return;
     const prefix = m[1];
@@ -1190,13 +1503,11 @@
     if (!isFinite(target)) return;
     const decimals = (numStr.split(".")[1] || "").length;
     const useCommas = numStr.includes(",") || target >= 1000;
-
     const duration = 1300;
     const start = performance.now();
-
     function step(now) {
       const t = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
+      const eased = 1 - Math.pow(1 - t, 3);
       const value = target * eased;
       let formatted;
       if (decimals > 0) {
@@ -1225,7 +1536,7 @@
 // ============================================================
 (function () {
 
-  // ---------- 1) YESTERDAY'S RESULTS ----------
+  // 1) Yesterday's results
   fetch("results.json?v=" + Date.now())
     .then(r => r.ok ? r.json() : Promise.reject())
     .then(data => {
@@ -1236,14 +1547,11 @@
       const numEl = document.getElementById("yday-net-num");
       const recEl = document.getElementById("yday-net-record");
       const netEl = document.getElementById("yday-net");
-
       if (dateEl) dateEl.textContent = data.date || "yesterday";
       if (recEl)  recEl.textContent  = `${data.wins || 0}-${data.losses || 0}${data.pushes ? "-" + data.pushes : ""} record`;
-
       const net = Number(data.net_units || 0);
       if (numEl) numEl.textContent = (net >= 0 ? "+" : "") + net.toFixed(1) + "u";
       if (netEl) netEl.classList.add(net >= 0 ? "up" : "down");
-
       if (pillsEl) {
         pillsEl.innerHTML = (data.picks || []).map(p => {
           const cls = p.result === "WON" ? "win" : p.result === "LOST" ? "loss" : "push";
@@ -1253,74 +1561,54 @@
       }
       revealEl(wrap);
     })
-    .catch(() => { /* leave hidden */ });
-
+    .catch(() => {});
   function escHtml2(s) {
     return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
   }
 
-  // ---------- 2) CUMULATIVE P/L CHART ----------
-  let _historyCache = null;
+  // 2) P/L chart
   fetch("history.json?v=" + Date.now())
     .then(r => r.ok ? r.json() : Promise.reject())
     .then(data => {
-      _historyCache = data;
       renderChart(data);
       wireCalculator(data);
     })
-    .catch(() => { /* leave chart + calculator hidden / static */ });
+    .catch(() => {});
 
   function renderChart(data) {
     const wrap = document.getElementById("chart-wrap");
     const svg = document.getElementById("chart-svg");
     if (!wrap || !svg || !data || !data.daily || data.daily.length < 2) return;
-
     const W = 800, H = 200, PAD_X = 40, PAD_Y = 24;
     const points = data.daily;
     const cums = points.map(p => p.cumulative);
     const minY = Math.min(0, ...cums);
     const maxY = Math.max(...cums);
     const yRange = (maxY - minY) || 1;
-
     const xStep = (W - PAD_X * 2) / (points.length - 1);
     const yScale = (v) => PAD_Y + (H - PAD_Y * 2) * (1 - (v - minY) / yRange);
-
     const linePath = points.map((p, i) => {
       const x = PAD_X + i * xStep;
       const y = yScale(p.cumulative);
       return `${i === 0 ? "M" : "L"} ${x.toFixed(2)} ${y.toFixed(2)}`;
     }).join(" ");
-
     const fillPath = `${linePath} L ${(PAD_X + (points.length - 1) * xStep).toFixed(2)} ${H - PAD_Y} L ${PAD_X} ${H - PAD_Y} Z`;
-
-    // Build inner SVG content
-    const grid = `
-      <line class="chart-grid" x1="${PAD_X}" y1="${yScale(0)}" x2="${W - PAD_X}" y2="${yScale(0)}"/>
-    `;
+    const grid = `<line class="chart-grid" x1="${PAD_X}" y1="${yScale(0)}" x2="${W - PAD_X}" y2="${yScale(0)}"/>`;
     const xLabels = `
       <text class="chart-axis" x="${PAD_X}" y="${H - 6}" text-anchor="start">${points[0].date.slice(5)}</text>
-      <text class="chart-axis" x="${W - PAD_X}" y="${H - 6}" text-anchor="end">${points[points.length-1].date.slice(5)}</text>
-    `;
+      <text class="chart-axis" x="${W - PAD_X}" y="${H - 6}" text-anchor="end">${points[points.length-1].date.slice(5)}</text>`;
     const yLabels = `
       <text class="chart-axis" x="6" y="${yScale(maxY) + 4}" text-anchor="start">+${maxY.toFixed(1)}u</text>
-      <text class="chart-axis" x="6" y="${yScale(minY) - 4}" text-anchor="start">${minY >= 0 ? "+" : ""}${minY.toFixed(1)}u</text>
-    `;
+      <text class="chart-axis" x="6" y="${yScale(minY) - 4}" text-anchor="start">${minY >= 0 ? "+" : ""}${minY.toFixed(1)}u</text>`;
     const lastX = PAD_X + (points.length - 1) * xStep;
     const lastY = yScale(cums[cums.length - 1]);
     const pulse = `
       <circle class="chart-pulse" cx="${lastX.toFixed(2)}" cy="${lastY.toFixed(2)}" r="4"/>
-      <circle class="chart-pulse" cx="${lastX.toFixed(2)}" cy="${lastY.toFixed(2)}" r="9" opacity="0.25"/>
-    `;
-
-    // Insert paths after <defs> (already in markup)
+      <circle class="chart-pulse" cx="${lastX.toFixed(2)}" cy="${lastY.toFixed(2)}" r="9" opacity="0.25"/>`;
     const defs = svg.querySelector("defs");
-    const inner = grid + `<path class="chart-fill" d="${fillPath}"/>` +
-                          `<path class="chart-line" d="${linePath}"/>` +
-                          xLabels + yLabels + pulse;
-    // Wipe everything after <defs>, then append our new content
+    const inner = grid + `<path class="chart-fill" d="${fillPath}"/>` + `<path class="chart-line" d="${linePath}"/>` + xLabels + yLabels + pulse;
     while (defs.nextSibling) svg.removeChild(defs.nextSibling);
     svg.insertAdjacentHTML("beforeend", inner);
-
     const nowEl = document.getElementById("chart-now");
     if (nowEl) {
       const v = cums[cums.length - 1];
@@ -1329,13 +1617,8 @@
     }
     const rangeEl = document.getElementById("chart-range");
     if (rangeEl) rangeEl.textContent = `last ${points.length} days`;
-
     revealEl(wrap);
   }
-
-  // Smoothly reveal an element that was display:none — toggles display
-  // back on, then on the next frame sets data-revealed so the CSS
-  // transition (opacity + translateY) kicks in cleanly.
   function revealEl(el) {
     if (!el) return;
     el.style.display = "";
@@ -1344,18 +1627,15 @@
     }));
   }
 
-  // ---------- 3) PROFIT CALCULATOR ----------
+  // 3) Calculator
   function wireCalculator(data) {
     const slider = document.getElementById("calc-slider");
     const unitLabel = document.getElementById("calc-unit-label");
     const out = document.getElementById("calc-output");
     const detail = document.getElementById("calc-out-detail");
     if (!slider || !out || !data) return;
-
-    // Use last 30 days (or all if less)
     const days = data.daily.slice(-30);
     const totalUnits = days.reduce((s, d) => s + (Number(d.units) || 0), 0);
-
     function recompute() {
       const unitSize = Number(slider.value);
       if (unitLabel) unitLabel.textContent = `$${unitSize}`;
@@ -1370,14 +1650,14 @@
     recompute();
   }
 
-  // ---------- 4) FAQ ACCORDION ----------
+  // 4) FAQ accordion
   document.querySelectorAll(".faq-item").forEach(item => {
     const btn = item.querySelector(".faq-q");
     if (!btn) return;
     btn.addEventListener("click", () => item.classList.toggle("open"));
   });
 
-  // ---------- 5) MOBILE NAV DRAWER ----------
+  // 5) Mobile drawer
   const burger   = document.getElementById("nav-burger");
   const drawer   = document.getElementById("mobile-drawer");
   const backdrop = document.getElementById("mobile-backdrop");
@@ -1385,7 +1665,6 @@
   function openDrawer() {
     drawer.classList.add("open");
     backdrop.classList.add("open");
-    burger.classList.add("open");
     burger.setAttribute("aria-expanded", "true");
     drawer.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
@@ -1393,7 +1672,6 @@
   function closeDrawer() {
     drawer.classList.remove("open");
     backdrop.classList.remove("open");
-    burger.classList.remove("open");
     burger.setAttribute("aria-expanded", "false");
     drawer.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
@@ -1403,8 +1681,7 @@
   if (backdrop) backdrop.addEventListener("click", closeDrawer);
   drawer && drawer.querySelectorAll("a").forEach(a => a.addEventListener("click", closeDrawer));
 
-  // ---------- 6) NEWSLETTER (UI-only stub) ----------
-  // Wire this to ConvertKit/Mailchimp/Beehiiv when you're ready.
+  // 6) Newsletter
   const newsForm  = document.getElementById("news-form");
   const newsEmail = document.getElementById("news-email");
   if (newsForm && newsEmail) {
