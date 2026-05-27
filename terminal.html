@@ -911,6 +911,77 @@
 .standings-row .wl   { color: var(--text-mut); font-family: var(--font-mono); font-size: 11px; }
 .standings-row .pct  { color: var(--gold); font-family: var(--font-mono); font-size: 11px; }
 
+/* ── Line-movement panel (inside drawers) ──────────────────── */
+/* Renders 2-4 micro-cards, each with: current price, delta from
+   first observed snapshot, and a small SVG sparkline. Only shown
+   when Supabase has at least 2 snapshots for the matchup. */
+.movement-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-3);
+}
+.movement-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-md);
+  padding: var(--s-3) var(--s-4);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.movement-card .label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-mut);
+}
+.movement-card .row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-2);
+}
+.movement-card .val {
+  font-family: var(--font-mono);
+  font-size: var(--t-lg);
+  font-weight: 700;
+  color: var(--text);
+}
+.movement-card .delta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.movement-card .delta.up    { color: var(--win);  }
+.movement-card .delta.down  { color: var(--loss); }
+.movement-card .delta.flat  { color: var(--text-mut); }
+.movement-card .first {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+}
+.movement-card .spark {
+  margin-top: var(--s-2);
+  width: 100%;
+  height: 28px;
+  display: block;
+  color: var(--gold);
+}
+.movement-card .spark .line { fill: none; stroke: currentColor; stroke-width: 1.6; }
+.movement-card .spark .fill { fill: currentColor; opacity: 0.12; }
+.movement-card .spark .dot  { fill: currentColor; }
+.movement-empty {
+  font-size: var(--t-sm);
+  color: var(--text-dim);
+  font-style: italic;
+  padding: var(--s-2) 0;
+}
+
 /* ── Drawer (slides in from right) ─────────────────────────── */
 .drawer-backdrop {
   position: fixed;
@@ -1944,6 +2015,123 @@ function render() {
   renderMeta();
 }
 
+/* ═════════════════════ LINE MOVEMENT ═════════════════════
+   Backed by /api/odds-history (which reads from Supabase's
+   odds_history table populated every 10 min by the terminal
+   data feed). Renders deltas + a small sparkline per market.
+   Skipped silently when Supabase isn't configured, or when
+   there's not enough history yet (<2 snapshots). */
+
+async function fetchOddsHistory(league, away, home) {
+  if (!league || !away || !home) return null;
+  try {
+    const qs = new URLSearchParams({ league, away, home, limit: '30' });
+    const r  = await fetch(`/api/odds-history?${qs}`, { cache: 'no-store' });
+    if (!r.ok) return null;
+    return await r.json();
+  } catch (_) {
+    return null;
+  }
+}
+
+/* Build the SVG sparkline path for an array of numeric values. */
+function sparklineSVG(values, width = 100, height = 28) {
+  const points = values.filter(v => v != null && !isNaN(Number(v))).map(Number);
+  if (points.length < 2) return '';
+  const min = Math.min(...points);
+  const max = Math.max(...points);
+  const range = (max - min) || 1;
+  const stepX = width / (points.length - 1);
+  const coords = points.map((v, i) => {
+    const x = (i * stepX).toFixed(1);
+    // Invert Y: lower price (more negative for favorites) at the bottom
+    const y = (height - ((v - min) / range) * height).toFixed(1);
+    return [Number(x), Number(y)];
+  });
+  const linePath = coords.map(([x, y], i) => `${i === 0 ? 'M' : 'L'} ${x} ${y}`).join(' ');
+  const fillPath = `${linePath} L ${width} ${height} L 0 ${height} Z`;
+  const lastX = coords[coords.length - 1][0];
+  const lastY = coords[coords.length - 1][1];
+  return `
+    <svg class="spark" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">
+      <path class="fill" d="${fillPath}"/>
+      <path class="line" d="${linePath}"/>
+      <circle class="dot" cx="${lastX}" cy="${lastY}" r="2"/>
+    </svg>
+  `;
+}
+
+/* Format a delta number for display ("+15", "-7", "—"). */
+function fmtDelta(d, kind) {
+  if (!d) return { html: '<span class="delta flat">—</span>', cls: 'flat' };
+  const change = Number(d.change);
+  if (!isFinite(change) || Math.abs(change) < 0.001) {
+    return { html: `<span class="delta flat">no move</span>`, cls: 'flat' };
+  }
+  // For moneyline / spread / total: a positive change means the value
+  // went UP. The semantic color depends on context but for a research
+  // surface "went up" = green and "went down" = red is the universal
+  // convention; the user reads the direction from the arrow.
+  const cls   = change > 0 ? 'up' : 'down';
+  const arrow = change > 0 ? '▲' : '▼';
+  const abs   = Math.abs(change);
+  const fmt   = kind === 'price'
+    ? (change > 0 ? '+' + Math.round(abs) : '−' + Math.round(abs))
+    : abs.toFixed(1);
+  return { html: `<span class="delta ${cls}">${arrow} ${fmt}</span>`, cls };
+}
+
+/* Render a single movement card. Returns HTML or '' if there's
+   no data to show for this market. */
+function movementCardHTML(label, current, delta, snapshots, field, kind) {
+  if (current == null && (!snapshots || snapshots.length === 0)) return '';
+  const values = (snapshots || []).map(s => s[field]).filter(v => v != null);
+  const d = fmtDelta(delta, kind);
+  const sub = (delta && delta.first != null)
+    ? `from ${kind === 'price' ? (delta.first > 0 ? '+' + delta.first : delta.first) : delta.first}`
+    : 'first snapshot';
+  const curFmt = current == null
+    ? '—'
+    : kind === 'price'
+      ? (current > 0 ? '+' + current : String(current))
+      : String(current);
+  return `
+    <div class="movement-card">
+      <div class="label">${escapeHtml(label)}</div>
+      <div class="row">
+        <span class="val">${curFmt}</span>
+        ${d.html}
+      </div>
+      <div class="first">${escapeHtml(sub)}</div>
+      ${sparklineSVG(values)}
+    </div>
+  `;
+}
+
+/* Populate the #drawer-movement slot in whichever drawer is open. */
+async function loadMovementInto(slotId, opts) {
+  const slot = document.getElementById(slotId);
+  if (!slot) return;
+  const hist = await fetchOddsHistory(opts.league, opts.away, opts.home);
+  if (!hist || hist.count < 2) {
+    // Hide the whole section if there's no history yet — most
+    // games will start with 0-1 snapshots until Supabase has been
+    // collecting for at least a few hours.
+    const section = slot.closest('.drawer-section');
+    if (section) section.style.display = 'none';
+    return;
+  }
+  const snapshots = hist.snapshots || [];
+  const latest    = snapshots[snapshots.length - 1] || {};
+  const cards = [
+    movementCardHTML(`${opts.awayShort || opts.away} ML`, opts.awayMlCur ?? latest.away_ml, hist.delta.away_ml, snapshots, 'away_ml', 'price'),
+    movementCardHTML(`${opts.homeShort || opts.home} ML`, opts.homeMlCur ?? latest.home_ml, hist.delta.home_ml, snapshots, 'home_ml', 'price'),
+    movementCardHTML('Spread (home)', opts.spreadCur ?? latest.spread, hist.delta.spread, snapshots, 'spread', 'point'),
+    movementCardHTML('Total',         opts.totalCur  ?? latest.total,  hist.delta.total,  snapshots, 'total',  'point'),
+  ].filter(Boolean);
+  slot.innerHTML = cards.join('') || `<div class="movement-empty">No price data recorded yet.</div>`;
+}
+
 /* ═════════════════════ DRAWER ═════════════════════════════ */
 const drawerEl  = $('#drawer');
 const drawerBg  = $('#drawer-backdrop');
@@ -2014,6 +2202,13 @@ function openGameDrawer(g) {
       ${odds.total != null ? `<div class="drawer-stat"><span class="k">Total</span><span class="v">${escapeHtml(String(odds.total))}</span></div>` : ''}
       <div class="drawer-stat"><span class="k">Books sampled</span><span class="v">${escapeHtml(String(odds.book_count || (odds.books || []).length || 0))}</span></div>
     </div>` : ''}
+    ${odds ? `
+    <div class="drawer-section">
+      <h4>Line movement</h4>
+      <div id="game-movement" class="movement-grid">
+        <div class="movement-empty">Loading line history…</div>
+      </div>
+    </div>` : ''}
     ${(g.top_performers || []).length ? `
     <div class="drawer-section">
       <h4>Top performers</h4>
@@ -2045,6 +2240,23 @@ function openGameDrawer(g) {
   );
   wireWatchlistButton('team', g.home_team, g.home_team, g.lg);
   openDrawer();
+
+  // Fire-and-forget: populate the line-movement section once the
+  // drawer is on screen. Uses full team names because that's how
+  // the Odds API (and therefore odds_history) stores them.
+  if (odds) {
+    loadMovementInto('game-movement', {
+      league:    g.lg,
+      away:      odds.away_team,
+      home:      odds.home_team,
+      awayShort: g.away_team,
+      homeShort: g.home_team,
+      awayMlCur: odds.away_ml_price,
+      homeMlCur: odds.home_ml_price,
+      spreadCur: odds.home_spread,
+      totalCur:  odds.total,
+    });
+  }
 }
 
 /* Player drawer */
@@ -2230,6 +2442,12 @@ function openOddsDrawer(o) {
       ${o.total != null ? `<div class="drawer-stat"><span class="k">Total</span><span class="v">${escapeHtml(String(o.total))}</span></div>` : ''}
       <div class="drawer-stat"><span class="k">Books sampled</span><span class="v">${escapeHtml(String(o.book_count || 0))}</span></div>
     </div>
+    <div class="drawer-section">
+      <h4>Line movement</h4>
+      <div id="odds-movement" class="movement-grid">
+        <div class="movement-empty">Loading line history…</div>
+      </div>
+    </div>
     ${(o.books || []).length ? `
     <div class="drawer-section">
       <h4>Books with this market</h4>
@@ -2245,6 +2463,17 @@ function openOddsDrawer(o) {
   const oth = $('#open-team-home');
   if (oth) oth.addEventListener('click', () => openTeamByAbbr(o.home_team, o.lg));
   openDrawer();
+
+  // Fire-and-forget line-movement load.
+  loadMovementInto('odds-movement', {
+    league:    o.lg,
+    away:      o.away_team,
+    home:      o.home_team,
+    awayMlCur: o.away_ml_price,
+    homeMlCur: o.home_ml_price,
+    spreadCur: o.home_spread,
+    totalCur:  o.total,
+  });
 }
 
 /* ─── Drawer helpers — find related data ──────────────────── */
