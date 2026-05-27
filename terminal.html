@@ -1772,17 +1772,18 @@ function renderNews() {
   }
   $('#news-body').innerHTML = items.slice(0, 30).map(n => {
     const safeUrl = (n.url || '').replace(/"/g, '&quot;');
+    const lg = escapeHtml(n.league || '');
     const mentions = [];
     (n.mentions_players || []).forEach(p => mentions.push(
-      `<span class="mention-chip" data-player="${escapeHtml(p.name)}">${escapeHtml(p.name)}</span>`
+      `<span class="mention-chip" data-player="${escapeHtml(p.name)}" data-lg="${lg}">${escapeHtml(p.name)}</span>`
     ));
     (n.mentions_teams || []).forEach(t => mentions.push(
-      `<span class="mention-chip" data-team="${escapeHtml(t.abbr)}">${escapeHtml(t.abbr || t.name)}</span>`
+      `<span class="mention-chip" data-team="${escapeHtml(t.abbr)}" data-lg="${lg}">${escapeHtml(t.abbr || t.name)}</span>`
     ));
     return `
       <div class="news-row" data-url="${safeUrl}">
         <div class="meta-row">
-          <span class="tag">${escapeHtml(n.league || '')}</span>
+          <span class="tag">${lg}</span>
           <span class="when">${fmtHM(n.published)}</span>
         </div>
         <div class="head">${escapeHtml(n.headline)}</div>
@@ -1797,7 +1798,7 @@ function renderNews() {
       e.stopPropagation();
       const chip = e.target.closest('.mention-chip');
       if (chip.dataset.player) openPlayerByName(chip.dataset.player);
-      else if (chip.dataset.team) openTeamByAbbr(chip.dataset.team);
+      else if (chip.dataset.team) openTeamByAbbr(chip.dataset.team, chip.dataset.lg);
       return;
     }
     const u = el.dataset.url;
@@ -1904,7 +1905,7 @@ function renderStandings() {
   $('#standings-body').innerHTML = Object.entries(grouped).map(([groupName, teams]) => `
     <div class="standings-group">${escapeHtml(groupName)}</div>
     ${teams.slice(0, 6).map((t, i) => `
-      <div class="standings-row" data-team="${escapeHtml(t.team)}">
+      <div class="standings-row" data-team="${escapeHtml(t.team)}" data-lg="${escapeHtml(t.lg)}">
         <span class="rank">${i + 1}</span>
         ${t.team_logo ? `<img src="${escapeHtml(t.team_logo)}" alt="" loading="lazy">` : '<span></span>'}
         <span class="name">${escapeHtml(t.team_name || t.team)}</span>
@@ -1913,7 +1914,7 @@ function renderStandings() {
       </div>
     `).join('')}
   `).join('');
-  $$('.standings-row').forEach(el => el.addEventListener('click', () => openTeamByAbbr(el.dataset.team)));
+  $$('.standings-row').forEach(el => el.addEventListener('click', () => openTeamByAbbr(el.dataset.team, el.dataset.lg)));
 }
 
 /* ─── Render: meta health panel ───────────────────────────── */
@@ -1966,19 +1967,19 @@ $('#drawer-close').addEventListener('click', closeDrawer);
 drawerBg.addEventListener('click', closeDrawer);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
 
-function watchlistBtn(kind, key, label) {
+function watchlistBtn(kind, key, label /*, lg */) {
   const isWatching = state.watchlist.some(w => w.kind === kind && w.key === key);
   return `<button class="btn btn-${isWatching ? 'secondary' : 'primary'}" id="wl-toggle">
     ${isWatching ? '✓ Watching' : '＋ Add to watchlist'}
   </button>`;
 }
-function wireWatchlistButton(kind, key, label) {
+function wireWatchlistButton(kind, key, label, lg) {
   const btn = $('#wl-toggle');
   if (!btn) return;
   btn.addEventListener('click', () => {
     const idx = state.watchlist.findIndex(w => w.kind === kind && w.key === key);
     if (idx >= 0) state.watchlist.splice(idx, 1);
-    else          state.watchlist.push({ kind, key, label });
+    else          state.watchlist.push({ kind, key, label, lg: lg || '' });
     saveWatchlist();
     renderWatchlist();
     btn.textContent = state.watchlist.some(w => w.kind === kind && w.key === key)
@@ -2034,7 +2035,7 @@ function openGameDrawer(g) {
       `).join('')}
     </div>` : ''}
     <div class="drawer-actions">
-      ${watchlistBtn('team', g.home_team, g.home_team)}
+      ${watchlistBtn('team', g.home_team, g.home_team, g.lg)}
       <a class="btn btn-secondary" href="picks">View pick card →</a>
     </div>
   `;
@@ -2042,7 +2043,7 @@ function openGameDrawer(g) {
   drawerBd.querySelectorAll('[data-player]').forEach(el =>
     el.addEventListener('click', () => openPlayerByName(el.dataset.player))
   );
-  wireWatchlistButton('team', g.home_team, g.home_team);
+  wireWatchlistButton('team', g.home_team, g.home_team, g.lg);
   openDrawer();
 }
 
@@ -2094,47 +2095,78 @@ function openPlayerByName(name) {
         `).join('')}
       </div>` : `<div class="drawer-section"><h4>News mentions</h4><p class="drawer-prose" style="color:var(--text-dim);">No recent stories mentioning ${escapeHtml(p.name)}.</p></div>`}
     <div class="drawer-actions">
-      ${watchlistBtn('player', p.name, p.name)}
+      ${watchlistBtn('player', p.name, p.name, p.league)}
       ${p.team ? `<button class="btn btn-secondary" id="goto-team">View ${escapeHtml(p.team)} →</button>` : ''}
     </div>
   `;
-  wireWatchlistButton('player', p.name, p.name);
+  wireWatchlistButton('player', p.name, p.name, p.league);
   const gt = $('#goto-team');
-  if (gt) gt.addEventListener('click', () => openTeamByAbbr(p.team));
+  if (gt) gt.addEventListener('click', () => openTeamByAbbr(p.team, p.league));
   openDrawer();
 }
 
-/* Team drawer */
-function openTeamByAbbr(abbr) {
+/* Team drawer. `lgHint` is the league we were clicking FROM
+   (e.g. an NBA standings row, or an MLB news mention). When two
+   leagues share an abbreviation — ATL exists in NBA/MLB/NFL/NHL,
+   NYG and NYY both live in NY, LA prefixes everything — we use
+   the hint to pick the right one instead of merging all four. */
+function openTeamByAbbr(abbr, lgHint) {
   if (!abbr) return;
-  const games = [];
-  const injuries = [];
-  const news = [];
-  let lg = '', teamName = abbr, logo = '';
+  abbr = String(abbr).toUpperCase();
+  lgHint = lgHint ? String(lgHint).toUpperCase() : null;
+
+  // Step 1 — find which leagues contain this abbr at all.
+  const leagueMatches = [];   // array of {lgKey, lgLabel, leagueData}
   Object.entries(state.raw.leagues || {}).forEach(([k, v]) => {
     const lgLabel = (v.label || k).toUpperCase();
-    (v.scoreboard || []).forEach(g => {
-      if (g.away_team === abbr || g.home_team === abbr) {
-        games.push({ ...g, lg: lgLabel });
-        lg = lgLabel;
-        if (g.home_team === abbr) { teamName = g.home_name || abbr; logo = g.home_logo || ''; }
-        if (g.away_team === abbr) { teamName = g.away_name || abbr; logo = g.away_logo || ''; }
-      }
-    });
-    (v.injuries || []).forEach(i => {
-      if (i.team === abbr) {
-        injuries.push({ ...i, lg: lgLabel });
-        if (!logo && i.team_logo) logo = i.team_logo;
-        if (i.team_name) teamName = i.team_name;
-      }
-    });
-    (v.standings || []).forEach(s => {
-      if (s.team === abbr && !logo && s.team_logo) { logo = s.team_logo; teamName = s.team_name || teamName; }
-    });
+    const inScoreboard = (v.scoreboard || []).some(g => g.away_team === abbr || g.home_team === abbr);
+    const inInjuries   = (v.injuries   || []).some(i => i.team === abbr);
+    const inStandings  = (v.standings  || []).some(s => s.team === abbr);
+    if (inScoreboard || inInjuries || inStandings) {
+      leagueMatches.push({ lgKey: k, lgLabel, v });
+    }
   });
-  (state.raw.news || []).forEach(n => {
-    if ((n.mentions_teams || []).some(t => t.abbr === abbr)) news.push(n);
+  if (leagueMatches.length === 0) return;     // unknown abbr — bail
+
+  // Step 2 — pick exactly one league:
+  // · if lgHint is supplied and matches, use that
+  // · otherwise prefer the league with the most data (likely the
+  //   one the user actually means)
+  let chosen = leagueMatches[0];
+  if (lgHint) {
+    const hit = leagueMatches.find(m => m.lgLabel === lgHint);
+    if (hit) chosen = hit;
+  } else if (leagueMatches.length > 1) {
+    chosen = leagueMatches.reduce((best, m) => {
+      const score = (m.v.scoreboard || []).filter(g => g.away_team === abbr || g.home_team === abbr).length
+                  + (m.v.injuries   || []).filter(i => i.team === abbr).length
+                  + (m.v.standings  || []).filter(s => s.team === abbr).length;
+      return (!best || score > best._score) ? Object.assign(m, { _score: score }) : best;
+    }, null);
+  }
+
+  // Step 3 — collect data ONLY from the chosen league.
+  const lg = chosen.lgLabel;
+  const v  = chosen.v;
+  const games    = (v.scoreboard || []).filter(g => g.away_team === abbr || g.home_team === abbr).map(g => ({ ...g, lg }));
+  const injuries = (v.injuries   || []).filter(i => i.team === abbr).map(i => ({ ...i, lg }));
+  const standings= (v.standings  || []).filter(s => s.team === abbr);
+
+  let teamName = abbr, logo = '';
+  games.forEach(g => {
+    if (g.home_team === abbr) { teamName = g.home_name || teamName; if (!logo) logo = g.home_logo || ''; }
+    if (g.away_team === abbr) { teamName = g.away_name || teamName; if (!logo) logo = g.away_logo || ''; }
   });
+  injuries.forEach(i => { if (i.team_name) teamName = i.team_name; if (!logo) logo = i.team_logo || ''; });
+  standings.forEach(s => { if (s.team_name) teamName = s.team_name; if (!logo) logo = s.team_logo || ''; });
+
+  // News: only count an article as "team news" if ESPN tagged the
+  // team in mentions_teams. Headline substring matching is too
+  // noisy (e.g. "LAL" matches "challenge"). Also scope to chosen lg.
+  const news = (state.raw.news || []).filter(n =>
+    (n.league || '').toUpperCase() === lg &&
+    (n.mentions_teams || []).some(t => (t.abbr || '').toUpperCase() === abbr)
+  );
 
   drawerHd.innerHTML = `<span>${escapeHtml(lg || '')}</span> · <span>Team</span>`;
   drawerTl.innerHTML = `${logo ? `<img src="${escapeHtml(logo)}" alt="" style="width:32px;height:32px;vertical-align:middle;margin-right:10px;object-fit:contain;">` : ''}${escapeHtml(teamName)} <small style="font-family:var(--font-mono);font-size:14px;color:var(--text-mut);">${escapeHtml(abbr)}</small>`;
@@ -2172,10 +2204,10 @@ function openTeamByAbbr(abbr) {
     ${!games.length && !injuries.length && !news.length ? `
       <div class="drawer-prose">No live data for ${escapeHtml(teamName)} right now. Check back closer to game time.</div>` : ''}
     <div class="drawer-actions">
-      ${watchlistBtn('team', abbr, abbr)}
+      ${watchlistBtn('team', abbr, abbr, lg)}
     </div>
   `;
-  wireWatchlistButton('team', abbr, abbr);
+  wireWatchlistButton('team', abbr, abbr, lg);
   drawerBd.querySelectorAll('[data-player]').forEach(el =>
     el.addEventListener('click', () => openPlayerByName(el.dataset.player))
   );
@@ -2211,7 +2243,7 @@ function openOddsDrawer(o) {
     </div>
   `;
   const oth = $('#open-team-home');
-  if (oth) oth.addEventListener('click', () => openTeamByAbbr(o.home_team));
+  if (oth) oth.addEventListener('click', () => openTeamByAbbr(o.home_team, o.lg));
   openDrawer();
 }
 
@@ -2229,14 +2261,46 @@ function findOddsFor(g) {
     )
   ) || null;
 }
+/* Related-news matcher.
+   v1 used `headline.includes('LAL')` which ghost-matched "challenge",
+   "Mallary", "salary cap" etc. Two layered fixes:
+     1. PRIMARY — ESPN's `mentions_teams` is the authoritative
+        source. If ESPN tagged either team in the article, it's
+        related, period.
+     2. FALLBACK — word-boundary regex on the FULL team name only
+        ("Boston Celtics", not "BOS"). Abbreviations < 4 chars are
+        dropped (LA, NY, KC, NE etc. — they substring-match
+        random words). City-only names ("Houston", "Los Angeles")
+        are also avoided because they collide across leagues. */
 function findNewsFor(g) {
   if (!state.raw) return [];
-  const needles = [g.away_team, g.home_team, g.away_name, g.home_name]
-    .filter(Boolean).map(s => s.toLowerCase());
-  return (state.raw.news || []).filter(n =>
-    needles.some(needle => (n.headline || '').toLowerCase().includes(needle))
-    || (n.mentions_teams || []).some(t => t.abbr === g.away_team || t.abbr === g.home_team)
-  );
+  const lg = (g.lg || '').toUpperCase();
+  const newsAll = state.raw.news || [];
+
+  // Build the candidate name list. Only use FULL team displayName
+  // (away_name / home_name) — these are "Boston Celtics" style
+  // unique strings that don't collide.
+  const fullNames = [g.away_name, g.home_name].filter(s => s && s.length >= 4);
+  // Build word-boundary regex per name. Escape regex metachars.
+  const esc = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const nameRes = fullNames.map(n => new RegExp(`\\b${esc(n)}\\b`, 'i'));
+
+  // Also gather the abbreviations for the authoritative tag-match.
+  const abbrs = [g.away_team, g.home_team].filter(Boolean).map(s => s.toUpperCase());
+
+  return newsAll.filter(n => {
+    // Only consider news from the same league. A "Lakers update" in
+    // an NBA article should not surface when looking at an MLB game.
+    if (lg && (n.league || '').toUpperCase() !== lg) return false;
+
+    // 1) Authoritative tag match — ESPN says this article mentions
+    //    one of these team abbrs.
+    if ((n.mentions_teams || []).some(t => abbrs.includes((t.abbr || '').toUpperCase()))) return true;
+
+    // 2) Fallback — full-name regex on headline.
+    const head = n.headline || '';
+    return nameRes.some(re => re.test(head));
+  });
 }
 function findInjuryByName(name) {
   if (!state.raw) return null;
@@ -2277,7 +2341,7 @@ function renderWatchlist() {
   }
   empty.style.display = 'none';
   chips.innerHTML = state.watchlist.map(w => `
-    <span class="watchlist-chip" data-kind="${w.kind}" data-key="${escapeHtml(w.key)}">
+    <span class="watchlist-chip" data-kind="${w.kind}" data-key="${escapeHtml(w.key)}" data-lg="${escapeHtml(w.lg || '')}">
       ${w.kind === 'player' ? '◆' : '▦'} ${escapeHtml(w.label)}
       <span class="x" data-remove="1">×</span>
     </span>
@@ -2291,7 +2355,7 @@ function renderWatchlist() {
       return;
     }
     if (el.dataset.kind === 'player') openPlayerByName(el.dataset.key);
-    else                              openTeamByAbbr(el.dataset.key);
+    else                              openTeamByAbbr(el.dataset.key, el.dataset.lg || null);
   }));
 }
 
@@ -2314,9 +2378,11 @@ function execCommand(raw) {
     return;
   }
 
-  // Try team abbreviation match first (3-4 chars uppercase)
+  // Try team abbreviation match (2-4 chars uppercase). If the current
+  // league filter is set to a specific league, pass it as the hint so
+  // ambiguous abbrs (ATL, NY, LA) open the right team. Otherwise
+  // openTeamByAbbr picks the league with the most data.
   if (/^[A-Z]{2,4}$/.test(upper)) {
-    // Confirm it actually exists in the data before opening
     let found = false;
     Object.values(state.raw && state.raw.leagues || {}).forEach(lg => {
       (lg.scoreboard || []).forEach(g => {
@@ -2325,7 +2391,8 @@ function execCommand(raw) {
       (lg.injuries || []).forEach(i => { if (i.team === upper) found = true; });
     });
     if (found) {
-      openTeamByAbbr(upper);
+      const hint = state.leagueFilter !== 'ALL' ? state.leagueFilter : null;
+      openTeamByAbbr(upper, hint);
       cmdInput.value = '';
       return;
     }

@@ -84,8 +84,58 @@ const LEAGUES = [
   { key: "nfl", espn: "football/nfl",   odds: "americanfootball_nfl",  label: "NFL" },
 ];
 
-let CACHE = { at: 0, payload: null };
-const CACHE_TTL_MS = 30_000;
+// ── Per-source caches with appropriate TTLs ────────────────────
+// One global response cache + a separate cache per upstream source.
+// The OUTER response cache (30s) means most user refreshes pay zero
+// upstream calls. The INNER source caches mean a forced rebuild of
+// the response only re-fetches sources that have actually expired,
+// not all of them. This is what keeps the paid Odds API call count
+// down — odds change slowly enough that 10 min is more than enough
+// granularity for a research surface.
+let RESPONSE_CACHE = { at: 0, payload: null };
+const RESPONSE_TTL_MS = 30_000;
+
+const SRC_CACHES = {
+  scoreboard: { ttl:    30_000, data: new Map() },  // 30s · live scores
+  news:       { ttl:    90_000, data: new Map() },  // 90s · headlines
+  injuries:   { ttl:   300_000, data: new Map() },  // 5 min · slow-moving
+  standings:  { ttl: 3_600_000, data: new Map() },  // 1 hour · daily-ish
+  odds:       { ttl:   600_000, data: new Map() },  // 10 min · PAID, throttled hard
+};
+
+// Counter for visibility into Odds API usage.
+const ODDS_HITS = { calls: 0, lastReset: Date.now() };
+
+async function cachedFetch(source, key, fetcher) {
+  const c = SRC_CACHES[source];
+  if (!c) return await fetcher();
+  const now = Date.now();
+  const entry = c.data.get(key);
+  if (entry && (now - entry.at) < c.ttl) {
+    return entry.value;
+  }
+  try {
+    const value = await fetcher();
+    // Only persist non-empty results. If upstream gave us nothing
+    // (rate-limit, transient 5xx, off-season), keep the previous
+    // good value if we have one — the page shouldn't blank out
+    // because Odds API hiccupped for 10 seconds.
+    const isEmpty = (Array.isArray(value) && value.length === 0)
+                 || (!value);
+    if (isEmpty && entry) {
+      // Refresh the timestamp slightly so we retry sooner next call
+      // (but not so soon we spam — half the TTL).
+      c.data.set(key, { at: now - c.ttl + Math.min(30_000, c.ttl / 2), value: entry.value });
+      return entry.value;
+    }
+    c.data.set(key, { at: now, value });
+    return value;
+  } catch (e) {
+    // Network/upstream blew up. Serve stale if we have it.
+    if (entry) return entry.value;
+    throw e;
+  }
+}
 
 const PER_IP_LIMIT   = 60;
 const RATE_WINDOW_MS = 60_000;
@@ -316,9 +366,22 @@ async function fetchEspnStandings(espnPath) {
 }
 
 // ── The Odds API: today's lines per sport ──────────────────────
+// PAID source — every call counts against monthly quota. The
+// caller MUST go through cachedFetch('odds', sportKey, …) so the
+// 10-minute cache absorbs most requests. Logging each real hit
+// so we can spot usage anomalies in Vercel logs.
 async function fetchOdds(sportKey, apiKey) {
   if (!apiKey) return [];
   try {
+    // Reset hourly counter
+    const now = Date.now();
+    if (now - ODDS_HITS.lastReset > 3_600_000) {
+      ODDS_HITS.calls = 0;
+      ODDS_HITS.lastReset = now;
+    }
+    ODDS_HITS.calls += 1;
+    console.log(`[odds] real fetch · sport=${sportKey} · calls_this_hour=${ODDS_HITS.calls}`);
+
     const qs = new URLSearchParams({
       apiKey,
       regions:    "us",
@@ -326,7 +389,15 @@ async function fetchOdds(sportKey, apiKey) {
       oddsFormat: "american",
     });
     const r = await fetch(`${ODDS_BASE}/${sportKey}/odds?${qs}`, { cache: "no-store" });
-    if (!r.ok) return [];
+    if (!r.ok) {
+      console.warn(`[odds] HTTP ${r.status} for ${sportKey}`);
+      return [];
+    }
+    // Surface the remaining quota header so we can panic in logs
+    // if it ever drops too low. Header name varies by API version.
+    const remaining = r.headers.get("x-requests-remaining");
+    if (remaining != null) console.log(`[odds] x-requests-remaining=${remaining}`);
+
     const games = await r.json();
     return (games || []).slice(0, 16).map(g => {
       const h2h_quotes = [];
@@ -476,16 +547,18 @@ async function buildPayload() {
 
   const leagueResults = await Promise.all(LEAGUES.map(async lg => {
     const [scoreboard, injuries, odds, standings] = await Promise.all([
-      fetchEspnScoreboard(lg.espn),
-      fetchEspnInjuries(lg.espn),
-      fetchOdds(lg.odds, oddsKey),
-      fetchEspnStandings(lg.espn),
+      cachedFetch("scoreboard", lg.espn, () => fetchEspnScoreboard(lg.espn)),
+      cachedFetch("injuries",   lg.espn, () => fetchEspnInjuries(lg.espn)),
+      cachedFetch("odds",       lg.odds, () => fetchOdds(lg.odds, oddsKey)),
+      cachedFetch("standings",  lg.espn, () => fetchEspnStandings(lg.espn)),
     ]);
     return [lg.key, { label: lg.label, scoreboard, injuries, odds, standings }];
   }));
 
   // News: pull from each league's news feed, interleave by published time
-  const newsLists = await Promise.all(LEAGUES.map(lg => fetchEspnNews(lg.espn)));
+  const newsLists = await Promise.all(LEAGUES.map(lg =>
+    cachedFetch("news", lg.espn, () => fetchEspnNews(lg.espn))
+  ));
   const allNews = [];
   newsLists.forEach((items, i) => {
     const lg = LEAGUES[i];
@@ -525,16 +598,15 @@ module.exports = async (req, res) => {
   }
 
   const now = Date.now();
-  if (CACHE.payload && (now - CACHE.at) < CACHE_TTL_MS) {
+  if (RESPONSE_CACHE.payload && (now - RESPONSE_CACHE.at) < RESPONSE_TTL_MS) {
     res.setHeader("X-Terminal-Cache", "HIT");
-    // Mutate meta.cached without clobbering CACHE.payload
-    const out = { ...CACHE.payload, meta: { ...(CACHE.payload.meta || {}), cached: true, age_ms: now - CACHE.at } };
+    const out = { ...RESPONSE_CACHE.payload, meta: { ...(RESPONSE_CACHE.payload.meta || {}), cached: true, age_ms: now - RESPONSE_CACHE.at } };
     return res.status(200).json(out);
   }
 
   try {
     const payload = await buildPayload();
-    CACHE = { at: now, payload };
+    RESPONSE_CACHE = { at: now, payload };
     res.setHeader("X-Terminal-Cache", "MISS");
     return res.status(200).json(payload);
   } catch (e) {
