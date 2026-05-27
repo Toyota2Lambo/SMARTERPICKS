@@ -40,6 +40,7 @@
 
 const fs   = require("fs");
 const path = require("path");
+const sb   = require("../lib/supabase");
 
 const ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports";
 const ESPN_V2   = "https://site.api.espn.com/apis/v2/sports";
@@ -106,33 +107,63 @@ const SRC_CACHES = {
 // Counter for visibility into Odds API usage.
 const ODDS_HITS = { calls: 0, lastReset: Date.now() };
 
+// Two-tier cachedFetch:
+//   L1 = in-memory (per Vercel instance, microsecond hits)
+//   L2 = Supabase  (global, shared across all instances)
+//   L3 = upstream (paid / rate-limited — only when L1+L2 miss)
+//
+// Fresh upstream values are written back to both L1 and L2 so
+// the next request from any instance hits warm cache.
+//
+// If Supabase env vars aren't set, L2 silently no-ops and we
+// fall through to the in-memory-only behavior.
 async function cachedFetch(source, key, fetcher) {
   const c = SRC_CACHES[source];
   if (!c) return await fetcher();
   const now = Date.now();
-  const entry = c.data.get(key);
-  if (entry && (now - entry.at) < c.ttl) {
-    return entry.value;
+  const cacheKey = `${source}:${key}`;
+
+  // L1 — in-memory
+  const memEntry = c.data.get(key);
+  if (memEntry && (now - memEntry.at) < c.ttl) {
+    return memEntry.value;
   }
+
+  // L2 — Supabase. Only consult it for sources that are expensive
+  // OR slow-moving enough to be worth a network hop. For 30s
+  // scoreboard, the round-trip would cost more than the cache buys.
+  const useL2 = source === "odds" || source === "standings" || source === "injuries";
+  if (useL2) {
+    try {
+      const sbValue = await sb.kvGet(cacheKey);
+      if (sbValue !== null) {
+        c.data.set(key, { at: now, value: sbValue });  // promote into L1
+        return sbValue;
+      }
+    } catch (_) { /* fall through */ }
+  }
+
+  // L3 — fetch fresh
   try {
     const value = await fetcher();
-    // Only persist non-empty results. If upstream gave us nothing
-    // (rate-limit, transient 5xx, off-season), keep the previous
-    // good value if we have one — the page shouldn't blank out
-    // because Odds API hiccupped for 10 seconds.
-    const isEmpty = (Array.isArray(value) && value.length === 0)
-                 || (!value);
-    if (isEmpty && entry) {
-      // Refresh the timestamp slightly so we retry sooner next call
-      // (but not so soon we spam — half the TTL).
-      c.data.set(key, { at: now - c.ttl + Math.min(30_000, c.ttl / 2), value: entry.value });
-      return entry.value;
+    const isEmpty = (Array.isArray(value) && value.length === 0) || !value;
+
+    if (isEmpty && memEntry) {
+      // Serve stale L1 if upstream returned nothing (rate-limit /
+      // off-season / 5xx). Touch timestamp so we retry sooner but
+      // not aggressively.
+      c.data.set(key, { at: now - c.ttl + Math.min(30_000, c.ttl / 2), value: memEntry.value });
+      return memEntry.value;
     }
+
     c.data.set(key, { at: now, value });
+    if (useL2 && !isEmpty) {
+      // Fire-and-forget Supabase write — don't block the response.
+      sb.kvSet(cacheKey, value, c.ttl).catch(() => {});
+    }
     return value;
   } catch (e) {
-    // Network/upstream blew up. Serve stale if we have it.
-    if (entry) return entry.value;
+    if (memEntry) return memEntry.value;
     throw e;
   }
 }
@@ -549,7 +580,15 @@ async function buildPayload() {
     const [scoreboard, injuries, odds, standings] = await Promise.all([
       cachedFetch("scoreboard", lg.espn, () => fetchEspnScoreboard(lg.espn)),
       cachedFetch("injuries",   lg.espn, () => fetchEspnInjuries(lg.espn)),
-      cachedFetch("odds",       lg.odds, () => fetchOdds(lg.odds, oddsKey)),
+      cachedFetch("odds",       lg.odds, async () => {
+        // Fresh odds fetch — also append to Supabase odds_history
+        // (fire-and-forget; failures don't break the response).
+        const result = await fetchOdds(lg.odds, oddsKey);
+        if (Array.isArray(result) && result.length > 0) {
+          sb.recordOddsHistory(lg.label, result).catch(() => {});
+        }
+        return result;
+      }),
       cachedFetch("standings",  lg.espn, () => fetchEspnStandings(lg.espn)),
     ]);
     return [lg.key, { label: lg.label, scoreboard, injuries, odds, standings }];
@@ -569,6 +608,11 @@ async function buildPayload() {
   // Player spotlight — needs to read both injuries (per-league) and news
   const players = buildPlayerSpotlight(leagueResults, allNews);
 
+  // Fire-and-forget: stash player metadata in Supabase so future
+  // page renders can hit a fast index lookup instead of re-walking
+  // injury + news payloads. Doesn't block the response.
+  sb.upsertPlayerMeta(players).catch(() => {});
+
   const leagues = Object.fromEntries(leagueResults);
 
   return {
@@ -578,9 +622,12 @@ async function buildPayload() {
     players,
     analysis: readPicks(),
     meta: {
-      sources:    ["ESPN", "The Odds API"],
+      sources:    sb.configured()
+        ? ["ESPN", "The Odds API", "Supabase"]
+        : ["ESPN", "The Odds API"],
       latency_ms: Date.now() - t0,
       cached:     false,
+      supabase:   sb.configured(),
     },
   };
 }
@@ -600,7 +647,16 @@ module.exports = async (req, res) => {
   const now = Date.now();
   if (RESPONSE_CACHE.payload && (now - RESPONSE_CACHE.at) < RESPONSE_TTL_MS) {
     res.setHeader("X-Terminal-Cache", "HIT");
-    const out = { ...RESPONSE_CACHE.payload, meta: { ...(RESPONSE_CACHE.payload.meta || {}), cached: true, age_ms: now - RESPONSE_CACHE.at } };
+    res.setHeader("X-Supabase", sb.configured() ? "on" : "off");
+    const out = {
+      ...RESPONSE_CACHE.payload,
+      meta: {
+        ...(RESPONSE_CACHE.payload.meta || {}),
+        cached:   true,
+        age_ms:   now - RESPONSE_CACHE.at,
+        supabase: sb.configured(),
+      },
+    };
     return res.status(200).json(out);
   }
 
@@ -608,6 +664,7 @@ module.exports = async (req, res) => {
     const payload = await buildPayload();
     RESPONSE_CACHE = { at: now, payload };
     res.setHeader("X-Terminal-Cache", "MISS");
+    res.setHeader("X-Supabase", sb.configured() ? "on" : "off");
     return res.status(200).json(payload);
   } catch (e) {
     return res.status(500).json({ error: "terminal-data build failed", detail: String(e).slice(0, 240) });
