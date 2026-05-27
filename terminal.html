@@ -367,8 +367,9 @@
 .panel-controls {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  margin-left: var(--s-2);
+  gap: 3px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 .panel-ctrl {
   width: 22px; height: 22px;
@@ -555,14 +556,17 @@
   min-height: 0;
 }
 .panel-head {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  /* Flex layout — 4 children (code, h3, count, panel-controls) fit
+     cleanly. h3 takes the remaining space and truncates with ellipsis
+     when the panel is narrow; the other three stay fixed-width. */
+  display: flex;
   align-items: center;
   gap: var(--s-3);
   padding: var(--s-4) var(--s-5);
   border-bottom: 1px solid var(--border);
   background: linear-gradient(180deg, var(--bg-elev), transparent);
   flex-shrink: 0;
+  min-width: 0;
 }
 .panel-head h3 {
   font-family: var(--font-display);
@@ -571,30 +575,46 @@
   font-variation-settings: var(--fraunces-soft);
   color: var(--text);
   letter-spacing: -0.005em;
+  /* Grow to fill the row; truncate with ellipsis on narrow panels */
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
 }
 .panel-head .code {
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   color: var(--gold);
   background: var(--gold-glow);
   border: 1px solid var(--gold-soft);
-  padding: 3px 8px;
+  padding: 4px 8px;
   border-radius: var(--r-sm);
+  flex-shrink: 0;
+  white-space: nowrap;
+  line-height: 1;
 }
 .panel-head .count {
   font-family: var(--font-mono);
   font-size: 10px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-mut);
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 .panel-body {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   min-height: 0;
   scrollbar-width: thin;
+  /* Reserve a small gutter so the last row isn't visually crowded
+     under the bottom-right resize handle. */
+  padding-bottom: 12px;
 }
 .panel-empty {
   padding: var(--s-10) var(--s-6);
@@ -774,11 +794,20 @@
 }
 .inj-row:hover { background: var(--bg-elev); }
 .inj-row .ava {
-  width: 28px; height: 28px;
+  width: 32px; height: 32px;
   border-radius: 50%;
-  background: var(--bg-surface);
+  background: linear-gradient(135deg, var(--gold-deep), var(--gold-soft));
   overflow: hidden;
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--gold-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bg);
+  letter-spacing: 0;
+  flex-shrink: 0;
 }
 .inj-row .ava img { width: 100%; height: 100%; object-fit: cover; }
 .inj-row .who { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
@@ -819,7 +848,21 @@
   transition: background var(--dur-fast) var(--ease);
 }
 .player-row:hover { background: var(--bg-elev); }
-.player-row .ava { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; background: var(--bg-surface); border: 1px solid var(--border-strong); flex-shrink: 0; }
+.player-row .ava {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--gold-deep), var(--gold-soft));
+  border: 1px solid var(--gold-soft);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bg);
+}
 .player-row .ava img { width: 100%; height: 100%; object-fit: cover; }
 .player-row .info { min-width: 0; display: flex; flex-direction: column; gap: 1px; }
 .player-row .info .name { color: var(--text); font-weight: 500; font-size: var(--t-sm); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -999,8 +1042,16 @@
   width: 84px; height: 84px;
   border-radius: 50%;
   overflow: hidden;
-  background: var(--bg-card);
+  background: linear-gradient(135deg, var(--gold-deep), var(--gold-soft));
   border: 1px solid var(--gold-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--bg);
+  flex-shrink: 0;
 }
 .player-hero .ava img { width: 100%; height: 100%; object-fit: cover; }
 .player-hero h3 {
@@ -1460,6 +1511,21 @@ function fmtTimeET() {
   }) + ' ET';
 }
 function priceColor(p) { if (p == null) return ''; return p > 0 ? 'up' : 'down'; }
+function initialsFrom(name) {
+  if (!name) return '?';
+  const parts = String(name).trim().split(/\s+/);
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+/* Render an avatar — uses headshot URL if present, otherwise renders
+   the player's initials in a gold gradient circle. img.onerror swaps
+   back to initials so 404 / hotlink-blocked images don't break the UI. */
+function avatarHTML(name, headshot, initials) {
+  const init = initials || initialsFrom(name);
+  if (!headshot) return escapeHtml(init);
+  const safe = escapeHtml(headshot);
+  return `<img src="${safe}" alt="${escapeHtml(name || '')}" loading="lazy" onerror="this.outerHTML='${escapeHtml(init)}'">`;
+}
 function priceFmt(p)   {
   if (p == null || p === '') return '—';
   const n = Number(p);
@@ -1762,12 +1828,9 @@ function renderInjuries() {
     if (ss.includes('out') || ss.includes('injured')) cls = 'out';
     else if (ss.includes('question') || ss.includes('day')) cls = 'q';
     else if (ss.includes('probable') || ss.includes('available')) cls = 'prob';
-    const ava = i.headshot
-      ? `<img src="${escapeHtml(i.headshot)}" alt="" loading="lazy">`
-      : `<span></span>`;
     return `
       <div class="inj-row" data-player="${escapeHtml(i.athlete)}">
-        <div class="ava">${ava}</div>
+        <div class="ava">${avatarHTML(i.athlete, i.headshot, i.initials)}</div>
         <div class="who">
           <div class="name">${escapeHtml(i.athlete)}</div>
           <div class="meta">
@@ -1798,13 +1861,10 @@ function renderPlayers() {
     return;
   }
   $('#players-body').innerHTML = items.map(p => {
-    const ava = p.headshot
-      ? `<img src="${escapeHtml(p.headshot)}" alt="" loading="lazy">`
-      : `<span></span>`;
     const latest = (p.mentions && p.mentions[0]) ? p.mentions[0].headline : (p.short_desc || '');
     return `
       <div class="player-row" data-player="${escapeHtml(p.name)}">
-        <div class="ava">${ava}</div>
+        <div class="ava">${avatarHTML(p.name, p.headshot, p.initials)}</div>
         <div class="info">
           <div class="name">${escapeHtml(p.name)}</div>
           <div class="meta">
@@ -2011,7 +2071,7 @@ function openPlayerByName(name) {
   drawerTl.innerHTML = `${escapeHtml(p.name)}`;
   drawerBd.innerHTML = `
     <div class="player-hero">
-      <div class="ava">${p.headshot ? `<img src="${escapeHtml(p.headshot)}" alt="">` : ''}</div>
+      <div class="ava">${avatarHTML(p.name, p.headshot, p.initials)}</div>
       <div>
         <h3>${escapeHtml(p.name)}</h3>
         <div class="sub">

@@ -103,6 +103,35 @@ function rateLimit(ip) {
   return bucket.count <= PER_IP_LIMIT;
 }
 
+// ── Field extractors ─────────────────────────────────────────
+// ESPN APIs are inconsistent: athlete.headshot is sometimes a
+// string URL, sometimes an object {href, alt}, and sometimes
+// missing entirely. Same with team.logo (sometimes a string,
+// sometimes team.logos[0].href). Centralizing the extraction
+// here so every consumer ends up with a clean string URL.
+function extractHeadshot(athlete) {
+  if (!athlete) return "";
+  const h = athlete.headshot;
+  if (!h) return "";
+  if (typeof h === "string") return h;
+  return h.href || h.url || "";
+}
+function extractLogo(team) {
+  if (!team) return "";
+  if (typeof team.logo === "string") return team.logo;
+  if (Array.isArray(team.logos) && team.logos.length) {
+    const first = team.logos[0];
+    return (first && (first.href || first.url)) || "";
+  }
+  return "";
+}
+function initialsFrom(name) {
+  if (!name) return "";
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
 // ── ESPN scoreboard → normalized rows with TOP PERFORMERS ──────
 // ESPN bakes per-game "leaders" (top scorer/rebounder/passer or
 // per-sport equivalent) into the scoreboard. We extract that so
@@ -129,13 +158,15 @@ async function fetchEspnScoreboard(espnPath) {
       for (const cat of buckets.slice(0, 3)) {
         const leader = (cat.leaders || [])[0];
         if (!leader || !leader.athlete) continue;
+        const playerName = leader.athlete.displayName || leader.athlete.shortName || "";
         top_performers.push({
           stat:        cat.shortDisplayName || cat.displayName || cat.name || "",
           value:       leader.displayValue || "",
-          player:      leader.athlete.displayName || "",
+          player:      playerName,
           player_id:   String(leader.athlete.id || ""),
           team:        (leader.team && leader.team.abbreviation) || "",
-          headshot:    leader.athlete.headshot || "",
+          headshot:    extractHeadshot(leader.athlete),
+          initials:    initialsFrom(playerName),
           position:    (leader.athlete.position && leader.athlete.position.abbreviation) || "",
         });
       }
@@ -144,12 +175,12 @@ async function fetchEspnScoreboard(espnPath) {
         id:           ev.id,
         away_team:    (away.team && away.team.abbreviation) || (away.team && away.team.shortDisplayName) || "",
         away_name:    (away.team && away.team.displayName) || "",
-        away_logo:    (away.team && away.team.logo) || "",
+        away_logo:    extractLogo(away.team),
         away_score:   away.score || "0",
         away_record:  (away.records && away.records[0] && away.records[0].summary) || "",
         home_team:    (home.team && home.team.abbreviation) || (home.team && home.team.shortDisplayName) || "",
         home_name:    (home.team && home.team.displayName) || "",
-        home_logo:    (home.team && home.team.logo) || "",
+        home_logo:    extractLogo(home.team),
         home_score:   home.score || "0",
         home_record:  (home.records && home.records[0] && home.records[0].summary) || "",
         state:        status.state || "",
@@ -215,15 +246,17 @@ async function fetchEspnInjuries(espnPath) {
     for (const teamBlock of (data.injuries || [])) {
       const team_abbr = (teamBlock.team && teamBlock.team.abbreviation) || "";
       const team_name = (teamBlock.team && teamBlock.team.displayName) || "";
-      const team_logo = (teamBlock.team && teamBlock.team.logo) || "";
+      const team_logo = extractLogo(teamBlock.team);
       for (const inj of (teamBlock.injuries || []).slice(0, 5)) {
+        const athleteName = (inj.athlete && inj.athlete.displayName) || "";
         out.push({
           team:        team_abbr,
           team_name,
           team_logo,
-          athlete:     (inj.athlete && inj.athlete.displayName) || "",
+          athlete:     athleteName,
           athlete_id:  String((inj.athlete && inj.athlete.id) || ""),
-          headshot:    (inj.athlete && inj.athlete.headshot) || "",
+          headshot:    extractHeadshot(inj.athlete),
+          initials:    initialsFrom(athleteName),
           position:    (inj.athlete && inj.athlete.position && inj.athlete.position.abbreviation) || "",
           status:      inj.status || "",
           short_desc:  (inj.shortComment || "").slice(0, 220),
@@ -264,7 +297,7 @@ async function fetchEspnStandings(espnPath) {
             group:    sub_name,
             team:     (e.team && e.team.abbreviation) || "",
             team_name:(e.team && e.team.displayName) || "",
-            team_logo:(e.team && e.team.logos && e.team.logos[0] && e.team.logos[0].href) || "",
+            team_logo: extractLogo(e.team),
             wins:     stats.wins      || "",
             losses:   stats.losses    || "",
             ties:     stats.ties      || "",
@@ -391,6 +424,7 @@ function buildPlayerSpotlight(leagueResults, allNews) {
         status:    inj.status,
         short_desc: inj.short_desc,
         headshot:  inj.headshot,
+        initials:  inj.initials || initialsFrom(inj.athlete),
         mentions:  [],
         kind:      "injury",
       });
@@ -412,6 +446,7 @@ function buildPlayerSpotlight(leagueResults, allNews) {
           status:    "",
           short_desc: "",
           headshot:  "",
+          initials:  initialsFrom(mp.name),
           mentions:  [],
           kind:      "news",
         });
