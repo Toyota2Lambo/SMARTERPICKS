@@ -296,43 +296,252 @@
   white-space: nowrap;
 }
 
-/* ── Workspace grid (the meat) ──────────────────────────────── */
+/* ── Workspace grid — Bloomberg-style configurable ────────────
+   Single 12-col grid. Each panel sets data-w (1-12 cols) and
+   data-h (1-12 row-units of 56px each). Users drag the header
+   grip to swap panels, drag the bottom-right corner to resize
+   in 1-unit snaps. Layout persists in localStorage. */
 .workspace {
   padding: var(--s-8) 0 var(--s-20);
 }
 .workspace-grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1.1fr;
-  grid-template-rows: minmax(420px, auto) minmax(360px, auto);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-rows: 56px;
+  grid-auto-flow: row dense;     /* fill gaps when panels are moved/resized */
   gap: var(--s-4);
 }
-.workspace-grid .panel-games   { grid-column: 1; grid-row: 1; }
-.workspace-grid .panel-odds    { grid-column: 2; grid-row: 1; }
-.workspace-grid .panel-news    { grid-column: 3; grid-row: 1 / span 2; }
-.workspace-grid .panel-players { grid-column: 1; grid-row: 2; }
-.workspace-grid .panel-standings { grid-column: 2; grid-row: 2; }
 
-/* Secondary row underneath (injuries + watchlist) */
-.workspace-grid-2 {
+/* Width spans: data-w="1" through "12" → grid-column span. */
+.panel[data-w="1"]  { grid-column: span 1; }
+.panel[data-w="2"]  { grid-column: span 2; }
+.panel[data-w="3"]  { grid-column: span 3; }
+.panel[data-w="4"]  { grid-column: span 4; }
+.panel[data-w="5"]  { grid-column: span 5; }
+.panel[data-w="6"]  { grid-column: span 6; }
+.panel[data-w="7"]  { grid-column: span 7; }
+.panel[data-w="8"]  { grid-column: span 8; }
+.panel[data-w="9"]  { grid-column: span 9; }
+.panel[data-w="10"] { grid-column: span 10; }
+.panel[data-w="11"] { grid-column: span 11; }
+.panel[data-w="12"] { grid-column: span 12; }
+
+/* Height spans: data-h="2" through "16" → grid-row span. */
+.panel[data-h="2"]  { grid-row: span 2; }
+.panel[data-h="3"]  { grid-row: span 3; }
+.panel[data-h="4"]  { grid-row: span 4; }
+.panel[data-h="5"]  { grid-row: span 5; }
+.panel[data-h="6"]  { grid-row: span 6; }
+.panel[data-h="7"]  { grid-row: span 7; }
+.panel[data-h="8"]  { grid-row: span 8; }
+.panel[data-h="9"]  { grid-row: span 9; }
+.panel[data-h="10"] { grid-row: span 10; }
+.panel[data-h="11"] { grid-row: span 11; }
+.panel[data-h="12"] { grid-row: span 12; }
+.panel[data-h="14"] { grid-row: span 14; }
+.panel[data-h="16"] { grid-row: span 16; }
+
+/* Minimized panels collapse to just their header */
+.panel.minimized                  { grid-row: span 1 !important; }
+.panel.minimized .panel-body      { display: none; }
+.panel.minimized .panel-resize    { display: none; }
+.panel.hidden-by-user              { display: none; }
+
+/* ── Panel header controls ───────────────────────────────── */
+.panel-head .code {
+  cursor: grab;
+  user-select: none;
+  transition: background var(--dur-fast) var(--ease);
+}
+.panel-head .code:active { cursor: grabbing; }
+.panel-head .code::before {
+  content: "⋮⋮";
+  margin-right: 6px;
+  letter-spacing: -1px;
+  color: var(--gold-deep);
+  font-weight: 400;
+}
+.panel-head .code:hover { background: var(--gold); color: var(--bg); }
+.panel-head .code:hover::before { color: var(--bg); }
+
+.panel-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: var(--s-2);
+}
+.panel-ctrl {
+  width: 22px; height: 22px;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  color: var(--text-mut);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--dur-fast) var(--ease);
+  line-height: 1;
+}
+.panel-ctrl:hover {
+  color: var(--gold);
+  border-color: var(--gold-soft);
+  background: var(--gold-glow);
+}
+.panel-ctrl.danger:hover {
+  color: var(--loss);
+  border-color: rgba(231,96,96,0.4);
+  background: var(--loss-soft);
+}
+
+/* ── Resize handle (bottom-right corner) ─────────────────── */
+.panel { position: relative; }
+.panel-resize {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 18px;
+  height: 18px;
+  cursor: nwse-resize;
+  background:
+    linear-gradient(135deg, transparent 0%, transparent 45%, var(--text-dim) 47%, var(--text-dim) 53%, transparent 55%, transparent 75%, var(--text-dim) 77%, var(--text-dim) 83%, transparent 85%);
+  opacity: 0.45;
+  transition: opacity var(--dur-fast) var(--ease);
+  z-index: 3;
+  touch-action: none;
+}
+.panel:hover .panel-resize { opacity: 0.85; }
+.panel.resizing .panel-resize { opacity: 1; background-image: linear-gradient(135deg, transparent 0%, transparent 45%, var(--gold) 47%, var(--gold) 53%, transparent 55%, transparent 75%, var(--gold) 77%, var(--gold) 83%, transparent 85%); }
+
+/* ── Drag states ─────────────────────────────────────────── */
+.panel.dragging {
+  opacity: 0.55;
+  outline: 2px dashed var(--gold);
+  outline-offset: -4px;
+  cursor: grabbing;
+}
+.panel.drop-target {
+  outline: 2px solid var(--gold);
+  outline-offset: -2px;
+  box-shadow: var(--shadow-gold);
+}
+.panel.resizing {
+  outline: 1px solid var(--gold);
+  outline-offset: -1px;
+}
+
+/* ── Layout toolbar (above the grid) ─────────────────────── */
+.workspace-bar {
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
+  grid-template-columns: auto 1fr auto;
   gap: var(--s-4);
-  margin-top: var(--s-4);
+  align-items: center;
+  padding: var(--s-4) var(--s-5);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  margin-bottom: var(--s-4);
+  font-family: var(--font-mono);
 }
+.workspace-bar .wb-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.workspace-bar .wb-presets {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.preset-btn {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-soft);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease);
+}
+.preset-btn:hover { border-color: var(--gold-soft); color: var(--gold); background: var(--gold-glow); }
+.preset-btn.active { background: var(--gold); color: var(--bg); border-color: var(--gold); }
+.workspace-bar .wb-tools {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.tool-btn {
+  background: var(--bg-elev);
+  border: 1px solid var(--border-strong);
+  color: var(--text-soft);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 6px 10px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.tool-btn:hover { color: var(--gold); border-color: var(--gold-soft); background: var(--gold-glow); }
 
-@media (max-width: 1200px) {
-  .workspace-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto auto; }
-  .workspace-grid .panel-games     { grid-column: 1; grid-row: 1; }
-  .workspace-grid .panel-odds      { grid-column: 2; grid-row: 1; }
-  .workspace-grid .panel-news      { grid-column: 1 / span 2; grid-row: 2; }
-  .workspace-grid .panel-players   { grid-column: 1; grid-row: 3; }
-  .workspace-grid .panel-standings { grid-column: 2; grid-row: 3; }
-  .workspace-grid-2 { grid-template-columns: 1fr; }
+/* Hidden-panels tray (chip list inside the toolbar) */
+.hidden-tray {
+  display: none;
+  flex-wrap: wrap;
+  gap: 6px;
+  grid-column: 1 / -1;
+  padding-top: var(--s-3);
+  border-top: 1px dashed var(--border-soft);
 }
-@media (max-width: 720px) {
-  .workspace-grid, .workspace-grid-2 { grid-template-columns: 1fr; grid-template-rows: auto; }
-  .workspace-grid > *  { grid-column: 1 !important; grid-row: auto !important; }
-  .workspace-grid .panel-news { grid-row: auto !important; }
+.hidden-tray.show { display: flex; }
+.hidden-tray .label {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-mut);
+  margin-right: var(--s-2);
+}
+.hidden-chip {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 4px 9px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border-strong);
+  color: var(--text-soft);
+  border-radius: var(--r-pill);
+  cursor: pointer;
+}
+.hidden-chip:hover { color: var(--gold); border-color: var(--gold-soft); }
+
+/* ── Mobile: kill drag/resize, single column ─────────────── */
+@media (max-width: 900px) {
+  .workspace-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
+  .panel[data-w]    { grid-column: span 1 !important; }
+  .panel[data-h]    { grid-row: auto !important; min-height: 320px; }
+  .panel-head .code { cursor: default; }
+  .panel-head .code::before { content: ""; margin: 0; }
+  .panel-head .code:hover { background: var(--gold-glow); color: var(--gold); }
+  .panel-resize     { display: none !important; }
+  .workspace-bar    { display: none; }
 }
 
 /* ── Panel chrome ───────────────────────────────────────────── */
@@ -983,83 +1192,141 @@
 <!-- ── WORKSPACE ────────────────────────────────────────────── -->
 <section class="workspace">
   <div class="container">
-    <div class="workspace-grid">
 
-      <div class="panel panel-games" id="panel-games">
+    <!-- Layout toolbar: presets + reset + hidden-panels tray.
+         Hidden on mobile (≤900) since drag/resize is desktop-only. -->
+    <div class="workspace-bar" id="workspace-bar">
+      <div class="wb-label">Layout</div>
+      <div class="wb-presets" id="wb-presets">
+        <button class="preset-btn active" data-preset="default">Default</button>
+        <button class="preset-btn" data-preset="compact">Compact</button>
+        <button class="preset-btn" data-preset="news">News-heavy</button>
+        <button class="preset-btn" data-preset="trading">Trading</button>
+        <button class="preset-btn" data-preset="picks">Picks-first</button>
+      </div>
+      <div class="wb-tools">
+        <button class="tool-btn" id="layout-reset" title="Reset to default layout">⟲ Reset</button>
+      </div>
+      <div class="hidden-tray" id="hidden-tray">
+        <span class="label">Hidden panels — click to restore:</span>
+        <span id="hidden-tray-chips"></span>
+      </div>
+    </div>
+
+    <div class="workspace-grid" id="workspace-grid">
+
+      <article class="panel" id="panel-games" data-w="7" data-h="9">
         <div class="panel-head">
-          <span class="code">SCR</span>
+          <span class="code" draggable="true">SCR</span>
           <h3>Games &amp; top performers</h3>
           <span class="count" id="games-count">—</span>
+          <span class="panel-controls">
+            <button class="panel-ctrl" data-action="min" title="Minimize">_</button>
+            <button class="panel-ctrl" data-action="max" title="Toggle full-width">▣</button>
+            <button class="panel-ctrl danger" data-action="hide" title="Hide panel">×</button>
+          </span>
         </div>
         <div class="panel-body" id="games-body">
           <div class="panel-empty">Loading games…</div>
         </div>
-      </div>
+        <span class="panel-resize" data-resize aria-hidden="true"></span>
+      </article>
 
-      <div class="panel panel-odds" id="panel-odds">
+      <article class="panel" id="panel-odds" data-w="5" data-h="9">
         <div class="panel-head">
-          <span class="code">ODDS</span>
+          <span class="code" draggable="true">ODDS</span>
           <h3>Best lines</h3>
           <span class="count" id="lines-count">—</span>
+          <span class="panel-controls">
+            <button class="panel-ctrl" data-action="min" title="Minimize">_</button>
+            <button class="panel-ctrl" data-action="max" title="Toggle full-width">▣</button>
+            <button class="panel-ctrl danger" data-action="hide" title="Hide panel">×</button>
+          </span>
         </div>
         <div class="panel-body" id="lines-body">
           <div class="panel-empty">Loading lines…</div>
         </div>
-      </div>
+        <span class="panel-resize" data-resize aria-hidden="true"></span>
+      </article>
 
-      <div class="panel panel-news" id="panel-news">
+      <article class="panel" id="panel-news" data-w="4" data-h="14">
         <div class="panel-head">
-          <span class="code">NEWS</span>
+          <span class="code" draggable="true">NEWS</span>
           <h3>News wire</h3>
           <span class="count" id="news-count">—</span>
+          <span class="panel-controls">
+            <button class="panel-ctrl" data-action="min" title="Minimize">_</button>
+            <button class="panel-ctrl" data-action="max" title="Toggle full-width">▣</button>
+            <button class="panel-ctrl danger" data-action="hide" title="Hide panel">×</button>
+          </span>
         </div>
         <div class="panel-body" id="news-body">
           <div class="panel-empty">Loading news…</div>
         </div>
-      </div>
+        <span class="panel-resize" data-resize aria-hidden="true"></span>
+      </article>
 
-      <div class="panel panel-players" id="panel-players">
+      <article class="panel" id="panel-players" data-w="8" data-h="7">
         <div class="panel-head">
-          <span class="code">PLYR</span>
+          <span class="code" draggable="true">PLYR</span>
           <h3>Player spotlight</h3>
           <span class="count" id="players-count">—</span>
+          <span class="panel-controls">
+            <button class="panel-ctrl" data-action="min" title="Minimize">_</button>
+            <button class="panel-ctrl" data-action="max" title="Toggle full-width">▣</button>
+            <button class="panel-ctrl danger" data-action="hide" title="Hide panel">×</button>
+          </span>
         </div>
         <div class="panel-body" id="players-body">
           <div class="panel-empty">Loading players…</div>
         </div>
-      </div>
+        <span class="panel-resize" data-resize aria-hidden="true"></span>
+      </article>
 
-      <div class="panel panel-standings" id="panel-standings">
+      <article class="panel" id="panel-standings" data-w="6" data-h="7">
         <div class="panel-head">
-          <span class="code">STDG</span>
+          <span class="code" draggable="true">STDG</span>
           <h3>Standings</h3>
           <span class="count" id="standings-count">—</span>
+          <span class="panel-controls">
+            <button class="panel-ctrl" data-action="min" title="Minimize">_</button>
+            <button class="panel-ctrl" data-action="max" title="Toggle full-width">▣</button>
+            <button class="panel-ctrl danger" data-action="hide" title="Hide panel">×</button>
+          </span>
         </div>
         <div class="panel-body" id="standings-body">
           <div class="panel-empty">Loading standings…</div>
         </div>
-      </div>
+        <span class="panel-resize" data-resize aria-hidden="true"></span>
+      </article>
 
-    </div>
-
-    <div class="workspace-grid-2">
-
-      <div class="panel" id="panel-injuries">
+      <article class="panel" id="panel-injuries" data-w="6" data-h="6">
         <div class="panel-head">
-          <span class="code">INJ</span>
+          <span class="code" draggable="true">INJ</span>
           <h3>Injury report</h3>
           <span class="count" id="inj-count">—</span>
+          <span class="panel-controls">
+            <button class="panel-ctrl" data-action="min" title="Minimize">_</button>
+            <button class="panel-ctrl" data-action="max" title="Toggle full-width">▣</button>
+            <button class="panel-ctrl danger" data-action="hide" title="Hide panel">×</button>
+          </span>
         </div>
         <div class="panel-body" id="inj-body">
           <div class="panel-empty">Loading injuries…</div>
         </div>
-      </div>
+        <span class="panel-resize" data-resize aria-hidden="true"></span>
+      </article>
 
-      <div class="panel">
+      <article class="panel" id="panel-meta" data-w="6" data-h="6">
         <div class="panel-head">
-          <span class="code">META</span>
+          <span class="code" draggable="true">META</span>
           <h3>Feed health</h3>
           <span class="count">live</span>
+          <span class="panel-controls">
+            <button class="panel-ctrl" data-action="min" title="Minimize">_</button>
+            <button class="panel-ctrl" data-action="max" title="Toggle full-width">▣</button>
+            <button class="panel-ctrl danger" data-action="hide" title="Hide panel">×</button>
+          </span>
         </div>
         <div class="panel-body" style="padding: var(--s-5) var(--s-6);">
           <div class="drawer-stat"><span class="k">Last refresh</span><span class="v" id="meta-last">—</span></div>
@@ -1070,7 +1337,8 @@
           <div class="drawer-stat"><span class="k">Games loaded</span><span class="v gold" id="meta-games">—</span></div>
           <div class="drawer-stat"><span class="k">Picks today</span><span class="v gold" id="meta-picks">—</span></div>
         </div>
-      </div>
+        <span class="panel-resize" data-resize aria-hidden="true"></span>
+      </article>
 
     </div>
   </div>
@@ -2050,9 +2318,310 @@ $$('.league-tab').forEach(btn => {
   });
 });
 
+/* ═════════════════════════════════════════════════════════════════
+   LAYOUT — drag-to-swap, corner-resize, min/max/hide, presets,
+   localStorage persistence. Bloomberg-style configurable workspace.
+   ═════════════════════════════════════════════════════════════════ */
+
+const LS_LAYOUT = 'sp_terminal_layout_v1';
+const LS_PRESET = 'sp_terminal_preset';
+
+// Preset definitions. Each preset is an ordered list of panel
+// configs — { id, w, h, minimized?, hidden? }. The "default" preset
+// matches the data-w / data-h attributes set in the markup.
+const PRESETS = {
+  default: [
+    { id: 'panel-games',    w: 7, h: 9 },
+    { id: 'panel-odds',     w: 5, h: 9 },
+    { id: 'panel-news',     w: 4, h: 14 },
+    { id: 'panel-players',  w: 8, h: 7 },
+    { id: 'panel-standings',w: 6, h: 7 },
+    { id: 'panel-injuries', w: 6, h: 6 },
+    { id: 'panel-meta',     w: 6, h: 6 },
+  ],
+  compact: [
+    { id: 'panel-games',    w: 6, h: 6 },
+    { id: 'panel-odds',     w: 6, h: 6 },
+    { id: 'panel-news',     w: 6, h: 6 },
+    { id: 'panel-injuries', w: 6, h: 6 },
+    { id: 'panel-players',  w: 6, h: 5 },
+    { id: 'panel-standings',w: 6, h: 5 },
+    { id: 'panel-meta',     w: 12, h: 4 },
+  ],
+  news: [
+    { id: 'panel-news',     w: 8, h: 14 },
+    { id: 'panel-games',    w: 4, h: 7 },
+    { id: 'panel-injuries', w: 4, h: 7 },
+    { id: 'panel-players',  w: 12, h: 6 },
+    { id: 'panel-odds',     w: 6, h: 5 },
+    { id: 'panel-standings',w: 6, h: 5 },
+    { id: 'panel-meta',     w: 12, h: 4 },
+  ],
+  trading: [
+    { id: 'panel-odds',     w: 8, h: 10 },
+    { id: 'panel-games',    w: 4, h: 10 },
+    { id: 'panel-news',     w: 4, h: 8 },
+    { id: 'panel-injuries', w: 4, h: 8 },
+    { id: 'panel-standings',w: 4, h: 8 },
+    { id: 'panel-players',  w: 8, h: 6 },
+    { id: 'panel-meta',     w: 4, h: 6 },
+  ],
+  picks: [
+    { id: 'panel-games',    w: 12, h: 8 },
+    { id: 'panel-players',  w: 6, h: 8 },
+    { id: 'panel-injuries', w: 6, h: 8 },
+    { id: 'panel-odds',     w: 8, h: 6 },
+    { id: 'panel-news',     w: 4, h: 6 },
+    { id: 'panel-standings',w: 8, h: 5 },
+    { id: 'panel-meta',     w: 4, h: 5 },
+  ],
+};
+
+const ROW_UNIT_PX = 56;     // matches grid-auto-rows in CSS
+const GAP_PX      = 16;     // matches var(--s-4)
+const COLS        = 12;
+const MIN_W       = 3;
+const MAX_W       = 12;
+const MIN_H       = 3;
+const MAX_H       = 16;
+
+const grid = document.getElementById('workspace-grid');
+
+/* Apply a layout array to the grid (DOM reorder + size attrs). */
+function applyLayout(layout) {
+  if (!grid || !Array.isArray(layout)) return;
+  // Reset all panels to visible first; layout entries with `hidden`
+  // re-hide them below.
+  $$('#workspace-grid .panel').forEach(p => p.classList.remove('hidden-by-user', 'minimized'));
+  layout.forEach(item => {
+    const p = document.getElementById(item.id);
+    if (!p) return;
+    p.dataset.w = String(item.w);
+    p.dataset.h = String(item.h);
+    if (item.minimized) p.classList.add('minimized');
+    if (item.hidden)    p.classList.add('hidden-by-user');
+    grid.appendChild(p);   // moves the panel to the end → preserves order
+  });
+  renderHiddenTray();
+}
+
+/* Read the current visual layout off the DOM. */
+function currentLayout() {
+  return $$('#workspace-grid .panel').map(p => ({
+    id:         p.id,
+    w:          parseInt(p.dataset.w || 6, 10),
+    h:          parseInt(p.dataset.h || 6, 10),
+    minimized:  p.classList.contains('minimized'),
+    hidden:     p.classList.contains('hidden-by-user'),
+  }));
+}
+
+function saveLayout() {
+  try {
+    localStorage.setItem(LS_LAYOUT, JSON.stringify(currentLayout()));
+    // Once the user drags/resizes/hides, drop the preset highlight —
+    // they're now on a custom layout.
+    setActivePreset(null);
+  } catch (_) {}
+}
+function loadLayout() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(LS_LAYOUT) || 'null');
+    if (Array.isArray(saved) && saved.length) {
+      applyLayout(saved);
+      return true;
+    }
+    // No saved layout → apply last-used preset (default first time)
+    const preset = localStorage.getItem(LS_PRESET) || 'default';
+    applyPreset(preset);
+    return false;
+  } catch (_) {
+    applyPreset('default');
+    return false;
+  }
+}
+function applyPreset(name) {
+  const p = PRESETS[name];
+  if (!p) return;
+  applyLayout(p.map(x => ({ ...x })));
+  try {
+    localStorage.setItem(LS_PRESET, name);
+    localStorage.removeItem(LS_LAYOUT);   // preset overrides custom
+  } catch (_) {}
+  setActivePreset(name);
+}
+function setActivePreset(name) {
+  $$('.preset-btn').forEach(b => b.classList.toggle('active', b.dataset.preset === name));
+}
+
+/* ── DRAG-TO-SWAP (HTML5 drag-and-drop API on the .code grip) ── */
+let dragSrc = null;
+
+function wireDrag(panel) {
+  const grip = panel.querySelector('.panel-head .code');
+  if (!grip) return;
+
+  grip.addEventListener('dragstart', e => {
+    dragSrc = panel;
+    panel.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+    // Required for Firefox to allow the drag
+    try { e.dataTransfer.setData('text/plain', panel.id); } catch (_) {}
+  });
+  grip.addEventListener('dragend', () => {
+    panel.classList.remove('dragging');
+    $$('#workspace-grid .panel').forEach(x => x.classList.remove('drop-target'));
+    dragSrc = null;
+  });
+
+  // Whole panel listens for dragover/drop so dropping anywhere on
+  // it triggers a swap.
+  panel.addEventListener('dragover', e => {
+    if (!dragSrc || dragSrc === panel) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    $$('#workspace-grid .panel').forEach(x => x.classList.remove('drop-target'));
+    panel.classList.add('drop-target');
+  });
+  panel.addEventListener('dragleave', e => {
+    // Only remove the target if we actually left the panel
+    if (e.target === panel) panel.classList.remove('drop-target');
+  });
+  panel.addEventListener('drop', e => {
+    e.preventDefault();
+    panel.classList.remove('drop-target');
+    if (!dragSrc || dragSrc === panel) return;
+    // Swap DOM order: insert src before target, target before src's next sibling
+    const parent = panel.parentNode;
+    const srcNext = dragSrc.nextSibling === panel ? dragSrc : dragSrc.nextSibling;
+    parent.insertBefore(dragSrc, panel);
+    parent.insertBefore(panel, srcNext);
+    saveLayout();
+  });
+}
+
+/* ── CORNER RESIZE — drag the SE corner, snap to grid units ── */
+function wireResize(panel) {
+  const handle = panel.querySelector('.panel-resize');
+  if (!handle) return;
+  handle.addEventListener('pointerdown', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    const rect    = panel.getBoundingClientRect();
+    const gridR   = grid.getBoundingClientRect();
+    const colPx   = (gridR.width - (COLS - 1) * GAP_PX) / COLS;
+    const startX  = e.clientX;
+    const startY  = e.clientY;
+    const startW  = parseInt(panel.dataset.w || 6, 10);
+    const startH  = parseInt(panel.dataset.h || 6, 10);
+    panel.classList.add('resizing');
+    handle.setPointerCapture(e.pointerId);
+
+    function onMove(ev) {
+      const dx = ev.clientX - startX;
+      const dy = ev.clientY - startY;
+      const newW = Math.max(MIN_W, Math.min(MAX_W, startW + Math.round(dx / (colPx + GAP_PX))));
+      const newH = Math.max(MIN_H, Math.min(MAX_H, startH + Math.round(dy / (ROW_UNIT_PX + GAP_PX))));
+      if (String(newW) !== panel.dataset.w) panel.dataset.w = String(newW);
+      if (String(newH) !== panel.dataset.h) panel.dataset.h = String(newH);
+    }
+    function onUp() {
+      panel.classList.remove('resizing');
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointercancel', onUp);
+      saveLayout();
+    }
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointercancel', onUp);
+  });
+}
+
+/* ── HEADER CONTROLS — minimize / maximize / hide ──────────── */
+function wirePanelControls(panel) {
+  panel.querySelectorAll('.panel-ctrl').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const action = btn.dataset.action;
+      if (action === 'min')      panel.classList.toggle('minimized');
+      else if (action === 'max') {
+        // Toggle between full-width (12) and remembered prior width
+        const cur = parseInt(panel.dataset.w || 6, 10);
+        if (cur === 12 && panel.dataset.priorW) {
+          panel.dataset.w = panel.dataset.priorW;
+          delete panel.dataset.priorW;
+        } else {
+          panel.dataset.priorW = panel.dataset.w;
+          panel.dataset.w = '12';
+        }
+      }
+      else if (action === 'hide') {
+        panel.classList.add('hidden-by-user');
+        renderHiddenTray();
+      }
+      saveLayout();
+    });
+  });
+}
+
+/* ── HIDDEN-PANELS TRAY ───────────────────────────────────── */
+function renderHiddenTray() {
+  const tray  = document.getElementById('hidden-tray');
+  const chips = document.getElementById('hidden-tray-chips');
+  if (!tray || !chips) return;
+  const hidden = $$('#workspace-grid .panel.hidden-by-user');
+  if (hidden.length === 0) {
+    tray.classList.remove('show');
+    chips.innerHTML = '';
+    return;
+  }
+  tray.classList.add('show');
+  chips.innerHTML = hidden.map(p => {
+    const code  = p.querySelector('.panel-head .code')?.textContent?.replace(/⋮⋮\s*/g, '').trim() || p.id;
+    const title = p.querySelector('.panel-head h3')?.textContent || '';
+    return `<button class="hidden-chip" data-restore="${p.id}">+ ${escapeHtml(code)} · ${escapeHtml(title)}</button>`;
+  }).join('');
+  chips.querySelectorAll('[data-restore]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const p = document.getElementById(btn.dataset.restore);
+      if (!p) return;
+      p.classList.remove('hidden-by-user');
+      saveLayout();
+      renderHiddenTray();
+    });
+  });
+}
+
+/* ── PRESET BUTTONS + RESET ───────────────────────────────── */
+$$('.preset-btn').forEach(btn => {
+  btn.addEventListener('click', () => applyPreset(btn.dataset.preset));
+});
+const resetBtn = document.getElementById('layout-reset');
+if (resetBtn) {
+  resetBtn.addEventListener('click', () => {
+    try {
+      localStorage.removeItem(LS_LAYOUT);
+      localStorage.removeItem(LS_PRESET);
+    } catch (_) {}
+    applyPreset('default');
+  });
+}
+
+/* ── Wire every panel ─────────────────────────────────────── */
+function wireAllPanels() {
+  $$('#workspace-grid .panel').forEach(p => {
+    wireDrag(p);
+    wireResize(p);
+    wirePanelControls(p);
+  });
+}
+
 /* ═════════════════════ BOOT ══════════════════════════════ */
 loadWatchlist();
 renderWatchlist();
+loadLayout();              // restore saved layout (or default preset) before first render
+wireAllPanels();
 fetchData();
 setInterval(fetchData, REFRESH_MS);
 </script>
