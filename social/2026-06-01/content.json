@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-01T09:34:24.368276+00:00",
+  "generated_at": "2026-06-01T11:07:53.798148+00:00",
   "model": "claude-sonnet-4-6",
   "carousel_topic": "What 'units' actually mean (and why win % alone is a lie)",
   "source": {
@@ -181,161 +181,151 @@
   },
   "content": {
     "ig_pick_post": {
-      "caption": "Tonight's free pick: Reds -1.5 at -102. Chase Burns on the mound, a 220 bps line mispricing, and the best price sitting at +104 on FanDuel. Card is live now.",
-      "slide1_text": "Tonight's free pick is live.\nReds -1.5. Sharp edge. Real price.",
-      "slide2_text": "Cincinnati Reds -1.5 (-102)\nChase Burns starting. Market mispriced by 220 bps vs. median. Best price: +104 at FanDuel.",
-      "slide3_text": "Full card at smarterpicks.io\n7-day free trial. Cancel anytime.",
+      "caption": "Tonight's free pick is live. Chase Burns on the mound, line mispriced by the market. Tap the bio for your 7-day free trial.",
+      "slide1_text": "FREE PICK ALERT\nMonday Night MLB\nCincinnati Reds",
+      "slide2_text": "Reds -1.5 (-102)\nKC Royals @ CIN · Tonight\nChase Burns starting. Market has this line 9 points cheap at FanDuel vs. the field. Edge: +220 bps.",
+      "slide3_text": "Full card at smarterpicks.io\n7-day free trial, cancel anytime.\nSeven picks on today's board.",
       "hashtags": [
         "sportsbetting",
         "mlbpicks",
-        "freepick",
         "baseballbetting",
-        "sportspicks",
+        "freepick",
         "cincinnatireds",
+        "kansascityroyals",
+        "sportspicks",
+        "bettingtips",
+        "mlbbetting",
+        "smarterpicks",
         "chaseburns",
-        "bettingadvice",
-        "mlbbets",
-        "sharpbetting",
+        "runline",
         "valuebets",
-        "sportsanalysis",
-        "mlb2026",
-        "bettingcommunity",
-        "oddsboost"
+        "sharpbetting"
       ]
     },
     "ig_results_post": {
-      "caption": "All 6 picks from May 26 are still pending settlement. No wins, no losses to report yet. We post the real numbers every morning, good or bad.",
+      "caption": "All six picks from May 26 are still pending settlement. No wins, no losses to report yet. We post every result the moment it grades.",
       "headline_text": "May 26: 6 Picks Pending",
       "hashtags": [
         "sportsbetting",
         "mlbpicks",
+        "nhlpicks",
         "sportspicks",
-        "bettingrecap",
-        "transparency",
-        "trackedrecord",
-        "mlb2026",
-        "nhkplayoffs",
-        "sharpbetting",
-        "bettingcommunity",
-        "sportsanalysis",
-        "baseballbetting",
-        "hockeybetting",
-        "resultspost",
-        "publicrecord"
+        "bettingresults",
+        "transparentbetting",
+        "mlbbetting",
+        "nhloplayoffs",
+        "coloradoavalanche",
+        "vegasgoldenknights",
+        "bettingtips",
+        "sharpbetting"
       ]
     },
     "ig_carousel_topic": {
       "topic": "What 'units' actually mean (and why win % alone is a lie)",
-      "slide1_text": "Win rate doesn't tell you if you're making money.\nUnits do.",
-      "slide2_text": "Most bettors track wins and losses.\n\"I'm 6-4 this week!\" Sounds great.\nBut if the 4 losses were -1.5u each and the 6 wins were +0.6u each, you're down money.",
-      "slide3_text": "A unit is a fixed percentage of your bankroll. Usually 1-2%.\nTracking units shows profit or loss in real terms, not just a scoreboard.\n54% win rate means nothing without knowing average odds and stake size.",
-      "slide4_text": "Example: 10 bets at 1u each.\n6 wins at -110 odds = +5.45u\n4 losses at -110 odds = -4.00u\nNet: +1.45u. Positive.\nNow flip it: 6 wins at -200, 4 losses at +150.\nNet: -0.0u or worse. Same win rate. Different result.",
-      "slide5_text": "The honest target is 53-58% at standard -110 lines.\nAnyone claiming 70%+ is either cherry-picking or lying.\nTrack units. That's the only number that matters at the end of the month.",
-      "caption": "Win rate is the most misleading stat in sports betting. Units tell the real story. Read all 5 slides before you place another bet.",
+      "slide1_text": "Your buddy says he's 60% on the season.\nHe's still down money.\nHere's why.",
+      "slide2_text": "Most bettors track wins and losses.\nThat number feels good. It means almost nothing.\nA 60% record betting -200 favorites loses money fast.",
+      "slide3_text": "Units measure how much you actually profit per bet risked.\nOne unit = your standard bet size (say, $50).\nA 54% record at -110 odds is worth about +0.8u per 10 bets. That compounds.",
+      "slide4_text": "Real example:\nBettor A: 60% win rate, all -200 favorites. Net: -2.0u over 20 bets.\nBettor B: 54% win rate, all -110 lines. Net: +1.6u over 20 bets.\nBettor B wins more money. Every time.",
+      "slide5_text": "Win rate is a vanity stat.\nUnits won is the scoreboard.\nSmarterPicks: 271-229, +47.0u, 9.3% ROI this year. That's the number that pays.",
+      "caption": "Win rate alone will fool you every time. The real number is units. 54 days, +47.0u. Tap the bio to see how we track it.",
       "hashtags": [
         "sportsbetting",
         "bettingeducation",
-        "unitsystem",
-        "bankrollmanagement",
-        "sportspicks",
+        "unitsbetting",
+        "sportsbettingtips",
         "bettingstrategy",
-        "mlbpicks",
+        "mlbbetting",
         "sharpbetting",
-        "sportsanalysis",
-        "bettingcommunity",
+        "sportspicks",
+        "bettingmath",
         "valuebet",
-        "oddsexplained",
-        "winrate",
-        "bettingtips",
-        "moneymanagement",
-        "sportsbook"
+        "bettingadvice",
+        "bankrollmanagement",
+        "sportsbettingadvice",
+        "smarterpicks"
       ]
     },
     "story_sequence": [
-      "Card drops in 30 min. Reds -1.5 is the free pick today. Chase Burns on the mound and a real line mispricing. Check the bio.",
-      "Poll time: do you track your bets in units or just wins/losses? Drop your answer below.",
-      "Last call before first pitch. Reds -1.5 (-102) is live on the site. Free trial in the bio, takes 60 seconds.",
-      "Checking in on today's slate. Reds game underway. Following the full 7-pick card live. Updates tonight.",
-      "Day wrapped. Full results post tomorrow morning. 271-229 on the year, +47.0u. See you at 7 AM."
+      "Card drops in 30 min. Free pick tonight: Reds -1.5. Chase Burns on the mound, line is mispriced. Check the bio link.",
+      "Poll: Do you track your bets in units or just wins/losses? Most bettors are surprised by the answer.",
+      "Last call. Reds -1.5 (-102) is tonight's free pick. First pitch locks this out. Bio link is live.",
+      "Checking in: Reds game underway. Full card running across 7 MLB games tonight. Updates after final scores.",
+      "Monday wrap incoming. Seven games, seven picks. Results post drops first thing tomorrow. See you at 7 AM."
     ],
     "meme_post": {
-      "top_text": "Me after going 6-4 this week and somehow being down money",
-      "bottom_text": "Maybe I should learn what units are",
-      "image_concept": "Person staring blankly at a sportsbook app showing a positive win record but a negative balance, brain exploding meme format"
+      "top_text": "Me tracking my win percentage: 58%, incredible season",
+      "bottom_text": "My bankroll: down 12 units because I kept betting -200 favorites",
+      "image_concept": "Split panel: left side shows a guy celebrating a stat on his phone screen with a big smile, right side shows the same guy staring at an empty wallet with the same phone showing a red number"
     },
     "treatments": [
       {
         "template": "lifestyle-card.html",
-        "rationale": "Daily mandatory lifestyle post with outcome-forward sales copy and luxury photo backdrop.",
+        "rationale": "Daily mandatory lifestyle post, outcome-forward sales copy with free trial CTA.",
         "group": "treatments",
         "size": "feed",
-        "caption": "Your free pick is live right now. Reds -1.5, sharp edge, real price. 7-day free trial in the bio.",
+        "caption": "Your free pick is live right now. Tap the bio, start a 7-day free trial, and see why 4,100+ bettors use our card every day.",
         "hashtags": [
           "sportsbetting",
           "freepick",
-          "mlbpicks",
           "sportspicks",
-          "bettingadvice",
+          "mlbpicks",
+          "bettingtips",
           "sharpbetting",
-          "sportsanalysis",
-          "mlb2026",
-          "valuebets",
-          "bettingcommunity"
+          "valuebet",
+          "smarterpicks"
         ],
         "fields": {
-          "tag": "FREE PICK TODAY",
+          "tag": "FREE PICK · TONIGHT",
           "eyebrow": "WIN MORE THIS WEEK",
-          "headline_html": "Stop losing money on <em>bad lines</em>.",
-          "sub_html": "Today's free pick is live. Members up <em>+47.0u</em> this season. Start your 7-day free trial.",
-          "photo_query": "monaco yacht harbor",
-          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/monaco_20yacht_20harbor_7ff5d69c2ccc.jpg",
-          "photo_credit": "Photo: Picsum (fallback — set UNSPLASH_ACCESS_KEY for relevant)"
+          "headline_html": "Tonight could change your <em>week</em>.",
+          "sub_html": "Free pick is live. <em>4,100+ bettors</em> already on the card. Tap the bio, start your 7-day free trial.",
+          "photo_query": "amalfi coast cliff villa",
+          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/amalfi_20coast_20cliff_20villa_38e6727cf4e1.jpg",
+          "photo_credit": "Photo: Ricardo Gomez Angel / Unsplash"
         }
       },
       {
         "template": "pick-card.html",
-        "rationale": "Workhorse free pick announcement for today's Reds -1.5 play with edge data.",
+        "rationale": "Free pick workhorse card for the Reds -1.5 play tonight.",
         "group": "treatments",
         "size": "feed",
         "caption": "",
         "hashtags": [],
         "fields": {
           "tag": "TODAY'S FREE PICK",
-          "matchup": "Royals @ Reds",
-          "game_time": "6:40 PM ET",
+          "matchup": "KC Royals @ Cincinnati Reds",
+          "game_time": "Tonight · MLB",
           "pick_headline_html": "Reds cover the <em>-1.5</em>",
           "line": "-1.5",
-          "edge": "+220 bps",
-          "confidence": "A",
+          "edge": "+2.2%",
+          "confidence": "A-",
           "away_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/kc.png",
           "home_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/cin.png"
         }
       },
       {
         "template": "news-card.html",
-        "rationale": "Chase Burns is a legitimate ace-level starter and the key reason behind today's free pick edge.",
+        "rationale": "Chase Burns starting for Cincinnati is the sharpest storyline from today's free pick reasoning.",
         "group": "treatments",
         "size": "feed",
-        "caption": "Chase Burns on the mound tonight. The market hasn't caught up. Free pick is live in the bio.",
+        "caption": "When the market prices a Chase Burns start this cheap, you notice. Reds -1.5 is tonight's free pick. Link in bio.",
         "hashtags": [
           "mlbpicks",
-          "cincinnatireds",
-          "chaseburns",
           "baseballbetting",
+          "chaseburns",
+          "cincinnatireds",
           "sportsbetting",
-          "starterpitching",
-          "mlb2026",
+          "valuebet",
           "sharpbetting",
-          "sportspicks",
-          "valuebets"
+          "mlbbetting"
         ],
         "fields": {
-          "tag": "STARTER SPOTLIGHT",
+          "tag": "STARTING PITCHER ALERT",
           "team_name": "Cincinnati Reds",
           "league": "MLB",
-          "eyebrow": "MLB TODAY · JUNE 1",
-          "headline_html": "Chase Burns gives Reds a <em>real edge</em> tonight.",
-          "body_html": "Burns is one of the better young starters in the NL. The line is mispriced by 220 bps vs. the market median.",
+          "eyebrow": "MLB · TONIGHT",
+          "headline_html": "Chase Burns starts. The line is <em>mispriced</em>.",
+          "body_html": "FanDuel has Reds -1.5 at +104 while the market median sits at -105. That's a 220 bps gap the books haven't corrected.",
           "photo_query": "baseball stadium dusk",
           "team_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/cin.png",
           "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/baseball_20stadium_20dusk_4fddb5fcdb83.jpg",
@@ -344,10 +334,10 @@
       },
       {
         "template": "news-card.html",
-        "rationale": "Jacob deGrom starting for Texas tonight is a sharp angle from picks.json reasoning worth surfacing as a standalone news card.",
+        "rationale": "Jacob deGrom on the mound for Texas is a separate sharp storyline worth surfacing from today's card.",
         "group": "treatments",
         "size": "feed",
-        "caption": "Jacob deGrom pitching tonight. The Under is mispriced and the edge is real. Full card at smarterpicks.io.",
+        "caption": "deGrom on the mound changes the math. Under 8 at -107 is on today's premium card. Full card at smarterpicks.io.",
         "hashtags": [
           "mlbpicks",
           "texasrangers",
@@ -355,18 +345,16 @@
           "baseballbetting",
           "sportsbetting",
           "underbet",
-          "mlb2026",
           "sharpbetting",
-          "sportspicks",
-          "valuebets"
+          "valuebet"
         ],
         "fields": {
-          "tag": "INJURY WATCH",
+          "tag": "ACE WATCH",
           "team_name": "Texas Rangers",
           "league": "MLB",
-          "eyebrow": "MLB TODAY · JUNE 1",
-          "headline_html": "deGrom back on the mound. <em>Under 8</em> in play.",
-          "body_html": "When healthy, deGrom is a dominant ace. The Under 8.0 at -107 shows 179.8 bps edge vs. a median of -115 across 9 books.",
+          "eyebrow": "MLB · TONIGHT",
+          "headline_html": "deGrom starts. Total drops to <em>Under 8</em>.",
+          "body_html": "Jacob deGrom healthy is a run suppressor. The Under 8.0 at -107 shows 179.8 edge bps versus a -115 median across 9 books.",
           "photo_query": "baseball stadium dusk",
           "team_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/tex.png",
           "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/baseball_20stadium_20dusk_4fddb5fcdb83.jpg",
@@ -375,32 +363,27 @@
       },
       {
         "template": "index-card.html",
-        "rationale": "Season credibility lift on the first day of June, showing the verified YTD ledger across 54 days.",
+        "rationale": "Season credibility lift post using the real YTD track record numbers.",
         "group": "treatments",
         "size": "feed",
-        "caption": "271 wins. 229 losses. +47.0u on the year. Public record, posted every morning. Free trial in the bio.",
+        "caption": "271-229. +47.0u. 54 days of public picks. The ledger is open. Start your 7-day free trial at smarterpicks.io.",
         "hashtags": [
           "sportsbetting",
-          "trackedrecord",
+          "bettingresults",
           "sportspicks",
-          "sharpbetting",
-          "bettingreceipts",
           "mlbpicks",
-          "sportsanalysis",
-          "transparency",
-          "bettingcommunity",
-          "mlb2026",
-          "roi",
-          "bankrollmanagement",
-          "publicrecord",
+          "sharpbetting",
+          "bettingstrategy",
+          "transparentbetting",
+          "smarterpicks",
           "valuebet",
-          "bettingstrategy"
+          "bettingtips"
         ],
         "fields": {
           "tag": "RECEIPTS",
           "eyebrow": "SEASON SCOREBOARD · 2026",
           "title_html": "The <em>verified</em> ledger.",
-          "note_html": "54 days logged. All picks recorded at posted line.",
+          "note_html": "54 days logged. All picks posted before lock.",
           "cells": [
             {
               "label": "Overall",
@@ -409,15 +392,15 @@
               "tone": "win"
             },
             {
-              "label": "ROI",
-              "num": "+9.3%",
+              "label": "Net Units",
+              "num": "+47.0u",
               "foot": "season-to-date",
               "tone": "accent"
             },
             {
-              "label": "Net Units",
-              "num": "+47.0u",
-              "foot": "since opening day",
+              "label": "ROI",
+              "num": "+9.3%",
+              "foot": "since Jan 1",
               "tone": "accent"
             },
             {
@@ -426,16 +409,16 @@
               "foot": "public record"
             },
             {
-              "label": "Win Rate",
-              "num": "54.2%",
-              "foot": "500 picks graded",
+              "label": "Today's Card",
+              "num": "7 Picks",
+              "foot": "MLB slate · June 1",
               "tone": "win"
             },
             {
-              "label": "Target",
-              "num": "53-58%",
-              "foot": "honest range",
-              "tone": "win"
+              "label": "Free Trial",
+              "num": "7 Days",
+              "foot": "then $29.99/mo",
+              "tone": "accent"
             }
           ]
         }
