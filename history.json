@@ -1,16 +1,16 @@
 {
   "stats": {
     "total_picks": 430,
-    "wins": 270,
+    "wins": 271,
     "losses": 229,
     "pushes": 22,
-    "win_pct": 54.1,
-    "net_units": 45.4,
+    "win_pct": 54.2,
+    "net_units": 47.04,
     "roi_pct": 9.3,
     "best_month_units": 12.4,
     "worst_month_units": -3.8,
     "avg_daily_units": 0.85,
-    "days_recorded": 53
+    "days_recorded": 54
   },
   "daily": [
     {
@@ -277,6 +277,11 @@
       "date": "2026-05-25",
       "units": -1.18,
       "cumulative": 45.4
+    },
+    {
+      "date": "2026-05-26",
+      "units": 1.64,
+      "cumulative": 47.04
     }
   ]
 }
