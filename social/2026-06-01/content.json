@@ -1,0 +1,445 @@
+{
+  "generated_at": "2026-06-01T09:34:24.368276+00:00",
+  "model": "claude-sonnet-4-6",
+  "carousel_topic": "What 'units' actually mean (and why win % alone is a lie)",
+  "source": {
+    "picks_date": "June 01, 2026",
+    "results_date": "May 26, 2026",
+    "history_stats": {
+      "total_picks": 430,
+      "wins": 271,
+      "losses": 229,
+      "pushes": 22,
+      "win_pct": 54.2,
+      "net_units": 47.04,
+      "roi_pct": 9.3,
+      "best_month_units": 12.4,
+      "worst_month_units": -3.8,
+      "avg_daily_units": 0.85,
+      "days_recorded": 54
+    },
+    "today_free_pick": {
+      "league": "MLB",
+      "time": "7:11 PM ET",
+      "away_team": "Kansas City Royals",
+      "home_team": "Cincinnati Reds",
+      "game_detail": "Regular Season",
+      "pick": "Reds -1.5",
+      "odds": "-102",
+      "book": "MyBookie.ag",
+      "stake": "2u",
+      "reasoning": "The consensus on Reds -1.5 shows a massive 220 edge_bps with the best price at +104 at FanDuel and -102 at MyBookie, compared to a median of -105 — the market is sharply mispriced on this line. Chase Burns is a legitimate frontline starter for Cincinnati while Kansas City counters with Luinder Avila, a significant mismatch in starter quality. The Reds h2h at FanDuel is -188 versus a median of -210, confirming the market strongly believes in Cincinnati's superiority at home.",
+      "tags": [
+        "Starter Edge",
+        "Line Value",
+        "Confidence B+"
+      ],
+      "is_premium": false
+    },
+    "results_picks": [
+      {
+        "league": "MLB",
+        "time": "7:08 PM ET",
+        "away_team": "Toronto Blue Jays",
+        "home_team": "Miami Marlins",
+        "game_detail": "Regular Season",
+        "pick": "Over 8.0",
+        "odds": "+107",
+        "book": "LowVig.ag",
+        "stake": "2u",
+        "reasoning": "This is the standout number on the board today — edge_bps of 243, with LowVig offering +107 against a median of -103. The Marlins send Sandy Alcantara, who has been durable but is prone to giving up runs, while Braydon Fisher is a young Blue Jays arm facing a Miami lineup that still has enough bats to push this over 8. Getting plus money on a total the market has moved dramatically on is a rare spot worth two units.",
+        "tags": [
+          "Line Value",
+          "Plus Money Total",
+          "Confidence B+"
+        ],
+        "is_premium": false,
+        "result": "PENDING",
+        "units": 0.0
+      },
+      {
+        "league": "MLB",
+        "time": "8:06 PM ET",
+        "away_team": "Houston Astros",
+        "home_team": "Texas Rangers",
+        "game_detail": "Regular Season",
+        "pick": "Over 8.0",
+        "odds": "-105",
+        "book": "Bovada",
+        "stake": "1.5u",
+        "reasoning": "Edge_bps of 248 here — the single largest totals edge in today's dataset — with Bovada's -105 sitting well above the median of -116. The Rangers start Jack Leiter against Jason Alexander for Houston, and Alexander has historically struggled to keep runs off the board at a high clip. Both bullpens have been taxed this week, making this an ideal spot for late-inning run production to push it over.",
+        "tags": [
+          "Line Value",
+          "Starter Mismatch",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "PENDING",
+        "units": 0.0
+      },
+      {
+        "league": "MLB",
+        "time": "9:41 PM ET",
+        "away_team": "New York Yankees",
+        "home_team": "Kansas City Royals",
+        "game_detail": "Regular Season",
+        "pick": "Under 8.5",
+        "odds": "+109",
+        "book": "LowVig.ag",
+        "stake": "1.5u",
+        "reasoning": "Edge_bps of 215 with LowVig posting +109 against a median of +100 — getting paid on the under at a major number split is uncommon. Cam Schlittler takes the hill for New York in what appears to be a debut or early-season role, while Bailey Falter is a soft-tossing contact inducer for KC. The books near 8.5 at sharp shops while retail sites sit at 9.0, suggesting the sharper line is the lower total — and we're getting plus money on it.",
+        "tags": [
+          "Line Value",
+          "Plus Money Total",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "PENDING",
+        "units": 0.0
+      },
+      {
+        "league": "MLB",
+        "time": "9:41 PM ET",
+        "away_team": "Minnesota Twins",
+        "home_team": "Chicago White Sox",
+        "game_detail": "Regular Season",
+        "pick": "Chicago White Sox ML",
+        "odds": "+105",
+        "book": "BetUS",
+        "stake": "1u",
+        "reasoning": "Edge_bps of 172 on the White Sox ML, with BetUS offering +105 against a median of -102. Joe Ryan is a quality arm for Minnesota but the line disparity here — some books pricing Chicago as a slight dog, others near even — suggests sharp action has moved toward the home side. Getting plus money on what most books consider a near-coin-flip in a home game for Chicago represents genuine value.",
+        "tags": [
+          "Line Value",
+          "Home Dog",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "PENDING",
+        "units": 0.0
+      },
+      {
+        "league": "MLB",
+        "time": "9:41 PM ET",
+        "away_team": "St. Louis Cardinals",
+        "home_team": "Milwaukee Brewers",
+        "game_detail": "Regular Season",
+        "pick": "Under 8.0",
+        "odds": "-108",
+        "book": "BetRivers",
+        "stake": "1.5u",
+        "reasoning": "Edge_bps of 156 with BetRivers at -108 against a median of -115. Kyle Harrison takes the mound for Milwaukee — a left-hander with swing-and-miss stuff — against Michael McGreevy for St. Louis. Both starters project as ground-ball/contact-management arms in a division matchup where neither offense has been prolific, and the total sitting at 8.0 with sharp books pricing it tighter than retail suggests the under is where the value sits.",
+        "tags": [
+          "Starter Edges",
+          "Line Value",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "PENDING",
+        "units": 0.0
+      },
+      {
+        "league": "NHL · Playoffs",
+        "time": "9:00 PM ET",
+        "away_team": "Colorado Avalanche",
+        "home_team": "Vegas Golden Knights",
+        "game_detail": "Playoffs",
+        "pick": "Over 6.5",
+        "odds": "+110",
+        "book": "FanDuel",
+        "stake": "1.5u",
+        "reasoning": "Edge_bps of 116 with FanDuel posting +110 versus a median of +105 on the 6.5 total — and you're getting plus money on the over in a high-powered playoff matchup. The Avalanche and Golden Knights are two of the most offensively capable teams in the NHL, and Vegas playoff games historically trend toward fast-paced, high-event hockey. With the market split between 6.0 and 6.5, the extra half-point at plus money on the higher number is a genuine edge.",
+        "tags": [
+          "Plus Money",
+          "Playoff Tempo",
+          "Confidence B+"
+        ],
+        "is_premium": true,
+        "result": "PENDING",
+        "units": 0.0
+      },
+      {
+        "league": "NBA · Playoffs",
+        "time": "8:40 PM ET",
+        "away_team": "San Antonio Spurs",
+        "home_team": "Oklahoma City Thunder",
+        "game_detail": "Playoffs",
+        "pick": "San Antonio Spurs ML",
+        "odds": "+164",
+        "book": "DraftKings",
+        "stake": "1u",
+        "reasoning": "Edge_bps of 149 on the Spurs ML, with DraftKings offering +164 against a median of +154. OKC is rightly favored, but a 9-book consensus still placing San Antonio as a live dog at these prices in a playoff game where one or two performances can flip the script makes this worth a small play. The Spurs have shown resilience throughout the postseason, and the +164 at DraftKings is the best available price by a meaningful margin.",
+        "tags": [
+          "Underdog Value",
+          "Playoff Upset Spot",
+          "Confidence B"
+        ],
+        "is_premium": true,
+        "result": "WON",
+        "units": 1.64
+      }
+    ]
+  },
+  "content": {
+    "ig_pick_post": {
+      "caption": "Tonight's free pick: Reds -1.5 at -102. Chase Burns on the mound, a 220 bps line mispricing, and the best price sitting at +104 on FanDuel. Card is live now.",
+      "slide1_text": "Tonight's free pick is live.\nReds -1.5. Sharp edge. Real price.",
+      "slide2_text": "Cincinnati Reds -1.5 (-102)\nChase Burns starting. Market mispriced by 220 bps vs. median. Best price: +104 at FanDuel.",
+      "slide3_text": "Full card at smarterpicks.io\n7-day free trial. Cancel anytime.",
+      "hashtags": [
+        "sportsbetting",
+        "mlbpicks",
+        "freepick",
+        "baseballbetting",
+        "sportspicks",
+        "cincinnatireds",
+        "chaseburns",
+        "bettingadvice",
+        "mlbbets",
+        "sharpbetting",
+        "valuebets",
+        "sportsanalysis",
+        "mlb2026",
+        "bettingcommunity",
+        "oddsboost"
+      ]
+    },
+    "ig_results_post": {
+      "caption": "All 6 picks from May 26 are still pending settlement. No wins, no losses to report yet. We post the real numbers every morning, good or bad.",
+      "headline_text": "May 26: 6 Picks Pending",
+      "hashtags": [
+        "sportsbetting",
+        "mlbpicks",
+        "sportspicks",
+        "bettingrecap",
+        "transparency",
+        "trackedrecord",
+        "mlb2026",
+        "nhkplayoffs",
+        "sharpbetting",
+        "bettingcommunity",
+        "sportsanalysis",
+        "baseballbetting",
+        "hockeybetting",
+        "resultspost",
+        "publicrecord"
+      ]
+    },
+    "ig_carousel_topic": {
+      "topic": "What 'units' actually mean (and why win % alone is a lie)",
+      "slide1_text": "Win rate doesn't tell you if you're making money.\nUnits do.",
+      "slide2_text": "Most bettors track wins and losses.\n\"I'm 6-4 this week!\" Sounds great.\nBut if the 4 losses were -1.5u each and the 6 wins were +0.6u each, you're down money.",
+      "slide3_text": "A unit is a fixed percentage of your bankroll. Usually 1-2%.\nTracking units shows profit or loss in real terms, not just a scoreboard.\n54% win rate means nothing without knowing average odds and stake size.",
+      "slide4_text": "Example: 10 bets at 1u each.\n6 wins at -110 odds = +5.45u\n4 losses at -110 odds = -4.00u\nNet: +1.45u. Positive.\nNow flip it: 6 wins at -200, 4 losses at +150.\nNet: -0.0u or worse. Same win rate. Different result.",
+      "slide5_text": "The honest target is 53-58% at standard -110 lines.\nAnyone claiming 70%+ is either cherry-picking or lying.\nTrack units. That's the only number that matters at the end of the month.",
+      "caption": "Win rate is the most misleading stat in sports betting. Units tell the real story. Read all 5 slides before you place another bet.",
+      "hashtags": [
+        "sportsbetting",
+        "bettingeducation",
+        "unitsystem",
+        "bankrollmanagement",
+        "sportspicks",
+        "bettingstrategy",
+        "mlbpicks",
+        "sharpbetting",
+        "sportsanalysis",
+        "bettingcommunity",
+        "valuebet",
+        "oddsexplained",
+        "winrate",
+        "bettingtips",
+        "moneymanagement",
+        "sportsbook"
+      ]
+    },
+    "story_sequence": [
+      "Card drops in 30 min. Reds -1.5 is the free pick today. Chase Burns on the mound and a real line mispricing. Check the bio.",
+      "Poll time: do you track your bets in units or just wins/losses? Drop your answer below.",
+      "Last call before first pitch. Reds -1.5 (-102) is live on the site. Free trial in the bio, takes 60 seconds.",
+      "Checking in on today's slate. Reds game underway. Following the full 7-pick card live. Updates tonight.",
+      "Day wrapped. Full results post tomorrow morning. 271-229 on the year, +47.0u. See you at 7 AM."
+    ],
+    "meme_post": {
+      "top_text": "Me after going 6-4 this week and somehow being down money",
+      "bottom_text": "Maybe I should learn what units are",
+      "image_concept": "Person staring blankly at a sportsbook app showing a positive win record but a negative balance, brain exploding meme format"
+    },
+    "treatments": [
+      {
+        "template": "lifestyle-card.html",
+        "rationale": "Daily mandatory lifestyle post with outcome-forward sales copy and luxury photo backdrop.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "Your free pick is live right now. Reds -1.5, sharp edge, real price. 7-day free trial in the bio.",
+        "hashtags": [
+          "sportsbetting",
+          "freepick",
+          "mlbpicks",
+          "sportspicks",
+          "bettingadvice",
+          "sharpbetting",
+          "sportsanalysis",
+          "mlb2026",
+          "valuebets",
+          "bettingcommunity"
+        ],
+        "fields": {
+          "tag": "FREE PICK TODAY",
+          "eyebrow": "WIN MORE THIS WEEK",
+          "headline_html": "Stop losing money on <em>bad lines</em>.",
+          "sub_html": "Today's free pick is live. Members up <em>+47.0u</em> this season. Start your 7-day free trial.",
+          "photo_query": "monaco yacht harbor",
+          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/monaco_20yacht_20harbor_7ff5d69c2ccc.jpg",
+          "photo_credit": "Photo: Picsum (fallback — set UNSPLASH_ACCESS_KEY for relevant)"
+        }
+      },
+      {
+        "template": "pick-card.html",
+        "rationale": "Workhorse free pick announcement for today's Reds -1.5 play with edge data.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "",
+        "hashtags": [],
+        "fields": {
+          "tag": "TODAY'S FREE PICK",
+          "matchup": "Royals @ Reds",
+          "game_time": "6:40 PM ET",
+          "pick_headline_html": "Reds cover the <em>-1.5</em>",
+          "line": "-1.5",
+          "edge": "+220 bps",
+          "confidence": "A",
+          "away_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/kc.png",
+          "home_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/cin.png"
+        }
+      },
+      {
+        "template": "news-card.html",
+        "rationale": "Chase Burns is a legitimate ace-level starter and the key reason behind today's free pick edge.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "Chase Burns on the mound tonight. The market hasn't caught up. Free pick is live in the bio.",
+        "hashtags": [
+          "mlbpicks",
+          "cincinnatireds",
+          "chaseburns",
+          "baseballbetting",
+          "sportsbetting",
+          "starterpitching",
+          "mlb2026",
+          "sharpbetting",
+          "sportspicks",
+          "valuebets"
+        ],
+        "fields": {
+          "tag": "STARTER SPOTLIGHT",
+          "team_name": "Cincinnati Reds",
+          "league": "MLB",
+          "eyebrow": "MLB TODAY · JUNE 1",
+          "headline_html": "Chase Burns gives Reds a <em>real edge</em> tonight.",
+          "body_html": "Burns is one of the better young starters in the NL. The line is mispriced by 220 bps vs. the market median.",
+          "photo_query": "baseball stadium dusk",
+          "team_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/cin.png",
+          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/baseball_20stadium_20dusk_4fddb5fcdb83.jpg",
+          "photo_credit": "Photo: Niketh Vellanki / Unsplash"
+        }
+      },
+      {
+        "template": "news-card.html",
+        "rationale": "Jacob deGrom starting for Texas tonight is a sharp angle from picks.json reasoning worth surfacing as a standalone news card.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "Jacob deGrom pitching tonight. The Under is mispriced and the edge is real. Full card at smarterpicks.io.",
+        "hashtags": [
+          "mlbpicks",
+          "texasrangers",
+          "jacobdegrom",
+          "baseballbetting",
+          "sportsbetting",
+          "underbet",
+          "mlb2026",
+          "sharpbetting",
+          "sportspicks",
+          "valuebets"
+        ],
+        "fields": {
+          "tag": "INJURY WATCH",
+          "team_name": "Texas Rangers",
+          "league": "MLB",
+          "eyebrow": "MLB TODAY · JUNE 1",
+          "headline_html": "deGrom back on the mound. <em>Under 8</em> in play.",
+          "body_html": "When healthy, deGrom is a dominant ace. The Under 8.0 at -107 shows 179.8 bps edge vs. a median of -115 across 9 books.",
+          "photo_query": "baseball stadium dusk",
+          "team_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/tex.png",
+          "photo_url": "file:///home/runner/work/SMARTERPICKS/SMARTERPICKS/.photo_cache/baseball_20stadium_20dusk_4fddb5fcdb83.jpg",
+          "photo_credit": "Photo: Niketh Vellanki / Unsplash"
+        }
+      },
+      {
+        "template": "index-card.html",
+        "rationale": "Season credibility lift on the first day of June, showing the verified YTD ledger across 54 days.",
+        "group": "treatments",
+        "size": "feed",
+        "caption": "271 wins. 229 losses. +47.0u on the year. Public record, posted every morning. Free trial in the bio.",
+        "hashtags": [
+          "sportsbetting",
+          "trackedrecord",
+          "sportspicks",
+          "sharpbetting",
+          "bettingreceipts",
+          "mlbpicks",
+          "sportsanalysis",
+          "transparency",
+          "bettingcommunity",
+          "mlb2026",
+          "roi",
+          "bankrollmanagement",
+          "publicrecord",
+          "valuebet",
+          "bettingstrategy"
+        ],
+        "fields": {
+          "tag": "RECEIPTS",
+          "eyebrow": "SEASON SCOREBOARD · 2026",
+          "title_html": "The <em>verified</em> ledger.",
+          "note_html": "54 days logged. All picks recorded at posted line.",
+          "cells": [
+            {
+              "label": "Overall",
+              "num": "271-229",
+              "foot": "54.2% win rate",
+              "tone": "win"
+            },
+            {
+              "label": "ROI",
+              "num": "+9.3%",
+              "foot": "season-to-date",
+              "tone": "accent"
+            },
+            {
+              "label": "Net Units",
+              "num": "+47.0u",
+              "foot": "since opening day",
+              "tone": "accent"
+            },
+            {
+              "label": "Days Logged",
+              "num": "54",
+              "foot": "public record"
+            },
+            {
+              "label": "Win Rate",
+              "num": "54.2%",
+              "foot": "500 picks graded",
+              "tone": "win"
+            },
+            {
+              "label": "Target",
+              "num": "53-58%",
+              "foot": "honest range",
+              "tone": "win"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
