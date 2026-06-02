@@ -1,5 +1,5 @@
 {
-  "rendered_at": "2026-06-02T10:03:04.707Z",
+  "rendered_at": "2026-06-02T11:58:16.085Z",
   "content_file": "content.json",
   "renders": [
     {
@@ -164,7 +164,7 @@
     },
     {
       "file": "treatment-03.png",
-      "template": "lifestyle-card.html",
+      "template": "index-card.html",
       "group": "treatments",
       "slide_index": 3,
       "size": {
@@ -184,7 +184,7 @@
     },
     {
       "file": "treatment-05.png",
-      "template": "index-card.html",
+      "template": "lifestyle-card.html",
       "group": "treatments",
       "slide_index": 5,
       "size": {
