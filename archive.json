@@ -1,16 +1,16 @@
 {
   "stats": {
-    "total_picks": 119,
-    "wins": 40,
-    "losses": 38,
+    "total_picks": 126,
+    "wins": 43,
+    "losses": 39,
     "pushes": 0,
-    "win_pct": 51.3,
-    "net_units": 7.06,
-    "roi_pct": 5.9,
+    "win_pct": 52.4,
+    "net_units": 8.53,
+    "roi_pct": 6.8,
     "best_month_units": 12.4,
     "worst_month_units": -3.8,
     "avg_daily_units": 0.85,
-    "days_recorded": 17
+    "days_recorded": 18
   },
   "days": [
     {
@@ -2512,6 +2512,185 @@
           "final_score": "111-103",
           "away_score": 111,
           "home_score": 103,
+          "winner_side": "away"
+        }
+      ]
+    },
+    {
+      "iso_date": "2026-06-01",
+      "date_display": "June 01, 2026",
+      "wins": 3,
+      "losses": 1,
+      "pushes": 0,
+      "net_units": 1.47,
+      "summary_text": "3-1 · +1.47u",
+      "picks": [
+        {
+          "league": "MLB",
+          "time": "7:11 PM ET",
+          "away_team": "Kansas City Royals",
+          "home_team": "Cincinnati Reds",
+          "game_detail": "Regular Season",
+          "pick": "Reds -1.5",
+          "odds": "-102",
+          "book": "MyBookie.ag",
+          "stake": "2u",
+          "reasoning": "The consensus on Reds -1.5 shows a massive 220 edge_bps with the best price at +104 at FanDuel and -102 at MyBookie, compared to a median of -105 — the market is sharply mispriced on this line. Chase Burns is a legitimate frontline starter for Cincinnati while Kansas City counters with Luinder Avila, a significant mismatch in starter quality. The Reds h2h at FanDuel is -188 versus a median of -210, confirming the market strongly believes in Cincinnati's superiority at home.",
+          "tags": [
+            "Starter Edge",
+            "Line Value",
+            "Confidence B+"
+          ],
+          "is_premium": false,
+          "result": "LOST",
+          "units": -2.0,
+          "final_score": "9-2",
+          "away_score": 9,
+          "home_score": 2,
+          "winner_side": "away"
+        },
+        {
+          "league": "MLB",
+          "time": "7:41 PM ET",
+          "away_team": "Chicago White Sox",
+          "home_team": "Minnesota Twins",
+          "game_detail": "Regular Season",
+          "pick": "Twins ML",
+          "odds": "-147",
+          "book": "BetOnline.ag",
+          "stake": "1.5u",
+          "reasoning": "The Twins moneyline carries a 275 edge_bps at -147 versus a median of -165, a substantial gap across 9 books. Joe Ryan is a solid, reliable starter for Minnesota while Chicago sends out David Sandlin, giving the Twins a clear pitching edge at home. At -147 on LowVig/BetOnline versus the market consensus around -165, there is genuine line value here.",
+          "tags": [
+            "Starter Mismatch",
+            "Line Value",
+            "Confidence B+"
+          ],
+          "is_premium": true,
+          "result": "WON",
+          "units": 1.02,
+          "final_score": "6-9",
+          "away_score": 6,
+          "home_score": 9,
+          "winner_side": "home"
+        },
+        {
+          "league": "MLB",
+          "time": "5:41 PM ET",
+          "away_team": "Detroit Tigers",
+          "home_team": "Tampa Bay Rays",
+          "game_detail": "Regular Season",
+          "pick": "Over 8",
+          "odds": "+103",
+          "book": "LowVig.ag",
+          "stake": "1.5u",
+          "reasoning": "The Over 8.0 sits at +103 best versus a median of even money, generating 73.9 edge_bps and positive expected value at a plus-money price. Griffin Jax is a reliever being used as a starter for Tampa Bay, suggesting a shorter leash and potential for a bullpen game that inflates run totals. Detroit's Ty Madden is also far from an ace, and with both teams running patchwork rotations this number has juice on the over side.",
+          "tags": [
+            "Bullpen Game",
+            "Plus-Money Total",
+            "Confidence B"
+          ],
+          "is_premium": true,
+          "result": "WON",
+          "units": 1.54,
+          "final_score": "10-9",
+          "away_score": 10,
+          "home_score": 9,
+          "winner_side": "away"
+        },
+        {
+          "league": "MLB",
+          "time": "9:41 PM ET",
+          "away_team": "New York Mets",
+          "home_team": "Seattle Mariners",
+          "game_detail": "Regular Season",
+          "pick": "Under 7",
+          "odds": "-114",
+          "book": "FanDuel",
+          "stake": "1.5u",
+          "reasoning": "The Under 7.0 shows 208.6 edge_bps at -114 versus a median of -124, meaning FanDuel is significantly more generous than the rest of the market on the under side. Emerson Hancock is a legitimate strikeout arm for Seattle and Austin Warren is a low-leverage reliever masquerading as a starter for the Mets, which should limit run production early. A 7.0 total is already low but both pitching situations favor keeping this game under.",
+          "tags": [
+            "Pitching Edge",
+            "Under",
+            "Confidence B+"
+          ],
+          "is_premium": true,
+          "result": "PENDING",
+          "units": 0.0,
+          "final_score": "2-3",
+          "away_score": 2,
+          "home_score": 3,
+          "winner_side": "home"
+        },
+        {
+          "league": "MLB",
+          "time": "7:46 PM ET",
+          "away_team": "Texas Rangers",
+          "home_team": "St. Louis Cardinals",
+          "game_detail": "Regular Season",
+          "pick": "Under 8",
+          "odds": "-107",
+          "book": "LowVig.ag",
+          "stake": "1.5u",
+          "reasoning": "The Under 8.0 carries a 179.8 edge_bps at -107 versus a median of -115 across 9 books, representing nearly 2% of implied probability reclaimed. Jacob deGrom on the mound for Texas is a dominant ace when healthy and capable of suppressing any offense; paired against Michael McGreevy for St. Louis, the Rangers' starter gives this game a clear elite-versus-average pitching dynamic. At -107 versus -115 median, this is one of the sharpest total prices on the board today.",
+          "tags": [
+            "Elite Starter",
+            "Under",
+            "Confidence B+"
+          ],
+          "is_premium": true,
+          "result": "PENDING",
+          "units": 0.0,
+          "final_score": "2-1",
+          "away_score": 2,
+          "home_score": 1,
+          "winner_side": "away"
+        },
+        {
+          "league": "MLB",
+          "time": "9:41 PM ET",
+          "away_team": "Los Angeles Dodgers",
+          "home_team": "Arizona Diamondbacks",
+          "game_detail": "Regular Season",
+          "pick": "D-backs +1.5",
+          "odds": "-111",
+          "book": "LowVig.ag",
+          "stake": "1u",
+          "reasoning": "Arizona +1.5 shows 193.9 edge_bps at -111 versus a median of -120, a meaningful gap across all 9 books. Eduardo Rodriguez starting for Arizona is a serviceable left-hander against Emmet Sheehan for LA, and the Dodgers -1.5 run line at +106 best indicates oddsmakers see this as a close contest despite the h2h moneyline spread. Getting the D-backs to avoid a 2+ run loss at near-even money is strong value given the competitive pitching matchup.",
+          "tags": [
+            "Run Line Value",
+            "Competitive Matchup",
+            "Confidence B"
+          ],
+          "is_premium": true,
+          "result": "WON",
+          "units": 0.9,
+          "final_score": "1-4",
+          "away_score": 1,
+          "home_score": 4,
+          "winner_side": "home"
+        },
+        {
+          "league": "MLB",
+          "time": "5:46 PM ET",
+          "away_team": "Miami Marlins",
+          "home_team": "Washington Nationals",
+          "game_detail": "Regular Season",
+          "pick": "Marlins ML",
+          "odds": "+132",
+          "book": "BetOnline.ag",
+          "stake": "1u",
+          "reasoning": "Miami at +132 shows 174 edge_bps versus a median of +123, with BetOnline and LowVig both sitting 9 points above the market midpoint. Sandy Alcantara, when healthy, is a legitimate ace-level starter for the Marlins and represents a significant pitching upgrade over Washington's Cade Cavalli. At plus money with genuine line value and the superior starter on the mound, this is a worthwhile underdog play.",
+          "tags": [
+            "Ace Starter",
+            "Plus-Money Dog",
+            "Confidence B"
+          ],
+          "is_premium": true,
+          "result": "PENDING",
+          "units": 0.0,
+          "final_score": "7-3",
+          "away_score": 7,
+          "home_score": 3,
           "winner_side": "away"
         }
       ]
