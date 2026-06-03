@@ -1,140 +1,25 @@
 {
-  "date": "June 02, 2026",
-  "date_short": "06-02",
-  "sport_summary": "Heavy MLB Tuesday slate with 15 games headlining, plus NBA playoffs and NHL Stanley Cup action",
+  "date": "June 03, 2026",
+  "date_short": "06-03",
+  "sport_summary": "Today's picks are being updated \u2014 check back shortly.",
   "picks": [
     {
-      "league": "MLB",
-      "time": "7:06 PM ET",
-      "away_team": "Cleveland Guardians",
-      "home_team": "New York Yankees",
-      "game_detail": "Regular Season",
-      "pick": "Cleveland Guardians +1.5",
-      "odds": "100",
-      "book": "LowVig.ag",
-      "stake": "2u",
-      "reasoning": "The consensus edge on Guardians +1.5 at even money is massive at 215 bps \u2014 LowVig.ag is a full run-line better than the median of -109. Joey Cantillo gets a tough matchup against Cam Schlittler, but the Yankees' run-line price of -104 at FanDuel confirms the market sees this as a close game. Getting the Guardians to cover 1.5 at even money against the grain of a -215 to -239 ML favorite represents genuine mathematical value.",
+      "league": "Coming Soon",
+      "time": "TBD",
+      "away_team": "Away",
+      "home_team": "Home",
+      "game_detail": "Picks updating...",
+      "pick": "Pick loading",
+      "odds": "\u2014",
+      "book": "\u2014",
+      "stake": "\u2014",
+      "reasoning": "Today's picks are being generated. Refresh the page in a few minutes.",
       "tags": [
-        "Line Value",
-        "Consensus Edge 215bps",
-        "Confidence B+"
+        "Updating"
       ],
       "is_premium": false
-    },
-    {
-      "league": "MLB",
-      "time": "7:46 PM ET",
-      "away_team": "Baltimore Orioles",
-      "home_team": "Boston Red Sox",
-      "game_detail": "Regular Season",
-      "pick": "Over 8.5",
-      "odds": "-102",
-      "book": "LowVig.ag",
-      "stake": "1.5u",
-      "reasoning": "The Over 8.5 carries a 189 bps edge at LowVig.ag vs. the median of -110, and the Under 8.5 mirror is equally inflated \u2014 meaning books are shading heavily toward the Under, implying steam on the Over. Connelly Early is a first-time or marginal starter for Boston while Shane Baz takes the hill for Baltimore, neither inspiring confidence in a low-scoring affair. The 8.5 total is set right at the market consensus line with meaningful price separation available.",
-      "tags": [
-        "Totals Value",
-        "Consensus Edge 189bps",
-        "Confidence B+"
-      ],
-      "is_premium": true
-    },
-    {
-      "league": "MLB",
-      "time": "7:41 PM ET",
-      "away_team": "Detroit Tigers",
-      "home_team": "Tampa Bay Rays",
-      "game_detail": "Regular Season",
-      "pick": "Tampa Bay Rays -1.5",
-      "odds": "155",
-      "book": "BetRivers",
-      "stake": "1.5u",
-      "reasoning": "BetRivers offers +155 on the Rays -1.5 against a median of +134, a staggering 352 bps of edge \u2014 the largest spread edge on the board today. Jack Flaherty takes the mound for Detroit against Steven Matz for Tampa Bay; Matz has been more consistent at home, and the Rays' run-line price at +155 represents outstanding plus-money value on a team favored by -142 to -157 on the moneyline. The implied win probability on the ML combined with this run-line premium is hard to ignore.",
-      "tags": [
-        "Line Value",
-        "Consensus Edge 352bps",
-        "Plus-Money",
-        "Confidence B+"
-      ],
-      "is_premium": true
-    },
-    {
-      "league": "MLB",
-      "time": "7:41 PM ET",
-      "away_team": "San Diego Padres",
-      "home_team": "Philadelphia Phillies",
-      "game_detail": "Regular Season",
-      "pick": "Philadelphia Phillies -1.5",
-      "odds": "163",
-      "book": "BetRivers",
-      "stake": "1u",
-      "reasoning": "BetRivers posts the Phillies -1.5 at +163 against a market median of +154, generating 135 bps of edge. Aaron Nola is a proven front-line starter for Philadelphia, while Randy Vasquez is a back-end arm for San Diego \u2014 a meaningful pitching mismatch. Getting a run-line bet on the favored team at plus money with a sharp book posting the best available price is a strong spot.",
-      "tags": [
-        "Pitcher Mismatch",
-        "Consensus Edge 135bps",
-        "Plus-Money",
-        "Confidence B"
-      ],
-      "is_premium": true
-    },
-    {
-      "league": "MLB",
-      "time": "7:16 PM ET",
-      "away_team": "Toronto Blue Jays",
-      "home_team": "Atlanta Braves",
-      "game_detail": "Regular Season",
-      "pick": "Under 7.5",
-      "odds": "100",
-      "book": "FanDuel",
-      "stake": "1.5u",
-      "reasoning": "The Under 7.5 at even money clears 122 bps of edge over the median of -105, and FanDuel is the only book posting it at even money. Kevin Gausman starts for Toronto \u2014 a veteran who keeps the ball in the park and limits runs \u2014 while Bryce Elder is a ground-ball-heavy arm for Atlanta. Both starters project as quality arms, supporting a low-scoring game under a 7.5 total that is already among the lowest on today's slate.",
-      "tags": [
-        "Totals Value",
-        "Pitcher Quality",
-        "Consensus Edge 122bps",
-        "Confidence B+"
-      ],
-      "is_premium": true
-    },
-    {
-      "league": "NHL \u00b7 Stanley Cup Playoffs",
-      "time": "8:20 PM ET",
-      "away_team": "Vegas Golden Knights",
-      "home_team": "Carolina Hurricanes",
-      "game_detail": "Playoffs",
-      "pick": "Over 5.5",
-      "odds": "-112",
-      "book": "BetRivers",
-      "stake": "1u",
-      "reasoning": "The Over 5.5 at -112 holds a 109 bps edge vs. the market median of -117, and BetRivers is alone posting this price. The Under 5.5 is being hammered at -102 at multiple books while the Over sits inflated, suggesting sharp action toward more goals. Carolina and Vegas are both high-powered offensive clubs in a playoff setting where 5.5 is a relatively low total.",
-      "tags": [
-        "Line Value",
-        "Consensus Edge 109bps",
-        "Playoff Spot",
-        "Confidence B"
-      ],
-      "is_premium": true
-    },
-    {
-      "league": "NBA \u00b7 Playoffs",
-      "time": "8:40 PM ET",
-      "away_team": "New York Knicks",
-      "home_team": "San Antonio Spurs",
-      "game_detail": "Playoffs",
-      "pick": "New York Knicks ML",
-      "odds": "169",
-      "book": "MyBookie.ag",
-      "stake": "1u",
-      "reasoning": "MyBookie.ag posts the Knicks ML at +169 against a median of +160, generating 129 bps of edge. The Spurs are heavy -185 to -212 favorites, yet the Knicks at plus-money represent genuine value for a road team capable of pulling an upset in a playoff environment. San Antonio is heavily juiced, and the best available underdog price at +169 offers meaningful overlay versus the consensus.",
-      "tags": [
-        "Underdog Value",
-        "Consensus Edge 129bps",
-        "Playoff Spot",
-        "Confidence B"
-      ],
-      "is_premium": true
     }
   ],
-  "generated_at": "2026-06-02T08:42:22.925430",
-  "generated_at_readable": "June 02, 2026 at 04:42 AM ET"
+  "generated_at": "2026-06-03T08:59:45.505130",
+  "generated_at_readable": "June 03, 2026 at 04:59 AM ET"
 }
