@@ -1,6 +1,6 @@
 {
   "stats": {
-    "total_picks": 146,
+    "total_picks": 147,
     "wins": 43,
     "losses": 39,
     "pushes": 0,
@@ -10,7 +10,7 @@
     "best_month_units": 12.4,
     "worst_month_units": -3.8,
     "avg_daily_units": 0.85,
-    "days_recorded": 32
+    "days_recorded": 33
   },
   "days": [
     {
@@ -3226,6 +3226,35 @@
     {
       "iso_date": "2026-06-15",
       "date_display": "June 15, 2026",
+      "wins": 0,
+      "losses": 0,
+      "pushes": 0,
+      "net_units": 0.0,
+      "summary_text": "0-0 · +0.0u",
+      "picks": [
+        {
+          "league": "Coming Soon",
+          "time": "TBD",
+          "away_team": "Away",
+          "home_team": "Home",
+          "game_detail": "Picks updating...",
+          "pick": "Pick loading",
+          "odds": "—",
+          "book": "—",
+          "stake": "—",
+          "reasoning": "Today's picks are being generated. Refresh the page in a few minutes.",
+          "tags": [
+            "Updating"
+          ],
+          "is_premium": false,
+          "result": "PENDING",
+          "units": 0.0
+        }
+      ]
+    },
+    {
+      "iso_date": "2026-06-16",
+      "date_display": "June 16, 2026",
       "wins": 0,
       "losses": 0,
       "pushes": 0,
