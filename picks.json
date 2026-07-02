@@ -1,6 +1,6 @@
 {
-  "date": "July 01, 2026",
-  "date_short": "07-01",
+  "date": "July 02, 2026",
+  "date_short": "07-02",
   "sport_summary": "Today's picks are being updated \u2014 check back shortly.",
   "picks": [
     {
@@ -20,6 +20,6 @@
       "is_premium": false
     }
   ],
-  "generated_at": "2026-07-01T08:17:15.111458",
-  "generated_at_readable": "July 01, 2026 at 04:17 AM ET"
+  "generated_at": "2026-07-02T07:36:52.834527",
+  "generated_at_readable": "July 02, 2026 at 03:36 AM ET"
 }
