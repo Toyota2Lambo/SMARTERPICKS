@@ -1,6 +1,6 @@
 {
-  "date": "July 13, 2026",
-  "generated_at": "2026-07-13T07:26:35.138605",
+  "date": "July 14, 2026",
+  "generated_at": "2026-07-14T06:16:24.215441",
   "games": [
     {
       "league": "MLB",
@@ -176,6 +176,13 @@
       "away_team": "Philadelphia Eagles",
       "home_team": "Tennessee Titans",
       "commence_time": "2026-09-20T17:00:00Z"
+    },
+    {
+      "league": "NFL",
+      "time": "4:05 PM ET",
+      "away_team": "Jacksonville Jaguars",
+      "home_team": "Denver Broncos",
+      "commence_time": "2026-09-20T20:05:00Z"
     },
     {
       "league": "NFL",
@@ -526,13 +533,6 @@
       "away_team": "Seattle Seahawks",
       "home_team": "Denver Broncos",
       "commence_time": "2026-10-16T00:15:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "9:30 AM ET",
-      "away_team": "Houston Texans",
-      "home_team": "Jacksonville Jaguars",
-      "commence_time": "2026-10-18T13:30:00Z"
     }
   ]
 }
