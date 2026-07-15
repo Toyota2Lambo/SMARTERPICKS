@@ -1,14 +1,7 @@
 {
-  "date": "July 14, 2026",
-  "generated_at": "2026-07-14T06:16:24.215441",
+  "date": "July 15, 2026",
+  "generated_at": "2026-07-15T06:19:53.999253",
   "games": [
-    {
-      "league": "MLB",
-      "time": "8:01 PM ET",
-      "away_team": "American League",
-      "home_team": "National League",
-      "commence_time": "2026-07-15T00:01:00Z"
-    },
     {
       "league": "NFL",
       "time": "8:15 PM ET",
