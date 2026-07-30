@@ -1,118 +1,76 @@
 {
-  "date": "July 29, 2026",
-  "generated_at": "2026-07-29T06:36:05.897898",
+  "date": "July 30, 2026",
+  "generated_at": "2026-07-30T06:32:26.560776",
   "games": [
     {
       "league": "MLB",
       "time": "12:11 PM ET",
-      "away_team": "Philadelphia Phillies",
-      "home_team": "Miami Marlins",
-      "commence_time": "2026-07-29T16:11:00Z"
-    },
-    {
-      "league": "MLB",
-      "time": "12:36 PM ET",
-      "away_team": "Arizona Diamondbacks",
-      "home_team": "Pittsburgh Pirates",
-      "commence_time": "2026-07-29T16:36:00Z"
-    },
-    {
-      "league": "MLB",
-      "time": "1:06 PM ET",
-      "away_team": "Toronto Blue Jays",
-      "home_team": "Washington Nationals",
-      "commence_time": "2026-07-29T17:06:00Z"
-    },
-    {
-      "league": "MLB",
-      "time": "1:11 PM ET",
-      "away_team": "Atlanta Braves",
-      "home_team": "New York Mets",
-      "commence_time": "2026-07-29T17:11:00Z"
-    },
-    {
-      "league": "MLB",
-      "time": "1:11 PM ET",
-      "away_team": "Baltimore Orioles",
-      "home_team": "Detroit Tigers",
-      "commence_time": "2026-07-29T17:11:00Z"
-    },
-    {
-      "league": "MLB",
-      "time": "3:46 PM ET",
-      "away_team": "Milwaukee Brewers",
-      "home_team": "San Francisco Giants",
-      "commence_time": "2026-07-29T19:46:00Z"
-    },
-    {
-      "league": "MLB",
-      "time": "4:11 PM ET",
-      "away_team": "Colorado Rockies",
-      "home_team": "San Diego Padres",
-      "commence_time": "2026-07-29T20:11:00Z"
-    },
-    {
-      "league": "MLB",
-      "time": "6:41 PM ET",
       "away_team": "Texas Rangers",
       "home_team": "Tampa Bay Rays",
-      "commence_time": "2026-07-29T22:41:00Z"
+      "commence_time": "2026-07-30T16:11:00Z"
     },
     {
       "league": "MLB",
-      "time": "7:11 PM ET",
-      "away_team": "Atlanta Braves",
-      "home_team": "New York Mets",
-      "commence_time": "2026-07-29T23:11:00Z"
-    },
-    {
-      "league": "MLB",
-      "time": "7:11 PM ET",
-      "away_team": "Cleveland Guardians",
-      "home_team": "Cincinnati Reds",
-      "commence_time": "2026-07-29T23:11:00Z"
-    },
-    {
-      "league": "MLB",
-      "time": "7:41 PM ET",
-      "away_team": "New York Yankees",
-      "home_team": "Chicago White Sox",
-      "commence_time": "2026-07-29T23:41:00Z"
-    },
-    {
-      "league": "MLB",
-      "time": "7:41 PM ET",
+      "time": "1:41 PM ET",
       "away_team": "Kansas City Royals",
       "home_team": "Minnesota Twins",
-      "commence_time": "2026-07-29T23:41:00Z"
+      "commence_time": "2026-07-30T17:41:00Z"
     },
     {
       "league": "MLB",
-      "time": "7:46 PM ET",
+      "time": "2:11 PM ET",
+      "away_team": "New York Yankees",
+      "home_team": "Chicago White Sox",
+      "commence_time": "2026-07-30T18:11:00Z"
+    },
+    {
+      "league": "MLB",
+      "time": "2:16 PM ET",
       "away_team": "Chicago Cubs",
       "home_team": "St. Louis Cardinals",
-      "commence_time": "2026-07-29T23:46:00Z"
+      "commence_time": "2026-07-30T18:16:00Z"
     },
     {
       "league": "MLB",
-      "time": "9:39 PM ET",
-      "away_team": "Houston Astros",
-      "home_team": "Los Angeles Angels",
-      "commence_time": "2026-07-30T01:39:00Z"
+      "time": "7:11 PM ET",
+      "away_team": "Pittsburgh Pirates",
+      "home_team": "Cincinnati Reds",
+      "commence_time": "2026-07-30T23:11:00Z"
+    },
+    {
+      "league": "MLB",
+      "time": "7:11 PM ET",
+      "away_team": "Miami Marlins",
+      "home_team": "New York Mets",
+      "commence_time": "2026-07-30T23:11:00Z"
+    },
+    {
+      "league": "MLB",
+      "time": "7:16 PM ET",
+      "away_team": "Washington Nationals",
+      "home_team": "Atlanta Braves",
+      "commence_time": "2026-07-30T23:16:00Z"
     },
     {
       "league": "MLB",
       "time": "9:41 PM ET",
       "away_team": "Boston Red Sox",
       "home_team": "Athletics",
-      "commence_time": "2026-07-30T01:41:00Z"
+      "commence_time": "2026-07-31T01:41:00Z"
+    },
+    {
+      "league": "MLB",
+      "time": "9:41 PM ET",
+      "away_team": "San Francisco Giants",
+      "home_team": "San Diego Padres",
+      "commence_time": "2026-07-31T01:41:00Z"
     },
     {
       "league": "MLB",
       "time": "10:11 PM ET",
       "away_team": "Seattle Mariners",
       "home_team": "Los Angeles Dodgers",
-      "commence_time": "2026-07-30T02:11:00Z"
+      "commence_time": "2026-07-31T02:11:00Z"
     },
     {
       "league": "NFL",
