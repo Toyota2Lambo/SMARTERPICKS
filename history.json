@@ -10,7 +10,7 @@
     "best_month_units": 12.4,
     "worst_month_units": -3.8,
     "avg_daily_units": 0.85,
-    "days_recorded": 139
+    "days_recorded": 140
   },
   "daily": [
     {
@@ -705,6 +705,11 @@
     },
     {
       "date": "2026-08-24",
+      "units": 0.0,
+      "cumulative": 48.51
+    },
+    {
+      "date": "2026-08-25",
       "units": 0.0,
       "cumulative": 48.51
     }
