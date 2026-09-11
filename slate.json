@@ -1,48 +1,111 @@
 {
-  "date": "September 10, 2026",
-  "generated_at": "2026-09-10T08:50:33.902838",
+  "date": "September 11, 2026",
+  "generated_at": "2026-09-11T08:47:54.517945",
   "games": [
     {
       "league": "MLB",
-      "time": "12:15 PM ET",
-      "away_team": "Tampa Bay Rays",
-      "home_team": "Atlanta Braves",
-      "commence_time": "2026-09-10T16:15:00Z"
-    },
-    {
-      "league": "MLB",
-      "time": "1:06 PM ET",
-      "away_team": "Houston Astros",
-      "home_team": "Philadelphia Phillies",
-      "commence_time": "2026-09-10T17:06:00Z"
-    },
-    {
-      "league": "MLB",
-      "time": "4:10 PM ET",
-      "away_team": "Texas Rangers",
-      "home_team": "Seattle Mariners",
-      "commence_time": "2026-09-10T20:10:00Z"
-    },
-    {
-      "league": "MLB",
-      "time": "7:05 PM ET",
-      "away_team": "Colorado Rockies",
-      "home_team": "New York Yankees",
-      "commence_time": "2026-09-10T23:05:00Z"
-    },
-    {
-      "league": "MLB",
-      "time": "7:41 PM ET",
+      "time": "2:21 PM ET",
       "away_team": "Pittsburgh Pirates",
-      "home_team": "Chicago White Sox",
-      "commence_time": "2026-09-10T23:41:00Z"
+      "home_team": "Chicago Cubs",
+      "commence_time": "2026-09-11T18:21:00Z"
     },
     {
-      "league": "NFL",
-      "time": "8:35 PM ET",
-      "away_team": "San Francisco 49ers",
-      "home_team": "Los Angeles Rams",
-      "commence_time": "2026-09-11T00:35:00Z"
+      "league": "MLB",
+      "time": "6:41 PM ET",
+      "away_team": "Colorado Rockies",
+      "home_team": "Detroit Tigers",
+      "commence_time": "2026-09-11T22:41:00Z"
+    },
+    {
+      "league": "MLB",
+      "time": "6:46 PM ET",
+      "away_team": "Los Angeles Angels",
+      "home_team": "Washington Nationals",
+      "commence_time": "2026-09-11T22:46:00Z"
+    },
+    {
+      "league": "MLB",
+      "time": "7:06 PM ET",
+      "away_team": "New York Mets",
+      "home_team": "New York Yankees",
+      "commence_time": "2026-09-11T23:06:00Z"
+    },
+    {
+      "league": "MLB",
+      "time": "7:08 PM ET",
+      "away_team": "Baltimore Orioles",
+      "home_team": "Toronto Blue Jays",
+      "commence_time": "2026-09-11T23:08:00Z"
+    },
+    {
+      "league": "MLB",
+      "time": "7:11 PM ET",
+      "away_team": "Kansas City Royals",
+      "home_team": "Boston Red Sox",
+      "commence_time": "2026-09-11T23:11:00Z"
+    },
+    {
+      "league": "MLB",
+      "time": "7:11 PM ET",
+      "away_team": "Houston Astros",
+      "home_team": "Tampa Bay Rays",
+      "commence_time": "2026-09-11T23:11:00Z"
+    },
+    {
+      "league": "MLB",
+      "time": "7:11 PM ET",
+      "away_team": "Los Angeles Dodgers",
+      "home_team": "Miami Marlins",
+      "commence_time": "2026-09-11T23:11:00Z"
+    },
+    {
+      "league": "MLB",
+      "time": "7:16 PM ET",
+      "away_team": "Philadelphia Phillies",
+      "home_team": "Atlanta Braves",
+      "commence_time": "2026-09-11T23:16:00Z"
+    },
+    {
+      "league": "MLB",
+      "time": "7:46 PM ET",
+      "away_team": "Cincinnati Reds",
+      "home_team": "Milwaukee Brewers",
+      "commence_time": "2026-09-11T23:46:00Z"
+    },
+    {
+      "league": "MLB",
+      "time": "8:11 PM ET",
+      "away_team": "Cleveland Guardians",
+      "home_team": "Minnesota Twins",
+      "commence_time": "2026-09-12T00:11:00Z"
+    },
+    {
+      "league": "MLB",
+      "time": "8:16 PM ET",
+      "away_team": "Chicago White Sox",
+      "home_team": "St. Louis Cardinals",
+      "commence_time": "2026-09-12T00:16:00Z"
+    },
+    {
+      "league": "MLB",
+      "time": "9:40 PM ET",
+      "away_team": "Seattle Mariners",
+      "home_team": "Athletics",
+      "commence_time": "2026-09-12T01:40:00Z"
+    },
+    {
+      "league": "MLB",
+      "time": "9:41 PM ET",
+      "away_team": "Texas Rangers",
+      "home_team": "Arizona Diamondbacks",
+      "commence_time": "2026-09-12T01:41:00Z"
+    },
+    {
+      "league": "MLB",
+      "time": "10:16 PM ET",
+      "away_team": "San Diego Padres",
+      "home_team": "San Francisco Giants",
+      "commence_time": "2026-09-12T02:16:00Z"
     },
     {
       "league": "NFL",
@@ -194,6 +257,13 @@
     {
       "league": "NFL",
       "time": "1:00 PM ET",
+      "away_team": "Pittsburgh Steelers",
+      "home_team": "New England Patriots",
+      "commence_time": "2026-09-20T17:00:00Z"
+    },
+    {
+      "league": "NFL",
+      "time": "1:00 PM ET",
       "away_team": "Philadelphia Eagles",
       "home_team": "Tennessee Titans",
       "commence_time": "2026-09-20T17:00:00Z"
@@ -221,24 +291,10 @@
     },
     {
       "league": "NFL",
-      "time": "4:25 PM ET",
-      "away_team": "Miami Dolphins",
-      "home_team": "San Francisco 49ers",
-      "commence_time": "2026-09-20T20:25:00Z"
-    },
-    {
-      "league": "NFL",
       "time": "8:20 PM ET",
       "away_team": "Indianapolis Colts",
       "home_team": "Kansas City Chiefs",
       "commence_time": "2026-09-21T00:20:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "8:15 PM ET",
-      "away_team": "New York Giants",
-      "home_team": "Los Angeles Rams",
-      "commence_time": "2026-09-22T00:15:00Z"
     },
     {
       "league": "NFL",
@@ -299,13 +355,6 @@
     {
       "league": "NFL",
       "time": "4:05 PM ET",
-      "away_team": "Arizona Cardinals",
-      "home_team": "San Francisco 49ers",
-      "commence_time": "2026-09-27T20:05:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "4:05 PM ET",
       "away_team": "Minnesota Vikings",
       "home_team": "Tampa Bay Buccaneers",
       "commence_time": "2026-09-27T20:05:00Z"
@@ -323,13 +372,6 @@
       "away_team": "Las Vegas Raiders",
       "home_team": "New Orleans Saints",
       "commence_time": "2026-09-27T20:25:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "8:20 PM ET",
-      "away_team": "Los Angeles Rams",
-      "home_team": "Denver Broncos",
-      "commence_time": "2026-09-28T00:20:00Z"
     },
     {
       "league": "NFL",
@@ -557,24 +599,10 @@
     },
     {
       "league": "NFL",
-      "time": "1:00 PM ET",
-      "away_team": "Los Angeles Rams",
-      "home_team": "Philadelphia Eagles",
-      "commence_time": "2026-10-04T17:00:00Z"
-    },
-    {
-      "league": "NFL",
       "time": "4:05 PM ET",
       "away_team": "Miami Dolphins",
       "home_team": "Minnesota Vikings",
       "commence_time": "2026-10-04T20:05:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "4:25 PM ET",
-      "away_team": "Denver Broncos",
-      "home_team": "San Francisco 49ers",
-      "commence_time": "2026-10-04T20:25:00Z"
     },
     {
       "league": "NFL",
@@ -746,13 +774,6 @@
     },
     {
       "league": "NFL",
-      "time": "8:15 PM ET",
-      "away_team": "Buffalo Bills",
-      "home_team": "Los Angeles Rams",
-      "commence_time": "2026-10-13T00:15:00Z"
-    },
-    {
-      "league": "NFL",
       "time": "9:30 AM ET",
       "away_team": "Houston Texans",
       "home_team": "Jacksonville Jaguars",
@@ -802,13 +823,6 @@
     },
     {
       "league": "NFL",
-      "time": "4:05 PM ET",
-      "away_team": "Arizona Cardinals",
-      "home_team": "Los Angeles Rams",
-      "commence_time": "2026-10-18T20:05:00Z"
-    },
-    {
-      "league": "NFL",
       "time": "4:25 PM ET",
       "away_team": "Buffalo Bills",
       "home_team": "Las Vegas Raiders",
@@ -827,13 +841,6 @@
       "away_team": "Dallas Cowboys",
       "home_team": "Green Bay Packers",
       "commence_time": "2026-10-19T00:20:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "8:15 PM ET",
-      "away_team": "Washington Commanders",
-      "home_team": "San Francisco 49ers",
-      "commence_time": "2026-10-20T00:15:00Z"
     },
     {
       "league": "NBA",
@@ -957,13 +964,6 @@
     {
       "league": "NFL",
       "time": "1:00 PM ET",
-      "away_team": "San Francisco 49ers",
-      "home_team": "Atlanta Falcons",
-      "commence_time": "2026-10-25T17:00:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "1:00 PM ET",
       "away_team": "Cincinnati Bengals",
       "home_team": "Baltimore Ravens",
       "commence_time": "2026-10-25T17:00:00Z"
@@ -1015,13 +1015,6 @@
       "time": "4:25 PM ET",
       "away_team": "Green Bay Packers",
       "home_team": "Detroit Lions",
-      "commence_time": "2026-10-25T20:25:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "4:25 PM ET",
-      "away_team": "Los Angeles Rams",
-      "home_team": "Las Vegas Raiders",
       "commence_time": "2026-10-25T20:25:00Z"
     },
     {
@@ -1152,13 +1145,6 @@
     },
     {
       "league": "NFL",
-      "time": "4:05 PM ET",
-      "away_team": "Los Angeles Chargers",
-      "home_team": "Los Angeles Rams",
-      "commence_time": "2026-11-01T21:05:00Z"
-    },
-    {
-      "league": "NFL",
       "time": "4:25 PM ET",
       "away_team": "Kansas City Chiefs",
       "home_team": "Denver Broncos",
@@ -1237,13 +1223,6 @@
     {
       "league": "NFL",
       "time": "1:00 PM ET",
-      "away_team": "Los Angeles Rams",
-      "home_team": "Washington Commanders",
-      "commence_time": "2026-11-08T18:00:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "1:00 PM ET",
       "away_team": "New York Giants",
       "home_team": "Philadelphia Eagles",
       "commence_time": "2026-11-08T18:00:00Z"
@@ -1253,13 +1232,6 @@
       "time": "4:05 PM ET",
       "away_team": "Houston Texans",
       "home_team": "Los Angeles Chargers",
-      "commence_time": "2026-11-08T21:05:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "4:05 PM ET",
-      "away_team": "Las Vegas Raiders",
-      "home_team": "San Francisco 49ers",
       "commence_time": "2026-11-08T21:05:00Z"
     },
     {
@@ -1345,20 +1317,6 @@
       "away_team": "Jacksonville Jaguars",
       "home_team": "Tennessee Titans",
       "commence_time": "2026-11-15T18:00:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "4:05 PM ET",
-      "away_team": "Los Angeles Rams",
-      "home_team": "Arizona Cardinals",
-      "commence_time": "2026-11-15T21:05:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "4:25 PM ET",
-      "away_team": "San Francisco 49ers",
-      "home_team": "Dallas Cowboys",
-      "commence_time": "2026-11-15T21:25:00Z"
     },
     {
       "league": "NFL",
@@ -1460,13 +1418,6 @@
     },
     {
       "league": "NFL",
-      "time": "8:20 PM ET",
-      "away_team": "Minnesota Vikings",
-      "home_team": "San Francisco 49ers",
-      "commence_time": "2026-11-23T01:20:00Z"
-    },
-    {
-      "league": "NFL",
       "time": "8:15 PM ET",
       "away_team": "Cincinnati Bengals",
       "home_team": "Washington Commanders",
@@ -1499,13 +1450,6 @@
       "away_team": "Minnesota Timberwolves",
       "home_team": "Oklahoma City Thunder",
       "commence_time": "2026-11-26T00:40:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "8:00 PM ET",
-      "away_team": "Green Bay Packers",
-      "home_team": "Los Angeles Rams",
-      "commence_time": "2026-11-26T01:00:00Z"
     },
     {
       "league": "NBA",
@@ -1621,13 +1565,6 @@
     },
     {
       "league": "NFL",
-      "time": "8:15 PM ET",
-      "away_team": "Kansas City Chiefs",
-      "home_team": "Los Angeles Rams",
-      "commence_time": "2026-12-04T01:15:00Z"
-    },
-    {
-      "league": "NFL",
       "time": "1:00 PM ET",
       "away_team": "Detroit Lions",
       "home_team": "Atlanta Falcons",
@@ -1666,13 +1603,6 @@
       "time": "1:00 PM ET",
       "away_team": "Los Angeles Chargers",
       "home_team": "Tampa Bay Buccaneers",
-      "commence_time": "2026-12-06T18:00:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "1:00 PM ET",
-      "away_team": "San Francisco 49ers",
-      "home_team": "New York Giants",
       "commence_time": "2026-12-06T18:00:00Z"
     },
     {
@@ -1775,13 +1705,6 @@
     },
     {
       "league": "NFL",
-      "time": "4:25 PM ET",
-      "away_team": "Los Angeles Rams",
-      "home_team": "San Francisco 49ers",
-      "commence_time": "2026-12-13T21:25:00Z"
-    },
-    {
-      "league": "NFL",
       "time": "8:20 PM ET",
       "away_team": "Buffalo Bills",
       "home_team": "Green Bay Packers",
@@ -1793,13 +1716,6 @@
       "away_team": "Pittsburgh Steelers",
       "home_team": "Jacksonville Jaguars",
       "commence_time": "2026-12-15T01:15:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "8:15 PM ET",
-      "away_team": "San Francisco 49ers",
-      "home_team": "Los Angeles Chargers",
-      "commence_time": "2026-12-18T01:15:00Z"
     },
     {
       "league": "NFL",
@@ -1870,13 +1786,6 @@
       "away_team": "New York Jets",
       "home_team": "Arizona Cardinals",
       "commence_time": "2026-12-20T21:05:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "4:25 PM ET",
-      "away_team": "Dallas Cowboys",
-      "home_team": "Los Angeles Rams",
-      "commence_time": "2026-12-20T21:25:00Z"
     },
     {
       "league": "NFL",
@@ -2006,13 +1915,6 @@
     },
     {
       "league": "NFL",
-      "time": "4:25 PM ET",
-      "away_team": "San Francisco 49ers",
-      "home_team": "Kansas City Chiefs",
-      "commence_time": "2026-12-27T21:25:00Z"
-    },
-    {
-      "league": "NFL",
       "time": "8:20 PM ET",
       "away_team": "Jacksonville Jaguars",
       "home_team": "Dallas Cowboys",
@@ -2070,13 +1972,6 @@
     {
       "league": "NFL",
       "time": "1:00 PM ET",
-      "away_team": "Los Angeles Rams",
-      "home_team": "Tampa Bay Buccaneers",
-      "commence_time": "2027-01-03T18:00:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "1:00 PM ET",
       "away_team": "Minnesota Vikings",
       "home_team": "New York Jets",
       "commence_time": "2027-01-03T18:00:00Z"
@@ -2108,13 +2003,6 @@
       "away_team": "Kansas City Chiefs",
       "home_team": "Los Angeles Chargers",
       "commence_time": "2027-01-03T21:25:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "8:20 PM ET",
-      "away_team": "Philadelphia Eagles",
-      "home_team": "San Francisco 49ers",
-      "commence_time": "2027-01-04T01:20:00Z"
     },
     {
       "league": "NFL",
@@ -2213,13 +2101,6 @@
       "away_team": "Philadelphia Eagles",
       "home_team": "New York Giants",
       "commence_time": "2027-01-10T18:00:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "4:05 PM ET",
-      "away_team": "San Francisco 49ers",
-      "home_team": "Arizona Cardinals",
-      "commence_time": "2027-01-10T21:05:00Z"
     }
   ]
 }
