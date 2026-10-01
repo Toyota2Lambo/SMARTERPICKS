@@ -1,6 +1,6 @@
 {
-  "date": "September 30, 2026",
-  "date_short": "09-30",
+  "date": "October 01, 2026",
+  "date_short": "10-01",
   "sport_summary": "Today's picks are being updated \u2014 check back shortly.",
   "picks": [
     {
@@ -20,6 +20,6 @@
       "is_premium": false
     }
   ],
-  "generated_at": "2026-09-30T10:22:29.991866",
-  "generated_at_readable": "September 30, 2026 at 06:22 AM ET"
+  "generated_at": "2026-10-01T10:49:27.054751",
+  "generated_at_readable": "October 01, 2026 at 06:49 AM ET"
 }
