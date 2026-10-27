@@ -1,104 +1,118 @@
 {
-  "date": "October 26, 2026",
-  "generated_at": "2026-10-26T09:56:40.381661",
+  "date": "October 27, 2026",
+  "generated_at": "2026-10-27T09:42:08.307223",
   "games": [
     {
-      "league": "NBA",
-      "time": "7:10 PM ET",
-      "away_team": "Washington Wizards",
-      "home_team": "Charlotte Hornets",
-      "commence_time": "2026-10-26T23:10:00Z"
-    },
-    {
-      "league": "NBA",
-      "time": "7:10 PM ET",
-      "away_team": "Minnesota Timberwolves",
-      "home_team": "Cleveland Cavaliers",
-      "commence_time": "2026-10-26T23:10:00Z"
-    },
-    {
       "league": "NHL",
-      "time": "7:10 PM ET",
-      "away_team": "Los Angeles Kings",
-      "home_team": "New York Rangers",
-      "commence_time": "2026-10-26T23:10:00Z"
+      "time": "7:00 PM ET",
+      "away_team": "Columbus Blue Jackets",
+      "home_team": "Philadelphia Flyers",
+      "commence_time": "2026-10-27T23:00:00Z"
     },
     {
       "league": "NBA",
       "time": "7:40 PM ET",
-      "away_team": "Chicago Bulls",
+      "away_team": "Brooklyn Nets",
       "home_team": "Boston Celtics",
-      "commence_time": "2026-10-26T23:40:00Z"
-    },
-    {
-      "league": "NBA",
-      "time": "7:40 PM ET",
-      "away_team": "Dallas Mavericks",
-      "home_team": "Miami Heat",
-      "commence_time": "2026-10-26T23:40:00Z"
-    },
-    {
-      "league": "NBA",
-      "time": "8:10 PM ET",
-      "away_team": "Indiana Pacers",
-      "home_team": "Milwaukee Bucks",
-      "commence_time": "2026-10-27T00:10:00Z"
-    },
-    {
-      "league": "NBA",
-      "time": "8:10 PM ET",
-      "away_team": "Phoenix Suns",
-      "home_team": "Oklahoma City Thunder",
-      "commence_time": "2026-10-27T00:10:00Z"
+      "commence_time": "2026-10-27T23:40:00Z"
     },
     {
       "league": "MLB",
-      "time": "8:10 PM ET",
+      "time": "8:00 PM ET",
       "away_team": "Milwaukee Brewers",
       "home_team": "Tampa Bay Rays",
-      "commence_time": "2026-10-27T00:10:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "8:15 PM ET",
-      "away_team": "Dallas Cowboys",
-      "home_team": "Philadelphia Eagles",
-      "commence_time": "2026-10-27T00:15:00Z"
-    },
-    {
-      "league": "NBA",
-      "time": "8:40 PM ET",
-      "away_team": "Atlanta Hawks",
-      "home_team": "Houston Rockets",
-      "commence_time": "2026-10-27T00:40:00Z"
+      "commence_time": "2026-10-28T00:00:00Z"
     },
     {
       "league": "NHL",
-      "time": "8:40 PM ET",
-      "away_team": "Toronto Maple Leafs",
-      "home_team": "Calgary Flames",
-      "commence_time": "2026-10-27T00:40:00Z"
-    },
-    {
-      "league": "NBA",
-      "time": "9:10 PM ET",
-      "away_team": "Memphis Grizzlies",
-      "home_team": "Utah Jazz",
-      "commence_time": "2026-10-27T01:10:00Z"
+      "time": "8:00 PM ET",
+      "away_team": "Boston Bruins",
+      "home_team": "Carolina Hurricanes",
+      "commence_time": "2026-10-28T00:00:00Z"
     },
     {
       "league": "NHL",
-      "time": "9:40 PM ET",
-      "away_team": "Detroit Red Wings",
-      "home_team": "Edmonton Oilers",
-      "commence_time": "2026-10-27T01:40:00Z"
+      "time": "8:00 PM ET",
+      "away_team": "Los Angeles Kings",
+      "home_team": "Chicago Blackhawks",
+      "commence_time": "2026-10-28T00:00:00Z"
+    },
+    {
+      "league": "NHL",
+      "time": "8:00 PM ET",
+      "away_team": "New Jersey Devils",
+      "home_team": "Dallas Stars",
+      "commence_time": "2026-10-28T00:00:00Z"
+    },
+    {
+      "league": "NHL",
+      "time": "8:00 PM ET",
+      "away_team": "Florida Panthers",
+      "home_team": "Winnipeg Jets",
+      "commence_time": "2026-10-28T00:00:00Z"
+    },
+    {
+      "league": "NHL",
+      "time": "8:00 PM ET",
+      "away_team": "Montréal Canadiens",
+      "home_team": "St Louis Blues",
+      "commence_time": "2026-10-28T00:00:00Z"
+    },
+    {
+      "league": "NHL",
+      "time": "8:00 PM ET",
+      "away_team": "New York Islanders",
+      "home_team": "Nashville Predators",
+      "commence_time": "2026-10-28T00:00:00Z"
     },
     {
       "league": "NBA",
-      "time": "10:10 PM ET",
-      "away_team": "Golden State Warriors",
-      "home_team": "Denver Nuggets",
-      "commence_time": "2026-10-27T02:10:00Z"
+      "time": "8:10 PM ET",
+      "away_team": "Detroit Pistons",
+      "home_team": "New York Knicks",
+      "commence_time": "2026-10-28T00:10:00Z"
+    },
+    {
+      "league": "NBA",
+      "time": "8:10 PM ET",
+      "away_team": "Sacramento Kings",
+      "home_team": "San Antonio Spurs",
+      "commence_time": "2026-10-28T00:10:00Z"
+    },
+    {
+      "league": "NHL",
+      "time": "9:00 PM ET",
+      "away_team": "Minnesota Wild",
+      "home_team": "Utah Mammoth",
+      "commence_time": "2026-10-28T01:00:00Z"
+    },
+    {
+      "league": "NHL",
+      "time": "10:00 PM ET",
+      "away_team": "Vancouver Canucks",
+      "home_team": "Anaheim Ducks",
+      "commence_time": "2026-10-28T02:00:00Z"
+    },
+    {
+      "league": "NHL",
+      "time": "10:00 PM ET",
+      "away_team": "Ottawa Senators",
+      "home_team": "Vegas Golden Knights",
+      "commence_time": "2026-10-28T02:00:00Z"
+    },
+    {
+      "league": "NHL",
+      "time": "10:30 PM ET",
+      "away_team": "Buffalo Sabres",
+      "home_team": "San Jose Sharks",
+      "commence_time": "2026-10-28T02:30:00Z"
+    },
+    {
+      "league": "NBA",
+      "time": "11:10 PM ET",
+      "away_team": "Portland Trail Blazers",
+      "home_team": "Los Angeles Lakers",
+      "commence_time": "2026-10-28T03:10:00Z"
     },
     {
       "league": "NBA",
@@ -207,31 +221,31 @@
     },
     {
       "league": "NBA",
-      "time": "12:00 PM ET",
+      "time": "12:10 PM ET",
       "away_team": "San Antonio Spurs",
       "home_team": "New York Knicks",
-      "commence_time": "2026-12-25T17:00:00Z"
+      "commence_time": "2026-12-25T17:10:00Z"
     },
     {
       "league": "NBA",
-      "time": "2:30 PM ET",
+      "time": "2:40 PM ET",
       "away_team": "Miami Heat",
       "home_team": "Boston Celtics",
-      "commence_time": "2026-12-25T19:30:00Z"
+      "commence_time": "2026-12-25T19:40:00Z"
     },
     {
       "league": "NBA",
-      "time": "5:00 PM ET",
+      "time": "5:10 PM ET",
       "away_team": "Philadelphia 76ers",
       "home_team": "Los Angeles Lakers",
-      "commence_time": "2026-12-25T22:00:00Z"
+      "commence_time": "2026-12-25T22:10:00Z"
     },
     {
       "league": "NBA",
-      "time": "10:30 PM ET",
+      "time": "10:40 PM ET",
       "away_team": "Denver Nuggets",
       "home_team": "Golden State Warriors",
-      "commence_time": "2026-12-26T03:30:00Z"
+      "commence_time": "2026-12-26T03:40:00Z"
     }
   ]
 }
