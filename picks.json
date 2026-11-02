@@ -1,6 +1,6 @@
 {
-  "date": "November 01, 2026",
-  "date_short": "11-01",
+  "date": "November 02, 2026",
+  "date_short": "11-02",
   "sport_summary": "Today's picks are being updated \u2014 check back shortly.",
   "picks": [
     {
@@ -20,6 +20,6 @@
       "is_premium": false
     }
   ],
-  "generated_at": "2026-11-01T11:08:56.573957",
-  "generated_at_readable": "November 01, 2026 at 06:08 AM ET"
+  "generated_at": "2026-11-02T12:09:20.315414",
+  "generated_at_readable": "November 02, 2026 at 07:09 AM ET"
 }
