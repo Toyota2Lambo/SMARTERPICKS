@@ -1,28 +1,7 @@
 {
-  "date": "November 26, 2026",
-  "generated_at": "2026-11-26T13:41:03.941077",
+  "date": "November 27, 2026",
+  "generated_at": "2026-11-27T13:38:22.929107",
   "games": [
-    {
-      "league": "NFL",
-      "time": "1:00 PM ET",
-      "away_team": "Chicago Bears",
-      "home_team": "Detroit Lions",
-      "commence_time": "2026-11-26T18:00:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "4:30 PM ET",
-      "away_team": "Philadelphia Eagles",
-      "home_team": "Dallas Cowboys",
-      "commence_time": "2026-11-26T21:30:00Z"
-    },
-    {
-      "league": "NFL",
-      "time": "8:20 PM ET",
-      "away_team": "Kansas City Chiefs",
-      "home_team": "Buffalo Bills",
-      "commence_time": "2026-11-27T01:20:00Z"
-    },
     {
       "league": "NHL",
       "time": "1:00 PM ET",
@@ -131,6 +110,20 @@
     {
       "league": "NBA",
       "time": "7:40 PM ET",
+      "away_team": "Brooklyn Nets",
+      "home_team": "Toronto Raptors",
+      "commence_time": "2026-11-28T00:40:00Z"
+    },
+    {
+      "league": "NBA",
+      "time": "7:40 PM ET",
+      "away_team": "Milwaukee Bucks",
+      "home_team": "Detroit Pistons",
+      "commence_time": "2026-11-28T00:40:00Z"
+    },
+    {
+      "league": "NBA",
+      "time": "7:40 PM ET",
       "away_team": "Philadelphia 76ers",
       "home_team": "Indiana Pacers",
       "commence_time": "2026-11-28T00:40:00Z"
@@ -158,9 +151,37 @@
     },
     {
       "league": "NBA",
+      "time": "8:40 PM ET",
+      "away_team": "Memphis Grizzlies",
+      "home_team": "Minnesota Timberwolves",
+      "commence_time": "2026-11-28T01:40:00Z"
+    },
+    {
+      "league": "NBA",
+      "time": "9:10 PM ET",
+      "away_team": "Dallas Mavericks",
+      "home_team": "Phoenix Suns",
+      "commence_time": "2026-11-28T02:10:00Z"
+    },
+    {
+      "league": "NBA",
       "time": "9:40 PM ET",
       "away_team": "Denver Nuggets",
       "home_team": "Utah Jazz",
+      "commence_time": "2026-11-28T02:40:00Z"
+    },
+    {
+      "league": "NBA",
+      "time": "9:40 PM ET",
+      "away_team": "Golden State Warriors",
+      "home_team": "Portland Trail Blazers",
+      "commence_time": "2026-11-28T02:40:00Z"
+    },
+    {
+      "league": "NBA",
+      "time": "9:40 PM ET",
+      "away_team": "New Orleans Pelicans",
+      "home_team": "Los Angeles Clippers",
       "commence_time": "2026-11-28T02:40:00Z"
     },
     {
